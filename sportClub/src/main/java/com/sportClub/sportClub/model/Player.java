@@ -10,7 +10,7 @@ import java.util.List;
 @Setter
 @RequiredArgsConstructor
 public class Player {
-
+    private Long id;
     private String playerName;
     private String image;
     private List<Skill> playerSkills;

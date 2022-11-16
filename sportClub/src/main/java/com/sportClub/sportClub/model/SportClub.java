@@ -10,7 +10,7 @@ import java.util.List;
 @Setter
 @RequiredArgsConstructor
 public class SportClub {
-
+    private Long id;
     private String name;
     List<Player> players;
 
