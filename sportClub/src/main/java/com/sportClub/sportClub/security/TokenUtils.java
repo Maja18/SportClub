@@ -1,9 +1,11 @@
 package com.sportClub.sportClub.security;
 
+import com.sportClub.sportClub.model.TimeProvider;
 import com.sportClub.sportClub.repository.PersonRepository;
 import io.jsonwebtoken.Claims;
 import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.SignatureAlgorithm;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Component;
@@ -13,81 +15,123 @@ import java.util.Date;
 
 @Component
 public class TokenUtils {
-    @Value("isabackend")
-    private String APP_NAME;
+    @Value("SocialNetworkingApp")
+    private String appName;
 
-    @Value("somesecret")
-    public String SECRET;
+    @Value("super_secret_code_value")
+    private String secret;
 
-    @Value("86400000")
-    private int EXPIRES_IN;
+
+    @Value("3600000") // 1h
+    private int expiresIn;
+
+    @Value("3600000") // 1h
+    private int mobileExpiresIn;
 
     @Value("Authorization")
     private String AUTH_HEADER;
 
+    static final String AUDIENCE_UNKNOWN = "unknown";
+    static final String AUDIENCE_WEB     = "web";
+    static final String AUDIENCE_MOBILE  = "mobile";
+    static final String AUDIENCE_TABLET  = "tablet";
 
-    private static final String AUDIENCE_MOBILE = "mobile";
-    private static final String AUDIENCE_TABLET = "tablet";
+    private TimeProvider timeProvider;
 
+    private PersonRepository personRepository;
 
-    private SignatureAlgorithm SIGNATURE_ALGORITHM = SignatureAlgorithm.HS512;
+    private SignatureAlgorithm signatureAlgorithm = SignatureAlgorithm.HS512;
 
-    public String generateToken(String email) {
-        return Jwts.builder()
-                .setIssuer(APP_NAME)
-                .setSubject(email)
-                .setAudience(generateAudience())
-                .setIssuedAt(new Date())
-                .setExpiration(generateExpirationDate())
-                .signWith(SIGNATURE_ALGORITHM, SECRET).compact();
+    public TokenUtils(TimeProvider timeProvider, PersonRepository personRepository){
+        this.timeProvider = timeProvider;
+        this.personRepository = personRepository;
     }
 
-    private String generateAudience() {
-        return "web";
+
+    public String generateToken(String username) {
+        return Jwts.builder()
+                .setIssuer(appName)
+                .setSubject(username)
+                .claim("authorities", personRepository.findByEmailEquals(username).getAuthorities().toString())
+//                .setAudience(generateAudience(device))
+                .setAudience(AUDIENCE_WEB)
+                .setIssuedAt(timeProvider.now())
+                .setExpiration(generateExpirationDate())
+                .signWith(signatureAlgorithm, secret).compact();
     }
 
     private Date generateExpirationDate() {
-        return new Date(new Date().getTime() + EXPIRES_IN);
+        return new Date(timeProvider.now().getTime() + expiresIn * 10000);
     }
 
-    // Funkcija za refresh JWT tokena
+    //Function for refreshing jwt token
     public String refreshToken(String token) {
         String refreshedToken;
         try {
             final Claims claims = this.getAllClaimsFromToken(token);
-            claims.setIssuedAt(new Date());
+            claims.setIssuedAt(timeProvider.now());
             refreshedToken = Jwts.builder()
                     .setClaims(claims)
                     .setExpiration(generateExpirationDate())
-                    .signWith(SIGNATURE_ALGORITHM, SECRET).compact();
+                    .signWith(signatureAlgorithm, secret).compact();
         } catch (Exception e) {
             refreshedToken = null;
         }
         return refreshedToken;
     }
 
-    public boolean canTokenBeRefreshed(String token, Date lastPasswordReset) {
+    public Boolean canTokenBeRefreshed(String token, Date lastPasswordReset) {
         final Date created = this.getIssuedAtDateFromToken(token);
-        return (!(this.isCreatedBeforeLastPasswordReset(created, lastPasswordReset))
+        return (this.isCreatedBeforeLastPasswordReset(created, lastPasswordReset)
                 && (!(this.isTokenExpired(token)) || this.ignoreTokenExpiration(token)));
     }
 
-    // Funkcija za validaciju JWT tokena
-    public Boolean validateToken(String token, UserDetails userDetails) {
-        final String email = getEmailFromToken(token);
+    // Functions for validating JWT token data
 
-        return (email != null && email.equals(userDetails.getUsername()));
+    public Boolean validateToken(String token, UserDetails userDetails) {
+        final String mail = getMailFromToken(token);
+
+        return (mail != null && mail.equals(userDetails.getUsername()) /*&& !isCreatedBeforeLastPasswordReset(created, user.getLastPasswordResetDate())*/);
     }
 
-    public String getEmailFromToken(String token) {
-        String email;
+    public String getMailFromToken(String token) {
+        String mail;
         try {
             final Claims claims = this.getAllClaimsFromToken(token);
-            email = claims.getSubject();
+            mail = claims.getSubject();
         } catch (Exception e) {
-            email = null;
+            mail = null;
         }
-        return email;
+        return mail;
+    }
+
+    private Boolean isCreatedBeforeLastPasswordReset(Date created, Date lastPasswordReset) {
+        return (lastPasswordReset != null && created.before(lastPasswordReset));
+    }
+
+    private Boolean isTokenExpired(String token) {
+        final Date expiration = this.getExpirationDateFromToken(token);
+        return expiration.before(timeProvider.now());
+    }
+
+    private Boolean ignoreTokenExpiration(String token) {
+        String audience = this.getAudienceFromToken(token);
+        return (audience.equals(AUDIENCE_TABLET) || audience.equals(AUDIENCE_MOBILE));
+    }
+
+    // Functions for getting data from token
+
+    public Claims getAllClaimsFromToken(String token) {
+        Claims claims;
+        try {
+            claims = Jwts.parser()
+                    .setSigningKey(secret)
+                    .parseClaimsJws(token)
+                    .getBody();
+        } catch (Exception e) {
+            claims = null;
+        }
+        return claims;
     }
 
     public Date getIssuedAtDateFromToken(String token) {
@@ -101,20 +145,6 @@ public class TokenUtils {
         return issueAt;
     }
 
-    private Boolean isCreatedBeforeLastPasswordReset(Date created, Date lastPasswordReset) {
-        return (lastPasswordReset != null && created.before(lastPasswordReset));
-    }
-
-    private Boolean isTokenExpired(String token) {
-        final Date expiration = this.getExpirationDateFromToken(token);
-        return expiration.before(new Date());
-    }
-
-    private Boolean ignoreTokenExpiration(String token) {
-        String audience = this.getAudienceFromToken(token);
-        return (audience.equals(AUDIENCE_TABLET) || audience.equals(AUDIENCE_MOBILE));
-    }
-
     public String getAudienceFromToken(String token) {
         String audience;
         try {
@@ -125,7 +155,6 @@ public class TokenUtils {
         }
         return audience;
     }
-
 
     public Date getExpirationDateFromToken(String token) {
         Date expiration;
@@ -139,8 +168,10 @@ public class TokenUtils {
     }
 
     public int getExpiredIn() {
-        return EXPIRES_IN;
+        return expiresIn;
     }
+
+    /* Functions for getting JWT token out of HTTP request */
 
     public String getToken(HttpServletRequest request) {
         String authHeader = getAuthHeaderFromHeader(request);
@@ -154,18 +185,5 @@ public class TokenUtils {
 
     public String getAuthHeaderFromHeader(HttpServletRequest request) {
         return request.getHeader(AUTH_HEADER);
-    }
-
-    private Claims getAllClaimsFromToken(String token) {
-        Claims claims;
-        try {
-            claims = Jwts.parser()
-                    .setSigningKey(SECRET)
-                    .parseClaimsJws(token)
-                    .getBody();
-        } catch (Exception e) {
-            claims = null;
-        }
-        return claims;
     }
 }

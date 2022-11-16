@@ -36,7 +36,7 @@ public class Person implements UserDetails {
     @Column
     private Role role;
 
-    @ManyToMany(fetch = FetchType.EAGER,cascade = CascadeType.REFRESH)
+    @ManyToMany(fetch = FetchType.EAGER, cascade = CascadeType.REFRESH)
     @JoinTable(name = "user_authority",
             joinColumns = @JoinColumn(name = "person_id", referencedColumnName = "id"),
             inverseJoinColumns = @JoinColumn(name = "authority_id", referencedColumnName = "id"))
@@ -45,34 +45,41 @@ public class Person implements UserDetails {
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
         List<SimpleGrantedAuthority> authorities1 = new ArrayList<>();
-        for(Authority a : authorities){
+        for (Authority a : authorities) {
             authorities1.add(new SimpleGrantedAuthority(a.getName()));
+
         }
 
-        return authorities1 ;
+        return authorities1;
     }
 
-    public void addNewAuthority(String authority){
+    public void addNewAuthority(String authority) {
         Authority auth = new Authority();
         auth.setName(authority);
         this.authorities.add(auth);
     }
+
     @Override
-    public String getUsername() {
+    public String getUsername() { //NOSONAR
         return this.email;
     }
+
+
     @Override
     public boolean isAccountNonExpired() {
         return true;
     }
+
     @Override
     public boolean isAccountNonLocked() {
         return true;
     }
+
     @Override
     public boolean isCredentialsNonExpired() {
         return true;
     }
+
     @Override
     public boolean isEnabled() {
         return true;

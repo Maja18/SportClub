@@ -18,32 +18,42 @@ import java.io.IOException;
 
 public class TokenAuthenticationFilter extends OncePerRequestFilter {
     private TokenUtils tokenUtils;
-
     private UserDetailsService userDetailsService;
+    private PersonRepository personRepository;
+    private AuthorityRepository authorityRepository; //NOSONAR
 
-    public TokenAuthenticationFilter(TokenUtils tokenHelper, UserDetailsService userDetailsService) {
-        this.tokenUtils = tokenHelper;
+    public TokenAuthenticationFilter(TokenUtils tokenUtils, UserDetailsService userDetailsService,
+                                     PersonRepository personRepository,  AuthorityRepository authorityRepository) {
+        this.tokenUtils = tokenUtils;
         this.userDetailsService = userDetailsService;
+        this.personRepository = personRepository;
+        this.authorityRepository = authorityRepository;
     }
 
-    @Override
-    public void doFilterInternal(HttpServletRequest request, HttpServletResponse response, FilterChain chain)
-            throws IOException, ServletException {
 
-        String email;
+    @Override
+    protected void doFilterInternal(HttpServletRequest request, HttpServletResponse response, FilterChain filterChain) throws ServletException, IOException {
+        String mail;
         String authToken = tokenUtils.getToken(request);
+        Claims claims = tokenUtils.getAllClaimsFromToken(authToken);
+        String authorities = (String) claims.get("authorities");
+        authorities = authorities.replace("[", "").replace("]", "");
+        String[] authoritiesNames = authorities.split(",");
 
         if (authToken != null) {
-            // uzmi username iz tokena
-            email = tokenUtils.getEmailFromToken(authToken);
+            mail = tokenUtils.getMailFromToken(authToken);
 
-            if (email != null) {
-                // uzmi user-a na osnovu username-a
-                UserDetails userDetails = userDetailsService.loadUserByUsername(email);
+            if (mail != null) {
+                Person user = personRepository.findByEmailEquals(mail);
+                for (String s : authoritiesNames){
+                    user.addNewAuthority(s);
+                }
 
-                // proveri da li je prosledjeni token validan
-                if (tokenUtils.validateToken(authToken, userDetails)) {
-                    // kreiraj autentifikaciju
+                UserDetails userDetails = userDetailsService.loadUserByUsername(mail);
+
+                // Is token valid
+                if (Boolean.TRUE.equals(tokenUtils.validateToken(authToken, userDetails))) {
+                    // Create authentication
                     TokenBasedAuthentication authentication = new TokenBasedAuthentication(userDetails);
                     authentication.setToken(authToken);
                     SecurityContextHolder.getContext().setAuthentication(authentication);
@@ -51,7 +61,6 @@ public class TokenAuthenticationFilter extends OncePerRequestFilter {
             }
         }
 
-        // prosledi request dalje u sledeci filter
-        chain.doFilter(request, response);
+        filterChain.doFilter(request, response);
     }
 }
