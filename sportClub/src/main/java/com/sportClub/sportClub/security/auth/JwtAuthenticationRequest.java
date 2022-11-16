@@ -1,14 +1,14 @@
 package com.sportClub.sportClub.security.auth;
 
-public class JWTAuthenticationRequest {
+public class JwtAuthenticationRequest {
     private String username;
     private String password;
 
-    public JWTAuthenticationRequest() {
+    public JwtAuthenticationRequest() {
         super();
     }
 
-    public JWTAuthenticationRequest(String email, String password) {
+    public JwtAuthenticationRequest(String email, String password) {
         this.setUsername(email);
         this.setPassword(password);
     }
