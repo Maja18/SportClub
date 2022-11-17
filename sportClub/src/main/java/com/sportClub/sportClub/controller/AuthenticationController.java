@@ -8,6 +8,7 @@ import com.sportClub.sportClub.security.auth.JwtAuthenticationRequest;
 import com.sportClub.sportClub.service.AuthenticationServiceImpl;
 import com.sportClub.sportClub.service.PersonServiceImpl;
 import com.sportClub.sportClub.service.interface_service.AuthenticationService;
+import io.swagger.v3.oas.annotations.security.SecurityRequirement;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
@@ -26,6 +27,7 @@ import javax.servlet.http.HttpServletResponse;
 @RestController
 @RequiredArgsConstructor
 @RequestMapping(value = "/api/auth", produces = MediaType.APPLICATION_JSON_VALUE)
+@SecurityRequirement(name = "javainuseapi")
 public class AuthenticationController {
 
     private final AuthenticationServiceImpl authenticationService;
