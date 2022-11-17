@@ -7,6 +7,7 @@ import com.sportClub.sportClub.model.Person;
 import com.sportClub.sportClub.repository.PersonRepository;
 import com.sportClub.sportClub.service.interface_service.PersonService;
 import lombok.RequiredArgsConstructor;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
@@ -20,6 +21,8 @@ public class PersonServiceImpl implements PersonService {
     private final PersonRepository personRepository;
     private final AuthenticationServiceImpl authenticationService;
     private final PasswordEncoder passwordEncoder;
+
+    private final  PersonMapper personMapper;
     @Override
     public Person findByEmailEquals(String email) {
         return personRepository.findByEmailEquals(email);
@@ -32,11 +35,8 @@ public class PersonServiceImpl implements PersonService {
 
     @Override
     public PersonDTO registerUser(PersonDTO userRequest){
-        Person person = new Person();
+        Person person = personMapper.personDTOToPerson(userRequest);
         person.setPassword(passwordEncoder.encode(userRequest.getPassword()));
-        person.setFirstName(userRequest.getFirstName());
-        person.setLastName(userRequest.getLastName());
-        person.setEmail(userRequest.getEmail());
         List<Authority> authorities = new ArrayList<>();
         if (userRequest.getRole().equals("EDITOR")){
             authorities.add(authenticationService.findByName("ROLE_EDITOR"));
@@ -46,7 +46,7 @@ public class PersonServiceImpl implements PersonService {
         person.setAuthorities(authorities);
         personRepository.save(person);
 
-        return userRequest;
+        return personMapper.personToPersonDTO(person);
     }
 
     @Override
@@ -59,13 +59,8 @@ public class PersonServiceImpl implements PersonService {
             person.setEmail(personDTO.getEmail());
             personRepository.save(person);
         }
-        PersonDTO editedPerson = new PersonDTO();
-        editedPerson.setFirstName(person.getFirstName());
-        editedPerson.setLastName(person.getLastName());
-        editedPerson.setEmail(person.getEmail());
-        editedPerson.setPassword(person.getPassword());
 
-        return editedPerson;
+        return personMapper.personToPersonDTO(person);
     }
 
 }

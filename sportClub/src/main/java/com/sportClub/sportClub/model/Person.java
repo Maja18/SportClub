@@ -34,9 +34,6 @@ public class Person implements UserDetails, Serializable {
     @Column
     private String password;
 
-    @Column
-    private Role role;
-
     @ManyToMany(fetch = FetchType.EAGER, cascade = CascadeType.REFRESH)
     @JoinTable(name = "user_authority",
             joinColumns = @JoinColumn(name = "person_id", referencedColumnName = "id"),
