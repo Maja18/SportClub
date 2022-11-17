@@ -27,9 +27,9 @@ import org.springframework.security.web.authentication.www.BasicAuthenticationFi
 
 @Configuration
 @EnableWebSecurity
-//@EnableGlobalMethodSecurity(prePostEnabled = true)
+@EnableGlobalMethodSecurity(prePostEnabled = true)
 
-@EnableGlobalMethodSecurity(securedEnabled = true)
+//@EnableGlobalMethodSecurity(securedEnabled = true)
 public class WebSecurityConfig {
     @Autowired
     private CustomUserDetailsService jwtPersonService;
@@ -67,7 +67,7 @@ public class WebSecurityConfig {
     @Bean
     public WebSecurityCustomizer webSecurityCustomizer(){
 
-        return web -> web.ignoring().antMatchers("/api/auth/login", "/v3/api-docs/**");
+        return web -> web.ignoring().antMatchers("/api/auth/register","/api/auth/login","/v3/api-docs/**");
 
     }
 }

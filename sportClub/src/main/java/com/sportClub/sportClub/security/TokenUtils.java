@@ -15,7 +15,7 @@ import java.util.Date;
 
 @Component
 public class TokenUtils {
-    @Value("SocialNetworkingApp")
+    @Value("SportClubApp")
     private String appName;
 
     @Value("super_secret_code_value")
@@ -122,6 +122,7 @@ public class TokenUtils {
     // Functions for getting data from token
 
     public Claims getAllClaimsFromToken(String token) {
+        System.out.println(token);
         Claims claims;
         try {
             claims = Jwts.parser()

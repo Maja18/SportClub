@@ -20,7 +20,7 @@ public class TokenAuthenticationFilter extends OncePerRequestFilter {
     private TokenUtils tokenUtils;
     private UserDetailsService userDetailsService;
     private PersonRepository personRepository;
-    private AuthorityRepository authorityRepository; //NOSONAR
+    private AuthorityRepository authorityRepository;
 
     public TokenAuthenticationFilter(TokenUtils tokenUtils, UserDetailsService userDetailsService,
                                      PersonRepository personRepository,  AuthorityRepository authorityRepository) {
@@ -35,6 +35,8 @@ public class TokenAuthenticationFilter extends OncePerRequestFilter {
     protected void doFilterInternal(HttpServletRequest request, HttpServletResponse response, FilterChain filterChain) throws ServletException, IOException {
         String mail;
         String authToken = tokenUtils.getToken(request);
+        System.out.println("********************************");
+        System.out.println(authToken);
         Claims claims = tokenUtils.getAllClaimsFromToken(authToken);
         String authorities = (String) claims.get("authorities");
         authorities = authorities.replace("[", "").replace("]", "");
