@@ -34,7 +34,6 @@ public class WebSecurityConfig {
     @Autowired
     private CustomUserDetailsService jwtPersonService;
 
-
     @Bean
     public PasswordEncoder passwordEncoder(){
         return new BCryptPasswordEncoder();
@@ -67,7 +66,7 @@ public class WebSecurityConfig {
     @Bean
     public WebSecurityCustomizer webSecurityCustomizer(){
 
-        return web -> web.ignoring().antMatchers("/api/auth/register","/api/auth/login","/v3/api-docs/**");
+        return web -> web.ignoring().antMatchers("/api/auth/register","/api/auth/login","/swagger-ui/**", "/v3/api-docs/**");
 
     }
 }
