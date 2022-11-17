@@ -49,4 +49,23 @@ public class PersonServiceImpl implements PersonService {
         return userRequest;
     }
 
+    @Override
+    public PersonDTO editPersonInfo(PersonDTO personDTO) {
+        Person person = personRepository.findByEmailEquals(personDTO.getEmail());
+        if (person != null){
+            person.setFirstName(personDTO.getFirstName());
+            person.setLastName(personDTO.getLastName());
+            person.setPassword(passwordEncoder.encode(personDTO.getPassword()));
+            person.setEmail(personDTO.getEmail());
+            personRepository.save(person);
+        }
+        PersonDTO editedPerson = new PersonDTO();
+        editedPerson.setFirstName(person.getFirstName());
+        editedPerson.setLastName(person.getLastName());
+        editedPerson.setEmail(person.getEmail());
+        editedPerson.setPassword(person.getPassword());
+
+        return editedPerson;
+    }
+
 }
