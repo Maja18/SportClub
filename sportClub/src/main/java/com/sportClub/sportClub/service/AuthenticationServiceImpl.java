@@ -37,7 +37,7 @@ public class AuthenticationServiceImpl implements AuthenticationService {
     @Override
     public Person getPerson(JwtAuthenticationRequest authenticationRequest) {
         Authentication authentication = authenticationManager
-                .authenticate(new UsernamePasswordAuthenticationToken(authenticationRequest.getUsername(),
+                .authenticate(new UsernamePasswordAuthenticationToken(authenticationRequest.getEmail(),
                         authenticationRequest.getPassword()));
 
         SecurityContextHolder.getContext().setAuthentication(authentication);
