@@ -11,7 +11,7 @@ import org.springframework.stereotype.Service;
 
 @Service
 @RequiredArgsConstructor
-public class PersonServiceImpl implements PersonService, UserDetailsService {
+public class PersonServiceImpl implements PersonService {
 
     private final PersonRepository personRepository;
     @Override
@@ -24,14 +24,4 @@ public class PersonServiceImpl implements PersonService, UserDetailsService {
         return personRepository.findById(id).get();
     }
 
-    @Override
-    public UserDetails loadUserByUsername(String email) throws UsernameNotFoundException { //email ne username!
-        //kako hocemo da nam dobavi korisnika spring security
-        Person person = personRepository.findByEmailEquals(email);
-        if (person == null) {
-            throw new UsernameNotFoundException(String.format("No user found with username '%s'.", email));
-        } else {
-            return person;
-        }
-    }
 }
