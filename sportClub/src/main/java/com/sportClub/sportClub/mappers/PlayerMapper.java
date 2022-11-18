@@ -16,4 +16,5 @@ public interface PlayerMapper {
     PlayerMapper INSTANCE = Mappers.getMapper(PlayerMapper.class);
     PlayerDTO playerToPlayerDTO(Player player);
     List<PlayerDTO> playersToPlayerDTOs(List<Player> player);
+    Player playerDTOToPlayer(PlayerDTO playerDTO);
 }

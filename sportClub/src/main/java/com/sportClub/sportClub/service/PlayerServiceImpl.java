@@ -50,4 +50,11 @@ public class PlayerServiceImpl implements PlayerService {
         return playerMapper.playersToPlayerDTOs(players);
     }
 
+    @Override
+    public PlayerDTO addNewPlayer(PlayerDTO playerDTO) {
+        Player player = playerMapper.playerDTOToPlayer(playerDTO);
+        playerRepository.save(player);
+        return playerMapper.playerToPlayerDTO(player);
+    }
+
 }

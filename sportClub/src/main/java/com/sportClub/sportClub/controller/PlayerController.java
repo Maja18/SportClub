@@ -52,4 +52,13 @@ public class PlayerController {
         return players == null ?
                 new ResponseEntity<>(HttpStatus.NOT_FOUND) : ResponseEntity.ok(players);
     }
+
+    @PostMapping
+    @PreAuthorize("hasAuthority('ROLE_EDITOR')")
+    public ResponseEntity<PlayerDTO> addNewPlayer(@RequestBody PlayerDTO playerDTO ) {
+        PlayerDTO player = playerService.addNewPlayer(playerDTO);
+
+        return player == null ?
+                new ResponseEntity<>(HttpStatus.NOT_FOUND) : ResponseEntity.ok(player);
+    }
 }
