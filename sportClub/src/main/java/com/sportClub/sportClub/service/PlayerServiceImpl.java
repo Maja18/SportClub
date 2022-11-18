@@ -44,4 +44,26 @@ public class PlayerServiceImpl implements PlayerService {
         return playerMapper.playerToPlayerDTO(player);
     }
 
+    @Override
+    public List<PlayerDTO> getAllPlayers() {
+        List<Player> players = playerRepository.findAll();
+        return playerMapper.playersToPlayerDTOs(players);
+    }
+
+    @Override
+    public PlayerDTO addNewPlayer(PlayerDTO playerDTO) {
+        Player player = playerMapper.playerDTOToPlayer(playerDTO);
+        playerRepository.save(player);
+        return playerMapper.playerToPlayerDTO(player);
+    }
+
+    @Override
+    public PlayerDTO deletePlayer(Long id) {
+        Player player = playerRepository.findById(id).get();
+        if (player != null){
+            playerRepository.delete(player);
+        }
+        return playerMapper.playerToPlayerDTO(player);
+    }
+
 }

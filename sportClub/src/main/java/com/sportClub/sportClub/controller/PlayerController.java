@@ -35,11 +35,37 @@ public class PlayerController {
                 new ResponseEntity<>(HttpStatus.NOT_FOUND) : ResponseEntity.ok(player);
     }
 
-
     @PutMapping
     @PreAuthorize("hasAuthority('ROLE_EDITOR')")
     public ResponseEntity<PlayerDTO> editPlayerInfo(@RequestBody PlayerDTO playerDTO ) {
         PlayerDTO player = playerService.editPlayerInfo(playerDTO);
+
+        return player == null ?
+                new ResponseEntity<>(HttpStatus.NOT_FOUND) : ResponseEntity.ok(player);
+    }
+
+    @GetMapping
+    @PreAuthorize("hasAuthority('ROLE_EDITOR')")
+    public ResponseEntity<List<PlayerDTO>> getAllPlayers() {
+        List<PlayerDTO> players = playerService.getAllPlayers();
+
+        return players == null ?
+                new ResponseEntity<>(HttpStatus.NOT_FOUND) : ResponseEntity.ok(players);
+    }
+
+    @PostMapping
+    @PreAuthorize("hasAuthority('ROLE_EDITOR')")
+    public ResponseEntity<PlayerDTO> addNewPlayer(@RequestBody PlayerDTO playerDTO ) {
+        PlayerDTO player = playerService.addNewPlayer(playerDTO);
+
+        return player == null ?
+                new ResponseEntity<>(HttpStatus.NOT_FOUND) : ResponseEntity.ok(player);
+    }
+
+    @DeleteMapping("/{player-id}")
+    @PreAuthorize("hasAuthority('ROLE_EDITOR')")
+    public ResponseEntity<PlayerDTO> deletePlayer(@PathVariable(name="player-id") Long playerId ) {
+        PlayerDTO player = playerService.deletePlayer(playerId);
 
         return player == null ?
                 new ResponseEntity<>(HttpStatus.NOT_FOUND) : ResponseEntity.ok(player);
