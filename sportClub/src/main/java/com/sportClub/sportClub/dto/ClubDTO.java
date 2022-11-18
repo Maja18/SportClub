@@ -10,6 +10,7 @@ import java.util.List;
 @Setter
 @RequiredArgsConstructor
 public class ClubDTO {
+    private Long id;
     private String name;
     private List<PlayerDTO> players;
 }

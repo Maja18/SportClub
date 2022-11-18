@@ -7,4 +7,5 @@ import java.util.List;
 public interface SportClubService {
     List<ClubDTO> getAllSportClubs();
     ClubDTO addNewSportClub(ClubDTO clubDTO);
+    ClubDTO editClubInfo(ClubDTO clubDTO);
 }
