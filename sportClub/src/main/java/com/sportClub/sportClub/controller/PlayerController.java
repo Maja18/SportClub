@@ -35,7 +35,6 @@ public class PlayerController {
                 new ResponseEntity<>(HttpStatus.NOT_FOUND) : ResponseEntity.ok(player);
     }
 
-
     @PutMapping
     @PreAuthorize("hasAuthority('ROLE_EDITOR')")
     public ResponseEntity<PlayerDTO> editPlayerInfo(@RequestBody PlayerDTO playerDTO ) {
@@ -43,5 +42,14 @@ public class PlayerController {
 
         return player == null ?
                 new ResponseEntity<>(HttpStatus.NOT_FOUND) : ResponseEntity.ok(player);
+    }
+
+    @GetMapping
+    @PreAuthorize("hasAuthority('ROLE_EDITOR')")
+    public ResponseEntity<List<PlayerDTO>> getAllPlayers() {
+        List<PlayerDTO> players = playerService.getAllPlayers();
+
+        return players == null ?
+                new ResponseEntity<>(HttpStatus.NOT_FOUND) : ResponseEntity.ok(players);
     }
 }

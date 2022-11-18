@@ -44,4 +44,10 @@ public class PlayerServiceImpl implements PlayerService {
         return playerMapper.playerToPlayerDTO(player);
     }
 
+    @Override
+    public List<PlayerDTO> getAllPlayers() {
+        List<Player> players = playerRepository.findAll();
+        return playerMapper.playersToPlayerDTOs(players);
+    }
+
 }
