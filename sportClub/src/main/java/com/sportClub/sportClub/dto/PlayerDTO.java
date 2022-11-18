@@ -11,6 +11,7 @@ import java.util.List;
 @Setter
 @RequiredArgsConstructor
 public class PlayerDTO {
+    private Long id;
     private String playerName;
     private String image;
     private Integer salary;

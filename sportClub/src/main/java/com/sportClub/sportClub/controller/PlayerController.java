@@ -11,10 +11,7 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
@@ -33,6 +30,16 @@ public class PlayerController {
     ResponseEntity<PlayerDTO> getPlayerInfo(@PathVariable(name="player-id") Long playerId)
     {
         PlayerDTO player = playerService.getPlayerInfo(playerId);
+
+        return player == null ?
+                new ResponseEntity<>(HttpStatus.NOT_FOUND) : ResponseEntity.ok(player);
+    }
+
+
+    @PutMapping
+    @PreAuthorize("hasAuthority('ROLE_EDITOR')")
+    public ResponseEntity<PlayerDTO> editPlayerInfo(@RequestBody PlayerDTO playerDTO ) {
+        PlayerDTO player = playerService.editPlayerInfo(playerDTO);
 
         return player == null ?
                 new ResponseEntity<>(HttpStatus.NOT_FOUND) : ResponseEntity.ok(player);
