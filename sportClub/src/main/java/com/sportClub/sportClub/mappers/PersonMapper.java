@@ -11,7 +11,6 @@ import org.mapstruct.factory.Mappers;
         componentModel = "spring",
         injectionStrategy = InjectionStrategy.FIELD
 )
-
 public interface PersonMapper {
     PersonMapper INSTANCE = Mappers.getMapper(PersonMapper.class);
     PersonDTO personToPersonDTO(Person person);
