@@ -61,4 +61,13 @@ public class PlayerController {
         return player == null ?
                 new ResponseEntity<>(HttpStatus.NOT_FOUND) : ResponseEntity.ok(player);
     }
+
+    @DeleteMapping("/{player-id}")
+    @PreAuthorize("hasAuthority('ROLE_EDITOR')")
+    public ResponseEntity<PlayerDTO> deletePlayer(@PathVariable(name="player-id") Long playerId ) {
+        PlayerDTO player = playerService.deletePlayer(playerId);
+
+        return player == null ?
+                new ResponseEntity<>(HttpStatus.NOT_FOUND) : ResponseEntity.ok(player);
+    }
 }

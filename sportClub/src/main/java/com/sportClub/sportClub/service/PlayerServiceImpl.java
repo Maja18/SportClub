@@ -57,4 +57,13 @@ public class PlayerServiceImpl implements PlayerService {
         return playerMapper.playerToPlayerDTO(player);
     }
 
+    @Override
+    public PlayerDTO deletePlayer(Long id) {
+        Player player = playerRepository.findById(id).get();
+        if (player != null){
+            playerRepository.delete(player);
+        }
+        return playerMapper.playerToPlayerDTO(player);
+    }
+
 }

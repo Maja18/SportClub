@@ -9,4 +9,5 @@ public interface PlayerService {
     PlayerDTO editPlayerInfo(PlayerDTO playerDTO);
     List<PlayerDTO> getAllPlayers();
     PlayerDTO addNewPlayer(PlayerDTO playerDTO);
+    PlayerDTO deletePlayer(Long id);
 }
