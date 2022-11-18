@@ -5,11 +5,14 @@ import com.sportClub.sportClub.mappers.PlayerMapper;
 import com.sportClub.sportClub.mappers.SkillMapper;
 import com.sportClub.sportClub.model.Player;
 import com.sportClub.sportClub.model.Skill;
+import com.sportClub.sportClub.model.SportClub;
 import com.sportClub.sportClub.repository.PlayerRepository;
+import com.sportClub.sportClub.repository.SportClubRepository;
 import com.sportClub.sportClub.service.interface_service.PlayerService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
 import java.util.List;
 
 @Service
@@ -20,6 +23,9 @@ public class PlayerServiceImpl implements PlayerService {
     private final PlayerMapper playerMapper;
 
     private final SkillMapper skillMapper;
+
+    private final SportClubRepository sportClubRepository;
+
     @Override
     public PlayerDTO getPlayerInfo(Long id) {
         Player player = playerRepository.findById(id).get();
@@ -64,6 +70,16 @@ public class PlayerServiceImpl implements PlayerService {
             playerRepository.delete(player);
         }
         return playerMapper.playerToPlayerDTO(player);
+    }
+
+    @Override
+    public List<PlayerDTO> getAllClubPlayers(Long clubId) {
+        SportClub sportClub = sportClubRepository.findById(clubId).get();
+        List<Player> clubPlayers = new ArrayList<>();
+        if (sportClub != null){
+            clubPlayers = sportClub.getPlayers();
+        }
+        return playerMapper.playersToPlayerDTOs(clubPlayers);
     }
 
 }
