@@ -17,4 +17,5 @@ public interface PlayerMapper {
     PlayerDTO playerToPlayerDTO(Player player);
     List<PlayerDTO> playersToPlayerDTOs(List<Player> player);
     Player playerDTOToPlayer(PlayerDTO playerDTO);
+    List<Player> playerDTOsToPlayers(List<PlayerDTO> playerDTOs);
 }

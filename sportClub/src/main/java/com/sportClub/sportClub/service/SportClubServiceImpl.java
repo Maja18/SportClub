@@ -2,6 +2,7 @@ package com.sportClub.sportClub.service;
 
 import com.sportClub.sportClub.dto.ClubDTO;
 import com.sportClub.sportClub.dto.PlayerDTO;
+import com.sportClub.sportClub.mappers.PlayerMapper;
 import com.sportClub.sportClub.mappers.SportClubMapper;
 import com.sportClub.sportClub.model.Player;
 import com.sportClub.sportClub.model.SportClub;
@@ -22,6 +23,8 @@ public class SportClubServiceImpl implements SportClubService {
     private final SportClubMapper sportClubMapper;
 
     private final PlayerRepository playerRepository;
+
+    private final PlayerMapper playerMapper;
     @Override
     public List<ClubDTO> getAllSportClubs() {
         List<SportClub> sportClubs = sportClubRepository.findAll();
@@ -52,5 +55,16 @@ public class SportClubServiceImpl implements SportClubService {
         sportClubRepository.save(club);
 
         return sportClubMapper.clubToClubDTO(club);
+    }
+
+    @Override
+    public ClubDTO addNewPlayerToClub(ClubDTO clubDTO) {
+        SportClub sportClub = sportClubRepository.findById(clubDTO.getId()).get();
+        if (sportClub != null){
+            List<Player> players = playerMapper.playerDTOsToPlayers(clubDTO.getPlayers());
+            sportClub.setPlayers(players);
+        }
+        sportClubRepository.save(sportClub);
+        return sportClubMapper.clubToClubDTO(sportClub);
     }
 }
