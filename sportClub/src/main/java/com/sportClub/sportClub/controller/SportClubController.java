@@ -60,4 +60,13 @@ public class SportClubController {
                 new ResponseEntity<>(HttpStatus.NOT_FOUND) : ResponseEntity.ok(club);
     }
 
+    @PostMapping("/removePlayer")
+    @PreAuthorize("hasAuthority('ROLE_EDITOR')")
+    public ResponseEntity<ClubDTO> removePlayerFromClub(@RequestBody ClubDTO clubDTO ) {
+        ClubDTO club = sportClubService.removePlayerFromClub(clubDTO);
+
+        return club == null ?
+                new ResponseEntity<>(HttpStatus.NOT_FOUND) : ResponseEntity.ok(club);
+    }
+
 }

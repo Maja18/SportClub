@@ -9,4 +9,5 @@ public interface SportClubService {
     ClubDTO addNewSportClub(ClubDTO clubDTO);
     ClubDTO editClubInfo(ClubDTO clubDTO);
     ClubDTO addNewPlayerToClub(ClubDTO clubDTO);
+    ClubDTO removePlayerFromClub(ClubDTO clubDTO);
 }

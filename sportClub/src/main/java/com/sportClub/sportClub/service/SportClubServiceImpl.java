@@ -67,4 +67,22 @@ public class SportClubServiceImpl implements SportClubService {
         sportClubRepository.save(sportClub);
         return sportClubMapper.clubToClubDTO(sportClub);
     }
+
+    @Override
+    public ClubDTO removePlayerFromClub(ClubDTO clubDTO) {
+        SportClub sportClub = sportClubRepository.findById(clubDTO.getId()).get();
+        if (sportClub != null){
+            List<Player> clubPlayers = sportClub.getPlayers();
+            for (Player player: clubPlayers){
+                for (PlayerDTO playerDTO: clubDTO.getPlayers()){
+                    if (player.getId().equals(playerDTO.getId())){
+                        clubPlayers.remove(player);
+                    }
+                }
+            }
+            sportClubRepository.save(sportClub);
+        }
+
+        return sportClubMapper.clubToClubDTO(sportClub);
+    }
 }
