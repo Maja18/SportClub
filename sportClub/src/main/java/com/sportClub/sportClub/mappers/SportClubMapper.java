@@ -15,4 +15,6 @@ import java.util.List;
 public interface SportClubMapper {
     SportClubMapper INSTANCE = Mappers.getMapper(SportClubMapper.class);
     List<ClubDTO> clubsToClubsDTO(List<SportClub> sportClub);
+    SportClub clubDTOToClub(ClubDTO clubDTO);
+    ClubDTO clubToClubDTO(SportClub club);
 }

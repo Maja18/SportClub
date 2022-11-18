@@ -22,8 +22,8 @@ public class PersonController {
 
     private final PersonServiceImpl personService;
 
-    @RolesAllowed({ "ROLE_EDITOR", "ROLE_VIEWER" })
     @PutMapping
+    @PreAuthorize("hasAnyAuthority({'ROLE_EDITOR','ROLE_VIEWER'})")
     public ResponseEntity<PersonDTO> editPersonInfo(@RequestBody PersonDTO personDTO ) {
         PersonDTO person = personService.editPersonInfo(personDTO);
 
