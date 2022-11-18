@@ -10,4 +10,5 @@ public interface PlayerService {
     List<PlayerDTO> getAllPlayers();
     PlayerDTO addNewPlayer(PlayerDTO playerDTO);
     PlayerDTO deletePlayer(Long id);
+    List<PlayerDTO> getAllClubPlayers(Long clubId);
 }

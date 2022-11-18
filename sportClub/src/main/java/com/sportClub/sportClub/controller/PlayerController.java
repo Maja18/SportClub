@@ -70,4 +70,15 @@ public class PlayerController {
         return player == null ?
                 new ResponseEntity<>(HttpStatus.NOT_FOUND) : ResponseEntity.ok(player);
     }
+
+    @GetMapping("players/{club-id}")
+    @PreAuthorize("hasAnyAuthority({'ROLE_EDITOR','ROLE_VIEWER'})")
+    ResponseEntity<List<PlayerDTO>> getAllClubPlayers(@PathVariable(name="club-id") Long clubId)
+    {
+        List<PlayerDTO> players = playerService.getAllClubPlayers(clubId);
+
+        return players == null ?
+                new ResponseEntity<>(HttpStatus.NOT_FOUND) : ResponseEntity.ok(players);
+    }
+
 }
