@@ -1,6 +1,5 @@
 import React from 'react';
-import 'bootstrap/dist/css/bootstrap.css';
-import classes from './Login.css';
+import './Login.css';
 import {
     Button,
     Form,
@@ -12,7 +11,7 @@ import {
 const Login = () =>  {
 
     return(
-        <div className={classes.Login}>
+        <div className="Login">
         <h2>LogIn</h2>
         <Form>
             <FormGroup>
