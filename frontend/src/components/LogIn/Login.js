@@ -1,19 +1,41 @@
-import React, { useState } from 'react';
+import React from 'react';
+import 'bootstrap/dist/css/bootstrap.css';
+import classes from './Login.css';
+import {
+    Button,
+    Form,
+    FormGroup,
+    Input,
+    Label
+  } from 'reactstrap';
 
 const Login = () =>  {
 
     return(
-        <form>
-            <div class="mb-3">
-                <label for="exampleInputEmail1" class="form-label">Email address</label>
-                <input type="email" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp"/>
-            </div>
-            <div class="mb-3">
-                <label for="exampleInputPassword1" class="form-label">Password</label>
-                <input type="password" class="form-control" id="exampleInputPassword1"/>
-            </div>
-            <button type="submit" class="btn btn-primary">LogIn</button>
-        </form>  
+        <div className={classes.Login}>
+        <h2>LogIn</h2>
+        <Form>
+            <FormGroup>
+                <Label for="exampleEmail">Email</Label>
+                <Input
+                type="email"
+                name="email"
+                id="exampleEmail"
+                placeholder="example@example.com"
+                />
+            </FormGroup>
+            <FormGroup>
+                <Label for="examplePassword">Password</Label>
+                <Input
+                type="password"
+                name="password"
+                id="examplePassword"
+                placeholder="********"
+                />
+            </FormGroup>
+            <Button color="success">Submit</Button>
+      </Form>
+    </div>
     );
 
 };
