@@ -8,6 +8,7 @@ import {
 import { Route, Link, Routes } from 'react-router-dom';
 import Register from '../Register/Register'
 import Login from '../LogIn/Login';
+import Home from '../Home/Home';
 
 const NavBar = () => {
 
@@ -16,7 +17,7 @@ const NavBar = () => {
             <Navbar color="dark"  expand="md">
                 <Nav className="mr-auto" navbar>
                     <NavItem>
-                        <NavLink href="#">Home</NavLink>
+                        <NavLink tag={Link} to="/">Home</NavLink>
                     </NavItem>
                     <NavItem>
                         <NavLink tag={Link} to="/login">Login</NavLink>
@@ -27,6 +28,7 @@ const NavBar = () => {
                 </Nav>
             </Navbar>
             <Routes>
+                <Route path='/'  element={<Home/>}></Route>
                 <Route path="/register" element={<Register/>} ></Route>
                 <Route path="/login" element={<Login/>}></Route>
             </Routes>

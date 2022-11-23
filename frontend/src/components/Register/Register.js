@@ -11,7 +11,7 @@ import './Register.css';
 const Register = () => {
     return(
         <div className="Register">
-            <h2>Register</h2>
+            <h2 class="h2">Register</h2>
             <Form>
                 <FormGroup>
                     <Label for="exampleEmail">Name</Label>
@@ -50,10 +50,16 @@ const Register = () => {
                     />
                 </FormGroup>
                 <FormGroup>
-                    <input type="radio" value="EDITOR" name="role" /> EDITOR
-                    <input type="radio" value="VIEWER" name="role" /> VIEWER
+                    <div className='div'>
+                    <input type="radio" value="EDITOR" name="role" />
+                    <label class="label">EDITOR</label>
+                    <input class="roleInput" type="radio" value="VIEWER" name="role" /> 
+                    <label class="label">VIEWER</label>
+                    </div>
                 </FormGroup>
-                <Button color="success">Submit</Button>
+                <div class="button-container-div">
+                    <Button color="success">Submit</Button>
+                </div>
             </Form>
         </div>
     );

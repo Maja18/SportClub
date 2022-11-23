@@ -12,7 +12,7 @@ const Login = () =>  {
 
     return(
         <div className="Login">
-            <h2>LogIn</h2>
+            <h2 class="h2">LogIn</h2>
             <Form>
                 <FormGroup>
                     <Label for="exampleEmail">Email</Label>
@@ -32,7 +32,9 @@ const Login = () =>  {
                     placeholder="********"
                     />
                 </FormGroup>
-                <Button color="success">Submit</Button>
+                <div class="button-container-div">
+                    <Button color="success">Submit</Button>
+                </div>
             </Form>
         </div>
     );
