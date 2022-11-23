@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {useState} from 'react';
 import {
     Button,
     Form,
@@ -7,8 +7,40 @@ import {
     Label
   } from 'reactstrap';
 import './Register.css';
+import axios from 'axios'
+import { useNavigate } from 'react-router-dom';
 
 const Register = () => {
+    const [enteredName, setEnteredName] = useState('');
+    const [enteredLastName, setEnteredLastName] = useState('');
+    const [enteredEmail, setEnteredEmail] = useState('');
+    const [enteredPassword, setEnteredPassword] = useState('');
+    const [enteredRole, setEnteredRole] = useState('VIEWER');
+    const navigateTo = useNavigate();
+
+    const onSubmit = (event) => {
+        event.preventDefault();
+        localStorage.removeItem('token');
+
+        const data = {
+            firstName: enteredName,
+            lastName: enteredLastName,
+            email: enteredEmail,
+            password: enteredPassword,
+            role: enteredRole
+        }
+
+        axios.post('http://localhost:8080/api/auth/register', data)
+                .then(response => {
+                    alert("You have successufully registered")
+                    navigateTo('/profile')
+                })
+                .catch(response => {
+                    alert("Please enter valid data!");
+                    console.log(response);
+                });   
+    };
+
     return(
         <div className="Register">
             <h2 class="h2">Register</h2>
@@ -20,6 +52,10 @@ const Register = () => {
                     name="firstName"
                     id="exampleName"
                     placeholder="Name"
+                    value={enteredName}
+                    onChange={event => {
+                        setEnteredName(event.target.value)
+                    }}
                     />
                 </FormGroup>
                 <FormGroup>
@@ -29,6 +65,10 @@ const Register = () => {
                     name="lastName"
                     id="exampleLastName"
                     placeholder="Last name"
+                    value={enteredLastName}
+                    onChange={event => {
+                        setEnteredLastName(event.target.value)
+                    }}
                     />
                 </FormGroup>
                 <FormGroup>
@@ -38,6 +78,10 @@ const Register = () => {
                     name="email"
                     id="exampleEmail"
                     placeholder="example@example.com"
+                    value={enteredEmail}
+                    onChange={event => {
+                        setEnteredEmail(event.target.value)
+                    }}
                     />
                 </FormGroup>
                 <FormGroup>
@@ -47,18 +91,39 @@ const Register = () => {
                     name="password"
                     id="examplePassword"
                     placeholder="********"
+                    value={enteredPassword}
+                    onChange={event => {
+                        setEnteredPassword(event.target.value)
+                    }}
                     />
                 </FormGroup>
                 <FormGroup>
                     <div className='div'>
-                    <input type="radio" value="EDITOR" name="role" />
+                    <input 
+                    type="radio" 
+                    value="EDITOR" 
+                    name="role" 
+                    checked={enteredRole === "EDITOR"}
+                    onChange={event => {
+                        setEnteredRole(event.target.value)
+                    }}
+                    />
                     <label class="label">EDITOR</label>
-                    <input class="roleInput" type="radio" value="VIEWER" name="role" /> 
+                    <input 
+                    class="roleInput" 
+                    type="radio" 
+                    value="VIEWER" 
+                    name="role" 
+                    checked={enteredRole === "VIEWER"}
+                    onChange={event => {
+                        setEnteredRole(event.target.value)
+                    }}
+                    /> 
                     <label class="label">VIEWER</label>
                     </div>
                 </FormGroup>
                 <div class="button-container-div">
-                    <Button color="success">Submit</Button>
+                    <Button color="success" onClick={onSubmit}>Submit</Button>
                 </div>
             </Form>
         </div>

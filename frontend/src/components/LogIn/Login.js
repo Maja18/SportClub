@@ -29,6 +29,7 @@ const Login = () =>  {
                     console.log(response.data.token);
                     
                     let token = localStorage.getItem('token').substring(1, localStorage.getItem('token').length-1);
+                    alert("You have successufully logged")
                 })
                 .catch(response => {
                     alert("Please enter valid data!");
