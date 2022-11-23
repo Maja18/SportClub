@@ -3,7 +3,6 @@ import {
     Button,
     Card,
     CardBody,
-    CardTitle,
     CardText,
     Label,
     CardHeader
@@ -13,18 +12,29 @@ import { CgProfile } from 'react-icons/cg';
 import axios from 'axios';
 
 const Profile = () => {
+    const [user, setUser] = useState([]);
+
     useEffect(() => {
         let token = localStorage.getItem('token').substring(1, localStorage.getItem('token').length-1);
         axios.get('http://localhost:8080/api/person',{ 
              headers: {
-                 'Authorization': 'Bearer ' + token,
-             }
+                'Authorization': 'Bearer ' + token,
+            }
          }).then(response => {
-               alert("Success")
+            setUser({
+                firstName: response.data.firstName,
+                lastName: response.data.lastName,
+                email: response.data.email,
+                password: response.data.password,
+                role: response.data.role
+            })
+
+            alert("Success")
+            console.log(user)
          }).catch(res => {
-                    alert("Error");
-                    console.log(res);
-                });
+                alert("Error");
+                console.log(res);
+            });
 
     }, []);
 
@@ -40,19 +50,19 @@ const Profile = () => {
                 <CardBody>
                     <CardText>
                         <Label>
-                            Name:
+                            Name: {user.firstName}
                         </Label>
                         <Label>
-                            Last name:
+                            Last name: {user.lastName}
                         </Label>
                         <Label>
-                            Email:
+                            Email: {user.email}
                         </Label>
                         <Label>
-                            Password:
+                            Password: {user.password}
                         </Label>
                         <Label>
-                            Role:
+                            Role: {user.role}
                         </Label>
                     </CardText>
                     <Button color='info'>Edit</Button>
