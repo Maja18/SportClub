@@ -8,4 +8,5 @@ public interface PersonService {
     Person findById(Long id);
     PersonDTO registerUser(PersonDTO userRequest);
     PersonDTO editPersonInfo(PersonDTO personDTO);
+    PersonDTO getLoggedPersonProfile(Person person);
 }

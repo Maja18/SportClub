@@ -8,10 +8,12 @@ import com.sportClub.sportClub.repository.PersonRepository;
 import com.sportClub.sportClub.service.interface_service.PersonService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
+import java.util.Collection;
 import java.util.List;
 
 @Service
@@ -61,6 +63,12 @@ public class PersonServiceImpl implements PersonService {
         }
 
         return personMapper.personToPersonDTO(person);
+    }
+
+    @Override
+    public PersonDTO getLoggedPersonProfile(Person person) {
+        Person user = personRepository.findById(person.getId()).get();
+        return personMapper.personToPersonDTO(user);
     }
 
 }
