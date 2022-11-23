@@ -9,6 +9,7 @@ import { Route, Link, Routes } from 'react-router-dom';
 import Register from '../Register/Register'
 import Login from '../LogIn/Login';
 import Home from '../Home/Home';
+import Profile from '../Profile/Profile';
 
 const NavBar = () => {
 
@@ -18,6 +19,9 @@ const NavBar = () => {
                 <Nav className="mr-auto" navbar>
                     <NavItem>
                         <NavLink tag={Link} to="/">Home</NavLink>
+                    </NavItem>
+                    <NavItem>
+                        <NavLink tag={Link} to="/profile">Profile</NavLink>
                     </NavItem>
                     <NavItem>
                         <NavLink tag={Link} to="/login">Login</NavLink>
@@ -31,6 +35,7 @@ const NavBar = () => {
                 <Route path='/'  element={<Home/>}></Route>
                 <Route path="/register" element={<Register/>} ></Route>
                 <Route path="/login" element={<Login/>}></Route>
+                <Route path="/profile" element={<Profile/>}></Route>
             </Routes>
         </div>
     );

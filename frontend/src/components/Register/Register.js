@@ -41,7 +41,7 @@ const Register = () => {
         axios.post('http://localhost:8080/api/auth/register', data)
                 .then(response => {
                     showToastMessage()
-                    //navigateTo('/profile')
+                    navigateTo('/profile')
                 })
                 .catch(response => {
                     alert("Please enter valid data!");

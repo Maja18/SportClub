@@ -8,7 +8,7 @@ import {
     Label
   } from 'reactstrap';
 import axios from 'axios'
-
+import { useNavigate } from 'react-router-dom';
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css'
 
@@ -16,6 +16,7 @@ const Login = () =>  {
     const [enteredEmail, setEnteredEmail] = useState('');
     const [enteredPassword, setEnteredPassword] = useState('');
     const [authority, setAuthority] = useState('');
+    const navigateTo = useNavigate();
 
     const showToastMessage = () => {
         toast.success('You have sussessufully logged in!', {
@@ -39,6 +40,7 @@ const Login = () =>  {
                     
                     let token = localStorage.getItem('token').substring(1, localStorage.getItem('token').length-1);
                     showToastMessage()
+                    navigateTo('/profile')
                 })
                 .catch(response => {
                     alert("Please enter valid data!");

@@ -63,4 +63,11 @@ public class PersonServiceImpl implements PersonService {
         return personMapper.personToPersonDTO(person);
     }
 
+    @Override
+    public PersonDTO getLoggedPersonProfile(Person person) {
+        Person user = personRepository.findById(person.getId()).get();
+
+        return personMapper.personToPersonDTO(user);
+    }
+
 }
