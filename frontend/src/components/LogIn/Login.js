@@ -9,10 +9,19 @@ import {
   } from 'reactstrap';
 import axios from 'axios'
 
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css'
+
 const Login = () =>  {
     const [enteredEmail, setEnteredEmail] = useState('');
     const [enteredPassword, setEnteredPassword] = useState('');
     const [authority, setAuthority] = useState('');
+
+    const showToastMessage = () => {
+        toast.success('You have sussessufully logged in!', {
+            position: toast.POSITION.TOP_RIGHT
+        });
+    };
 
     const onSubmit = (event) => {
         event.preventDefault();
@@ -29,7 +38,7 @@ const Login = () =>  {
                     console.log(response.data.token);
                     
                     let token = localStorage.getItem('token').substring(1, localStorage.getItem('token').length-1);
-                    alert("You have successufully logged")
+                    showToastMessage()
                 })
                 .catch(response => {
                     alert("Please enter valid data!");
@@ -71,6 +80,9 @@ const Login = () =>  {
                     <Button color="success" onClick={onSubmit}>Submit</Button>
                 </div>
             </Form>
+            <div>
+            <ToastContainer />
+            </div>
         </div>
     );
 

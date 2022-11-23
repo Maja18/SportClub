@@ -9,6 +9,8 @@ import {
 import './Register.css';
 import axios from 'axios'
 import { useNavigate } from 'react-router-dom';
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css'
 
 const Register = () => {
     const [enteredName, setEnteredName] = useState('');
@@ -17,6 +19,12 @@ const Register = () => {
     const [enteredPassword, setEnteredPassword] = useState('');
     const [enteredRole, setEnteredRole] = useState('VIEWER');
     const navigateTo = useNavigate();
+
+    const showToastMessage = () => {
+        toast.success('You have sussessufully registered!', {
+            position: toast.POSITION.TOP_RIGHT
+        });
+    };
 
     const onSubmit = (event) => {
         event.preventDefault();
@@ -32,8 +40,8 @@ const Register = () => {
 
         axios.post('http://localhost:8080/api/auth/register', data)
                 .then(response => {
-                    alert("You have successufully registered")
-                    navigateTo('/profile')
+                    showToastMessage()
+                    //navigateTo('/profile')
                 })
                 .catch(response => {
                     alert("Please enter valid data!");
@@ -126,6 +134,9 @@ const Register = () => {
                     <Button color="success" onClick={onSubmit}>Submit</Button>
                 </div>
             </Form>
+            <div>
+            <ToastContainer />
+            </div>
         </div>
     );
 
