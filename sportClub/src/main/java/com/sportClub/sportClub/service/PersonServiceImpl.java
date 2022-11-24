@@ -53,7 +53,7 @@ public class PersonServiceImpl implements PersonService {
 
     @Override
     public PersonDTO editPersonInfo(PersonDTO personDTO) {
-        Person person = personRepository.findByEmailEquals(personDTO.getEmail());
+        Person person = personRepository.findById(personDTO.getId()).get();
         if (person != null){
             person.setFirstName(personDTO.getFirstName());
             person.setLastName(personDTO.getLastName());

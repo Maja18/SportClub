@@ -20,6 +20,7 @@ import java.util.List;
 @RequestMapping(value = "/api/person")
 @RequiredArgsConstructor
 @SecurityRequirement(name = "javainuseapi")
+@CrossOrigin(origins = "*", allowedHeaders = "*")
 public class PersonController {
 
     private final PersonServiceImpl personService;

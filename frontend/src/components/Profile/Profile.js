@@ -10,9 +10,11 @@ import {
 import './Profile.css';
 import { CgProfile } from 'react-icons/cg';
 import axios from 'axios';
+import { useNavigate } from "react-router-dom";
 
 const Profile = () => {
     const [user, setUser] = useState([]);
+    let navigate = useNavigate(); 
 
     useEffect(() => {
         let token = localStorage.getItem('token').substring(1, localStorage.getItem('token').length-1);
@@ -22,6 +24,7 @@ const Profile = () => {
             }
          }).then(response => {
             setUser({
+                id: response.data.id,
                 firstName: response.data.firstName,
                 lastName: response.data.lastName,
                 email: response.data.email,
@@ -30,13 +33,21 @@ const Profile = () => {
             })
 
             alert("Success")
-            console.log(user)
          }).catch(res => {
                 alert("Error");
                 console.log(res);
             });
 
     }, []);
+
+    const routeChange = () =>{ 
+        let path = `/editProfile`; 
+        navigate(path, {
+            state: {
+              userInfo: user
+            }
+        });
+    }
 
     return(
         <div className='Card'>
@@ -65,7 +76,7 @@ const Profile = () => {
                             Role: {user.role}
                         </Label>
                     </CardText>
-                    <Button color='info'>Edit</Button>
+                    <Button color='info' onClick={routeChange}>Edit</Button>
                 </CardBody>
             </Card>
         </div>

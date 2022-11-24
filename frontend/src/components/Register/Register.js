@@ -127,7 +127,7 @@ const Register = () => {
                         setEnteredRole(event.target.value)
                     }}
                     /> 
-                    <label class="label">VIEWER</label>
+                    <label>VIEWER</label>
                     </div>
                 </FormGroup>
                 <div class="button-container-div">
