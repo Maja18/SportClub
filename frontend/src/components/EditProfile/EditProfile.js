@@ -12,6 +12,7 @@ import {
 import { CgProfile } from 'react-icons/cg';
 import './EditProfile.css'
 import axios from 'axios'
+import { useNavigate } from "react-router-dom";
 
 const EditProfile = () => {
     const location = useLocation();
@@ -20,6 +21,7 @@ const EditProfile = () => {
     const [enteredEmail, setEnteredEmail] = useState(location.state.userInfo.email);
     const [enteredPassword, setEnteredPassword] = useState(location.state.userInfo.password);
     const [enteredRole, setEnteredRole] = useState(location.state.userInfo.role);
+    let navigateTo = useNavigate(); 
 
     const onSubmit = (event) => {
         event.preventDefault();
