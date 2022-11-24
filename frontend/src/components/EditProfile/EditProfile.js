@@ -21,6 +21,8 @@ const EditProfile = () => {
     const [enteredEmail, setEnteredEmail] = useState(location.state.userInfo.email);
     const [enteredPassword, setEnteredPassword] = useState(location.state.userInfo.password);
     const [enteredRole, setEnteredRole] = useState(location.state.userInfo.role);
+    const [currentEmail, setCurrentEmail] = useState(location.state.userInfo.email);
+    const [currentPassword, setCurrentPassword] = useState(location.state.userInfo.password);
     let navigateTo = useNavigate(); 
 
     const onSubmit = (event) => {
@@ -44,12 +46,29 @@ const EditProfile = () => {
                 .then(response => {
                     //showToastMessage()
                     alert("OK")
-                    navigateTo('/profile')
+                    if (currentEmail !== enteredEmail || currentPassword !== enteredPassword){
+                        navigateTo('/login')
+                    }
+                    else{
+                        navigateTo('/profile')
+                    }
                 })
                 .catch(response => {
                     alert("Please enter valid data!");
                     console.log(response);
                 });   
+    };
+
+    const handleEmailChange = (name, value) => {
+        setCurrentEmail((prev) => {
+            return { ...prev, [name]: value };
+        });
+    };
+
+    const handlePasswordChange = (name, value) => {
+        setCurrentEmail((prev) => {
+            return { ...prev, [name]: value };
+        });
     };
 
     return(
@@ -100,6 +119,7 @@ const EditProfile = () => {
                         value={enteredEmail}
                         onChange={event => {
                             setEnteredEmail(event.target.value)
+                            handleEmailChange("email", event.target.value)
                         }}
                         />
                         <Label>
@@ -113,6 +133,7 @@ const EditProfile = () => {
                         value={enteredPassword}
                         onChange={event => {
                             setEnteredPassword(event.target.value)
+                            handlePasswordChange("password", event.target.value)
                         }}
                         />
                         <Label>
