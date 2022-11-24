@@ -10,6 +10,7 @@ import Register from '../Register/Register'
 import Login from '../LogIn/Login';
 import Home from '../Home/Home';
 import Profile from '../Profile/Profile';
+import EditProfile from '../EditProfile/EditProfile'
 
 const NavBar = () => {
 
@@ -36,6 +37,7 @@ const NavBar = () => {
                 <Route path="/register" element={<Register/>} ></Route>
                 <Route path="/login" element={<Login/>}></Route>
                 <Route path="/profile" element={<Profile/>}></Route>
+                <Route path='/editProfile' element={<EditProfile/>}></Route>
             </Routes>
         </div>
     );
