@@ -18,6 +18,7 @@ import java.util.List;
 @RequestMapping(value = "/api/club")
 @RequiredArgsConstructor
 @SecurityRequirement(name = "javainuseapi")
+@CrossOrigin(origins = "*", allowedHeaders = "*")
 public class SportClubController {
 
     private final SportClubServiceImpl sportClubService;
@@ -64,6 +65,16 @@ public class SportClubController {
     @PreAuthorize("hasAuthority('ROLE_EDITOR')")
     public ResponseEntity<ClubDTO> removePlayerFromClub(@RequestBody ClubDTO clubDTO ) {
         ClubDTO club = sportClubService.removePlayerFromClub(clubDTO);
+
+        return club == null ?
+                new ResponseEntity<>(HttpStatus.NOT_FOUND) : ResponseEntity.ok(club);
+    }
+
+    @GetMapping("/{club-id}")
+    @PreAuthorize("hasAnyAuthority({'ROLE_EDITOR','ROLE_VIEWER'})")
+    ResponseEntity<ClubDTO> getClub(@PathVariable(name="club-id") Long clubId)
+    {
+        ClubDTO club = sportClubService.getClub(clubId);
 
         return club == null ?
                 new ResponseEntity<>(HttpStatus.NOT_FOUND) : ResponseEntity.ok(club);

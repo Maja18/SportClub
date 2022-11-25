@@ -85,4 +85,13 @@ public class SportClubServiceImpl implements SportClubService {
 
         return sportClubMapper.clubToClubDTO(sportClub);
     }
+
+    @Override
+    public ClubDTO getClub(Long id) {
+        SportClub club = sportClubRepository.findById(id).get();
+        if (club != null){
+            return sportClubMapper.clubToClubDTO(club);
+        }
+        return null;
+    }
 }

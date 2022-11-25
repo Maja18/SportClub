@@ -25,7 +25,6 @@ const SportClubs = () => {
             }
          }).then(response => {
                 setClubs(response.data);
-            alert("Success")
          }).catch(res => {
                 alert("Error");
                 console.log(res);
@@ -59,7 +58,7 @@ const SportClubs = () => {
                     <ListGroupItem>
                         {club.name}
                         <div className='Buttons'>
-                            <Link to={"/editClub"}>
+                            <Link to={{pathname: `/editClub/${club.id}`}}>
                                 <Badge style={{width:'60px', height:'20px'}} color="info" pill>Edit</Badge>
                             </Link>
                         </div>
