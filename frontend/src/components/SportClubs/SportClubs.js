@@ -3,13 +3,19 @@ import {
     Card,
     CardHeader,
     ListGroup,
-    ListGroupItem
+    ListGroupItem,
+    Badge,
+    Button
   } from 'reactstrap';
 import { FcSportsMode } from 'react-icons/fc';
 import axios from 'axios';
+import './SportClubs.css'
+import { Link } from 'react-router-dom';
+import { useNavigate } from "react-router-dom";
 
 const SportClubs = () => {
     const [clubs, setClubs] = useState([]);
+    let navigate = useNavigate(); 
 
     useEffect(() => {
         let token = localStorage.getItem('token').substring(1, localStorage.getItem('token').length-1);
@@ -27,6 +33,11 @@ const SportClubs = () => {
 
     }, []);
 
+    const addNewClub = () => {
+        let path = `/addNewClub`; 
+        navigate(path);
+    }
+
     return(
         <div className='Card'>
             <Card
@@ -37,10 +48,22 @@ const SportClubs = () => {
             <CardHeader>
             <FcSportsMode size={30}/>
                 <span style={{marginLeft:'10px'}}>Sport clubs</span>
+                <div style={{textAlign:'right', marginTop:'-30px'}}>
+                    <Button color="success" outline onClick={addNewClub}>
+                        Add
+                    </Button>
+                </div>
             </CardHeader>
             <ListGroup flush>
                 {clubs.map(club => 
-                    <ListGroupItem>{club.name}</ListGroupItem> 
+                    <ListGroupItem>
+                        {club.name}
+                        <div className='Buttons'>
+                            <Link to={"/editClub"}>
+                                <Badge style={{width:'60px', height:'20px'}} color="info" pill>Edit</Badge>
+                            </Link>
+                        </div>
+                    </ListGroupItem> 
                 )}
             </ListGroup>
             </Card>
