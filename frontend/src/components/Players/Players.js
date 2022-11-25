@@ -31,6 +31,25 @@ const Players = () => {
 
     }, []);
 
+    const deletePlayer = (event, playerId)  => {
+        event.preventDefault()
+
+        let token = localStorage.getItem('token').substring(1, localStorage.getItem('token').length-1);
+        axios.delete('http://localhost:8080/api/player/' + playerId,{ 
+             headers: {
+                'Authorization': 'Bearer ' + token,
+            }
+         }).then(response => {
+                window.location.reload(false);
+         }).catch(res => {
+                alert("Error");
+                console.log(res);
+            });
+        
+    
+        
+      };
+
     return(
         <div className='Card'>
             <Card
@@ -55,7 +74,7 @@ const Players = () => {
                             <Link>
                                 <Badge style={{width:'60px', height:'20px'}} color="info" pill>Edit</Badge>
                             </Link>
-                            <Link>
+                            <Link onClick={(e) => deletePlayer(e, player.id)}>
                                 <Badge style={{width:'60px', height:'20px', marginLeft:'10px'}} color="danger" pill>Delete</Badge>
                             </Link>
                         </div>

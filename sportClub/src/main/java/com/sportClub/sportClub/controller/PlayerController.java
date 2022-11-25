@@ -19,6 +19,7 @@ import java.util.List;
 @RequestMapping(value = "/api/player")
 @RequiredArgsConstructor
 @SecurityRequirement(name = "javainuseapi")
+@CrossOrigin(origins = "*", allowedHeaders = "*")
 public class PlayerController {
 
     private PersonServiceImpl personService;
