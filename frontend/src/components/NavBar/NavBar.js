@@ -14,6 +14,7 @@ import EditProfile from '../EditProfile/EditProfile'
 import SportClubs from '../SportClubs/SportClubs';
 import SportClub from '../AddSportClub/SportClub';
 import EditClub from '../EditSportClub/EditClub'
+import Players from '../Players/Players';
 
 const NavBar = () => {
 
@@ -29,6 +30,9 @@ const NavBar = () => {
                     </NavItem>
                     <NavItem>
                         <NavLink tag={Link} to="/sportClubs">SportClubs</NavLink>
+                    </NavItem>
+                    <NavItem>
+                        <NavLink tag={Link} to="/players">Players</NavLink>
                     </NavItem>
                     <NavItem>
                         <NavLink tag={Link} to="/login">Login</NavLink>
@@ -47,6 +51,7 @@ const NavBar = () => {
                 <Route path='/sportClubs' element={<SportClubs/>}></Route>
                 <Route path='/addNewClub' element={<SportClub/>}></Route>
                 <Route path='/editClub/:id' element={<EditClub/>}></Route>
+                <Route path='/players' element={<Players/>}></Route>
             </Routes>
         </div>
     );
