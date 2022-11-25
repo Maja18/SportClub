@@ -6,13 +6,18 @@ import com.sportClub.sportClub.model.Person;
 import com.sportClub.sportClub.model.Player;
 import com.sportClub.sportClub.service.PersonServiceImpl;
 import com.sportClub.sportClub.service.PlayerServiceImpl;
+import com.sportClub.sportClub.utils.MediaUpload;
 import io.swagger.v3.oas.annotations.security.SecurityRequirement;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
+import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
+import org.springframework.util.StringUtils;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartFile;
 
+import java.io.IOException;
 import java.util.List;
 
 @RestController
@@ -20,10 +25,9 @@ import java.util.List;
 @RequiredArgsConstructor
 @SecurityRequirement(name = "javainuseapi")
 public class PlayerController {
-
-    private PersonServiceImpl personService;
-
     private final PlayerServiceImpl playerService;
+
+    private static String uploadDir = "user-photos";
 
     @GetMapping("/{player-id}")
     @PreAuthorize("hasAnyAuthority({'ROLE_EDITOR','ROLE_VIEWER'})")
@@ -79,6 +83,15 @@ public class PlayerController {
 
         return players == null ?
                 new ResponseEntity<>(HttpStatus.NOT_FOUND) : ResponseEntity.ok(players);
+    }
+
+    @PostMapping(value="/saveImage", consumes = MediaType.MULTIPART_FORM_DATA_VALUE)
+    @PreAuthorize("hasAuthority('ROLE_EDITOR')")
+    public String saveImageForRequest(@RequestParam("file") MultipartFile multipartFile ) throws IOException {
+
+        String fileName = StringUtils.cleanPath(multipartFile.getOriginalFilename().replaceAll("\\s", ""));
+        MediaUpload.saveFile(uploadDir, fileName, multipartFile);
+        return fileName;
     }
 
 }
