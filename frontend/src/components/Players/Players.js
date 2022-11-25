@@ -31,6 +31,11 @@ const Players = () => {
 
     }, []);
 
+    const addNewPlayer = () => {
+        let path = `/addNewPlayer`; 
+        navigate(path);
+    }
+
     return(
         <div className='Card'>
             <Card
@@ -42,7 +47,7 @@ const Players = () => {
             <MdOutlineSportsKabaddi size={25}/>
                 <span style={{marginLeft:'10px'}}>Players</span>
                 <div style={{textAlign:'right', marginTop:'-30px'}}>
-                    <Button color="success" outline >
+                    <Button color="success" outline onClick={addNewPlayer} >
                         Add
                     </Button>
                 </div>
