@@ -82,4 +82,13 @@ public class PlayerController {
                 new ResponseEntity<>(HttpStatus.NOT_FOUND) : ResponseEntity.ok(players);
     }
 
+    @GetMapping("noClubPlayers")
+    @PreAuthorize("hasAuthority('ROLE_EDITOR')")
+    public ResponseEntity<List<PlayerDTO>> getAllPlayersWithoutClub() {
+        List<PlayerDTO> players = playerService.getAllPlayersWithoutClub();
+
+        return players == null ?
+                new ResponseEntity<>(HttpStatus.NOT_FOUND) : ResponseEntity.ok(players);
+    }
+
 }

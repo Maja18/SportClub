@@ -14,6 +14,7 @@ import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.stream.Collectors;
 
 @Service
 @RequiredArgsConstructor
@@ -82,4 +83,22 @@ public class PlayerServiceImpl implements PlayerService {
         return playerMapper.playersToPlayerDTOs(clubPlayers);
     }
 
+    @Override
+    public List<PlayerDTO> getAllPlayersWithoutClub() {
+        List<Player> allPlayers = playerRepository.findAll();
+        List<SportClub> sportClubs = sportClubRepository.findAll();
+        List<Player> playersInClubs = new ArrayList<>();
+        sportClubs.stream().forEach(sportClub -> {
+            List<Player> clubPlayers = sportClub.getPlayers();
+            clubPlayers.forEach(player -> {
+                playersInClubs.add(player);
+            });
+        });
+
+        List<Player> playersWithoutClub = allPlayers.stream().filter(player -> playersInClubs.stream()
+                        .noneMatch(p -> p.getId().equals(player.getId())))
+                .collect(Collectors.toList());
+
+        return playerMapper.playersToPlayerDTOs(playersWithoutClub);
+    }
 }
