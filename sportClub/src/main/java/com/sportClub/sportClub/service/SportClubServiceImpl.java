@@ -12,6 +12,7 @@ import com.sportClub.sportClub.service.interface_service.SportClubService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
 import java.util.List;
 
 @Service
@@ -72,14 +73,15 @@ public class SportClubServiceImpl implements SportClubService {
     public ClubDTO removePlayerFromClub(ClubDTO clubDTO) {
         SportClub sportClub = sportClubRepository.findById(clubDTO.getId()).get();
         if (sportClub != null){
-            List<Player> clubPlayers = sportClub.getPlayers();
-            for (Player player: clubPlayers){
+            List<Player> clubPlayers = new ArrayList<>();
+            for (Player player: sportClub.getPlayers()){
                 for (PlayerDTO playerDTO: clubDTO.getPlayers()){
                     if (player.getId().equals(playerDTO.getId())){
-                        clubPlayers.remove(player);
+                        clubPlayers.add(player);
                     }
                 }
             }
+            sportClub.setPlayers(clubPlayers);
             sportClubRepository.save(sportClub);
         }
 
