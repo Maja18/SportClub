@@ -59,7 +59,10 @@ const SportClubs = () => {
                         {club.name}
                         <div className='Buttons'>
                             <Link to={{pathname: `/editClub/${club.id}`}}>
-                                <Badge style={{width:'60px', height:'20px'}} color="info" pill>Edit</Badge>
+                                <Badge style={{width:'80px', height:'20px'}} color="info" pill>Edit</Badge>
+                            </Link>
+                            <Link to={{pathname: `/sportClubs/players/${club.id}`}}>
+                                <Badge style={{width:'80px', height:'20px', marginLeft:'10px'}} color="info" pill>See players</Badge>
                             </Link>
                         </div>
                     </ListGroupItem> 

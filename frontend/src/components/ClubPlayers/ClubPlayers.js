@@ -7,23 +7,24 @@ import {
     Badge,
     Button
   } from 'reactstrap';
-import { Link } from 'react-router-dom';
-import { useNavigate } from "react-router-dom";
-import axios from 'axios'; 
-import { MdOutlineSportsKabaddi } from 'react-icons/md';
+  import {useParams} from 'react-router-dom';
+  import axios from 'axios';
+  import { Link } from 'react-router-dom';
+  import { MdOutlineSportsKabaddi } from 'react-icons/md';
 
-const Players = () => {
-    const [players, setPlayers] = useState([]);
-    let navigate = useNavigate(); 
+  const ClubPlayers = () => {
+    const [clubPlayers, setClubPlayers] = useState([]);
+    const [club, setClub] = useState('')
+    const params = useParams();
 
     useEffect(() => {
         let token = localStorage.getItem('token').substring(1, localStorage.getItem('token').length-1);
-        axios.get('http://localhost:8080/api/player',{ 
+        axios.get('http://localhost:8080/api/player/players/' + params.id,{ 
              headers: {
                 'Authorization': 'Bearer ' + token,
             }
          }).then(response => {
-                setPlayers(response.data);
+                setClubPlayers(response.data);
          }).catch(res => {
                 alert("Error");
                 console.log(res);
@@ -31,21 +32,20 @@ const Players = () => {
 
     }, []);
 
-    const deletePlayer = (event, playerId)  => {
-        event.preventDefault()
-
+    useEffect(() => {
         let token = localStorage.getItem('token').substring(1, localStorage.getItem('token').length-1);
-        axios.delete('http://localhost:8080/api/player/' + playerId,{ 
+        axios.get('http://localhost:8080/api/club/' + params.id,{ 
              headers: {
                 'Authorization': 'Bearer ' + token,
             }
          }).then(response => {
-                window.location.reload(false);
+                setClub(response.data);
          }).catch(res => {
                 alert("Error");
                 console.log(res);
             });
-      };
+
+    }, []);
 
     return(
         <div className='Card'>
@@ -56,7 +56,7 @@ const Players = () => {
             >
             <CardHeader>
             <MdOutlineSportsKabaddi size={25}/>
-                <span style={{marginLeft:'10px'}}>Players</span>
+                <span style={{marginLeft:'10px'}}>{club.name} players</span>
                 <div style={{textAlign:'right', marginTop:'-30px'}}>
                     <Button color="success" outline >
                         Add
@@ -64,15 +64,12 @@ const Players = () => {
                 </div>
             </CardHeader>
             <ListGroup flush>
-                {players.map(player => 
+                {clubPlayers.map(player => 
                     <ListGroupItem>
                         {player.playerName}
                         <div className='Buttons'>
-                            <Link>
-                                <Badge style={{width:'60px', height:'20px'}} color="info" pill>Edit</Badge>
-                            </Link>
-                            <Link onClick={(e) => deletePlayer(e, player.id)}>
-                                <Badge style={{width:'60px', height:'20px', marginLeft:'10px'}} color="danger" pill>Delete</Badge>
+                            <Link >
+                                <Badge style={{width:'60px', height:'20px'}} color="danger" pill>Remove</Badge>
                             </Link>
                         </div>
                     </ListGroupItem> 
@@ -80,8 +77,8 @@ const Players = () => {
             </ListGroup>
             </Card>
         </div>
-    )
 
-};
+    );
+  };
 
-export default Players;
+export default ClubPlayers;
