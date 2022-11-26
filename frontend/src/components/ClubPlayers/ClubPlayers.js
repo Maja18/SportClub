@@ -11,11 +11,13 @@ import {
   import axios from 'axios';
   import { Link } from 'react-router-dom';
   import { MdOutlineSportsKabaddi } from 'react-icons/md';
+  import { useNavigate } from "react-router-dom";
 
   const ClubPlayers = () => {
     const [clubPlayers, setClubPlayers] = useState([]);
     const [club, setClub] = useState('')
     const params = useParams();
+    let navigate = useNavigate(); 
 
     useEffect(() => {
         let token = localStorage.getItem('token').substring(1, localStorage.getItem('token').length-1);
@@ -47,6 +49,12 @@ import {
 
     }, []);
 
+    const addNewPlayer = (id) => {
+        navigate({
+            pathname: `/sportClubs/addNewPlayer/${club.id}`
+        });
+    }
+
     return(
         <div className='Card'>
             <Card
@@ -58,7 +66,7 @@ import {
             <MdOutlineSportsKabaddi size={25}/>
                 <span style={{marginLeft:'10px'}}>{club.name} players</span>
                 <div style={{textAlign:'right', marginTop:'-30px'}}>
-                    <Button color="success" outline >
+                    <Button color="success" outline onClick={addNewPlayer}>
                         Add
                     </Button>
                 </div>
