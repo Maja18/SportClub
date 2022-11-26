@@ -15,6 +15,7 @@ import SportClubs from '../SportClubs/SportClubs';
 import SportClub from '../AddSportClub/SportClub';
 import EditClub from '../EditSportClub/EditClub'
 import Players from '../Players/Players';
+import ClubPlayers from '../ClubPlayers/ClubPlayers';
 
 const NavBar = () => {
 
@@ -52,6 +53,7 @@ const NavBar = () => {
                 <Route path='/addNewClub' element={<SportClub/>}></Route>
                 <Route path='/editClub/:id' element={<EditClub/>}></Route>
                 <Route path='/players' element={<Players/>}></Route>
+                <Route path='/sportClubs/players/:id' element={<ClubPlayers/>}></Route>
             </Routes>
         </div>
     );
