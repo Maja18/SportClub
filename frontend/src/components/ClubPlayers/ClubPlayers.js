@@ -146,8 +146,10 @@ import {
             </CardHeader>
             <ListGroup flush>
                 {clubPlayers.map(player => 
-                    <ListGroupItem>
-                        {player.playerName}
+                    <ListGroupItem> 
+                        <Link to={{pathname: `/sportClubs/playersInfo/${player.id}`}}>
+                            {player.playerName}
+                        </Link>
                         <div className='Buttons'> 
                             <Link onClick={() => toggle(player.id)}>
                                 <Badge style={{width:'60px', height:'20px'}} color="danger" pill>Remove</Badge>

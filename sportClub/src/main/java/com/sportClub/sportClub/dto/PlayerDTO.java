@@ -16,4 +16,5 @@ public class PlayerDTO {
     private String image;
     private Integer salary;
     private List<SkillSTO> playerSkills;
+    private ImageDTO imageDTO;
 }
