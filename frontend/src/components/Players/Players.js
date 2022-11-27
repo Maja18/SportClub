@@ -5,16 +5,24 @@ import {
     ListGroup,
     ListGroupItem,
     Badge,
-    Button
+    Button,
+    Modal,
+    ModalBody,
+    ModalFooter,
+    ModalHeader
   } from 'reactstrap';
 import { Link } from 'react-router-dom';
 import { useNavigate } from "react-router-dom";
 import axios from 'axios'; 
-import { MdOutlineSportsKabaddi } from 'react-icons/md';
+import { MdOutlineSportsKabaddi } from 'react-icons/md'; 
+import { BsTrash } from 'react-icons/bs';
 
 const Players = () => {
     const [players, setPlayers] = useState([]);
     let navigate = useNavigate(); 
+    // Modal open state
+    const [modal, setModal] = useState(false);
+    const [playerId, setPlayerId] = useState();
 
     useEffect(() => {
         let token = localStorage.getItem('token').substring(1, localStorage.getItem('token').length-1);
@@ -30,6 +38,12 @@ const Players = () => {
             });
 
     }, []);
+
+    // Toggle for Modal
+    const toggle = (playerId) => {
+        setModal(!modal);
+        setPlayerId(playerId)
+    } 
 
     const deletePlayer = (event, playerId)  => {
         event.preventDefault()
@@ -71,7 +85,7 @@ const Players = () => {
                             <Link>
                                 <Badge style={{width:'60px', height:'20px'}} color="info" pill>Edit</Badge>
                             </Link>
-                            <Link onClick={(e) => deletePlayer(e, player.id)}>
+                            <Link onClick={() => toggle(player.id)}>
                                 <Badge style={{width:'60px', height:'20px', marginLeft:'10px'}} color="danger" pill>Delete</Badge>
                             </Link>
                         </div>
@@ -79,6 +93,22 @@ const Players = () => {
                 )}
             </ListGroup>
             </Card>
+            {/* Modal */}
+            <div>
+            <Modal isOpen={modal}
+                toggle={toggle}>
+                <ModalHeader toggle={toggle}>
+                <BsTrash></BsTrash>
+                    <span style={{marginLeft:'10px'}}>Are you sure?</span>
+                </ModalHeader>
+                <ModalBody>
+                    This player will be deleted.
+                </ModalBody>
+                <ModalFooter> 
+                    <Button color="danger" onClick={(e) => { toggle(); deletePlayer(e, playerId);}} >Okay</Button>
+                </ModalFooter>
+            </Modal>
+            </div>
         </div>
     )
 
