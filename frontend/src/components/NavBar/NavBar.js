@@ -19,6 +19,7 @@ import ClubPlayers from '../ClubPlayers/ClubPlayers';
 import ClubPlayer from '../AddClubPlayer/ClubPlayer';
 import PlayerInfo from '../PlayerInfo/PlayerInfo';
 import Player from '../AddPlayer/Player';
+import EditPlayer from '../EditPlayer/EditPlayer';
 
 const NavBar = () => {
 
@@ -60,6 +61,7 @@ const NavBar = () => {
                 <Route path='/sportClubs/addNewPlayer/:id' element={<ClubPlayer/>}></Route>
                 <Route path='/sportClubs/playersInfo/:id' element={<PlayerInfo/>}></Route>
                 <Route path='/addNewPlayer' element={<Player/>}></Route>
+                <Route path='/editPlayer/:id' element={<EditPlayer/>}></Route>
             </Routes>
         </div>
     );

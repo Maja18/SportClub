@@ -15,5 +15,6 @@ import java.util.List;
 public interface SkillMapper {
     SkillMapper INSTANCE = Mappers.getMapper(SkillMapper.class);
     List<Skill> skillsDTOToSkills(List<SkillSTO> skillDTOList);
+    List<SkillSTO> skillsToSkillDTOs(List<Skill> skills);
 }
 
