@@ -60,6 +60,10 @@ const Players = () => {
                 console.log(res);
             });
       };
+    const addNewPlayer = () => {
+        let path = `/addNewPlayer`; 
+        navigate(path);
+    }
 
     return(
         <div className='Card'>
@@ -72,7 +76,7 @@ const Players = () => {
             <MdOutlineSportsKabaddi size={25}/>
                 <span style={{marginLeft:'10px'}}>Players</span>
                 <div style={{textAlign:'right', marginTop:'-30px'}}>
-                    <Button color="success" outline >
+                    <Button color="success" outline onClick={addNewPlayer} >
                         Add
                     </Button>
                 </div>
@@ -80,7 +84,9 @@ const Players = () => {
             <ListGroup flush>
                 {players.map(player => 
                     <ListGroupItem>
-                        {player.playerName}
+                        <Link to={{pathname: `/sportClubs/playersInfo/${player.id}`}}>
+                            {player.playerName}
+                        </Link>
                         <div className='Buttons'>
                             <Link>
                                 <Badge style={{width:'60px', height:'20px'}} color="info" pill>Edit</Badge>

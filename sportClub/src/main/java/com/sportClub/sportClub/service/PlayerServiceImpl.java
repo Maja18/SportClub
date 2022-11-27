@@ -1,5 +1,6 @@
 package com.sportClub.sportClub.service;
 
+import com.sportClub.sportClub.dto.ImageDTO;
 import com.sportClub.sportClub.dto.PlayerDTO;
 import com.sportClub.sportClub.mappers.PlayerMapper;
 import com.sportClub.sportClub.mappers.SkillMapper;
@@ -12,9 +13,13 @@ import com.sportClub.sportClub.service.interface_service.PlayerService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
+import org.apache.commons.io.IOUtils;
 
 @Service
 @RequiredArgsConstructor
@@ -27,13 +32,39 @@ public class PlayerServiceImpl implements PlayerService {
 
     private final SportClubRepository sportClubRepository;
 
+    private  String uploadDir = "user-photos";
+
     @Override
     public PlayerDTO getPlayerInfo(Long id) {
         Player player = playerRepository.findById(id).get();
         if (player != null){
-            return playerMapper.playerToPlayerDTO(player);
+            return getPlayerImageFile(playerMapper.playerToPlayerDTO(player));
         }
          return null;
+    }
+
+    public PlayerDTO getPlayerImageFile(PlayerDTO playerDTO) {
+        String filePath = new File("").getAbsolutePath();
+        filePath = filePath.concat("/" + uploadDir + "/");
+        String fileName = null;
+        if (playerDTO.getImage() != null) {
+            fileName = playerDTO.getImage();
+        }
+            ImageDTO imageDTO = new ImageDTO();
+            List<byte[]> bytes = new ArrayList<>();
+            imageDTO.setImageBytes(bytes);
+            File in = new File(filePath + "/"+ fileName);
+            try {
+                bytes.add(IOUtils.toByteArray(new FileInputStream(in)));
+                imageDTO.setImageBytes(bytes);
+            } catch (IOException e) {
+                e.printStackTrace();
+            }catch(NullPointerException n) {
+                n.printStackTrace();
+            }
+
+        playerDTO.setImageDTO(imageDTO);
+        return playerDTO;
     }
 
     @Override
