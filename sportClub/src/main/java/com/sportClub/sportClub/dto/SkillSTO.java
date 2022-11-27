@@ -8,6 +8,7 @@ import lombok.Setter;
 @Setter
 @RequiredArgsConstructor
 public class SkillSTO {
+    private Long id;
     private String name;
     private String description;
 }

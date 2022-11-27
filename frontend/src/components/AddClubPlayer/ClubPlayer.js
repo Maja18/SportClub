@@ -20,11 +20,12 @@ const ClubPlayer = () => {
     const [dropdownOpen, setDropdownOpen] = useState(false);
     const [club, setClub] = useState('')
     const [players, setPlayers] = useState([]);
-    const toggle = () => setDropdownOpen((prevState) => !prevState);
     const params = useParams();
     const [value,setValue] = useState('Select player');
     const [player, setPlayer] = useState();
     const navigateTo = useNavigate();
+
+    const toggle = () => setDropdownOpen((prevState) => !prevState);
 
     const showToastMessage = () => {
         toast.success('You have sussessufully added player to club!', {

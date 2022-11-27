@@ -7,20 +7,18 @@ import {
     CardHeader,
     ListGroupItem,
     Label,
-    ListGroup
+    ListGroup,
+    Button
   } from 'reactstrap';
   import { MdOutlineSportsKabaddi } from 'react-icons/md';
+  import { useNavigate } from "react-router-dom";
 
 const PlayerInfo = () => {
     const params = useParams();
     const [player, setPlayer] = useState('')
     const [imageBytes, setImageBytes] = useState()
     const [playerSkills, setPlayerSkills] = useState([])
-    const firstTimeRender = useRef(true);
-
-    useEffect(() => { 
-        firstTimeRender.current = false 
-      }, [])
+    let navigate = useNavigate(); 
 
     useEffect(() => {
         let token = localStorage.getItem('token').substring(1, localStorage.getItem('token').length-1);
@@ -39,6 +37,11 @@ const PlayerInfo = () => {
 
     }, []);
 
+    const editPlayer = () => {
+        let path = `/editPlayer/${player.id}`; 
+        navigate(path);
+    }
+
 
     return(
         <div className='Card'>
@@ -48,6 +51,11 @@ const PlayerInfo = () => {
                 <CardHeader tag="h5" style={{backgroundColor: '#f1f1f1'}}>
                 <MdOutlineSportsKabaddi size={25}/>
                 <span style={{marginLeft:'10px'}}>{player.playerName}</span>
+                <div style={{textAlign:'right', marginTop:'-30px'}}>
+                    <Button color="success" outline onClick={editPlayer}  >
+                        Edit
+                    </Button>
+                </div>
                 </CardHeader>
                 <CardBody>
                     <Card style={{width:'100px', height:'100px'}}>
