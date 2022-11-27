@@ -5,13 +5,18 @@ import {
     ListGroup,
     ListGroupItem,
     Badge,
-    Button
+    Button,
+    Modal,
+    ModalBody,
+    ModalFooter,
+    ModalHeader
   } from 'reactstrap';
   import {useParams} from 'react-router-dom';
   import axios from 'axios';
   import { Link } from 'react-router-dom';
   import { MdOutlineSportsKabaddi } from 'react-icons/md';
   import { useNavigate } from "react-router-dom";
+  import { BsTrash } from 'react-icons/bs';
 
   const ClubPlayers = () => {
     const [clubPlayers, setClubPlayers] = useState([]);
@@ -21,6 +26,9 @@ import {
     const [player, setPlayer] = useState();
     const firstTimeRender = useRef(true);
     const [playersOfClub,setPlayersOfClub] = useState([])
+    // Modal open state
+    const [modal, setModal] = useState(false);
+    const [playerId, setPlayerId] = useState();
 
     useEffect(() => {
         let token = localStorage.getItem('token').substring(1, localStorage.getItem('token').length-1);
@@ -51,6 +59,12 @@ import {
             });
 
     }, []);
+
+    // Toggle for Modal
+    const toggle = (playerId) => {
+        setModal(!modal);
+        setPlayerId(playerId)
+    } 
 
     const addNewPlayer = (id) => {
         navigate({
@@ -134,8 +148,8 @@ import {
                 {clubPlayers.map(player => 
                     <ListGroupItem>
                         {player.playerName}
-                        <div className='Buttons'>
-                            <Link onClick={(e) => removePlayer(e, player.id)}>
+                        <div className='Buttons'> 
+                            <Link onClick={() => toggle(player.id)}>
                                 <Badge style={{width:'60px', height:'20px'}} color="danger" pill>Remove</Badge>
                             </Link>
                         </div>
@@ -143,8 +157,23 @@ import {
                 )}
             </ListGroup>
             </Card>
+            {/* Modal */}
+            <div>
+            <Modal isOpen={modal}
+                toggle={toggle}>
+                <ModalHeader toggle={toggle}>
+                <BsTrash></BsTrash>
+                    <span style={{marginLeft:'10px'}}>Are you sure?</span>
+                </ModalHeader>
+                <ModalBody>
+                    This player will be removed from club.
+                </ModalBody>
+                <ModalFooter> 
+                    <Button color="danger" onClick={(e) => { toggle(); removePlayer(e, playerId);}} >Okay</Button>
+                </ModalFooter>
+            </Modal>
+            </div>
         </div>
-
     );
   };
 
