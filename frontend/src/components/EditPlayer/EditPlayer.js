@@ -36,7 +36,8 @@ const EditPlayer = () => {
     const [addSkills, setAddSkills] = useState(false)
     const [dropdownSkills, setDropdonSkills] = useState([])
     const [isRemoved, setIsRemoved] = useState(false)
-
+    const [isPictureChanged, setIsPictureChanged] = useState(false)
+    const navigateTo = useNavigate();
 
     const toggle = () => setDropdownOpen((prevState) => !prevState);
 
@@ -76,7 +77,6 @@ const EditPlayer = () => {
 
     const handleSelect=(event, skill)=>{
         setValue(event.target.value)
-        //dodaj u playerSkills
         playerSkills.push(skill)
         setPlayerSkills(playerSkills)
         setAddSkills(false)
@@ -95,6 +95,7 @@ const EditPlayer = () => {
             setCurrentFile(undefined);
           });
           setSelectedFiles(undefined);
+          setIsPictureChanged(true)
     };
 
     const upload = (file) => {
@@ -139,12 +140,24 @@ const EditPlayer = () => {
     }
 
     const editPlayer = () => {
-        const data = {
-            id: player.id,
-            playerName: enteredName,
-            image: player.image,
-            salary: enteredSalary,
-            playerSkills: playerSkills
+        var data = {}
+        if (!isPictureChanged){
+            data = {
+                id: player.id,
+                playerName: enteredName,
+                image: player.image,
+                salary: enteredSalary,
+                playerSkills: playerSkills
+            } 
+        }else{
+            data = {
+                id: player.id,
+                playerName: enteredName,
+                image: fileName,
+                salary: enteredSalary,
+                playerSkills: playerSkills
+            }
+
         }
 
         let token = localStorage.getItem('token').substring(1, localStorage.getItem('token').length-1);
@@ -154,9 +167,8 @@ const EditPlayer = () => {
             }
         })
             .then(response => {
-                //showToastMessage()
-                alert('ok')
-                ///navigateTo('/sportClubs')
+                //showToastMessage(); 
+                navigateTo(`/sportClubs/playersInfo/${player.id}`)
             })
             .catch(response => {
                 alert("Please enter valid data!");
