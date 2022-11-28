@@ -189,8 +189,9 @@ const EditPlayer = () => {
         }
         }
         if (!isFormValid) {
-        setShowError(true)
-        } else {
+            setShowError(true)
+            } 
+        else {
             //Logic to submit the form to backend
             var data = {}
                 if (!isPictureChanged){
@@ -226,13 +227,13 @@ const EditPlayer = () => {
                     alert("Please enter valid data!");
                     console.log(response);
                 }); 
-    }
+            }
+            // Hide the error message after 5 seconds
+            setTimeout(() => {
+                setShowError(false)
+            }, 5000)
+            }
 
-    // Hide the error message after 5 seconds
-    setTimeout(() => {
-      setShowError(false)
-    }, 5000)
-    }
 
     return(
         <div className='Card'>
