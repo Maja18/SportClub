@@ -1,4 +1,4 @@
-import React, {useState, useEffect} from 'react'; 
+import React, {useState, useEffect, useReducer} from 'react'; 
 import axios from 'axios';
 import {useParams} from 'react-router-dom';
 import {
@@ -12,12 +12,36 @@ import {
 } from 'reactstrap';
 import { FcSportsMode } from 'react-icons/fc';
 import { useNavigate } from "react-router-dom";
+import { UPDATE_FORM, onInputChange, onFocusOut, validateInput } from '../../lib/formUtils'
+
+    const formsReducer = (state, action) => {
+        switch (action.type) {
+          case UPDATE_FORM:
+            const { name, value, hasError, error, touched, isFormValid } = action.data
+            
+            return {
+              ...state,
+              [name]: { ...state, value, hasError, error, touched },
+              isFormValid,
+            }
+          case 'INITIALIZE_STATE': 
+            return action.payload;
+          default:
+            return state
+        }
+    }
+
+    const initialState = {
+        name: { value: "", touched: false, hasError: true, error: "" },
+        isFormValid: false,
+    }
 
 const EditClub = () => {
     const [club, setClub] = useState([]);
     const [enteredName, setEnteredName] = useState('');
     const params = useParams();
     let navigateTo = useNavigate();
+    const [formState, dispatch] = useReducer(formsReducer, initialState)
     
     useEffect(() => {
         let token = localStorage.getItem('token').substring(1, localStorage.getItem('token').length-1);
@@ -31,6 +55,13 @@ const EditClub = () => {
                 name: response.data.name
             })
             setEnteredName(response.data.name)
+            dispatch({
+                type: 'INITIALIZE_STATE',
+                payload: {
+                    ...initialState,
+                    name: { value: response.data.name, touched: false, hasError: true, error: "" },
+                }
+                })
          }).catch(res => {
                 alert("Error");
                 console.log(res);
@@ -80,11 +111,20 @@ const EditClub = () => {
                         name="name"
                         id="exampleName"
                         placeholder="Name"
-                        value={enteredName}
-                        onChange={event => {
-                            setEnteredName(event.target.value)
+                        value={formState.name.value}
+                        onChange={e => {
+                            onInputChange("name", e.target.value, dispatch, formState)
+                            setEnteredName(e.target.value)
+                        }}
+                        onBlur={e => {
+                            onFocusOut("name", e.target.value, dispatch, formState)
                         }}
                         />
+                        {formState.name.touched && formState.name.hasError && (
+                            <div className="error">
+                                {formState.name.error}
+                            </div>
+                        )}
                     </CardText>
                     <div class="button-container-div">
                         <Button style={{marginTop:'30px', width:'100px'}} color="success" onClick={editClub} >Edit</Button>
