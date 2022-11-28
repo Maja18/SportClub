@@ -74,7 +74,7 @@ export const validateInput = (name, value) => {
               error = ""
             }
             break
-            case "email":
+        case "email":
                 if (value.trim() === "") {
                   hasError = true
                   error = "Email can't be empty"
@@ -86,18 +86,31 @@ export const validateInput = (name, value) => {
                   error = ""
                 }
                 break
-            case "password":
-                if (value.trim() === "") {
+        case "salary":
+                if (value.toString().trim() === "") {
                     hasError = true
-                    error = "Password cannot be empty"
-                  } else if (value.trim().length < 8) {
+                    error = "Salary cannot be empty"
+                  } 
+                  else if (!/^[+]?\d+([.]\d+)?$/.test(value)) {
                     hasError = true
-                    error = "Password must have at least 8 characters"
+                    error = "Invalid salary"
                   } else {
                     hasError = false
                     error = ""
                   }
                     break
+        case "password":
+                      if (value.trim() === "") {
+                          hasError = true
+                          error = "Password cannot be empty"
+                        } else if (value.trim().length < 8) {
+                          hasError = true
+                          error = "Password must have at least 8 characters"
+                        } else {
+                          hasError = false
+                          error = ""
+                        }
+                          break
         default:
             break
     }
