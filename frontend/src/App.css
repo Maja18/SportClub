@@ -2,3 +2,8 @@
   text-align: center;
 }
 
+/*...*/
+.error {
+  margin-top: 0.25rem;
+  color: #f65157;
+}

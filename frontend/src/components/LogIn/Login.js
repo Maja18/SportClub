@@ -15,8 +15,7 @@ import 'react-toastify/dist/ReactToastify.css'
 const Login = () =>  {
     const [enteredEmail, setEnteredEmail] = useState('');
     const [enteredPassword, setEnteredPassword] = useState('');
-    const [authority, setAuthority] = useState('');
-    const navigateTo = useNavigate();
+    const navigateTo = useNavigate(); 
 
     const showToastMessage = () => {
         toast.success('You have sussessufully logged in!', {
@@ -26,6 +25,7 @@ const Login = () =>  {
 
     const onSubmit = (event) => {
         event.preventDefault();
+
         localStorage.removeItem('token');
 
         const data = {
@@ -51,16 +51,17 @@ const Login = () =>  {
     return(
         <div className="Login">
             <h2 class="h2">LogIn</h2>
-            <Form>
-                <FormGroup>
+            <Form onSubmit={onSubmit}>
+                <FormGroup >
                     <Label for="exampleEmail">Email</Label>
                     <Input
                     type="email"
                     name="email"
                     id="exampleEmail"
                     placeholder="example@example.com"
+                    required={true}
                     value={enteredEmail}
-                    onChange={event => {
+                    onChange={(event) => {
                         setEnteredEmail(event.target.value);
                       }}
                     />
@@ -72,6 +73,7 @@ const Login = () =>  {
                     name="password"
                     id="examplePassword"
                     placeholder="********"
+                    required={true}
                     value={enteredPassword}
                     onChange={event => {
                         setEnteredPassword(event.target.value)
@@ -79,7 +81,7 @@ const Login = () =>  {
                     />
                 </FormGroup>
                 <div class="button-container-div">
-                    <Button color="success" onClick={onSubmit}>Submit</Button>
+                    <Button color="success">Submit</Button>
                 </div>
             </Form>
             <div>
