@@ -1,4 +1,4 @@
-import React, {useState} from 'react'; 
+import React, {useState, useEffect} from 'react'; 
 import {
     Button,
     Card,
@@ -9,7 +9,8 @@ import {
   } from 'reactstrap';
   import axios from 'axios'
   import { useNavigate } from 'react-router-dom';
-  import { MdOutlineSportsKabaddi } from 'react-icons/md';
+  import { MdOutlineSportsKabaddi, MdSkipNext } from 'react-icons/md';
+  import Multiselect from 'multiselect-react-dropdown';
 
 const Player = () => {
     const [enteredName, setEnteredName] = useState('');
@@ -17,13 +18,31 @@ const Player = () => {
     const [fileName, setFileName] = useState('');
     const [selectedFiles, setSelectedFiles] = useState(undefined);
     const [currentFile, setCurrentFile] = useState(undefined);
+    const [skills, setSkills] = useState([])
+    const [playerSkills, setPlayerSkills] = useState([])
     const navigateTo = useNavigate();
+
+    useEffect(() => {
+        let token = localStorage.getItem('token').substring(1, localStorage.getItem('token').length-1);
+        axios.get('http://localhost:8080/api/skill',{ 
+             headers: {
+                'Authorization': 'Bearer ' + token,
+            }
+         }).then(response => {
+                setSkills(response.data)
+         }).catch(res => {
+                alert("Error");
+                console.log(res);
+            });
+
+    }, []);
 
     const addPlayer = () => {
         const data = {
             playerName: enteredName,
             salary: enteredSalary,
-            image: fileName
+            image: fileName,
+            playerSkills: playerSkills
         }
 
         let token = localStorage.getItem('token').substring(1, localStorage.getItem('token').length-1);
@@ -77,6 +96,11 @@ const Player = () => {
         });  
     };
 
+    const onSelect = (event) => {
+        setPlayerSkills(event)
+
+    }
+
     return(
         <div className='Card'>
             <Card style={{
@@ -120,6 +144,17 @@ const Player = () => {
                         disabled={!selectedFiles}
                         onClick={uploadImage}> Upload
                     </Button>
+
+                    {/* Dropdown */}
+                    <div style={{marginTop:'30px'}}>   
+                        <Multiselect
+                        placeholder='Select skills'
+                        options={skills} 
+                        selectedValues={this.selectedValue} 
+                        onSelect={(event) => onSelect(event)} 
+                        displayValue="name"
+                        />
+                    </div>
                     
                     <div class="button-container-div">
                         <Button style={{marginTop:'30px', width:'100px'}} color="success" onClick={addPlayer} >Add</Button>
