@@ -1,4 +1,4 @@
-import React, {useState, useEffect, useRef} from 'react'; 
+import React, {useState, useEffect, useContext} from 'react'; 
 import {useParams} from 'react-router-dom';
 import axios from 'axios';
 import {
@@ -12,6 +12,7 @@ import {
   } from 'reactstrap';
   import { MdOutlineSportsKabaddi } from 'react-icons/md';
   import { useNavigate } from "react-router-dom";
+  import { AuthContext } from '../../context/auth-context';
 
 const PlayerInfo = () => {
     const params = useParams();
@@ -19,6 +20,11 @@ const PlayerInfo = () => {
     const [imageBytes, setImageBytes] = useState()
     const [playerSkills, setPlayerSkills] = useState([])
     let navigate = useNavigate(); 
+    const authContext = useContext(AuthContext);
+    
+    useEffect(() => {
+        authContext.auth()
+    },[])
 
     useEffect(() => {
         let token = localStorage.getItem('token').substring(1, localStorage.getItem('token').length-1);
@@ -51,11 +57,12 @@ const PlayerInfo = () => {
                 <CardHeader tag="h5" style={{backgroundColor: '#f1f1f1'}}>
                 <MdOutlineSportsKabaddi size={25}/>
                 <span style={{marginLeft:'10px'}}>{player.playerName}</span>
+                {authContext.role === 'EDITOR' ?
                 <div style={{textAlign:'right', marginTop:'-30px'}}>
                     <Button color="success" outline onClick={editPlayer}  >
                         Edit
                     </Button>
-                </div>
+                </div>:null}
                 </CardHeader>
                 <CardBody>
                     <Card style={{width:'100px', height:'100px'}}>

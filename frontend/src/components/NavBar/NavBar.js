@@ -1,4 +1,4 @@
-import React, {useState, useEffect} from 'react';
+import React, {useState, useEffect, useContext} from 'react';
 import {
     Navbar,
     NavItem,
@@ -22,31 +22,42 @@ import Player from '../AddPlayer/Player';
 import EditPlayer from '../EditPlayer/EditPlayer';
 import axios from 'axios';
 import { useNavigate } from "react-router-dom";
+import { AuthContext } from '../../context/auth-context';
 
 const NavBar = () => {
+    const authContext = useContext(AuthContext);
+
+    useEffect(() => {
+        authContext.auth()
+    },[])
     
     return (
         <div>
-            <Navbar color="dark"  expand="md">
-                <Nav className="container-fluid" navbar>
+            <Navbar color="dark"  expand="md"> 
+                <Nav className={` ${!authContext.isAuth ? "container-fluid" : ""}`} navbar>
                     <NavItem>
                         <NavLink tag={Link} to="/">Home</NavLink>
                     </NavItem>
-                    <NavItem>
+                    {authContext.isAuth &&  
+                    <NavItem >
                         <NavLink tag={Link} to="/profile">Profile</NavLink>
-                    </NavItem>
+                    </NavItem>}
+                    {authContext.isAuth &&
                     <NavItem>
                         <NavLink tag={Link} to="/sportClubs">SportClubs</NavLink>
-                    </NavItem>
+                    </NavItem>}
+                    {authContext.isAuth && authContext.role==='EDITOR' &&
                     <NavItem>
                         <NavLink tag={Link} to="/players">Players</NavLink>
-                    </NavItem>
+                    </NavItem>}
+                    {!authContext.isAuth &&
                     <NavItem className="ml-auto">
                         <NavLink tag={Link} to="/register">Register</NavLink>
-                    </NavItem>
+                    </NavItem>}
+                    {!authContext.isAuth &&
                     <NavItem >
                         <NavLink tag={Link} to="/login">Login</NavLink>
-                    </NavItem>
+                    </NavItem>}
                 </Nav>
             </Navbar>
             <Routes>

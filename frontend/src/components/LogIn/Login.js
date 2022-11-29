@@ -1,4 +1,4 @@
-import React, {useState} from 'react';
+import React, {useState, useContext} from 'react';
 import './Login.css';
 import {
     Button,
@@ -11,11 +11,13 @@ import axios from 'axios'
 import { useNavigate } from 'react-router-dom';
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css'
+import { AuthContext } from '../../context/auth-context';
 
 const Login = () =>  {
     const [enteredEmail, setEnteredEmail] = useState('');
     const [enteredPassword, setEnteredPassword] = useState('');
     const navigateTo = useNavigate(); 
+    const authContext = useContext(AuthContext);
 
     const showToastMessage = () => {
         toast.success('You have sussessufully logged in!', {
@@ -40,6 +42,7 @@ const Login = () =>  {
                     
                     let token = localStorage.getItem('token').substring(1, localStorage.getItem('token').length-1);
                     showToastMessage()
+                    authContext.auth()
                     navigateTo('/profile')
                 })
                 .catch(response => {

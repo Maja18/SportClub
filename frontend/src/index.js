@@ -3,8 +3,10 @@ import ReactDOM from 'react-dom';
 import './index.css';
 import App from './App';
 import registerServiceWorker from './registerServiceWorker';
-//import 'bootstrap/dist/css/bootstrap.css';
 import 'bootstrap/dist/css/bootstrap.min.css';
+import AuthContextProvider from './context/auth-context'
 
-ReactDOM.render(<App />, document.getElementById('root'));
+ReactDOM.render(<AuthContextProvider>
+                    <App />
+                </AuthContextProvider>, document.getElementById('root'));
 registerServiceWorker();
