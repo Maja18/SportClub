@@ -89,7 +89,7 @@ export const validateInput = (name, value) => {
         case "salary":
                 if (value.toString().trim() === "") {
                     hasError = true
-                    error = "Salary cannot be empty"
+                    error = "Salary can't be empty"
                   } 
                   else if (!/^[+]?\d+([.]\d+)?$/.test(value)) {
                     hasError = true

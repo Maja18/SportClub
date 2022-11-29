@@ -42,6 +42,7 @@ const EditClub = () => {
     const params = useParams();
     let navigateTo = useNavigate();
     const [formState, dispatch] = useReducer(formsReducer, initialState)
+    const [showError, setShowError] = useState(false)
     
     useEffect(() => {
         let token = localStorage.getItem('token').substring(1, localStorage.getItem('token').length-1);
@@ -70,25 +71,53 @@ const EditClub = () => {
     }, []);
 
     const editClub = () => {
-        const data = {
-            id: club.id,
-            name: enteredName
-        }
+        let isFormValid = true
 
-        let token = localStorage.getItem('token').substring(1, localStorage.getItem('token').length-1);
-        axios.put('http://localhost:8080/api/club', data, {
-            headers: {
-                'Authorization': 'Bearer ' + token,
-            }
-        })
-            .then(response => {
-                //showToastMessage()
-                navigateTo('/sportClubs')
+        for (const name in formState) {
+        const item = formState[name]
+        const { value } = item
+        const { hasError, error } = validateInput(name, value)
+        if (hasError) {
+            isFormValid = false
+        }
+        if (name) {
+            dispatch({
+            type: UPDATE_FORM,
+            data: {
+                name,
+                value,
+                hasError,
+                error,
+                touched: true,
+                isFormValid,
+            },
             })
-            .catch(response => {
-                alert("Please enter valid data!");
-                console.log(response);
-            }); 
+        }
+        }
+        if (!isFormValid) {
+            setShowError(true)
+            } 
+        else {
+            const data = {
+                id: club.id,
+                name: enteredName
+            }
+
+            let token = localStorage.getItem('token').substring(1, localStorage.getItem('token').length-1);
+            axios.put('http://localhost:8080/api/club', data, {
+                headers: {
+                    'Authorization': 'Bearer ' + token,
+                }
+            })
+                .then(response => {
+                    //showToastMessage()
+                    navigateTo('/sportClubs')
+                })
+                .catch(response => {
+                    alert("Please enter valid data!");
+                    console.log(response);
+                }); 
+        }
 
     };
 
