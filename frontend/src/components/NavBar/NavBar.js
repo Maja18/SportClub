@@ -26,15 +26,21 @@ import { AuthContext } from '../../context/auth-context';
 
 const NavBar = () => {
     const authContext = useContext(AuthContext);
+    const [logout, setLogout] = useState(true)
+    let navigate = useNavigate(); 
 
     useEffect(() => {
         authContext.auth()
     },[])
+
+    const logOut = () => {
+        localStorage.removeItem('token');
+    };
     
     return (
         <div>
             <Navbar color="dark"  expand="md"> 
-                <Nav className={` ${!authContext.isAuth ? "container-fluid" : ""}`} navbar>
+                <Nav className={` ${!authContext.isAuth || (authContext.isAuth && logout) ? "container-fluid" : ""}`} navbar>
                     <NavItem>
                         <NavLink tag={Link} to="/">Home</NavLink>
                     </NavItem>
@@ -57,6 +63,10 @@ const NavBar = () => {
                     {!authContext.isAuth &&
                     <NavItem >
                         <NavLink tag={Link} to="/login">Login</NavLink>
+                    </NavItem>}
+                    {authContext.isAuth &&
+                    <NavItem className="ml-auto">
+                        <NavLink tag={Link} to="/" onClick={logOut}>Logout</NavLink>
                     </NavItem>}
                 </Nav>
             </Navbar>
