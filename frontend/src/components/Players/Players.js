@@ -88,7 +88,7 @@ const Players = () => {
                             {player.playerName}
                         </Link>
                         <div className='Buttons'>
-                            <Link>
+                            <Link to={`/editPlayer/${player.id}`}>
                                 <Badge style={{width:'60px', height:'20px'}} color="info" pill>Edit</Badge>
                             </Link>
                             <Link onClick={() => toggle(player.id)}>

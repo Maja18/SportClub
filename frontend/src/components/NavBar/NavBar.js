@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {useState, useEffect, useContext} from 'react';
 import {
     Navbar,
     NavItem,
@@ -20,31 +20,54 @@ import ClubPlayer from '../AddClubPlayer/ClubPlayer';
 import PlayerInfo from '../PlayerInfo/PlayerInfo';
 import Player from '../AddPlayer/Player';
 import EditPlayer from '../EditPlayer/EditPlayer';
+import axios from 'axios';
+import { useNavigate } from "react-router-dom";
+import { AuthContext } from '../../context/auth-context';
 
 const NavBar = () => {
+    const authContext = useContext(AuthContext);
+    const [logout, setLogout] = useState(true)
+    let navigate = useNavigate(); 
 
+    useEffect(() => {
+        authContext.auth()
+    },[])
+
+    const logOut = () => {
+        localStorage.removeItem('token');
+    };
+    
     return (
         <div>
-            <Navbar color="dark"  expand="md">
-                <Nav className="mr-auto" navbar>
+            <Navbar color="dark"  expand="md"> 
+                <Nav className={` ${!authContext.isAuth || (authContext.isAuth && logout) ? "container-fluid" : ""}`} navbar>
                     <NavItem>
                         <NavLink tag={Link} to="/">Home</NavLink>
                     </NavItem>
-                    <NavItem>
+                    {authContext.isAuth &&  
+                    <NavItem >
                         <NavLink tag={Link} to="/profile">Profile</NavLink>
-                    </NavItem>
+                    </NavItem>}
+                    {authContext.isAuth &&
                     <NavItem>
                         <NavLink tag={Link} to="/sportClubs">SportClubs</NavLink>
-                    </NavItem>
+                    </NavItem>}
+                    {authContext.isAuth && authContext.role==='EDITOR' &&
                     <NavItem>
                         <NavLink tag={Link} to="/players">Players</NavLink>
-                    </NavItem>
-                    <NavItem>
-                        <NavLink tag={Link} to="/login">Login</NavLink>
-                    </NavItem>
-                    <NavItem>
+                    </NavItem>}
+                    {!authContext.isAuth &&
+                    <NavItem className="ml-auto">
                         <NavLink tag={Link} to="/register">Register</NavLink>
-                    </NavItem>
+                    </NavItem>}
+                    {!authContext.isAuth &&
+                    <NavItem >
+                        <NavLink tag={Link} to="/login">Login</NavLink>
+                    </NavItem>}
+                    {authContext.isAuth &&
+                    <NavItem className="ml-auto">
+                        <NavLink tag={Link} to="/" onClick={logOut}>Logout</NavLink>
+                    </NavItem>}
                 </Nav>
             </Navbar>
             <Routes>

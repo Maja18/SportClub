@@ -1,4 +1,4 @@
-import React, {useState, useEffect} from 'react'; 
+import React, {useState, useEffect, useReducer} from 'react'; 
 import {
     Button,
     Card,
@@ -11,6 +11,30 @@ import {
   import { useNavigate } from 'react-router-dom';
   import { MdOutlineSportsKabaddi, MdSkipNext } from 'react-icons/md';
   import Multiselect from 'multiselect-react-dropdown';
+  import { UPDATE_FORM, onInputChange, onFocusOut, validateInput } from '../../lib/formUtils'
+
+  const formsReducer = (state, action) => {
+    switch (action.type) {
+      case UPDATE_FORM:
+        const { name, value, hasError, error, touched, isFormValid } = action.data
+        
+        return {
+          ...state,
+          [name]: { ...state, value, hasError, error, touched },
+          isFormValid,
+        }
+      case 'INITIALIZE_STATE': 
+        return action.payload;
+      default:
+        return state
+    }
+}
+
+const initialState = {
+    name: { value: "", touched: false, hasError: true, error: "" },
+    salary: { value: "", touched: false, hasError: true, error: "" },
+    isFormValid: false,
+}
 
 const Player = () => {
     const [enteredName, setEnteredName] = useState('');
@@ -21,6 +45,7 @@ const Player = () => {
     const [skills, setSkills] = useState([])
     const [playerSkills, setPlayerSkills] = useState([])
     const navigateTo = useNavigate();
+    const [formState, dispatch] = useReducer(formsReducer, initialState)
 
     useEffect(() => {
         let token = localStorage.getItem('token').substring(1, localStorage.getItem('token').length-1);
@@ -38,27 +63,52 @@ const Player = () => {
     }, []);
 
     const addPlayer = () => {
-        const data = {
-            playerName: enteredName,
-            salary: enteredSalary,
-            image: fileName,
-            playerSkills: playerSkills
-        }
+        let isFormValid = true
 
-        let token = localStorage.getItem('token').substring(1, localStorage.getItem('token').length-1);
-        axios.post('http://localhost:8080/api/player', data, {
-            headers: {
-                'Authorization': 'Bearer ' + token,
-            }
-        })
-            .then(response => {
-                //showToastMessage()
-                navigateTo('/players')
+        for (const name in formState) {
+        const item = formState[name]
+        const { value } = item
+        const { hasError, error } = validateInput(name, value)
+        if (hasError) {
+            isFormValid = false
+        }
+        if (name) {
+            dispatch({
+            type: UPDATE_FORM,
+            data: {
+                name,
+                value,
+                hasError,
+                error,
+                touched: true,
+                isFormValid,
+            },
             })
-            .catch(response => {
-                alert("Please enter valid data!");
-                console.log(response);
-            }); 
+        }
+        }
+        if (isFormValid) {
+            const data = {
+                playerName: enteredName,
+                salary: enteredSalary,
+                image: fileName,
+                playerSkills: playerSkills
+            }
+
+            let token = localStorage.getItem('token').substring(1, localStorage.getItem('token').length-1);
+            axios.post('http://localhost:8080/api/player', data, {
+                headers: {
+                    'Authorization': 'Bearer ' + token,
+                }
+            })
+                .then(response => {
+                    //showToastMessage()
+                    navigateTo('/players')
+                })
+                .catch(response => {
+                    alert("Please enter valid data!");
+                    console.log(response);
+                }); 
+        }
     };
 
     const selectFile = (event) => {
@@ -117,20 +167,40 @@ const Player = () => {
                         name="name"
                         id="exampleName"
                         placeholder="Name"
-                        value={enteredName}
-                        onChange={event => {
-                            setEnteredName(event.target.value)
-                        }}/> 
+                        value={formState.name.value}
+                        onChange={e => {
+                            onInputChange("name", e.target.value, dispatch, formState)
+                            setEnteredName(e.target.value)
+                        }}
+                        onBlur={e => {
+                            onFocusOut("name", e.target.value, dispatch, formState)
+                        }}
+                        />
+                        {formState.name.touched && formState.name.hasError && (
+                            <div className="error">
+                                {formState.name.error}
+                            </div>
+                        )}
                     <Label for="exampleEmail">Salary</Label>
                         <Input
                         type="name"
                         name="salary"
                         id="exampleSalary"
                         placeholder="Salary"
-                        value={enteredSalary}
-                        onChange={event => {
-                            setEnteredSalary(event.target.value)
-                        }}/> 
+                        value={formState.salary.value}
+                        onChange={e => {
+                            onInputChange("salary", e.target.value, dispatch, formState)
+                            setEnteredSalary(e.target.value)
+                        }}
+                        onBlur={e => {
+                            onFocusOut("salary", e.target.value, dispatch, formState)
+                        }}
+                        />
+                        {formState.salary.touched && formState.salary.hasError && (
+                            <div className="error">
+                                {formState.salary.error}
+                            </div>
+                        )}
                     <Label for="exampleEmail">Choose profile picture</Label>
                         <Input
                         type="file"

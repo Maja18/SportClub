@@ -1,4 +1,4 @@
-import React, {useState, useEffect, useRef} from 'react'; 
+import React, {useState, useEffect, useRef, useContext} from 'react'; 
 import {
     Card,
     CardHeader,
@@ -17,6 +17,7 @@ import {
   import { MdOutlineSportsKabaddi } from 'react-icons/md';
   import { useNavigate } from "react-router-dom";
   import { BsTrash } from 'react-icons/bs';
+  import { AuthContext } from '../../context/auth-context';
 
   const ClubPlayers = () => {
     const [clubPlayers, setClubPlayers] = useState([]);
@@ -29,6 +30,11 @@ import {
     // Modal open state
     const [modal, setModal] = useState(false);
     const [playerId, setPlayerId] = useState();
+    const authContext = useContext(AuthContext);
+
+    useEffect(() => {
+        authContext.auth()
+    },[])
 
     useEffect(() => {
         let token = localStorage.getItem('token').substring(1, localStorage.getItem('token').length-1);
@@ -91,7 +97,6 @@ import {
     useEffect(() => {
         if (!firstTimeRender.current) {
             let players = []
-            //club.players = club.players.filter(p => p !== player)
             club.players.forEach(p => {
                 if (player.id != p.id){
                     players.push(p)
@@ -138,11 +143,12 @@ import {
             <CardHeader>
             <MdOutlineSportsKabaddi size={25}/>
                 <span style={{marginLeft:'10px'}}>{club.name} players</span>
+                {authContext.role === 'EDITOR' ?
                 <div style={{textAlign:'right', marginTop:'-30px'}}>
                     <Button color="success" outline onClick={addNewPlayer}>
                         Add
                     </Button>
-                </div>
+                </div>:null}
             </CardHeader>
             <ListGroup flush>
                 {clubPlayers.map(player => 
@@ -150,11 +156,12 @@ import {
                         <Link to={{pathname: `/sportClubs/playersInfo/${player.id}`}}>
                             {player.playerName}
                         </Link>
+                        {authContext.role === 'EDITOR' ?
                         <div className='Buttons'> 
                             <Link onClick={() => toggle(player.id)}>
                                 <Badge style={{width:'60px', height:'20px'}} color="danger" pill>Remove</Badge>
                             </Link>
-                        </div>
+                        </div>:null}
                     </ListGroupItem> 
                 )}
             </ListGroup>

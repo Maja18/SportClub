@@ -22,7 +22,7 @@ public class Player {
     @Column
     private String image;
 
-    @ManyToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+    @ManyToMany(fetch = FetchType.EAGER)
     @JoinTable(
             name = "player_skills",
             joinColumns = @JoinColumn(name = "player_id"),

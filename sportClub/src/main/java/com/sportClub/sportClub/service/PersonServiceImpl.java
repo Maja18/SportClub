@@ -57,8 +57,15 @@ public class PersonServiceImpl implements PersonService {
         if (person != null){
             person.setFirstName(personDTO.getFirstName());
             person.setLastName(personDTO.getLastName());
-            person.setPassword(passwordEncoder.encode(personDTO.getPassword()));
             person.setEmail(personDTO.getEmail());
+            String role = personDTO.getRole();
+            List<Authority> authorities = new ArrayList<>();
+            if (personDTO.getRole().equals("EDITOR")){
+                authorities.add(authenticationService.findByName("ROLE_EDITOR"));
+            }else if (personDTO.getRole().equals("VIEWER")){
+                authorities.add(authenticationService.findByName("ROLE_VIEWER"));
+            }
+            person.setAuthorities(authorities);
             personRepository.save(person);
         }
 

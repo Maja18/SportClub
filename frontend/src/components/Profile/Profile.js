@@ -14,6 +14,7 @@ import { useNavigate } from "react-router-dom";
 
 const Profile = () => {
     const [user, setUser] = useState([]);
+    const [userRole, setUserRole] = useState('')
     let navigate = useNavigate(); 
 
     useEffect(() => {
@@ -23,16 +24,8 @@ const Profile = () => {
                 'Authorization': 'Bearer ' + token,
             }
          }).then(response => {
-            setUser({
-                id: response.data.id,
-                firstName: response.data.firstName,
-                lastName: response.data.lastName,
-                email: response.data.email,
-                password: response.data.password,
-                role: response.data.role
-            })
-
-            alert("Success")
+            setUser(response.data)
+            setUserRole(response.data.role.substring(5))
          }).catch(res => {
                 alert("Error");
                 console.log(res);
@@ -70,10 +63,7 @@ const Profile = () => {
                             Email: {user.email}
                         </Label>
                         <Label>
-                            Password: {user.password}
-                        </Label>
-                        <Label>
-                            Role: {user.role}
+                            Role: {userRole}
                         </Label>
                     </CardText>
                     <Button color='info' onClick={routeChange}>Edit</Button>
