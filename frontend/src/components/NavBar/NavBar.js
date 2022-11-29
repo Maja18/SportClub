@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {useState, useEffect} from 'react';
 import {
     Navbar,
     NavItem,
@@ -20,13 +20,15 @@ import ClubPlayer from '../AddClubPlayer/ClubPlayer';
 import PlayerInfo from '../PlayerInfo/PlayerInfo';
 import Player from '../AddPlayer/Player';
 import EditPlayer from '../EditPlayer/EditPlayer';
+import axios from 'axios';
+import { useNavigate } from "react-router-dom";
 
 const NavBar = () => {
-
+    
     return (
         <div>
             <Navbar color="dark"  expand="md">
-                <Nav className="mr-auto" navbar>
+                <Nav className="container-fluid" navbar>
                     <NavItem>
                         <NavLink tag={Link} to="/">Home</NavLink>
                     </NavItem>
@@ -39,11 +41,11 @@ const NavBar = () => {
                     <NavItem>
                         <NavLink tag={Link} to="/players">Players</NavLink>
                     </NavItem>
-                    <NavItem>
-                        <NavLink tag={Link} to="/login">Login</NavLink>
-                    </NavItem>
-                    <NavItem>
+                    <NavItem className="ml-auto">
                         <NavLink tag={Link} to="/register">Register</NavLink>
+                    </NavItem>
+                    <NavItem >
+                        <NavLink tag={Link} to="/login">Login</NavLink>
                     </NavItem>
                 </Nav>
             </Navbar>

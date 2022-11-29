@@ -46,6 +46,7 @@ const EditProfile = () => {
     const [enteredEmail, setEnteredEmail] = useState(location.state.userInfo.email);
     const [enteredRole, setEnteredRole] = useState(location.state.userInfo.role.substring(5));
     const [currentEmail, setCurrentEmail] = useState(location.state.userInfo.email);
+    const [currentRole, setCurrentRole] = useState(location.state.userInfo.role.substring(5));
     const [formState, dispatch] = useReducer(formsReducer, initialState)
     const [showError, setShowError] = useState(false)
     let navigateTo = useNavigate(); 
@@ -109,7 +110,7 @@ const EditProfile = () => {
             })
                     .then(response => {
                         //showToastMessage()
-                        if (currentEmail !== enteredEmail){
+                        if (currentEmail !== enteredEmail || currentRole !== enteredRole){
                             navigateTo('/login')
                         }
                         else{
@@ -126,12 +127,6 @@ const EditProfile = () => {
             setShowError(false)
         }, 5000)
         
-    };
-
-    const handleEmailChange = (name, value) => {
-        setCurrentEmail((prev) => {
-            return { ...prev, [name]: value };
-        });
     };
 
     return(
