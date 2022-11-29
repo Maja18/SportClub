@@ -8,3 +8,9 @@
     display: block;
     padding: 10px;
 }
+
+.Card button{
+    width: 100px;
+    margin-top: 10px;
+    margin-left: 10px;
+}

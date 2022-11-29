@@ -129,7 +129,7 @@ const ClubPlayer = () => {
                             </DropdownMenu>
                     </Dropdown>
                     <div class="button-container-div">
-                        <Button style={{marginTop:'30px', width:'100px'}} color="success" onClick={addPlayerToClub}>Add</Button>
+                        <Button disabled={!player} style={{marginTop:'30px', width:'100px'}} color="success" onClick={addPlayerToClub}>Add</Button>
                     </div>
                 </CardBody>
             </Card>

@@ -57,7 +57,6 @@ public class PersonServiceImpl implements PersonService {
         if (person != null){
             person.setFirstName(personDTO.getFirstName());
             person.setLastName(personDTO.getLastName());
-            person.setPassword(passwordEncoder.encode(personDTO.getPassword()));
             person.setEmail(personDTO.getEmail());
             personRepository.save(person);
         }

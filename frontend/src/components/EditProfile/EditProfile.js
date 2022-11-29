@@ -1,4 +1,4 @@
-import React, {useState} from 'react';
+import React, {useEffect, useReducer, useState} from 'react';
 import { useLocation } from 'react-router-dom';
 import {
     Button,
@@ -13,59 +13,122 @@ import { CgProfile } from 'react-icons/cg';
 import './EditProfile.css'
 import axios from 'axios'
 import { useNavigate } from "react-router-dom";
+import { UPDATE_FORM, onInputChange, onFocusOut, validateInput } from '../../lib/formUtils'
+
+    const formsReducer = (state, action) => {
+        switch (action.type) {
+          case UPDATE_FORM:
+            const { name, value, hasError, error, touched, isFormValid } = action.data
+            
+            return {
+              ...state,
+              [name]: { ...state, value, hasError, error, touched },
+              isFormValid,
+            }
+          case 'INITIALIZE_STATE': 
+            return action.payload;
+          default:
+            return state
+        }
+    }
+
+    const initialState = {
+        name: { value: "", touched: false, hasError: true, error: "" },
+        lastName: { value: "", touched: false, hasError: true, error: "" },
+        email:  { value: "", touched: false, hasError: true, error: "" },
+        isFormValid: false,
+    }
 
 const EditProfile = () => {
     const location = useLocation();
     const [enteredName, setEnteredName] = useState(location.state.userInfo.firstName);
     const [enteredLastName, setEnteredLastName] = useState(location.state.userInfo.lastName);
     const [enteredEmail, setEnteredEmail] = useState(location.state.userInfo.email);
-    const [enteredPassword, setEnteredPassword] = useState(location.state.userInfo.password);
-    const [enteredRole, setEnteredRole] = useState(location.state.userInfo.role);
+    const [enteredRole, setEnteredRole] = useState(location.state.userInfo.role.substring(5));
     const [currentEmail, setCurrentEmail] = useState(location.state.userInfo.email);
-    const [currentPassword, setCurrentPassword] = useState(location.state.userInfo.password);
+    const [formState, dispatch] = useReducer(formsReducer, initialState)
+    const [showError, setShowError] = useState(false)
     let navigateTo = useNavigate(); 
 
-    const onSubmit = (event) => {
-        event.preventDefault();
-
-        const data = {
-            id: location.state.userInfo.id,
-            firstName: enteredName,
-            lastName: enteredLastName,
-            email: enteredEmail,
-            password: enteredPassword,
-            role: enteredRole
-        }
-
-        let token = localStorage.getItem('token').substring(1, localStorage.getItem('token').length-1);
-        axios.put('http://localhost:8080/api/person', data, {
-            headers: {
-                'Authorization': 'Bearer ' + token,
-            }
-        })
-                .then(response => {
-                    //showToastMessage()
-                    alert("OK")
-                    if (currentEmail !== enteredEmail || currentPassword !== enteredPassword){
-                        navigateTo('/login')
-                    }
-                    else{
-                        navigateTo('/profile')
-                    }
+    useEffect(() => {
+            dispatch({
+                type: 'INITIALIZE_STATE',
+                payload: {
+                    ...initialState,
+                    name: { value: location.state.userInfo.firstName, touched: false, hasError: true, error: "" },
+                    lastName: { value: location.state.userInfo.lastName, touched: false, hasError: true, error: "" },
+                    email: { value: location.state.userInfo.email, touched: false, hasError: true, error: "" },
+                }
                 })
-                .catch(response => {
-                    alert("Please enter valid data!");
-                    console.log(response);
-                });   
+
+    }, []);
+
+    const onSubmit = (event) => {
+        let isFormValid = true
+
+        for (const name in formState) {
+        const item = formState[name]
+        const { value } = item
+        const { hasError, error } = validateInput(name, value)
+        if (hasError) {
+            isFormValid = false
+        }
+        if (name) {
+            dispatch({
+            type: UPDATE_FORM,
+            data: {
+                name,
+                value,
+                hasError,
+                error,
+                touched: true,
+                isFormValid,
+            },
+            })
+        }
+        }
+        if (!isFormValid) {
+            setShowError(true)
+            } 
+        else {
+            event.preventDefault();
+
+            const data = {
+                id: location.state.userInfo.id,
+                firstName: enteredName,
+                lastName: enteredLastName,
+                email: enteredEmail,
+                role: enteredRole
+            }
+
+            let token = localStorage.getItem('token').substring(1, localStorage.getItem('token').length-1);
+            axios.put('http://localhost:8080/api/person', data, {
+                headers: {
+                    'Authorization': 'Bearer ' + token,
+                }
+            })
+                    .then(response => {
+                        //showToastMessage()
+                        if (currentEmail !== enteredEmail){
+                            navigateTo('/login')
+                        }
+                        else{
+                            navigateTo('/profile')
+                        }
+                    })
+                    .catch(response => {
+                        alert("Please enter valid data!");
+                        console.log(response);
+                    });   
+        }
+        // Hide the error message after 5 seconds
+        setTimeout(() => {
+            setShowError(false)
+        }, 5000)
+        
     };
 
     const handleEmailChange = (name, value) => {
-        setCurrentEmail((prev) => {
-            return { ...prev, [name]: value };
-        });
-    };
-
-    const handlePasswordChange = (name, value) => {
         setCurrentEmail((prev) => {
             return { ...prev, [name]: value };
         });
@@ -90,11 +153,20 @@ const EditProfile = () => {
                         name="firstName"
                         id="exampleName"
                         placeholder="Name"
-                        value={enteredName}
-                        onChange={event => {
-                            setEnteredName(event.target.value)
+                        value={formState.name.value}
+                        onChange={e => {
+                            onInputChange("name", e.target.value, dispatch, formState)
+                            setEnteredName(e.target.value)
+                        }}
+                        onBlur={e => {
+                            onFocusOut("name", e.target.value, dispatch, formState)
                         }}
                         />
+                        {formState.name.touched && formState.name.hasError && (
+                            <div className="error">
+                                {formState.name.error}
+                            </div>
+                        )}
                         <Label>
                             Last name: 
                         </Label>
@@ -103,11 +175,20 @@ const EditProfile = () => {
                         name="lastName"
                         id="exampleLastName"
                         placeholder="Last name"
-                        value={enteredLastName}
-                        onChange={event => {
-                            setEnteredLastName(event.target.value)
+                        defaultValue={formState.lastName.value}
+                        onChange={e => {
+                            onInputChange("lastName", e.target.value, dispatch, formState)
+                            setEnteredLastName(e.target.value)
+                        }}
+                        onBlur={e => {
+                            onFocusOut("lastName", e.target.value, dispatch, formState)
                         }}
                         />
+                        {formState.lastName.touched && formState.lastName.hasError && (
+                            <div className="error">
+                                {formState.lastName.error}
+                            </div>
+                        )}
                         <Label>
                             Email: 
                         </Label>
@@ -116,26 +197,20 @@ const EditProfile = () => {
                         name="email"
                         id="exampleEmail"
                         placeholder="example@example.com"
-                        value={enteredEmail}
-                        onChange={event => {
-                            setEnteredEmail(event.target.value)
-                            handleEmailChange("email", event.target.value)
+                        defaultValue={formState.email.value}
+                        onChange={e => {
+                            onInputChange("email", e.target.value, dispatch, formState)
+                            setEnteredEmail(e.target.value)
+                        }}
+                        onBlur={e => {
+                            onFocusOut("email", e.target.value, dispatch, formState)
                         }}
                         />
-                        <Label>
-                            Password: 
-                        </Label>
-                        <Input
-                        type="password"
-                        name="password"
-                        id="examplePassword"
-                        placeholder="********"
-                        value={enteredPassword}
-                        onChange={event => {
-                            setEnteredPassword(event.target.value)
-                            handlePasswordChange("password", event.target.value)
-                        }}
-                        />
+                        {formState.email.touched && formState.email.hasError && (
+                            <div className="error">
+                                {formState.email.error}
+                            </div>
+                        )}
                         <Label>
                             Role: 
                         </Label>
@@ -163,7 +238,12 @@ const EditProfile = () => {
                         <label class="label">VIEWER</label>
                         </div>
                     </CardText>
-                    <Button color='info' onClick={onSubmit}>Save</Button>
+                    {showError && !formState.isFormValid && (
+                        <div className="form_error">Please fill all the fields correctly</div>
+                    )}
+                    <div class="button-container-div">
+                        <Button color='info' onClick={onSubmit}>Save</Button>
+                    </div>
                 </CardBody>
             </Card>
         </div>
