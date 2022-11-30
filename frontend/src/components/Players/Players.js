@@ -69,7 +69,7 @@ const Players = () => {
             <ListGroup flush>
                 {players.map(player => 
                     <ListGroupItem key={player.id}>
-                        <Link to={{pathname: `/sportClubs/playersInfo/${player.id}`}}>
+                        <Link className='playerLink' to={{pathname: `/sportClubs/playersInfo/${player.id}`}}>
                             {player.playerName}
                         </Link>
                         <div className='Buttons'>

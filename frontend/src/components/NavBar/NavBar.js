@@ -1,6 +1,6 @@
 import React, {useState, useEffect, useContext} from 'react';
 import {Navbar,NavItem,NavLink,Nav} from 'reactstrap';
-import { Route, Link, Routes } from 'react-router-dom';
+import { Route, Routes } from 'react-router-dom';
 import Register from '../Register/Register'
 import Login from '../LogIn/Login';
 import Home from '../Home/Home';
@@ -17,6 +17,8 @@ import Player from '../AddPlayer/Player';
 import EditPlayer from '../EditPlayer/EditPlayer';
 import { AuthContext } from '../../context/auth-context';
 import ChangePassword from '../EditProfile/ChangePassword';
+import { NavLink as Link } from 'react-router-dom';
+import './NavBar.css'
 
 const NavBar = () => {
     const authContext = useContext(AuthContext);
@@ -31,31 +33,33 @@ const NavBar = () => {
     };
     
     return (
-        <div>
+        <div className='Nav'>
             <Navbar color="dark"  expand="md"> 
                 <Nav className={` ${!authContext.isAuth || (authContext.isAuth && logout) ? "container-fluid" : ""}`} navbar>
                     <NavItem>
-                        <NavLink tag={Link} to="/">Home</NavLink>
+                    <NavLink tag={Link} activeClassName="active" to="/">
+                        Home
+                    </NavLink>
                     </NavItem>
                     {authContext.isAuth &&  
                     <NavItem >
-                        <NavLink tag={Link} to="/profile">Profile</NavLink>
+                        <NavLink tag={Link} activeClassName="active" to="/profile">Profile</NavLink>
                     </NavItem>}
                     {authContext.isAuth &&
                     <NavItem>
-                        <NavLink tag={Link} to="/sportClubs">SportClubs</NavLink>
+                        <NavLink tag={Link} activeClassName="active" to="/sportClubs">SportClubs</NavLink>
                     </NavItem>}
                     {authContext.isAuth && authContext.role==='EDITOR' &&
                     <NavItem>
-                        <NavLink tag={Link} to="/players">Players</NavLink>
+                        <NavLink tag={Link} activeClassName="active" to="/players">Players</NavLink>
                     </NavItem>}
                     {!authContext.isAuth &&
                     <NavItem className="ml-auto">
-                        <NavLink tag={Link} to="/register">Register</NavLink>
+                        <NavLink tag={Link} activeClassName="active" to="/register">Register</NavLink>
                     </NavItem>}
                     {!authContext.isAuth &&
                     <NavItem >
-                        <NavLink tag={Link} to="/login">Login</NavLink>
+                        <NavLink tag={Link} activeClassName="active" to="/login">Login</NavLink>
                     </NavItem>}
                     {authContext.isAuth &&
                     <NavItem className="ml-auto">
