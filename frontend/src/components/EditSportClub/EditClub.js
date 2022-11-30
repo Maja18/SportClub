@@ -122,10 +122,8 @@ const EditClub = () => {
 
     return(
         <div className='Card'>
-            <Card style={{
-                    width: '40rem'
-                }}>
-                <CardHeader tag="h5" style={{backgroundColor: '#f1f1f1'}}>
+            <Card>
+                <CardHeader tag="h5">
                 <FcSportsMode size={30}/>
                     <span style={{marginLeft:'10px'}}>Sport Club</span>
                 </CardHeader>

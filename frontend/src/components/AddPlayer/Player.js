@@ -2,7 +2,7 @@ import React, {useState, useEffect, useReducer} from 'react';
 import {Button,Card,CardBody,CardHeader,Input,Label} from 'reactstrap';
 import axios from 'axios'
 import { useNavigate } from 'react-router-dom';
-import { MdOutlineSportsKabaddi, MdSkipNext } from 'react-icons/md';
+import { MdOutlineSportsKabaddi } from 'react-icons/md';
 import Multiselect from 'multiselect-react-dropdown';
 import { UPDATE_FORM, onInputChange, onFocusOut, validateInput } from '../../lib/formUtils'
 import { ToastContainer, toast } from 'react-toastify';
@@ -154,10 +154,8 @@ const Player = () => {
 
     return(
         <div className='Card'>
-            <Card style={{
-                    width: '40rem'
-            }}>
-                <CardHeader tag="h5" style={{backgroundColor: '#f1f1f1'}}>
+            <Card>
+                <CardHeader tag="h5">
                     <MdOutlineSportsKabaddi size={25}/>
                     <span style={{marginLeft:'10px'}}>Player</span>
                 </CardHeader>

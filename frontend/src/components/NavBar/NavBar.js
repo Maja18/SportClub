@@ -1,10 +1,5 @@
 import React, {useState, useEffect, useContext} from 'react';
-import {
-    Navbar,
-    NavItem,
-    NavLink,
-    Nav
-} from 'reactstrap';
+import {Navbar,NavItem,NavLink,Nav} from 'reactstrap';
 import { Route, Link, Routes } from 'react-router-dom';
 import Register from '../Register/Register'
 import Login from '../LogIn/Login';
@@ -25,7 +20,7 @@ import ChangePassword from '../EditProfile/ChangePassword';
 
 const NavBar = () => {
     const authContext = useContext(AuthContext);
-    const [logout, setLogout] = useState(true)
+    const [logout] = useState(true)
 
     useEffect(() => {
         authContext.auth()

@@ -56,11 +56,7 @@ const Players = () => {
 
     return(
         <div className='Card'>
-            <Card
-            style={{
-                width: '40rem'
-            }}
-            >
+            <Card>
             <CardHeader>
             <MdOutlineSportsKabaddi size={25}/>
                 <span style={{marginLeft:'10px'}}>Players</span>
@@ -72,7 +68,7 @@ const Players = () => {
             </CardHeader>
             <ListGroup flush>
                 {players.map(player => 
-                    <ListGroupItem>
+                    <ListGroupItem key={player.id}>
                         <Link to={{pathname: `/sportClubs/playersInfo/${player.id}`}}>
                             {player.playerName}
                         </Link>

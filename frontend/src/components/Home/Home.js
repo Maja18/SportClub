@@ -13,7 +13,7 @@ const Home = () => {
     return(
         <div className='Div'>
             <h1>Welcome to Sport Clubs</h1>
-            <img src={image} />
+            <img src={image} alt={'not found'}/>
         </div>
     );
 };

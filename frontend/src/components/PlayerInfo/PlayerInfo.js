@@ -43,23 +43,25 @@ const PlayerInfo = () => {
 
     return(
         <div className='Card'>
-            <Card style={{
-                    width: '40rem'
-            }}>
-                <CardHeader tag="h5" style={{backgroundColor: '#f1f1f1'}}>
-                <MdOutlineSportsKabaddi size={25}/>
-                <span style={{marginLeft:'10px'}}>{player.playerName}</span>
-                {authContext.role === 'EDITOR' ?
-                <div style={{textAlign:'right', marginTop:'-30px'}}>
-                    <Button color="success" outline onClick={editPlayer}  >
-                        Edit
-                    </Button>
-                </div>:null}
+            <Card>
+                <CardHeader tag="h5">
+                    <MdOutlineSportsKabaddi size={25}/>
+                    <span style={{marginLeft:'10px'}}>{player.playerName}</span>
+                    {authContext.role === 'EDITOR' ?
+                    <div style={{textAlign:'right', marginTop:'-30px'}}>
+                        <Button color="success" outline onClick={editPlayer}  >
+                            Edit
+                        </Button>
+                    </div>:null}
                 </CardHeader>
                 <CardBody>
+                    {imageBytes ? 
                     <Card style={{width:'100px', height:'100px'}}>
-                        <img style={{width:'100%', objectFit:'cover', height:'100%'}} src={`data:image/jpg;image/png;base64,${imageBytes}`} />
+                        <img alt={'not found'} style={{width:'100%', objectFit:'cover', height:'100%'}} 
+                        src={`data:image/jpg;image/png;base64,${imageBytes}`} 
+                        />
                     </Card>
+                    : null}
                     <Label style={{marginTop:'20px'}}>
                         Salary: {player.salary}
                     </Label>

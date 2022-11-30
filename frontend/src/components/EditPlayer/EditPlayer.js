@@ -240,17 +240,19 @@ const EditPlayer = () => {
 
     return(
         <div className='Card'>
-            <Card style={{
-                    width: '40rem'
-            }}>
-                <CardHeader tag="h5" style={{backgroundColor: '#f1f1f1'}}>
+            <Card>
+                <CardHeader tag="h5">
                     <MdOutlineSportsKabaddi size={25}/>
                     <span style={{marginLeft:'10px'}}>Player</span>
                 </CardHeader>
                 <CardBody>
+                    {imageBytes ? 
                     <Card style={{width:'100px', height:'100px'}}>
-                        <img style={{width:'100%', objectFit:'cover', height:'100%'}} src={`data:image/jpg;image/png;base64,${imageBytes}`} />
+                        <img  alt={'not found'}  style={{width:'100%', objectFit:'cover', height:'100%'}} 
+                        src={`data:image/jpg;image/png;base64,${imageBytes}`} 
+                        />
                     </Card>
+                    : null}
                     <Label for="exampleEmail">Change picture</Label>
                         <Input
                         type="file"

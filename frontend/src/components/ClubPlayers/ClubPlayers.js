@@ -87,7 +87,7 @@ import { AuthContext } from '../../context/auth-context';
         if (!firstTimeRender.current) {
             let players = []
             club.players.forEach(p => {
-                if (player.id != p.id){
+                if (player.id !== p.id){
                     players.push(p)
                 }
             });
@@ -124,11 +124,7 @@ import { AuthContext } from '../../context/auth-context';
 
     return(
         <div className='Card'>
-            <Card
-            style={{
-                width: '40rem'
-            }}
-            >
+            <Card>
             <CardHeader>
             <MdOutlineSportsKabaddi size={25}/>
                 <span style={{marginLeft:'10px'}}>{club.name} players</span>

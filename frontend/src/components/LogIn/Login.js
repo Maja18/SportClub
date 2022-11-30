@@ -3,7 +3,6 @@ import './Login.css';
 import {Button,Form,FormGroup,Input,Label} from 'reactstrap';
 import axios from 'axios'
 import { useNavigate } from 'react-router-dom';
-import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css'
 import { AuthContext } from '../../context/auth-context';
 
@@ -12,12 +11,6 @@ const Login = () =>  {
     const [enteredPassword, setEnteredPassword] = useState('');
     const navigateTo = useNavigate(); 
     const authContext = useContext(AuthContext);
-
-    const showToastMessage = () => {
-        toast.success('You have sussessufully logged in!', {
-            position: toast.POSITION.TOP_RIGHT
-        });
-    };
 
     const onSubmit = (event) => {
         event.preventDefault();
@@ -32,10 +25,6 @@ const Login = () =>  {
         axios.post('http://localhost:8080/api/auth/login', data)
                 .then(response => {
                     localStorage.setItem('token', JSON.stringify(response.data.accessToken));
-                    console.log(response.data.token);
-                    
-                    let token = localStorage.getItem('token').substring(1, localStorage.getItem('token').length-1);
-                    showToastMessage()
                     authContext.auth()
                     navigateTo('/profile')
                 })
@@ -81,9 +70,6 @@ const Login = () =>  {
                     <Button color="success">Submit</Button>
                 </div>
             </Form>
-            <div>
-            <ToastContainer />
-            </div>
         </div>
     );
 

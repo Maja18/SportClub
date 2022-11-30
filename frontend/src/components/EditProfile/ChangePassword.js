@@ -102,10 +102,8 @@ const ChangePassword = () => {
 
     return(
         <div className='Card'>
-            <Card style={{
-                    width: '40rem'
-                }}>
-                <CardHeader tag="h5" style={{backgroundColor: '#f1f1f1'}}>
+            <Card>
+                <CardHeader tag="h5" >
                 <CgProfile size={30}/>
                     <span style={{marginLeft:'10px'}}>Profile Info</span>
                 </CardHeader>

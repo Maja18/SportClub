@@ -32,7 +32,6 @@ const SportClub = () => {
     const [enteredName, setEnteredName] = useState('');
     const navigateTo = useNavigate();
     const [formState, dispatch] = useReducer(formsReducer, initialState)
-    const [showError, setShowError] = useState(false)
 
     const showToastMessage = () => {
         toast.success('You have sussessufully added club!', {
@@ -66,9 +65,7 @@ const SportClub = () => {
             })
         }
         }
-        if (!isFormValid) {
-        setShowError(true)
-        } else {
+        if (isFormValid) {
             const data = {
                 name: enteredName
             }
@@ -87,19 +84,13 @@ const SportClub = () => {
                     console.log(response);
                 }); 
         }
-        // Hide the error message after 5 seconds
-        setTimeout(() => {
-            setShowError(false)
-        }, 5000)
     };
 
     return(
         <div className='Card'>
-            <Card style={{
-                    width: '40rem'
-            }}>
-                <CardHeader tag="h5" style={{backgroundColor: '#f1f1f1'}}>
-                <FcSportsMode size={30}/>
+            <Card>
+                <CardHeader tag="h5">
+                    <FcSportsMode size={30}/>
                 </CardHeader>
                 <CardBody>
                     <Label for="exampleEmail">Name</Label>
