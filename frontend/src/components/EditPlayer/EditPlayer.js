@@ -1,14 +1,13 @@
 import React, {useState, useEffect, useReducer} from 'react'; 
-import {
-    Button,Card,CardBody,CardHeader,Input,Label,ListGroup,ListGroupItem,Badge,Dropdown,DropdownToggle,
-    DropdownItem,DropdownMenu
-  } from 'reactstrap';
-  import axios from 'axios'
-  import { useNavigate } from 'react-router-dom';
-  import { MdOutlineSportsKabaddi } from 'react-icons/md';
-  import {useParams} from 'react-router-dom';
-  import { Link } from 'react-router-dom';
-  import { UPDATE_FORM, onInputChange, onFocusOut, validateInput } from '../../lib/formUtils'
+import {Button,Card,CardBody,CardHeader,Input,Label,ListGroup,ListGroupItem,Badge,Dropdown,DropdownToggle,
+    DropdownItem,DropdownMenu} from 'reactstrap';
+import axios from 'axios'
+import { useNavigate } from 'react-router-dom';
+import { MdOutlineSportsKabaddi } from 'react-icons/md';
+import {useParams} from 'react-router-dom';
+import { Link } from 'react-router-dom';
+import { UPDATE_FORM, onInputChange, onFocusOut, validateInput } from '../../lib/formUtils'
+import { ToastContainer, toast } from 'react-toastify';
 
     const formsReducer = (state, action) => {
         switch (action.type) {
@@ -77,7 +76,6 @@ const EditPlayer = () => {
                     }
                     })
          })
-         
          .catch(response => {
                 alert(response.response.data.message);
             });
@@ -98,6 +96,14 @@ const EditPlayer = () => {
             });
 
     }, []);
+
+    const showToastMessage = () => {
+        toast.success('You have sussessufully edited player!', {
+            position: toast.POSITION.TOP_RIGHT,
+            autoClose:1000,
+            onClose: () => navigateTo(`/sportClubs/playersInfo/${player.id}`)
+        });
+    };
 
     const handleSelect=(event, skill)=>{
         setValue(event.target.value)
@@ -219,8 +225,7 @@ const EditPlayer = () => {
                 }
             })
                 .then(response => {
-                    //showToastMessage(); 
-                    navigateTo(`/sportClubs/playersInfo/${player.id}`)
+                    showToastMessage(); 
                 })
                 .catch(response => {
                     alert(response.response.data.message);
@@ -235,17 +240,19 @@ const EditPlayer = () => {
 
     return(
         <div className='Card'>
-            <Card style={{
-                    width: '40rem'
-            }}>
-                <CardHeader tag="h5" style={{backgroundColor: '#f1f1f1'}}>
+            <Card>
+                <CardHeader tag="h5">
                     <MdOutlineSportsKabaddi size={25}/>
                     <span style={{marginLeft:'10px'}}>Player</span>
                 </CardHeader>
                 <CardBody>
+                    {imageBytes ? 
                     <Card style={{width:'100px', height:'100px'}}>
-                        <img style={{width:'100%', objectFit:'cover', height:'100%'}} src={`data:image/jpg;image/png;base64,${imageBytes}`} />
+                        <img  alt={'not found'}  style={{width:'100%', objectFit:'cover', height:'100%'}} 
+                        src={`data:image/jpg;image/png;base64,${imageBytes}`} 
+                        />
                     </Card>
+                    : null}
                     <Label for="exampleEmail">Change picture</Label>
                         <Input
                         type="file"
@@ -349,6 +356,9 @@ const EditPlayer = () => {
                     </div>
                 </CardBody>
             </Card>
+            <div>
+                <ToastContainer />
+            </div>
         </div>
 
     );

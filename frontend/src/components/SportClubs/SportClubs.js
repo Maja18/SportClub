@@ -1,12 +1,5 @@
 import React, {useState, useEffect, useContext} from 'react'; 
-import {
-    Card,
-    CardHeader,
-    ListGroup,
-    ListGroupItem,
-    Badge,
-    Button
-  } from 'reactstrap';
+import {Card,CardHeader,ListGroup,ListGroupItem,Badge,Button} from 'reactstrap';
 import { FcSportsMode } from 'react-icons/fc';
 import axios from 'axios';
 import './SportClubs.css'
@@ -45,13 +38,9 @@ const SportClubs = () => {
 
     return(
         <div className='Card'>
-            <Card
-            style={{
-                width: '40rem'
-            }}
-            >
+            <Card>
             <CardHeader>
-            <FcSportsMode size={30}/>
+                <FcSportsMode size={30}/>
                 <span style={{marginLeft:'10px'}}>Sport clubs</span>
                 {authContext.role === 'EDITOR' ?
                 <div style={{textAlign:'right', marginTop:'-30px'}}>
@@ -62,7 +51,7 @@ const SportClubs = () => {
             </CardHeader>
             <ListGroup flush>
                 {clubs.map(club => 
-                    <ListGroupItem>
+                    <ListGroupItem key={club.id}>
                         {club.name}
                         <div className='Buttons'>
                         {authContext.role === 'EDITOR' ?

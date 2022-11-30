@@ -1,23 +1,12 @@
 import React, {useState, useEffect, useRef, useContext} from 'react'; 
-import {
-    Card,
-    CardHeader,
-    ListGroup,
-    ListGroupItem,
-    Badge,
-    Button,
-    Modal,
-    ModalBody,
-    ModalFooter,
-    ModalHeader
-  } from 'reactstrap';
-  import {useParams} from 'react-router-dom';
-  import axios from 'axios';
-  import { Link } from 'react-router-dom';
-  import { MdOutlineSportsKabaddi } from 'react-icons/md';
-  import { useNavigate } from "react-router-dom";
-  import { BsTrash } from 'react-icons/bs';
-  import { AuthContext } from '../../context/auth-context';
+import {Card,CardHeader,ListGroup,ListGroupItem,Badge,Button,Modal,ModalBody,ModalFooter,ModalHeader} from 'reactstrap';
+import {useParams} from 'react-router-dom';
+import axios from 'axios';
+import { Link } from 'react-router-dom';
+import { MdOutlineSportsKabaddi } from 'react-icons/md';
+import { useNavigate } from "react-router-dom";
+import { BsTrash } from 'react-icons/bs';
+import { AuthContext } from '../../context/auth-context';
 
   const ClubPlayers = () => {
     const [clubPlayers, setClubPlayers] = useState([]);
@@ -98,7 +87,7 @@ import {
         if (!firstTimeRender.current) {
             let players = []
             club.players.forEach(p => {
-                if (player.id != p.id){
+                if (player.id !== p.id){
                     players.push(p)
                 }
             });
@@ -135,13 +124,9 @@ import {
 
     return(
         <div className='Card'>
-            <Card
-            style={{
-                width: '40rem'
-            }}
-            >
+            <Card>
             <CardHeader>
-            <MdOutlineSportsKabaddi size={25}/>
+                <MdOutlineSportsKabaddi size={25}/>
                 <span style={{marginLeft:'10px'}}>{club.name} players</span>
                 {authContext.role === 'EDITOR' ?
                 <div style={{textAlign:'right', marginTop:'-30px'}}>

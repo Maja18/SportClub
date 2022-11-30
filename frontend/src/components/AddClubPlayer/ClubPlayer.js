@@ -1,20 +1,10 @@
 import React, {useState, useEffect} from 'react'; 
-import { useSearchParams } from 'react-router-dom';
-import {
-    Card,
-    CardHeader,
-    Button,
-    CardBody,
-    Dropdown,
-    DropdownToggle,
-    DropdownItem,
-    DropdownMenu
-  } from 'reactstrap';
-  import axios from 'axios';
-  import { MdOutlineSportsKabaddi } from 'react-icons/md';
-  import {useParams} from 'react-router-dom';
-  import { ToastContainer, toast } from 'react-toastify';
-  import { useNavigate } from 'react-router-dom';
+import {Card,CardHeader,Button,CardBody,Dropdown,DropdownToggle,DropdownItem,DropdownMenu} from 'reactstrap';
+import axios from 'axios';
+import { MdOutlineSportsKabaddi } from 'react-icons/md';
+import {useParams} from 'react-router-dom';
+import { ToastContainer, toast } from 'react-toastify';
+import { useNavigate } from 'react-router-dom';
 
 const ClubPlayer = () => {
     const [dropdownOpen, setDropdownOpen] = useState(false);
@@ -108,13 +98,9 @@ const ClubPlayer = () => {
 
     return(
         <div className='Card'>
-            <Card
-            style={{
-                width: '40rem'
-            }}
-            >
+            <Card>
             <CardHeader>
-            <MdOutlineSportsKabaddi size={25}/>
+                <MdOutlineSportsKabaddi size={25}/>
                 <span style={{marginLeft:'10px'}}> {club.name}</span>
             </CardHeader>
                 <CardBody>

@@ -1,18 +1,11 @@
 import React, {useState, useEffect, useReducer} from 'react'; 
 import axios from 'axios';
 import {useParams} from 'react-router-dom';
-import {
-    Button,
-    Card,
-    CardBody,
-    CardText,
-    Label,
-    CardHeader,
-    Input
-} from 'reactstrap';
+import {Button,Card,CardBody,CardText,Label,CardHeader,Input} from 'reactstrap';
 import { FcSportsMode } from 'react-icons/fc';
 import { useNavigate } from "react-router-dom";
 import { UPDATE_FORM, onInputChange, onFocusOut, validateInput } from '../../lib/formUtils'
+import { ToastContainer, toast } from 'react-toastify';
 
     const formsReducer = (state, action) => {
         switch (action.type) {
@@ -70,6 +63,14 @@ const EditClub = () => {
 
     }, []);
 
+    const showToastMessage = () => {
+        toast.success('You have sussessufully edited club!', {
+            position: toast.POSITION.TOP_RIGHT,
+            autoClose:1000,
+            onClose: () => navigateTo('/sportClubs')
+        });
+    };
+
     const editClub = () => {
         let isFormValid = true
 
@@ -110,8 +111,7 @@ const EditClub = () => {
                 }
             })
                 .then(response => {
-                    //showToastMessage()
-                    navigateTo('/sportClubs')
+                    showToastMessage()
                 })
                 .catch(response => {
                     alert(response.response.data.message);
@@ -122,10 +122,8 @@ const EditClub = () => {
 
     return(
         <div className='Card'>
-            <Card style={{
-                    width: '40rem'
-                }}>
-                <CardHeader tag="h5" style={{backgroundColor: '#f1f1f1'}}>
+            <Card>
+                <CardHeader tag="h5">
                 <FcSportsMode size={30}/>
                     <span style={{marginLeft:'10px'}}>Sport Club</span>
                 </CardHeader>
@@ -159,6 +157,9 @@ const EditClub = () => {
                     </div>
                 </CardBody>
             </Card>
+            <div>
+                <ToastContainer />
+            </div>
         </div>
 
     );

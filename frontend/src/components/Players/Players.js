@@ -1,16 +1,5 @@
 import React, {useState, useEffect} from 'react'; 
-import {
-    Card,
-    CardHeader,
-    ListGroup,
-    ListGroupItem,
-    Badge,
-    Button,
-    Modal,
-    ModalBody,
-    ModalFooter,
-    ModalHeader
-  } from 'reactstrap';
+import {Card,CardHeader,ListGroup,ListGroupItem,Badge,Button,Modal,ModalBody,ModalFooter,ModalHeader} from 'reactstrap';
 import { Link } from 'react-router-dom';
 import { useNavigate } from "react-router-dom";
 import axios from 'axios'; 
@@ -67,13 +56,9 @@ const Players = () => {
 
     return(
         <div className='Card'>
-            <Card
-            style={{
-                width: '40rem'
-            }}
-            >
+            <Card>
             <CardHeader>
-            <MdOutlineSportsKabaddi size={25}/>
+            <   MdOutlineSportsKabaddi size={25}/>
                 <span style={{marginLeft:'10px'}}>Players</span>
                 <div style={{textAlign:'right', marginTop:'-30px'}}>
                     <Button color="success" outline onClick={addNewPlayer} >
@@ -83,8 +68,8 @@ const Players = () => {
             </CardHeader>
             <ListGroup flush>
                 {players.map(player => 
-                    <ListGroupItem>
-                        <Link to={{pathname: `/sportClubs/playersInfo/${player.id}`}}>
+                    <ListGroupItem key={player.id}>
+                        <Link className='playerLink' to={{pathname: `/sportClubs/playersInfo/${player.id}`}}>
                             {player.playerName}
                         </Link>
                         <div className='Buttons'>

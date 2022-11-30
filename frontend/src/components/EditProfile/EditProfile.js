@@ -1,19 +1,12 @@
 import React, {useEffect, useReducer, useState} from 'react';
 import { useLocation } from 'react-router-dom';
-import {
-    Button,
-    Card,
-    CardBody,
-    CardText,
-    Label,
-    CardHeader,
-    Input
-} from 'reactstrap';
+import {Button,Card,CardBody,CardText,Label,CardHeader,Input} from 'reactstrap';
 import { CgProfile } from 'react-icons/cg';
 import './EditProfile.css'
 import axios from 'axios'
 import { useNavigate } from "react-router-dom";
 import { UPDATE_FORM, onInputChange, onFocusOut, validateInput } from '../../lib/formUtils'
+import { ToastContainer, toast } from 'react-toastify';
 
     const formsReducer = (state, action) => {
         switch (action.type) {
@@ -64,6 +57,22 @@ const EditProfile = () => {
 
     }, []);
 
+    const showToastMessage = () => {
+        var path = ''
+        if (currentEmail !== enteredEmail || currentRole !== enteredRole){
+            path = '/login'
+        }
+        else{
+            path = '/profile'
+        }
+        toast.success('You have sussessufully edited profile!', {
+            position: toast.POSITION.TOP_RIGHT,
+            autoClose:1000,
+            onClose: () => navigateTo(path)
+        });
+    };
+
+
     const onSubmit = (event) => {
         let isFormValid = true
 
@@ -109,13 +118,7 @@ const EditProfile = () => {
                 }
             })
                     .then(response => {
-                        //showToastMessage()
-                        if (currentEmail !== enteredEmail || currentRole !== enteredRole){
-                            navigateTo('/login')
-                        }
-                        else{
-                            navigateTo('/profile')
-                        }
+                        showToastMessage()
                     })
                     .catch(response => {
                         alert(response.response.data.message);
@@ -130,11 +133,9 @@ const EditProfile = () => {
 
     return(
         <div className='Card'>
-            <Card style={{
-                    width: '40rem'
-                }}>
-                <CardHeader tag="h5" style={{backgroundColor: '#f1f1f1'}}>
-                <CgProfile size={30}/>
+            <Card >
+                <CardHeader tag="h5">
+                    <CgProfile size={30}/>
                     <span style={{marginLeft:'10px'}}>Profile Info</span>
                 </CardHeader>
                 <CardBody>
@@ -240,6 +241,9 @@ const EditProfile = () => {
                     </div>
                 </CardBody>
             </Card>
+            <div>
+                <ToastContainer />
+            </div>
         </div>
     );
 };
