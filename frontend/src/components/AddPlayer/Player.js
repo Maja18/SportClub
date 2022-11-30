@@ -224,7 +224,6 @@ const Player = () => {
                         displayValue="name"
                         />
                     </div>
-                    
                     <div class="button-container-div">
                         <Button style={{marginTop:'30px', width:'100px'}} color="success" onClick={addPlayer} >Add</Button>
                     </div>

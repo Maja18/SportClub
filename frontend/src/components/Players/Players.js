@@ -58,7 +58,7 @@ const Players = () => {
         <div className='Card'>
             <Card>
             <CardHeader>
-            <MdOutlineSportsKabaddi size={25}/>
+            <   MdOutlineSportsKabaddi size={25}/>
                 <span style={{marginLeft:'10px'}}>Players</span>
                 <div style={{textAlign:'right', marginTop:'-30px'}}>
                     <Button color="success" outline onClick={addNewPlayer} >

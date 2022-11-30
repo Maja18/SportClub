@@ -77,8 +77,7 @@ const PlayerInfo = () => {
                             </ListGroupItem> 
                         )}
                         </ListGroup>
-                    </Card>
-                    
+                    </Card>        
                 </CardBody>
             </Card>
         </div>

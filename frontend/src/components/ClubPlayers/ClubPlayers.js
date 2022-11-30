@@ -126,7 +126,7 @@ import { AuthContext } from '../../context/auth-context';
         <div className='Card'>
             <Card>
             <CardHeader>
-            <MdOutlineSportsKabaddi size={25}/>
+                <MdOutlineSportsKabaddi size={25}/>
                 <span style={{marginLeft:'10px'}}>{club.name} players</span>
                 {authContext.role === 'EDITOR' ?
                 <div style={{textAlign:'right', marginTop:'-30px'}}>

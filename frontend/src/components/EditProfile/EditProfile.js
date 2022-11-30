@@ -135,7 +135,7 @@ const EditProfile = () => {
         <div className='Card'>
             <Card >
                 <CardHeader tag="h5">
-                <CgProfile size={30}/>
+                    <CgProfile size={30}/>
                     <span style={{marginLeft:'10px'}}>Profile Info</span>
                 </CardHeader>
                 <CardBody>

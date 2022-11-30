@@ -5,12 +5,20 @@ import axios from 'axios'
 import { useNavigate } from 'react-router-dom';
 import 'react-toastify/dist/ReactToastify.css'
 import { AuthContext } from '../../context/auth-context';
+import { ToastContainer, toast } from 'react-toastify';
 
 const Login = () =>  {
     const [enteredEmail, setEnteredEmail] = useState('');
     const [enteredPassword, setEnteredPassword] = useState('');
     const navigateTo = useNavigate(); 
     const authContext = useContext(AuthContext);
+
+    const showToastErrorMessage = () => {
+        toast.error('Please enter valid data!', {
+            position: toast.POSITION.TOP_RIGHT,
+            autoClose:1000
+        });
+    };
 
     const onSubmit = (event) => {
         event.preventDefault();
@@ -29,8 +37,7 @@ const Login = () =>  {
                     navigateTo('/profile')
                 })
                 .catch(response => {
-                    alert("Please enter valid data!");
-                    console.log(response);
+                    showToastErrorMessage()
                  });   
     };
 
@@ -70,6 +77,9 @@ const Login = () =>  {
                     <Button color="success">Submit</Button>
                 </div>
             </Form>
+            <div>
+                <ToastContainer />
+            </div>
         </div>
     );
 
