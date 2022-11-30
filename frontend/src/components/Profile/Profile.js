@@ -42,6 +42,15 @@ const Profile = () => {
         });
     }
 
+    const changePassword = () =>{ 
+        let path = `/changePassword`; 
+        navigate(path, {
+            state: {
+              userInfo: user
+            }
+        });
+    }
+
     return(
         <div className='Card'>
             <Card style={{
@@ -66,7 +75,8 @@ const Profile = () => {
                             Role: {userRole}
                         </Label>
                     </CardText>
-                    <Button color='info' onClick={routeChange}>Edit</Button>
+                    <Button style={{width:'160px'}} color='info' onClick={routeChange}>Edit</Button>
+                    <Button style={{width:'160px'}} color='info' onClick={changePassword}>Change password</Button>
                 </CardBody>
             </Card>
         </div>

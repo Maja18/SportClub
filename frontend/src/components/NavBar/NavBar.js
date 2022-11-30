@@ -20,9 +20,9 @@ import ClubPlayer from '../AddClubPlayer/ClubPlayer';
 import PlayerInfo from '../PlayerInfo/PlayerInfo';
 import Player from '../AddPlayer/Player';
 import EditPlayer from '../EditPlayer/EditPlayer';
-import axios from 'axios';
 import { useNavigate } from "react-router-dom";
 import { AuthContext } from '../../context/auth-context';
+import ChangePassword from '../EditProfile/ChangePassword';
 
 const NavBar = () => {
     const authContext = useContext(AuthContext);
@@ -76,6 +76,7 @@ const NavBar = () => {
                 <Route path="/login" element={<Login/>}></Route>
                 <Route path="/profile" element={<Profile/>}></Route>
                 <Route path='/editProfile' element={<EditProfile/>}></Route>
+                <Route path='/changePassword' element={<ChangePassword/>}></Route>
                 <Route path='/sportClubs' element={<SportClubs/>}></Route>
                 <Route path='/addNewClub' element={<SportClub/>}></Route>
                 <Route path='/editClub/:id' element={<EditClub/>}></Route>

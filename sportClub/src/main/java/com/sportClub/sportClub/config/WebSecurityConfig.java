@@ -28,7 +28,6 @@ import org.springframework.security.web.authentication.www.BasicAuthenticationFi
 @Configuration
 @EnableWebSecurity
 @EnableGlobalMethodSecurity(prePostEnabled = true)
-//@EnableGlobalMethodSecurity(securedEnabled = true)
 public class WebSecurityConfig {
     @Autowired
     private CustomUserDetailsService jwtPersonService;
