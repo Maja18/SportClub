@@ -1,5 +1,6 @@
 package com.sportClub.sportClub.service.interface_service;
 
+import com.sportClub.sportClub.dto.PasswordChangerDTO;
 import com.sportClub.sportClub.dto.PersonDTO;
 import com.sportClub.sportClub.model.Person;
 
@@ -9,4 +10,6 @@ public interface PersonService {
     PersonDTO registerUser(PersonDTO userRequest);
     PersonDTO editPersonInfo(PersonDTO personDTO);
     PersonDTO getLoggedPersonProfile(Person person);
+
+    void changePassword(PasswordChangerDTO passwordChangerDTO);
 }

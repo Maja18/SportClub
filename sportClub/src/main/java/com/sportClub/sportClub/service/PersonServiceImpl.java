@@ -1,5 +1,6 @@
 package com.sportClub.sportClub.service;
 
+import com.sportClub.sportClub.dto.PasswordChangerDTO;
 import com.sportClub.sportClub.dto.PersonDTO;
 import com.sportClub.sportClub.mappers.PersonMapper;
 import com.sportClub.sportClub.model.Authority;
@@ -8,7 +9,9 @@ import com.sportClub.sportClub.repository.PersonRepository;
 import com.sportClub.sportClub.service.interface_service.PersonService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.Authentication;
 import org.springframework.security.core.GrantedAuthority;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
@@ -76,6 +79,15 @@ public class PersonServiceImpl implements PersonService {
     public PersonDTO getLoggedPersonProfile(Person person) {
         Person user = personRepository.findById(person.getId()).get();
         return personMapper.personToPersonDTO(user);
+    }
+
+    @Override
+    public void changePassword(PasswordChangerDTO passwordChangerDTO) {
+        Person person = personRepository.findById(passwordChangerDTO.getUserId()).get();
+        if (person != null){
+            person.setPassword(passwordEncoder.encode(passwordChangerDTO.getNewPassword()));
+            personRepository.save(person);
+        }
     }
 
 }

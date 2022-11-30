@@ -1,5 +1,6 @@
 package com.sportClub.sportClub.controller;
 
+import com.sportClub.sportClub.dto.PasswordChangerDTO;
 import com.sportClub.sportClub.dto.PersonDTO;
 import com.sportClub.sportClub.model.Authority;
 import com.sportClub.sportClub.model.Person;
@@ -14,7 +15,9 @@ import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.Collection;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 @RestController
 @RequestMapping(value = "/api/person")
@@ -32,6 +35,16 @@ public class PersonController {
 
         return person == null ?
                 new ResponseEntity<>(HttpStatus.NOT_FOUND) : ResponseEntity.ok(person);
+    }
+
+    @PostMapping(value = "/change-password")
+    @PreAuthorize("hasAnyAuthority({'ROLE_EDITOR','ROLE_VIEWER'})")
+    public ResponseEntity<?> changePassword(@RequestBody PasswordChangerDTO passwordChanger) {
+        personService.changePassword(passwordChanger);
+
+        Map<String, String> result = new HashMap<>();
+        result.put("result", "success");
+        return ResponseEntity.accepted().body(result);
     }
 
     @GetMapping
