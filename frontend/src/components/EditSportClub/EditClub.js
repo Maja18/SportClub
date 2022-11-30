@@ -114,8 +114,7 @@ const EditClub = () => {
                     navigateTo('/sportClubs')
                 })
                 .catch(response => {
-                    alert("Please enter valid data!");
-                    console.log(response);
+                    alert(response.response.data.message);
                 }); 
         }
 

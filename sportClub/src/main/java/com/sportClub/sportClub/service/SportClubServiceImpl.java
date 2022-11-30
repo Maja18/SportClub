@@ -2,6 +2,7 @@ package com.sportClub.sportClub.service;
 
 import com.sportClub.sportClub.dto.ClubDTO;
 import com.sportClub.sportClub.dto.PlayerDTO;
+import com.sportClub.sportClub.exceptions.ClubException;
 import com.sportClub.sportClub.mappers.PlayerMapper;
 import com.sportClub.sportClub.mappers.SportClubMapper;
 import com.sportClub.sportClub.model.Player;
@@ -48,31 +49,38 @@ public class SportClubServiceImpl implements SportClubService {
 
     @Override
     public ClubDTO editClubInfo(ClubDTO clubDTO) {
-        SportClub club = sportClubRepository.findById(clubDTO.getId()).get();
-        if (club != null){
+        SportClub club;
+        try {
+            club = sportClubRepository.findById(clubDTO.getId()).get();
             club.setName(clubDTO.getName());
+            sportClubRepository.save(club);
+        }catch (Exception e){
+            throw new ClubException("Club with given id doesn't exist");
         }
-
-        sportClubRepository.save(club);
 
         return sportClubMapper.clubToClubDTO(club);
     }
 
     @Override
     public ClubDTO addNewPlayerToClub(ClubDTO clubDTO) {
-        SportClub sportClub = sportClubRepository.findById(clubDTO.getId()).get();
-        if (sportClub != null){
+        SportClub sportClub;
+        try {
+            sportClub = sportClubRepository.findById(clubDTO.getId()).get();
             List<Player> players = playerMapper.playerDTOsToPlayers(clubDTO.getPlayers());
             sportClub.setPlayers(players);
+            sportClubRepository.save(sportClub);
+        }catch (Exception e){
+            throw new ClubException("Club with given id doesn't exist");
         }
-        sportClubRepository.save(sportClub);
+
         return sportClubMapper.clubToClubDTO(sportClub);
     }
 
     @Override
     public ClubDTO removePlayerFromClub(ClubDTO clubDTO) {
-        SportClub sportClub = sportClubRepository.findById(clubDTO.getId()).get();
-        if (sportClub != null){
+        SportClub sportClub;
+        try {
+            sportClub = sportClubRepository.findById(clubDTO.getId()).get();
             List<Player> clubPlayers = new ArrayList<>();
             for (Player player: sportClub.getPlayers()){
                 for (PlayerDTO playerDTO: clubDTO.getPlayers()){
@@ -83,6 +91,8 @@ public class SportClubServiceImpl implements SportClubService {
             }
             sportClub.setPlayers(clubPlayers);
             sportClubRepository.save(sportClub);
+        }catch (Exception e){
+            throw new ClubException("Club with given id doesn't exist");
         }
 
         return sportClubMapper.clubToClubDTO(sportClub);
@@ -90,10 +100,13 @@ public class SportClubServiceImpl implements SportClubService {
 
     @Override
     public ClubDTO getClub(Long id) {
-        SportClub club = sportClubRepository.findById(id).get();
-        if (club != null){
-            return sportClubMapper.clubToClubDTO(club);
+        SportClub club;
+        try {
+            club = sportClubRepository.findById(id).get();
+        }catch (Exception e){
+            throw new ClubException("Club with given id doesn't exist");
         }
-        return null;
+
+        return sportClubMapper.clubToClubDTO(club);
     }
 }

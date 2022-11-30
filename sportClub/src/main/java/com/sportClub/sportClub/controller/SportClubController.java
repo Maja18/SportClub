@@ -1,8 +1,6 @@
 package com.sportClub.sportClub.controller;
 
 import com.sportClub.sportClub.dto.ClubDTO;
-import com.sportClub.sportClub.dto.PersonDTO;
-import com.sportClub.sportClub.dto.PlayerDTO;
 import com.sportClub.sportClub.service.SportClubServiceImpl;
 import io.swagger.v3.oas.annotations.security.SecurityRequirement;
 import lombok.RequiredArgsConstructor;
@@ -10,8 +8,6 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
-
-import javax.annotation.security.RolesAllowed;
 import java.util.List;
 
 @RestController

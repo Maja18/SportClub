@@ -1,10 +1,6 @@
 package com.sportClub.sportClub.controller;
 
-import com.sportClub.sportClub.dto.ClubDTO;
 import com.sportClub.sportClub.dto.PlayerDTO;
-import com.sportClub.sportClub.model.Person;
-import com.sportClub.sportClub.model.Player;
-import com.sportClub.sportClub.service.PersonServiceImpl;
 import com.sportClub.sportClub.service.PlayerServiceImpl;
 import com.sportClub.sportClub.utils.MediaUpload;
 import io.swagger.v3.oas.annotations.security.SecurityRequirement;

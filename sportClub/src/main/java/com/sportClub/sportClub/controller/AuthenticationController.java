@@ -2,6 +2,7 @@ package com.sportClub.sportClub.controller;
 
 import com.sportClub.sportClub.dto.PersonDTO;
 import com.sportClub.sportClub.dto.UserTokenStateDTO;
+import com.sportClub.sportClub.exceptions.PersonException;
 import com.sportClub.sportClub.model.Person;
 import com.sportClub.sportClub.security.TokenUtils;
 import com.sportClub.sportClub.security.auth.JwtAuthenticationRequest;
@@ -49,6 +50,8 @@ public class AuthenticationController {
         Person existingPerson = personService.findByEmailEquals(userRequest.getEmail());
         if (existingPerson == null) {
             PersonDTO person = personService.registerUser(userRequest);
+        }else{
+            throw new PersonException("Person with given email already exists");
         }
 
         return new ResponseEntity<>("User is successfully registred!", HttpStatus.CREATED);

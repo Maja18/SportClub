@@ -13,9 +13,7 @@ import java.util.List;
 @Service
 @RequiredArgsConstructor
 public class SkillServiceImpl implements SkillService {
-
     private final SkillRepository skillRepository;
-
     private final SkillMapper skillMapper;
     @Override
     public List<SkillSTO> getAllSkills() {

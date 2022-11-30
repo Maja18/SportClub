@@ -118,8 +118,7 @@ const EditProfile = () => {
                         }
                     })
                     .catch(response => {
-                        alert("Please enter valid data!");
-                        console.log(response);
+                        alert(response.response.data.message);
                     });   
         }
         // Hide the error message after 5 seconds

@@ -78,9 +78,8 @@ const EditPlayer = () => {
                     })
          })
          
-         .catch(res => {
-                alert("Error");
-                console.log(res);
+         .catch(response => {
+                alert(response.response.data.message);
             });
 
     }, []);
@@ -224,8 +223,7 @@ const EditPlayer = () => {
                     navigateTo(`/sportClubs/playersInfo/${player.id}`)
                 })
                 .catch(response => {
-                    alert("Please enter valid data!");
-                    console.log(response);
+                    alert(response.response.data.message);
                 }); 
             }
             // Hide the error message after 5 seconds
