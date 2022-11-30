@@ -84,8 +84,7 @@ const Register = () => {
                     navigateTo('/login')
                 })
                 .catch(response => {
-                    alert("Please enter valid data!");
-                    console.log(response);
+                    alert(response.response.data.message);
                 });   
     };
 

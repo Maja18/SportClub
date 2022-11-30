@@ -2,6 +2,8 @@ package com.sportClub.sportClub.service;
 
 import com.sportClub.sportClub.dto.ImageDTO;
 import com.sportClub.sportClub.dto.PlayerDTO;
+import com.sportClub.sportClub.exceptions.ClubException;
+import com.sportClub.sportClub.exceptions.PlayerException;
 import com.sportClub.sportClub.mappers.PlayerMapper;
 import com.sportClub.sportClub.mappers.SkillMapper;
 import com.sportClub.sportClub.model.Player;
@@ -36,11 +38,13 @@ public class PlayerServiceImpl implements PlayerService {
 
     @Override
     public PlayerDTO getPlayerInfo(Long id) {
-        Player player = playerRepository.findById(id).get();
-        if (player != null){
-            return getPlayerImageFile(playerMapper.playerToPlayerDTO(player));
+        Player player;
+        try {
+            player = playerRepository.findById(id).get();
+        }catch (Exception e){
+            throw new PlayerException("Player with given id does not exist");
         }
-         return null;
+        return getPlayerImageFile(playerMapper.playerToPlayerDTO(player));
     }
 
     public PlayerDTO getPlayerImageFile(PlayerDTO playerDTO) {
@@ -69,15 +73,18 @@ public class PlayerServiceImpl implements PlayerService {
 
     @Override
     public PlayerDTO editPlayerInfo(PlayerDTO playerDTO) {
-        Player player = playerRepository.findById(playerDTO.getId()).get();
-        List<Skill> skills = skillMapper.skillsDTOToSkills(playerDTO.getPlayerSkills());
-        if (player != null){
+        Player player;
+        try {
+            player = playerRepository.findById(playerDTO.getId()).get();
+            List<Skill> skills = skillMapper.skillsDTOToSkills(playerDTO.getPlayerSkills());
             player.setPlayerName(playerDTO.getPlayerName());
             player.setImage(playerDTO.getImage());
             player.setSalary(playerDTO.getSalary());
             player.setPlayerSkills(skills);
+            playerRepository.save(player);
+        }catch (Exception e){
+            throw new PlayerException("Player with given id does not exist");
         }
-        playerRepository.save(player);
         
         return playerMapper.playerToPlayerDTO(player);
     }
@@ -97,20 +104,28 @@ public class PlayerServiceImpl implements PlayerService {
 
     @Override
     public PlayerDTO deletePlayer(Long id) {
-        Player player = playerRepository.findById(id).get();
-        if (player != null){
+        Player player;
+        try {
+            player = playerRepository.findById(id).get();
             playerRepository.delete(player);
+        }catch (Exception e){
+            throw new PlayerException("Player with given id does not exist");
         }
+
         return playerMapper.playerToPlayerDTO(player);
     }
 
     @Override
     public List<PlayerDTO> getAllClubPlayers(Long clubId) {
-        SportClub sportClub = sportClubRepository.findById(clubId).get();
-        List<Player> clubPlayers = new ArrayList<>();
-        if (sportClub != null){
+        SportClub sportClub;
+        List<Player> clubPlayers;
+        try {
+            sportClub = sportClubRepository.findById(clubId).get();
             clubPlayers = sportClub.getPlayers();
+        }catch (Exception e){
+            throw new ClubException("Club with given id doesn't exist");
         }
+
         return playerMapper.playersToPlayerDTOs(clubPlayers);
     }
 

@@ -2,21 +2,16 @@ package com.sportClub.sportClub.service;
 
 import com.sportClub.sportClub.dto.PasswordChangerDTO;
 import com.sportClub.sportClub.dto.PersonDTO;
+import com.sportClub.sportClub.exceptions.PersonException;
 import com.sportClub.sportClub.mappers.PersonMapper;
 import com.sportClub.sportClub.model.Authority;
 import com.sportClub.sportClub.model.Person;
 import com.sportClub.sportClub.repository.PersonRepository;
 import com.sportClub.sportClub.service.interface_service.PersonService;
 import lombok.RequiredArgsConstructor;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.security.core.Authentication;
-import org.springframework.security.core.GrantedAuthority;
-import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
-
 import java.util.ArrayList;
-import java.util.Collection;
 import java.util.List;
 
 @Service
@@ -26,7 +21,6 @@ public class PersonServiceImpl implements PersonService {
     private final PersonRepository personRepository;
     private final AuthenticationServiceImpl authenticationService;
     private final PasswordEncoder passwordEncoder;
-
     private final  PersonMapper personMapper;
     @Override
     public Person findByEmailEquals(String email) {
@@ -56,12 +50,12 @@ public class PersonServiceImpl implements PersonService {
 
     @Override
     public PersonDTO editPersonInfo(PersonDTO personDTO) {
-        Person person = personRepository.findById(personDTO.getId()).get();
-        if (person != null){
+        Person person;
+        try {
+            person = personRepository.findById(personDTO.getId()).get();
             person.setFirstName(personDTO.getFirstName());
             person.setLastName(personDTO.getLastName());
             person.setEmail(personDTO.getEmail());
-            String role = personDTO.getRole();
             List<Authority> authorities = new ArrayList<>();
             if (personDTO.getRole().equals("EDITOR")){
                 authorities.add(authenticationService.findByName("ROLE_EDITOR"));
@@ -70,6 +64,8 @@ public class PersonServiceImpl implements PersonService {
             }
             person.setAuthorities(authorities);
             personRepository.save(person);
+        }catch (Exception e){
+            throw  new PersonException(personDTO.getId(), "Person with given id doesn't exist.");
         }
 
         return personMapper.personToPersonDTO(person);
@@ -77,16 +73,25 @@ public class PersonServiceImpl implements PersonService {
 
     @Override
     public PersonDTO getLoggedPersonProfile(Person person) {
-        Person user = personRepository.findById(person.getId()).get();
+        Person user;
+        try {
+            user = personRepository.findById(person.getId()).get();
+        }catch (Exception e){
+            throw new PersonException("Person doesn't exist.");
+        }
+
         return personMapper.personToPersonDTO(user);
     }
 
     @Override
     public void changePassword(PasswordChangerDTO passwordChangerDTO) {
-        Person person = personRepository.findById(passwordChangerDTO.getUserId()).get();
-        if (person != null){
+        Person person;
+        try {
+            person = personRepository.findById(passwordChangerDTO.getUserId()).get();
             person.setPassword(passwordEncoder.encode(passwordChangerDTO.getNewPassword()));
             personRepository.save(person);
+        }catch (Exception e){
+            throw new PersonException("Person doesn't exist.");
         }
     }
 

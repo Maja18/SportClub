@@ -2,6 +2,7 @@ package com.sportClub.sportClub.controller;
 
 import com.sportClub.sportClub.dto.PasswordChangerDTO;
 import com.sportClub.sportClub.dto.PersonDTO;
+import com.sportClub.sportClub.exceptions.PersonException;
 import com.sportClub.sportClub.model.Authority;
 import com.sportClub.sportClub.model.Person;
 import com.sportClub.sportClub.service.PersonServiceImpl;
@@ -16,7 +17,6 @@ import org.springframework.web.bind.annotation.*;
 
 import java.util.Collection;
 import java.util.HashMap;
-import java.util.List;
 import java.util.Map;
 
 @RestController
