@@ -1,23 +1,12 @@
 import React, {useState, useEffect, useRef, useContext} from 'react'; 
-import {
-    Card,
-    CardHeader,
-    ListGroup,
-    ListGroupItem,
-    Badge,
-    Button,
-    Modal,
-    ModalBody,
-    ModalFooter,
-    ModalHeader
-  } from 'reactstrap';
-  import {useParams} from 'react-router-dom';
-  import axios from 'axios';
-  import { Link } from 'react-router-dom';
-  import { MdOutlineSportsKabaddi } from 'react-icons/md';
-  import { useNavigate } from "react-router-dom";
-  import { BsTrash } from 'react-icons/bs';
-  import { AuthContext } from '../../context/auth-context';
+import {Card,CardHeader,ListGroup,ListGroupItem,Badge,Button,Modal,ModalBody,ModalFooter,ModalHeader} from 'reactstrap';
+import {useParams} from 'react-router-dom';
+import axios from 'axios';
+import { Link } from 'react-router-dom';
+import { MdOutlineSportsKabaddi } from 'react-icons/md';
+import { useNavigate } from "react-router-dom";
+import { BsTrash } from 'react-icons/bs';
+import { AuthContext } from '../../context/auth-context';
 
   const ClubPlayers = () => {
     const [clubPlayers, setClubPlayers] = useState([]);

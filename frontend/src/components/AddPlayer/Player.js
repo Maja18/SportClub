@@ -1,17 +1,11 @@
 import React, {useState, useEffect, useReducer} from 'react'; 
-import {
-    Button,
-    Card,
-    CardBody,
-    CardHeader,
-    Input,
-    Label
-  } from 'reactstrap';
-  import axios from 'axios'
-  import { useNavigate } from 'react-router-dom';
-  import { MdOutlineSportsKabaddi, MdSkipNext } from 'react-icons/md';
-  import Multiselect from 'multiselect-react-dropdown';
-  import { UPDATE_FORM, onInputChange, onFocusOut, validateInput } from '../../lib/formUtils'
+import {Button,Card,CardBody,CardHeader,Input,Label} from 'reactstrap';
+import axios from 'axios'
+import { useNavigate } from 'react-router-dom';
+import { MdOutlineSportsKabaddi, MdSkipNext } from 'react-icons/md';
+import Multiselect from 'multiselect-react-dropdown';
+import { UPDATE_FORM, onInputChange, onFocusOut, validateInput } from '../../lib/formUtils'
+import { ToastContainer, toast } from 'react-toastify';
 
   const formsReducer = (state, action) => {
     switch (action.type) {
@@ -62,6 +56,14 @@ const Player = () => {
 
     }, []);
 
+    const showToastMessage = () => {
+        toast.success('You have sussessufully added new player!', {
+            position: toast.POSITION.TOP_RIGHT,
+            autoClose:1000,
+            onClose: () => navigateTo('/players')
+        });
+    };
+
     const addPlayer = () => {
         let isFormValid = true
 
@@ -101,8 +103,7 @@ const Player = () => {
                 }
             })
                 .then(response => {
-                    //showToastMessage()
-                    navigateTo('/players')
+                    showToastMessage()
                 })
                 .catch(response => {
                     alert("Please enter valid data!");
@@ -231,6 +232,9 @@ const Player = () => {
                     </div>
                 </CardBody>
             </Card>
+            <div>
+                <ToastContainer />
+            </div>
         </div>
     )
 

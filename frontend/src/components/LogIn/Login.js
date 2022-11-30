@@ -1,12 +1,6 @@
 import React, {useState, useContext} from 'react';
 import './Login.css';
-import {
-    Button,
-    Form,
-    FormGroup,
-    Input,
-    Label
-  } from 'reactstrap';
+import {Button,Form,FormGroup,Input,Label} from 'reactstrap';
 import axios from 'axios'
 import { useNavigate } from 'react-router-dom';
 import { ToastContainer, toast } from 'react-toastify';

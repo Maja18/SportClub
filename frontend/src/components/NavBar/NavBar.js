@@ -20,14 +20,12 @@ import ClubPlayer from '../AddClubPlayer/ClubPlayer';
 import PlayerInfo from '../PlayerInfo/PlayerInfo';
 import Player from '../AddPlayer/Player';
 import EditPlayer from '../EditPlayer/EditPlayer';
-import { useNavigate } from "react-router-dom";
 import { AuthContext } from '../../context/auth-context';
 import ChangePassword from '../EditProfile/ChangePassword';
 
 const NavBar = () => {
     const authContext = useContext(AuthContext);
     const [logout, setLogout] = useState(true)
-    let navigate = useNavigate(); 
 
     useEffect(() => {
         authContext.auth()

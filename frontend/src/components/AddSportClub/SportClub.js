@@ -1,17 +1,10 @@
 import React, {useState, useReducer} from 'react'; 
-import {
-    Button,
-    Card,
-    CardBody,
-    CardHeader,
-    Input,
-    Label
-  } from 'reactstrap';
+import {Button,Card,CardBody,CardHeader,Input,Label} from 'reactstrap';
 import { FcSportsMode } from 'react-icons/fc';
 import axios from 'axios'
 import { useNavigate } from 'react-router-dom';
-import { ToastContainer, toast } from 'react-toastify';
 import { UPDATE_FORM, onInputChange, onFocusOut, validateInput } from '../../lib/formUtils'
+import { ToastContainer, toast } from 'react-toastify';
 
 const formsReducer = (state, action) => {
     switch (action.type) {
@@ -42,8 +35,10 @@ const SportClub = () => {
     const [showError, setShowError] = useState(false)
 
     const showToastMessage = () => {
-        toast.success('You have sussessufully added new club!', {
-            position: toast.POSITION.TOP_RIGHT
+        toast.success('You have sussessufully added club!', {
+            position: toast.POSITION.TOP_RIGHT,
+            autoClose:1000,
+            onClose: () => navigateTo('/sportClubs')
         });
     };
 
@@ -86,7 +81,6 @@ const SportClub = () => {
             })
                 .then(response => {
                     showToastMessage()
-                    navigateTo('/sportClubs')
                 })
                 .catch(response => {
                     alert("Please enter valid data!");
@@ -134,11 +128,9 @@ const SportClub = () => {
                 </CardBody>
             </Card>
             <div>
-            <ToastContainer />
+                <ToastContainer />
             </div>
-        </div>
-            
-
+        </div>       
     );
 };
 

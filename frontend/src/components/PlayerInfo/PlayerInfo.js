@@ -1,18 +1,10 @@
 import React, {useState, useEffect, useContext} from 'react'; 
 import {useParams} from 'react-router-dom';
 import axios from 'axios';
-import {
-    Card,
-    CardBody,
-    CardHeader,
-    ListGroupItem,
-    Label,
-    ListGroup,
-    Button
-  } from 'reactstrap';
-  import { MdOutlineSportsKabaddi } from 'react-icons/md';
-  import { useNavigate } from "react-router-dom";
-  import { AuthContext } from '../../context/auth-context';
+import {Card,CardBody,CardHeader,ListGroupItem,Label,ListGroup,Button} from 'reactstrap';
+import { MdOutlineSportsKabaddi } from 'react-icons/md';
+import { useNavigate } from "react-router-dom";
+import { AuthContext } from '../../context/auth-context';
 
 const PlayerInfo = () => {
     const params = useParams();

@@ -1,13 +1,5 @@
 import React, {useState, useEffect} from 'react';
-import {
-    Button,
-    Card,
-    CardBody,
-    CardText,
-    Label,
-    CardHeader
-  } from 'reactstrap';
-import './Profile.css';
+import {Button,Card,CardBody,CardText,Label,CardHeader} from 'reactstrap';
 import { CgProfile } from 'react-icons/cg';
 import axios from 'axios';
 import { useNavigate } from "react-router-dom";
@@ -81,7 +73,6 @@ const Profile = () => {
             </Card>
         </div>
     );
-
 };
 
 export default Profile;

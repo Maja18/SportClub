@@ -1,11 +1,5 @@
 import React, {useState, useReducer} from 'react';
-import {
-    Button,
-    Form,
-    FormGroup,
-    Input,
-    Label
-  } from 'reactstrap';
+import {Button,Form,FormGroup,Input,Label} from 'reactstrap';
 import './Register.css';
 import axios from 'axios'
 import { useNavigate } from 'react-router-dom';
@@ -13,15 +7,6 @@ import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css'
 import { UPDATE_FORM, onInputChange, onFocusOut } from '../../lib/formUtils'
 
-  /**
- * The initial state of the form
- * value: stores the value of the input field
- * touched: indicates whether the user has tried to input anything in the field
- * hasError: determines whether the field has error.
- *           Defaulted to true since all fields are mandatory and are empty on page load.
- * error: stores the error message
- * isFormValid: Stores the validity of the form at any given time.
- */
    const initialState = {
     name: { value: "", touched: false, hasError: true, error: "" },
     email: { value: "", touched: false, hasError: true, error: "" },
@@ -30,17 +15,12 @@ import { UPDATE_FORM, onInputChange, onFocusOut } from '../../lib/formUtils'
     isFormValid: false,
 }
 
-    /**
- * Reducer which will perform form state update
- */
     const formsReducer = (state, action) => {
         switch (action.type) {
           case UPDATE_FORM:
             const { name, value, hasError, error, touched, isFormValid } = action.data
             return {
               ...state,
-              // update the state of the particular field,
-              // by retaining the state of other fields
               [name]: { ...state[name], value, hasError, error, touched },
               isFormValid,
             }
@@ -218,7 +198,6 @@ const Register = () => {
             </div>
         </div>
     );
-
 };
 
 export default Register
