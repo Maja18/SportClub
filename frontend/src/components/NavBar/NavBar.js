@@ -68,21 +68,28 @@ const NavBar = () => {
                 </Nav>
             </Navbar>
             <Routes>
-                <Route path='/'  element={<Home/>}></Route>
+                <Route path='/' element={<Home/>}></Route>
                 <Route path="/register" element={<Register/>} ></Route>
                 <Route path="/login" element={<Login/>}></Route>
                 <Route path="/profile" element={<Profile/>}></Route>
                 <Route path='/editProfile' element={<EditProfile/>}></Route>
                 <Route path='/changePassword' element={<ChangePassword/>}></Route>
                 <Route path='/sportClubs' element={<SportClubs/>}></Route>
-                <Route path='/addNewClub' element={<SportClub/>}></Route>
-                <Route path='/editClub/:id' element={<EditClub/>}></Route>
-                <Route path='/players' element={<Players/>}></Route>
+                <Route path='/addNewClub' element={authContext.isAuth && authContext.role==='EDITOR'
+                ? <SportClub/>:<div>You are not allowed to see this page!</div>}></Route>
+                <Route path='/editClub/:id' element={authContext.isAuth && authContext.role==='EDITOR'
+                ? <EditClub/>:<div>You are not allowed to see this page!</div>}></Route>
+                <Route path='/players' element={authContext.isAuth && authContext.role==='EDITOR' 
+                ? <Players/>:<div>You are not allowed to see this page!</div>}>
+                </Route> 
                 <Route path='/sportClubs/players/:id' element={<ClubPlayers/>}></Route>
-                <Route path='/sportClubs/addNewPlayer/:id' element={<ClubPlayer/>}></Route>
+                <Route path='/sportClubs/addNewPlayer/:id' element={authContext.isAuth && authContext.role==='EDITOR'
+                ? <ClubPlayer/>:<div>You are not allowed to see this page!</div>}></Route>
                 <Route path='/sportClubs/playersInfo/:id' element={<PlayerInfo/>}></Route>
-                <Route path='/addNewPlayer' element={<Player/>}></Route>
-                <Route path='/editPlayer/:id' element={<EditPlayer/>}></Route>
+                <Route path='/addNewPlayer' element={authContext.isAuth && authContext.role==='EDITOR'
+                ? <Player/>:<div>You are not allowed to see this page!</div>}></Route>
+                <Route path='/editPlayer/:id' element={authContext.isAuth && authContext.role==='EDITOR'
+                ? <EditPlayer/>:<div>You are not allowed to see this page!</div>}></Route>
             </Routes>
         </div>
     );
