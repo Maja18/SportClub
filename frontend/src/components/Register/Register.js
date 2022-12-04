@@ -13,12 +13,13 @@ import { UPDATE_FORM, onInputChange, onFocusOut } from '../../lib/formUtils'
     password: { value: "", touched: false, hasError: true, error: "" },
     lastName: { value: "", touched: false, hasError: true, error: "" },
     isFormValid: false,
-}
+    }
 
     const formsReducer = (state, action) => {
         switch (action.type) {
           case UPDATE_FORM:
             const { name, value, hasError, error, touched, isFormValid } = action.data
+            console.log(action.data)
             return {
               ...state,
               [name]: { ...state[name], value, hasError, error, touched },
@@ -85,7 +86,7 @@ const Register = () => {
                         onInputChange("name", e.target.value, dispatch, formState)
                         setEnteredName(e.target.value)
                       }}
-                      onBlur={e => {
+                    onBlur={e => {
                         onFocusOut("name", e.target.value, dispatch, formState)
                       }}
                     />

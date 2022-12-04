@@ -149,7 +149,6 @@ const Player = () => {
 
     const onSelect = (event) => {
         setPlayerSkills(event)
-
     }
 
     return(

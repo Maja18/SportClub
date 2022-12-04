@@ -23,7 +23,6 @@ const ClubPlayer = () => {
             autoClose:2000,
             onClose: () => navigateTo(`/sportClubs/players/${club.id}`)
         });
-
     };
 
     useEffect(() => {
@@ -38,7 +37,6 @@ const ClubPlayer = () => {
                 alert("Error");
                 console.log(res);
             });
-
     }, []);
 
     useEffect(() => {
@@ -99,17 +97,17 @@ const ClubPlayer = () => {
     return(
         <div className='Card'>
             <Card>
-            <CardHeader>
-                <MdOutlineSportsKabaddi size={25}/>
-                <span style={{marginLeft:'10px'}}> {club.name}</span>
-            </CardHeader>
+                <CardHeader>
+                    <MdOutlineSportsKabaddi size={25}/>
+                    <span style={{marginLeft:'10px'}}> {club.name}</span>
+                </CardHeader>
                 <CardBody>
                     <Dropdown isOpen={dropdownOpen} toggle={toggle} >
                         <DropdownToggle caret color="info">{value}</DropdownToggle>
                             <DropdownMenu value={value} >
                                 {players.map(player => 
                                     <DropdownItem key={player.id} onClick={(e) => handleSelect(e, player.id)} value={player.playerName}>
-                                       {player.playerName}
+                                    {player.playerName}
                                     </DropdownItem> 
                                 )}
                             </DropdownMenu>
@@ -123,9 +121,7 @@ const ClubPlayer = () => {
             <ToastContainer />
             </div>
         </div>
-
     );
-
 };
 
 export default ClubPlayer;
