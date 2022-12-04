@@ -12,8 +12,6 @@ const AuthContextProvider = props => {
   const [role, setRole] = useState(false);
 
   const authHandler = () => {
-    //da kupim iz local storage token i ako ga ima isAuth == true else false
-    //i onda pozivam ovu metodu svugde gde mi treba
     if (localStorage.getItem('token') === null){
       setIsAuthenticated(false)
     }else{
@@ -23,14 +21,12 @@ const AuthContextProvider = props => {
                 'Authorization': 'Bearer ' + token,
             }
          }).then(response => {
-           // setUser(response.data)
             setRole(response.data.role.substring(5))
             setIsAuthenticated(true);
          }).catch(res => {
                 alert("Error");
                 console.log(res);
-            });
-
+          });
     }
   };
 

@@ -149,9 +149,8 @@ const EditPlayer = () => {
     };
 
     const addNewSkill = () => {
-        setAddSkills(true) 
-        setDropdonSkills((exclude(skills, playerSkills)));
-        
+        setAddSkills(true)   //skills -> all skills
+        setDropdonSkills((exclude(skills, playerSkills)));  
     }
 
     const exclude = (arr1, arr2) => {
@@ -197,7 +196,6 @@ const EditPlayer = () => {
             setShowError(true)
             } 
         else {
-            //Logic to submit the form to backend
             var data = {}
                 if (!isPictureChanged){
                     data = {
@@ -360,7 +358,6 @@ const EditPlayer = () => {
                 <ToastContainer />
             </div>
         </div>
-
     );
 };
 

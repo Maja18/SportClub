@@ -84,11 +84,11 @@ import { AuthContext } from '../../context/auth-context';
       };
 
     useEffect(() => {
-        if (!firstTimeRender.current) {
-            let players = []
+        if (!firstTimeRender.current) { 
+            let players = []   
             club.players.forEach(p => {
-                if (player.id !== p.id){
-                    players.push(p)
+                if (player.id !== p.id){ 
+                    players.push(p)    
                 }
             });
             setPlayersOfClub([...players])

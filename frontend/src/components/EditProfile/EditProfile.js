@@ -45,15 +45,15 @@ const EditProfile = () => {
     let navigateTo = useNavigate(); 
 
     useEffect(() => {
-            dispatch({
-                type: 'INITIALIZE_STATE',
-                payload: {
-                    ...initialState,
-                    name: { value: location.state.userInfo.firstName, touched: false, hasError: true, error: "" },
-                    lastName: { value: location.state.userInfo.lastName, touched: false, hasError: true, error: "" },
-                    email: { value: location.state.userInfo.email, touched: false, hasError: true, error: "" },
-                }
-                })
+        dispatch({
+            type: 'INITIALIZE_STATE',
+            payload: {
+                ...initialState,
+                name: { value: location.state.userInfo.firstName, touched: false, hasError: true, error: "" },
+                lastName: { value: location.state.userInfo.lastName, touched: false, hasError: true, error: "" },
+                email: { value: location.state.userInfo.email, touched: false, hasError: true, error: "" },
+            }
+            })
 
     }, []);
 

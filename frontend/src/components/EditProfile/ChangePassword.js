@@ -87,7 +87,6 @@ const ChangePassword = () => {
             })
                     .then(response => {
                         showToastMessage()
-                        //navigateTo('/login')
                     })
                     .catch(response => {
                         alert("Please enter valid data!");
@@ -147,6 +146,5 @@ const ChangePassword = () => {
 
     );
 }
-
 
 export default ChangePassword;

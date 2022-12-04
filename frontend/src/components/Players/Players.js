@@ -25,7 +25,6 @@ const Players = () => {
                 alert("Error");
                 console.log(res);
             });
-
     }, []);
 
     // Toggle for Modal
@@ -49,8 +48,9 @@ const Players = () => {
                 console.log(res);
             });
       };
+
     const addNewPlayer = () => {
-        let path = `/addNewPlayer`; 
+        let path = `/players/addNewPlayer`; 
         navigate(path);
     }
 
@@ -69,7 +69,7 @@ const Players = () => {
             <ListGroup flush>
                 {players.map(player => 
                     <ListGroupItem key={player.id}>
-                        <Link className='playerLink' to={{pathname: `/sportClubs/playersInfo/${player.id}`}}>
+                        <Link className='playerLink' to={{pathname: `/players/playersInfo/${player.id}`}}>
                             {player.playerName}
                         </Link>
                         <div className='Buttons'>
@@ -102,7 +102,6 @@ const Players = () => {
             </div>
         </div>
     )
-
 };
 
 export default Players;

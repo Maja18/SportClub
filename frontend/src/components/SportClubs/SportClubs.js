@@ -28,11 +28,10 @@ const SportClubs = () => {
                 alert("Error");
                 console.log(res);
             });
-
     }, []);
 
     const addNewClub = () => {
-        let path = `/addNewClub`; 
+        let path = `/sportClubs/addNewClub`; 
         navigate(path);
     }
 
@@ -55,7 +54,7 @@ const SportClubs = () => {
                         {club.name}
                         <div className='Buttons'>
                         {authContext.role === 'EDITOR' ?
-                            <Link to={{pathname: `/editClub/${club.id}`}}>
+                            <Link to={{pathname: `/sportClubs/editClub/${club.id}`}}>
                                 <Badge style={{width:'80px', height:'20px'}} color="info" pill>Edit</Badge>
                             </Link> :null}
                             <Link to={{pathname: `/sportClubs/players/${club.id}`}}>

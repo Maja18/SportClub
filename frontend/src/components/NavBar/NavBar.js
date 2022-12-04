@@ -75,9 +75,9 @@ const NavBar = () => {
                 <Route path='/editProfile' element={<EditProfile/>}></Route>
                 <Route path='/changePassword' element={<ChangePassword/>}></Route>
                 <Route path='/sportClubs' element={<SportClubs/>}></Route>
-                <Route path='/addNewClub' element={authContext.isAuth && authContext.role==='EDITOR'
+                <Route path='/sportClubs/addNewClub' element={authContext.isAuth && authContext.role==='EDITOR'
                 ? <SportClub/>:<div>You are not allowed to see this page!</div>}></Route>
-                <Route path='/editClub/:id' element={authContext.isAuth && authContext.role==='EDITOR'
+                <Route path='/sportClubs/editClub/:id' element={authContext.isAuth && authContext.role==='EDITOR'
                 ? <EditClub/>:<div>You are not allowed to see this page!</div>}></Route>
                 <Route path='/players' element={authContext.isAuth && authContext.role==='EDITOR' 
                 ? <Players/>:<div>You are not allowed to see this page!</div>}>
@@ -86,7 +86,8 @@ const NavBar = () => {
                 <Route path='/sportClubs/addNewPlayer/:id' element={authContext.isAuth && authContext.role==='EDITOR'
                 ? <ClubPlayer/>:<div>You are not allowed to see this page!</div>}></Route>
                 <Route path='/sportClubs/playersInfo/:id' element={<PlayerInfo/>}></Route>
-                <Route path='/addNewPlayer' element={authContext.isAuth && authContext.role==='EDITOR'
+                <Route path='/players/playersInfo/:id' element={<PlayerInfo/>}></Route>
+                <Route path='/players/addNewPlayer' element={authContext.isAuth && authContext.role==='EDITOR'
                 ? <Player/>:<div>You are not allowed to see this page!</div>}></Route>
                 <Route path='/editPlayer/:id' element={authContext.isAuth && authContext.role==='EDITOR'
                 ? <EditPlayer/>:<div>You are not allowed to see this page!</div>}></Route>

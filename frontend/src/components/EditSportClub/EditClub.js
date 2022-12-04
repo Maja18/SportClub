@@ -35,7 +35,6 @@ const EditClub = () => {
     const params = useParams();
     let navigateTo = useNavigate();
     const [formState, dispatch] = useReducer(formsReducer, initialState)
-    const [showError, setShowError] = useState(false)
     
     useEffect(() => {
         let token = localStorage.getItem('token').substring(1, localStorage.getItem('token').length-1);
@@ -48,7 +47,6 @@ const EditClub = () => {
                 id: response.data.id,
                 name: response.data.name
             })
-            setEnteredName(response.data.name)
             dispatch({
                 type: 'INITIALIZE_STATE',
                 payload: {
@@ -95,10 +93,7 @@ const EditClub = () => {
             })
         }
         }
-        if (!isFormValid) {
-            setShowError(true)
-            } 
-        else {
+        if (isFormValid) {
             const data = {
                 id: club.id,
                 name: enteredName
