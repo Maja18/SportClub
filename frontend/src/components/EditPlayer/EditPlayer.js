@@ -47,7 +47,6 @@ const EditPlayer = () => {
     const params = useParams();
     const [addSkills, setAddSkills] = useState(false)
     const [dropdownSkills, setDropdonSkills] = useState([])
-    const [isRemoved, setIsRemoved] = useState(false)
     const [isPictureChanged, setIsPictureChanged] = useState(false)
     const navigateTo = useNavigate();
     const [formState, dispatch] = useReducer(formsReducer, initialState)
@@ -159,13 +158,13 @@ const EditPlayer = () => {
 
     const remove = (event, skill) => {
         event.preventDefault()
-        const index = playerSkills.indexOf(skill);
+        const skills = [...playerSkills]
+        const index = skills.indexOf(skill);
         if (index > -1) { // only splice array when item is found
-            playerSkills.splice(index, 1); 
+            skills.splice(index, 1); 
         }
 
-        setPlayerSkills(playerSkills)
-        setIsRemoved(true)
+        setPlayerSkills(skills)
     }
 
     const editPlayer = () => {
