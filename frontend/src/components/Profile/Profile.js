@@ -26,7 +26,7 @@ const Profile = () => {
     }, []);
 
     const routeChange = () =>{ 
-        let path = `/editProfile`; 
+        let path = `/profile/editProfile`; 
         navigate(path, {
             state: {
               userInfo: user

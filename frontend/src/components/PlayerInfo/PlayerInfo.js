@@ -71,7 +71,7 @@ const PlayerInfo = () => {
                     <Card>
                         <ListGroup flush>
                         {playerSkills.map(skill => 
-                            <ListGroupItem>
+                            <ListGroupItem key={skill.id}>
                                 <Label>Name: {skill.name}</Label>
                                 <Label>Description: {skill.description}</Label>
                             </ListGroupItem> 

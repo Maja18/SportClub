@@ -72,7 +72,7 @@ const NavBar = () => {
                 <Route path="/register" element={<Register/>} ></Route>
                 <Route path="/login" element={<Login/>}></Route>
                 <Route path="/profile" element={<Profile/>}></Route>
-                <Route path='/editProfile' element={<EditProfile/>}></Route>
+                <Route path='/profile/editProfile' element={<EditProfile/>}></Route>
                 <Route path='/changePassword' element={<ChangePassword/>}></Route>
                 <Route path='/sportClubs' element={<SportClubs/>}></Route>
                 <Route path='/sportClubs/addNewClub' element={authContext.isAuth && authContext.role==='EDITOR'
