@@ -20,7 +20,7 @@ const Login = () =>  {
         });
     };
 
-    const onSubmit = (event) => {
+    const onSubmit = (event: React.FormEvent<HTMLFormElement>) => {
         event.preventDefault();
 
         localStorage.removeItem('token');
@@ -43,7 +43,7 @@ const Login = () =>  {
 
     return(
         <div className="Login">
-            <h2 class="h2">LogIn</h2>
+            <h2 className="h2">LogIn</h2>
             <Form onSubmit={onSubmit}>
                 <FormGroup >
                     <Label for="exampleEmail">Email</Label>
@@ -73,7 +73,7 @@ const Login = () =>  {
                     }}
                     />
                 </FormGroup>
-                <div class="button-container-div">
+                <div className="button-container-div">
                     <Button color="success">Submit</Button>
                 </div>
             </Form>

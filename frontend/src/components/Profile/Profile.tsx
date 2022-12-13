@@ -3,14 +3,16 @@ import {Button,Card,CardBody,CardText,Label,CardHeader} from 'reactstrap';
 import { CgProfile } from 'react-icons/cg';
 import axios from 'axios';
 import { useNavigate } from "react-router-dom";
+import Person from '../../model/Person';
 
 const Profile = () => {
-    const [user, setUser] = useState([]);
+    const [user, setUser] = useState<Person>({} as Person);  //if a state is initialized soon after setup and always has a value after
     const [userRole, setUserRole] = useState('')
     let navigate = useNavigate(); 
 
     useEffect(() => {
-        let token = localStorage.getItem('token').substring(1, localStorage.getItem('token').length-1);
+        let value: string = localStorage.getItem('token')!;
+        let token: string = value.substring(1,value.length-1);
         axios.get('http://localhost:8080/api/person',{ 
              headers: {
                 'Authorization': 'Bearer ' + token,

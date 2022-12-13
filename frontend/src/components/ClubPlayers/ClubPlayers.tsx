@@ -7,18 +7,20 @@ import { MdOutlineSportsKabaddi } from 'react-icons/md';
 import { useNavigate } from "react-router-dom";
 import { BsTrash } from 'react-icons/bs';
 import { AuthContext } from '../../context/auth-context';
+import Player from '../../model/Player';
+import Club from '../../model/Club';
 
   const ClubPlayers = () => {
-    const [clubPlayers, setClubPlayers] = useState([]);
-    const [club, setClub] = useState('')
+    const [clubPlayers, setClubPlayers] = useState<Player []>([]);
+    const [club, setClub] = useState<Club>({} as Club)
     const params = useParams();
     let navigate = useNavigate(); 
-    const [player, setPlayer] = useState();
+    const [player, setPlayer] = useState<Player>({} as Player);
     const firstTimeRender = useRef(true);
-    const [playersOfClub,setPlayersOfClub] = useState([])
+    const [playersOfClub,setPlayersOfClub] = useState<Player []>([]);
     // Modal open state
     const [modal, setModal] = useState(false);
-    const [playerId, setPlayerId] = useState();
+    const [playerId, setPlayerId] = useState<number>();
     const authContext = useContext(AuthContext);
 
     useEffect(() => {
@@ -26,7 +28,8 @@ import { AuthContext } from '../../context/auth-context';
     },[])
 
     useEffect(() => {
-        let token = localStorage.getItem('token').substring(1, localStorage.getItem('token').length-1);
+        let value: string = localStorage.getItem('token')!;
+        let token: string = value.substring(1,value.length-1);
         axios.get('http://localhost:8080/api/player/players/' + params.id,{ 
              headers: {
                 'Authorization': 'Bearer ' + token,
@@ -41,7 +44,8 @@ import { AuthContext } from '../../context/auth-context';
     }, []);
 
     useEffect(() => {
-        let token = localStorage.getItem('token').substring(1, localStorage.getItem('token').length-1);
+        let value: string = localStorage.getItem('token')!;
+        let token: string = value.substring(1,value.length-1);
         axios.get('http://localhost:8080/api/club/' + params.id,{ 
              headers: {
                 'Authorization': 'Bearer ' + token,
@@ -56,20 +60,21 @@ import { AuthContext } from '../../context/auth-context';
     }, []);
 
     // Toggle for Modal
-    const toggle = (playerId) => {
+    const toggle = (playerId: number) => {
         setModal(!modal);
         setPlayerId(playerId)
     } 
 
-    const addNewPlayer = (id) => {
+    const addNewPlayer = () => {
         navigate({
             pathname: `/sportClubs/addNewPlayer/${club.id}`
         });
     }
 
-    const removePlayer = (event, playerId)  => {
+    const removePlayer = (event: React.MouseEvent<HTMLButtonElement>, playerId: number)  => {
         event.preventDefault()
-        let token = localStorage.getItem('token').substring(1, localStorage.getItem('token').length-1);
+        let value: string = localStorage.getItem('token')!;
+        let token: string = value.substring(1,value.length-1);
 
         axios.get('http://localhost:8080/api/player/'  + playerId,{ 
             headers: {
@@ -85,7 +90,7 @@ import { AuthContext } from '../../context/auth-context';
 
     useEffect(() => {
         if (!firstTimeRender.current) { 
-            let players = []   
+            let players: Player[] = []   
             club.players.forEach(p => {
                 if (player.id !== p.id){ 
                     players.push(p)    
@@ -103,14 +108,15 @@ import { AuthContext } from '../../context/auth-context';
                 players: playersOfClub
             }
     
-            let token = localStorage.getItem('token').substring(1, localStorage.getItem('token').length-1);
+            let value: string = localStorage.getItem('token')!;
+            let token: string = value.substring(1,value.length-1);
             
             axios.post('http://localhost:8080/api/club/removePlayer/', data,{ 
                  headers: {
                     'Authorization': 'Bearer ' + token,
                 }
              }).then(response => {
-                    window.location.reload(false);
+                    window.location.reload();
              }).catch(res => {
                     alert("Error");
                     console.log(res);
@@ -143,9 +149,9 @@ import { AuthContext } from '../../context/auth-context';
                         </Link>
                         {authContext.role === 'EDITOR' ?
                         <div className='Buttons'> 
-                            <Link onClick={() => toggle(player.id)}>
+                            <a onClick={() => toggle(player.id)}>
                                 <Badge style={{width:'60px', height:'20px'}} color="danger" pill>Remove</Badge>
-                            </Link>
+                            </a>
                         </div>:null}
                     </ListGroupItem> 
                 )}
@@ -154,8 +160,8 @@ import { AuthContext } from '../../context/auth-context';
             {/* Modal */}
             <div>
             <Modal isOpen={modal}
-                toggle={toggle}>
-                <ModalHeader toggle={toggle}>
+                toggle={() => toggle}>
+                <ModalHeader toggle={() => toggle}>
                 <BsTrash></BsTrash>
                     <span style={{marginLeft:'10px'}}>Are you sure?</span>
                 </ModalHeader>
@@ -163,7 +169,7 @@ import { AuthContext } from '../../context/auth-context';
                     This player will be removed from club.
                 </ModalBody>
                 <ModalFooter> 
-                    <Button color="danger" onClick={(e) => { toggle(); removePlayer(e, playerId);}} >Okay</Button>
+                    <Button color="danger" onClick={(e) => { toggle(playerId!); removePlayer(e, playerId!);}} >Okay</Button>
                 </ModalFooter>
             </Modal>
             </div>

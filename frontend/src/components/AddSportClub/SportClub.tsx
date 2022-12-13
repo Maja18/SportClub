@@ -6,7 +6,12 @@ import { useNavigate } from 'react-router-dom';
 import { UPDATE_FORM, onInputChange, onFocusOut, validateInput } from '../../lib/formUtils'
 import { ToastContainer, toast } from 'react-toastify';
 
-const formsReducer = (state, action) => {
+type Action =
+        | { type: "UPDATE_FORM"; payload?: any ;
+            data: any
+        } | { type: "INITIALIZE_STATE"; payload: any ;}
+
+const formsReducer = (state: typeof initialState, action: Action) => {
     switch (action.type) {
       case UPDATE_FORM:
         const { name, value, hasError, error, touched, isFormValid } = action.data
@@ -70,7 +75,8 @@ const SportClub = () => {
                 name: enteredName
             }
 
-            let token = localStorage.getItem('token').substring(1, localStorage.getItem('token').length-1);
+            let value: string = localStorage.getItem('token')!;
+            let token: string = value.substring(1,value.length-1);
             axios.post('http://localhost:8080/api/club', data, {
                 headers: {
                     'Authorization': 'Bearer ' + token,
@@ -95,7 +101,7 @@ const SportClub = () => {
                 <CardBody>
                     <Label for="exampleEmail">Name</Label>
                         <Input
-                        type="name"
+                        type="text"
                         name="name"
                         id="exampleName"
                         placeholder="Name"
@@ -113,7 +119,7 @@ const SportClub = () => {
                                 {formState.name.error}
                             </div>
                         )}
-                    <div class="button-container-div">
+                    <div className="button-container-div">
                         <Button style={{marginTop:'30px', width:'100px'}} color="success" onClick={addClub}>Add</Button>
                     </div>
                 </CardBody>

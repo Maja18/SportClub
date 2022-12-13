@@ -6,8 +6,14 @@ import { MdOutlineSportsKabaddi } from 'react-icons/md';
 import Multiselect from 'multiselect-react-dropdown';
 import { UPDATE_FORM, onInputChange, onFocusOut, validateInput } from '../../lib/formUtils'
 import { ToastContainer, toast } from 'react-toastify';
+import Skill from '../../model/Skill';
 
-  const formsReducer = (state, action) => {
+    type Action =
+        | { type: "UPDATE_FORM"; payload?: any ;
+            data: any
+        } | { type: "INITIALIZE_STATE"; payload: any ;}
+
+  const formsReducer = (state: typeof initialState, action: Action) => {
     switch (action.type) {
       case UPDATE_FORM:
         const { name, value, hasError, error, touched, isFormValid } = action.data
@@ -34,15 +40,16 @@ const Player = () => {
     const [enteredName, setEnteredName] = useState('');
     const [enteredSalary, setEnteredSalary] = useState('');
     const [fileName, setFileName] = useState('');
-    const [selectedFiles, setSelectedFiles] = useState(undefined);
-    const [currentFile, setCurrentFile] = useState(undefined);
-    const [skills, setSkills] = useState([])
-    const [playerSkills, setPlayerSkills] = useState([])
+    const [selectedFiles, setSelectedFiles] = useState<File | null>(null);
+    const [currentFile, setCurrentFile] = useState<File>();
+    const [skills, setSkills] = useState<Skill []>([])
+    const [playerSkills, setPlayerSkills] = useState<Skill []>([])
     const navigateTo = useNavigate();
     const [formState, dispatch] = useReducer(formsReducer, initialState)
 
     useEffect(() => {
-        let token = localStorage.getItem('token').substring(1, localStorage.getItem('token').length-1);
+        let value: string = localStorage.getItem('token')!;
+        let token: string = value.substring(1,value.length-1);
         axios.get('http://localhost:8080/api/skill',{ 
              headers: {
                 'Authorization': 'Bearer ' + token,
@@ -96,7 +103,8 @@ const Player = () => {
                 playerSkills: playerSkills
             }
 
-            let token = localStorage.getItem('token').substring(1, localStorage.getItem('token').length-1);
+            let value: string = localStorage.getItem('token')!;
+            let token: string = value.substring(1,value.length-1);
             axios.post('http://localhost:8080/api/player', data, {
                 headers: {
                     'Authorization': 'Bearer ' + token,
@@ -112,26 +120,31 @@ const Player = () => {
         }
     };
 
-    const selectFile = (event) => {
-        setSelectedFiles(event.target.files);
+    const selectFile = (event: React.FormEvent<HTMLInputElement> ) => {
+        if (event.currentTarget.files !== null){
+            setSelectedFiles(event.currentTarget.files[0]);
+        }
     };
 
     const uploadImage = () => {
-        let currentFile = selectedFiles[0];
-        setCurrentFile(currentFile);
-    
-        upload(currentFile)
-          .catch(() => {
-            setCurrentFile(undefined);
-          });
-          setSelectedFiles(undefined);
+        if ( selectedFiles !== null){
+            let currentFile = selectedFiles;
+
+            setCurrentFile(currentFile);
+            upload(currentFile)
+            .catch(() => {
+                setCurrentFile(undefined);
+            });
+            setSelectedFiles(null);
+        }
     };
 
-    const upload = (file) => {
+    const upload = (file: File) => {
         let formData = new FormData();
       
         formData.append("file", file);
-        let token = localStorage.getItem('token').substring(1, localStorage.getItem('token').length-1);
+        let value: string = localStorage.getItem('token')!;
+        let token: string = value.substring(1,value.length-1);
       
         return axios.post("http://localhost:8080/api/player/saveImage", formData, {
           headers: {
@@ -147,8 +160,8 @@ const Player = () => {
         });  
     };
 
-    const onSelect = (event) => {
-        setPlayerSkills(event)
+    const onSelect = (skills: Skill []) => {
+        setPlayerSkills(skills)
     }
 
     return(
@@ -161,7 +174,7 @@ const Player = () => {
                 <CardBody>
                     <Label for="exampleEmail">Name</Label>
                         <Input
-                        type="name"
+                        type="text"
                         name="name"
                         id="exampleName"
                         placeholder="Name"
@@ -181,7 +194,7 @@ const Player = () => {
                         )}
                     <Label for="exampleEmail">Salary</Label>
                         <Input
-                        type="name"
+                        type="text"
                         name="salary"
                         id="exampleSalary"
                         placeholder="Salary"
@@ -218,12 +231,12 @@ const Player = () => {
                         <Multiselect
                         placeholder='Select skills'
                         options={skills} 
-                        selectedValues={this.selectedValue} 
-                        onSelect={(event) => onSelect(event)} 
+                        //} //Preselected value to persist in dropdown
+                        onSelect={(skills) => onSelect(skills)} 
                         displayValue="name"
                         />
                     </div>
-                    <div class="button-container-div">
+                    <div className="button-container-div">
                         <Button style={{marginTop:'30px', width:'100px'}} color="success" onClick={addPlayer} >Add</Button>
                     </div>
                 </CardBody>

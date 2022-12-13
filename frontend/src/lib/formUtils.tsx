@@ -3,7 +3,7 @@ export const UPDATE_FORM = "UPDATE_FORM"
 /**
  * Triggered every time the value of the form changes
  */
- export const onInputChange = (name, value, dispatch, formState) => {
+ export const onInputChange = (name:string, value: string, dispatch:any, formState:any) => {
     const { hasError, error } = validateInput(name, value)
     let isFormValid = true
   
@@ -26,7 +26,7 @@ export const UPDATE_FORM = "UPDATE_FORM"
     })
   }
 
-  export const onFocusOut = (name, value, dispatch, formState) => {
+  export const onFocusOut = (name:string, value:string, dispatch:any, formState:any) => {
     const { hasError, error } = validateInput(name, value)
     let isFormValid = true
     for (const key in formState) {
@@ -46,7 +46,7 @@ export const UPDATE_FORM = "UPDATE_FORM"
     })
   }
 
-export const validateInput = (name, value) => {
+export const validateInput = (name:string, value:string) => {
     let hasError = false,
       error = ""
     switch (name) {

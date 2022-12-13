@@ -1,18 +1,20 @@
 import React, {useState, useEffect} from 'react'; 
-import {Card,CardHeader,Button,CardBody,Dropdown,DropdownToggle,DropdownItem,DropdownMenu} from 'reactstrap';
+import {Card,CardHeader,Button,CardBody,Dropdown,DropdownToggle,DropdownItem,DropdownMenu, DropdownItemProps} from 'reactstrap';
 import axios from 'axios';
 import { MdOutlineSportsKabaddi } from 'react-icons/md';
 import {useParams} from 'react-router-dom';
 import { ToastContainer, toast } from 'react-toastify';
 import { useNavigate } from 'react-router-dom';
+import Club from '../../model/Club';
+import Player from '../../model/Player';
 
 const ClubPlayer = () => {
     const [dropdownOpen, setDropdownOpen] = useState(false);
-    const [club, setClub] = useState('')
-    const [players, setPlayers] = useState([]);
+    const [club, setClub] = useState<Club>({} as Club)
+    const [players, setPlayers] = useState<Player []>([]);
     const params = useParams();
     const [value,setValue] = useState('Select player');
-    const [player, setPlayer] = useState();
+    const [player, setPlayer] = useState<Player>({} as Player);
     const navigateTo = useNavigate();
 
     const toggle = () => setDropdownOpen((prevState) => !prevState);
@@ -26,7 +28,8 @@ const ClubPlayer = () => {
     };
 
     useEffect(() => {
-        let token = localStorage.getItem('token').substring(1, localStorage.getItem('token').length-1);
+        let value: string = localStorage.getItem('token')!;
+        let token: string = value.substring(1,value.length-1);
         axios.get('http://localhost:8080/api/club/' + params.id,{ 
              headers: {
                 'Authorization': 'Bearer ' + token,
@@ -40,7 +43,8 @@ const ClubPlayer = () => {
     }, []);
 
     useEffect(() => {
-        let token = localStorage.getItem('token').substring(1, localStorage.getItem('token').length-1);
+        let value: string = localStorage.getItem('token')!;
+        let token: string = value.substring(1,value.length-1);
         axios.get('http://localhost:8080/api/player/noClubPlayers' ,{ 
              headers: {
                 'Authorization': 'Bearer ' + token,
@@ -54,9 +58,10 @@ const ClubPlayer = () => {
 
     }, []);
 
-    const handleSelect=(event, playerId)=>{
-        setValue(event.target.value)
-        let token = localStorage.getItem('token').substring(1, localStorage.getItem('token').length-1);
+    const handleSelect=(event: React.MouseEvent, playerId: number)=>{
+        setValue((event.target as HTMLInputElement).value)
+        let value: string = localStorage.getItem('token')!;
+        let token: string = value.substring(1,value.length-1);
        
         axios.get('http://localhost:8080/api/player/'  + playerId,{ 
             headers: {
@@ -72,7 +77,8 @@ const ClubPlayer = () => {
 
     const addPlayerToClub = () => {
         club.players.push(player)
-        let token = localStorage.getItem('token').substring(1, localStorage.getItem('token').length-1);
+        let value: string = localStorage.getItem('token')!;
+        let token: string = value.substring(1,value.length-1);
         
         const data = {
             id: club.id,
@@ -112,7 +118,7 @@ const ClubPlayer = () => {
                                 )}
                             </DropdownMenu>
                     </Dropdown>
-                    <div class="button-container-div">
+                    <div className="button-container-div">
                         <Button disabled={!player} style={{marginTop:'30px', width:'100px'}} color="success" onClick={addPlayerToClub}>Add</Button>
                     </div>
                 </CardBody>

@@ -1,6 +1,6 @@
 import React, {useState, useEffect, useReducer} from 'react'; 
 import {Button,Card,CardBody,CardHeader,Input,Label,ListGroup,ListGroupItem,Badge,Dropdown,DropdownToggle,
-    DropdownItem,DropdownMenu} from 'reactstrap';
+    DropdownItem,DropdownMenu, DropdownItemProps} from 'reactstrap';
 import axios from 'axios'
 import { useNavigate } from 'react-router-dom';
 import { MdOutlineSportsKabaddi } from 'react-icons/md';
@@ -8,8 +8,15 @@ import {useParams} from 'react-router-dom';
 import { Link } from 'react-router-dom';
 import { UPDATE_FORM, onInputChange, onFocusOut, validateInput } from '../../lib/formUtils'
 import { ToastContainer, toast } from 'react-toastify';
+import Player from '../../model/Player';
+import Skill from '../../model/Skill';
 
-    const formsReducer = (state, action) => {
+    type Action =
+    | { type: "UPDATE_FORM"; payload?: any ;
+        data: any
+    } | { type: "INITIALIZE_STATE"; payload: any ;}
+
+    const formsReducer = (state: typeof initialState, action: Action) => {
         switch (action.type) {
           case UPDATE_FORM:
             const { name, value, hasError, error, touched, isFormValid } = action.data
@@ -36,17 +43,17 @@ const EditPlayer = () => {
     const [enteredName, setEnteredName] = useState('');
     const [enteredSalary, setEnteredSalary] = useState('');
     const [fileName, setFileName] = useState('');
-    const [selectedFiles, setSelectedFiles] = useState(undefined);
-    const [currentFile, setCurrentFile] = useState(undefined);
+    const [selectedFiles, setSelectedFiles] = useState<File | null>(null);
+    const [currentFile, setCurrentFile] = useState<File>();
     const [imageBytes, setImageBytes] = useState()
-    const [player, setPlayer] = useState('')
-    const [playerSkills, setPlayerSkills] = useState([])
+    const [player, setPlayer] = useState<Player>({} as Player)
+    const [playerSkills, setPlayerSkills] = useState<Skill []>([])
     const [dropdownOpen, setDropdownOpen] = useState(false);
     const [value,setValue] = useState('Select skill');
-    const [skills, setSkills] = useState([])
+    const [skills, setSkills] = useState<Skill []>([])
     const params = useParams();
     const [addSkills, setAddSkills] = useState(false)
-    const [dropdownSkills, setDropdonSkills] = useState([])
+    const [dropdownSkills, setDropdonSkills] = useState<Skill []>([])
     const [isPictureChanged, setIsPictureChanged] = useState(false)
     const navigateTo = useNavigate();
     const [formState, dispatch] = useReducer(formsReducer, initialState)
@@ -55,7 +62,8 @@ const EditPlayer = () => {
     const toggle = () => setDropdownOpen((prevState) => !prevState);
 
     useEffect(() => {
-        let token = localStorage.getItem('token').substring(1, localStorage.getItem('token').length-1);
+        let value: string = localStorage.getItem('token')!;
+        let token: string = value.substring(1,value.length-1);
         axios.get('http://localhost:8080/api/player/' + params.id,{ 
              headers: {
                 'Authorization': 'Bearer ' + token,
@@ -82,7 +90,8 @@ const EditPlayer = () => {
     }, []);
 
     useEffect(() => {
-        let token = localStorage.getItem('token').substring(1, localStorage.getItem('token').length-1);
+        let value: string = localStorage.getItem('token')!;
+        let token: string = value.substring(1,value.length-1);
         axios.get('http://localhost:8080/api/skill',{ 
              headers: {
                 'Authorization': 'Bearer ' + token,
@@ -104,34 +113,39 @@ const EditPlayer = () => {
         });
     };
 
-    const handleSelect=(event, skill)=>{
-        setValue(event.target.value)
+    const handleSelect=(event: React.MouseEvent , skill: Skill)=>{
+        setValue((event.target as HTMLInputElement).value)  //check again
         playerSkills.push(skill)
         setPlayerSkills(playerSkills)
         setAddSkills(false)
     }
 
-    const selectFile = (event) => {
-        setSelectedFiles(event.target.files);
+    const selectFile = (event: React.FormEvent<HTMLInputElement>) => {
+        if (event.currentTarget.files !== null){
+            setSelectedFiles(event.currentTarget.files[0]);
+        }
     };
 
     const uploadImage = () => {
-        let currentFile = selectedFiles[0];
-        setCurrentFile(currentFile);
-    
-        upload(currentFile)
-          .catch(() => {
-            setCurrentFile(undefined);
-          });
-          setSelectedFiles(undefined);
-          setIsPictureChanged(true)
+        if ( selectedFiles !== null){
+            let currentFile = selectedFiles;
+
+            setCurrentFile(currentFile);
+            upload(currentFile)
+            .catch(() => {
+                setCurrentFile(undefined);
+            });
+            setSelectedFiles(null);
+            setIsPictureChanged(true)
+        }
     };
 
-    const upload = (file) => {
+    const upload = (file: File) => {
         let formData = new FormData();
       
         formData.append("file", file);
-        let token = localStorage.getItem('token').substring(1, localStorage.getItem('token').length-1);
+        let value: string = localStorage.getItem('token')!;
+        let token: string = value.substring(1,value.length-1);
       
         return axios.post("http://localhost:8080/api/player/saveImage", formData, {
           headers: {
@@ -152,11 +166,11 @@ const EditPlayer = () => {
         setDropdonSkills((exclude(skills, playerSkills)));  
     }
 
-    const exclude = (arr1, arr2) => {
+    const exclude = (arr1: Skill [], arr2: Skill[]) => {
         return arr1.filter(o1 => arr2.map(o2 => o2.id).indexOf(o1.id) === -1)
     };
 
-    const remove = (event, skill) => {
+    const remove = (event: React.MouseEvent<HTMLElement>, skill:Skill) => {
         event.preventDefault()
         const skills = [...playerSkills]
         const index = skills.indexOf(skill);
@@ -215,7 +229,8 @@ const EditPlayer = () => {
 
                 }
 
-            let token = localStorage.getItem('token').substring(1, localStorage.getItem('token').length-1);
+            let value: string = localStorage.getItem('token')!;
+            let token: string = value.substring(1,value.length-1);
             axios.put('http://localhost:8080/api/player', data, {
                 headers: {
                     'Authorization': 'Bearer ' + token,
@@ -265,7 +280,7 @@ const EditPlayer = () => {
                     </Button>
                     <Label style={{marginTop:'15px'}} for="exampleEmail">Name</Label>
                         <Input
-                        type="name"
+                        type="text"
                         name="name"
                         id="exampleName"
                         placeholder="Name"
@@ -334,11 +349,11 @@ const EditPlayer = () => {
                         <ListGroupItem key={skill.id}>
                             <Label>Name: {skill.name}</Label>
                             <div style={{textAlign:'right'}}>
-                                <Link onClick={(e) => remove(e, skill)}>
+                                <a onClick={(e) => remove(e, skill)}>
                                     <Badge style={{width:'60px', height:'20px', marginTop:'-40px'}} color="danger" pill>
                                         Remove
                                     </Badge>
-                                </Link>
+                                </a>
                             </div>
                         </ListGroupItem> 
                     )}
@@ -348,7 +363,7 @@ const EditPlayer = () => {
                     {showError && !formState.isFormValid && (
                         <div className="form_error">Please fill all the fields correctly</div>
                     )}
-                    <div class="button-container-div">
+                    <div className="button-container-div">
                         <Button  style={{marginTop:'30px', width:'100px'}} color="success" onClick={editPlayer} >Save</Button>
                     </div>
                 </CardBody>

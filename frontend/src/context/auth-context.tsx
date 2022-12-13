@@ -1,21 +1,28 @@
 import React, { useState } from 'react';
 import axios from 'axios';
 
-export const AuthContext = React.createContext({
+interface AppContextInterface {
+  isAuth: boolean,
+  role:string,
+  auth: () => void
+}
+
+export const AuthContext = React.createContext<AppContextInterface>({
   isAuth: false,
-  role:null,
+  role:'',
   auth: () => {}
 });
 
-const AuthContextProvider = props => {
+const AuthContextProvider : React.FunctionComponent<React.PropsWithChildren<{}>> = (props) => {
   const [isAuthenticated, setIsAuthenticated] = useState(false);
-  const [role, setRole] = useState(false);
+  const [role, setRole] = useState('');
 
   const authHandler = () => {
     if (localStorage.getItem('token') === null){
       setIsAuthenticated(false)
     }else{
-      let token = localStorage.getItem('token').substring(1, localStorage.getItem('token').length-1);
+      let value: string = localStorage.getItem('token')!;
+      let token: string = value.substring(1,value.length-1);
         axios.get('http://localhost:8080/api/person',{ 
              headers: {
                 'Authorization': 'Bearer ' + token,

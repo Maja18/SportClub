@@ -6,9 +6,10 @@ import './SportClubs.css'
 import { Link } from 'react-router-dom';
 import { useNavigate } from "react-router-dom";
 import { AuthContext } from '../../context/auth-context';
+import Club from '../../model/Club';
 
 const SportClubs = () => {
-    const [clubs, setClubs] = useState([]);
+    const [clubs, setClubs] = useState<Club []>([]);
     let navigate = useNavigate(); 
     const authContext = useContext(AuthContext);
 
@@ -17,7 +18,8 @@ const SportClubs = () => {
     },[])
 
     useEffect(() => {
-        let token = localStorage.getItem('token').substring(1, localStorage.getItem('token').length-1);
+        let value: string = localStorage.getItem('token')!;
+        let token: string = value.substring(1,value.length-1);
         axios.get('http://localhost:8080/api/club',{ 
              headers: {
                 'Authorization': 'Bearer ' + token,

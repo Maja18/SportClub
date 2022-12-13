@@ -8,7 +8,12 @@ import { useNavigate } from "react-router-dom";
 import { UPDATE_FORM, onInputChange, onFocusOut, validateInput } from '../../lib/formUtils'
 import { ToastContainer, toast } from 'react-toastify';
 
-    const formsReducer = (state, action) => {
+    type Action =
+        | { type: "UPDATE_FORM"; payload?: any ;
+            data: any
+        } | { type: "INITIALIZE_STATE"; payload: any ;}
+
+    const formsReducer = (state: typeof initialState, action: Action) => {
         switch (action.type) {
           case UPDATE_FORM:
             const { name, value, hasError, error, touched, isFormValid } = action.data
@@ -73,7 +78,7 @@ const EditProfile = () => {
     };
 
 
-    const onSubmit = (event) => {
+    const onSubmit = (event: React.MouseEvent<HTMLButtonElement>) => {
         let isFormValid = true
 
         for (const name in formState) {
@@ -111,7 +116,9 @@ const EditProfile = () => {
                 role: enteredRole
             }
 
-            let token = localStorage.getItem('token').substring(1, localStorage.getItem('token').length-1);
+            //let token = localStorage.getItem('token').substring(1, localStorage.getItem('token').length-1);
+            let value: string = localStorage.getItem('token')!;
+            let token: string = value.substring(1,value.length-1);
             axios.put('http://localhost:8080/api/person', data, {
                 headers: {
                     'Authorization': 'Bearer ' + token,
@@ -144,7 +151,7 @@ const EditProfile = () => {
                             Name: 
                         </Label>
                         <Input
-                        type="name"
+                        type="text"
                         name="firstName"
                         id="exampleName"
                         placeholder="Name"
@@ -166,7 +173,7 @@ const EditProfile = () => {
                             Last name: 
                         </Label>
                         <Input
-                        type="name"
+                        type="text"
                         name="lastName"
                         id="exampleLastName"
                         placeholder="Last name"
@@ -219,9 +226,9 @@ const EditProfile = () => {
                             setEnteredRole(event.target.value)
                         }}
                         />
-                        <label class="label">EDITOR</label>
+                        <label className="label">EDITOR</label>
                         <input 
-                        class="roleInput" 
+                        className="roleInput" 
                         type="radio" 
                         value="VIEWER" 
                         name="role" 
@@ -230,13 +237,13 @@ const EditProfile = () => {
                             setEnteredRole(event.target.value)
                         }}
                         /> 
-                        <label class="label">VIEWER</label>
+                        <label className="label">VIEWER</label>
                         </div>
                     </CardText>
                     {showError && !formState.isFormValid && (
                         <div className="form_error">Please fill all the fields correctly</div>
                     )}
-                    <div class="button-container-div">
+                    <div className="button-container-div">
                         <Button color='info' onClick={onSubmit}>Save</Button>
                     </div>
                 </CardBody>

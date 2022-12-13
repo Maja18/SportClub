@@ -5,12 +5,14 @@ import {Card,CardBody,CardHeader,ListGroupItem,Label,ListGroup,Button} from 'rea
 import { MdOutlineSportsKabaddi } from 'react-icons/md';
 import { useNavigate } from "react-router-dom";
 import { AuthContext } from '../../context/auth-context';
+import Player from '../../model/Player';
+import Skill from '../../model/Skill';
 
 const PlayerInfo = () => {
     const params = useParams();
-    const [player, setPlayer] = useState('')
-    const [imageBytes, setImageBytes] = useState()
-    const [playerSkills, setPlayerSkills] = useState([])
+    const [player, setPlayer] = useState<Player>({} as Player)
+    const [imageBytes, setImageBytes] = useState<Int8Array>()
+    const [playerSkills, setPlayerSkills] = useState<Skill []>([])
     let navigate = useNavigate(); 
     const authContext = useContext(AuthContext);
     
@@ -19,7 +21,8 @@ const PlayerInfo = () => {
     },[])
 
     useEffect(() => {
-        let token = localStorage.getItem('token').substring(1, localStorage.getItem('token').length-1);
+        let value: string = localStorage.getItem('token')!;
+        let token: string = value.substring(1,value.length-1);
         axios.get('http://localhost:8080/api/player/' + params.id,{ 
              headers: {
                 'Authorization': 'Bearer ' + token,

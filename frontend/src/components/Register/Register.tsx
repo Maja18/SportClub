@@ -15,14 +15,18 @@ import { UPDATE_FORM, onInputChange, onFocusOut } from '../../lib/formUtils'
     isFormValid: false,
     }
 
-    const formsReducer = (state, action) => {
+    type Action =
+        | { type: "UPDATE_FORM"; payload: string ;
+            data: any
+    }
+
+    const formsReducer = (state: typeof initialState, action: Action) => {
         switch (action.type) {
           case UPDATE_FORM:
             const { name, value, hasError, error, touched, isFormValid } = action.data
-            console.log(action.data)
             return {
               ...state,
-              [name]: { ...state[name], value, hasError, error, touched },
+              [name]: { ...state, value, hasError, error, touched },
               isFormValid,
             }
           default:
@@ -46,7 +50,7 @@ const Register = () => {
         });
     };
 
-    const onSubmit = (event) => {
+    const onSubmit = (event:React.FormEvent<HTMLInputElement>) => {
         event.preventDefault();
 
         localStorage.removeItem('token');
@@ -71,12 +75,12 @@ const Register = () => {
 
     return(
         <div className="Register">
-            <h2 class="h2">Register</h2>
-            <Form onSubmit={onSubmit}>
+            <h2 className="h2">Register</h2>
+            <Form onSubmit={() => onSubmit}>
                 <FormGroup>
                     <Label for="exampleEmail">Name</Label>
                     <Input
-                    type="name"
+                    type="text"
                     name="firstName"
                     id="exampleName"
                     placeholder="Name"
@@ -99,7 +103,7 @@ const Register = () => {
                 <FormGroup>
                     <Label for="exampleEmail">Last name</Label>
                     <Input
-                    type="name"
+                    type="text"
                     name="lastName"
                     id="exampleLastName"
                     placeholder="Last name"
@@ -176,9 +180,9 @@ const Register = () => {
                         setEnteredRole(event.target.value)
                     }}
                     />
-                    <label class="label">EDITOR</label>
+                    <label className="label">EDITOR</label>
                     <input 
-                    class="roleInput" 
+                    className="roleInput" 
                     type="radio" 
                     value="VIEWER" 
                     name="role" 
@@ -190,7 +194,7 @@ const Register = () => {
                     <label>VIEWER</label>
                     </div>
                 </FormGroup>
-                <div class="button-container-div">
+                <div className="button-container-div">
                     <Button  color="success" >Submit</Button>
                 </div>
             </Form>

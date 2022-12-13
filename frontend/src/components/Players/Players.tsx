@@ -5,16 +5,18 @@ import { useNavigate } from "react-router-dom";
 import axios from 'axios'; 
 import { MdOutlineSportsKabaddi } from 'react-icons/md'; 
 import { BsTrash } from 'react-icons/bs';
+import Player from '../../model/Player';
 
 const Players = () => {
-    const [players, setPlayers] = useState([]);
+    const [players, setPlayers] = useState<Player []>([]);
     let navigate = useNavigate(); 
     // Modal open state
     const [modal, setModal] = useState(false);
-    const [playerId, setPlayerId] = useState();
+    const [playerId, setPlayerId] = useState<number>();
 
     useEffect(() => {
-        let token = localStorage.getItem('token').substring(1, localStorage.getItem('token').length-1);
+        let value: string = localStorage.getItem('token')!;
+        let token: string = value.substring(1,value.length-1);
         axios.get('http://localhost:8080/api/player',{ 
              headers: {
                 'Authorization': 'Bearer ' + token,
@@ -28,21 +30,22 @@ const Players = () => {
     }, []);
 
     // Toggle for Modal
-    const toggle = (playerId) => {
+    const toggle = (playerId: number) => {
         setModal(!modal);
         setPlayerId(playerId)
     } 
 
-    const deletePlayer = (event, playerId)  => {
+    const deletePlayer = (event: React.MouseEvent<HTMLButtonElement>, playerId: number)  => {
         event.preventDefault()
 
-        let token = localStorage.getItem('token').substring(1, localStorage.getItem('token').length-1);
+        let value: string = localStorage.getItem('token')!;
+        let token: string = value.substring(1,value.length-1);
         axios.delete('http://localhost:8080/api/player/' + playerId,{ 
              headers: {
                 'Authorization': 'Bearer ' + token,
             }
          }).then(response => {
-                window.location.reload(false);
+                window.location.reload();
          }).catch(res => {
                 alert("Error");
                 console.log(res);
@@ -76,9 +79,9 @@ const Players = () => {
                             <Link to={`/editPlayer/${player.id}`}>
                                 <Badge style={{width:'60px', height:'20px'}} color="info" pill>Edit</Badge>
                             </Link>
-                            <Link onClick={() => toggle(player.id)}>
+                            <a onClick={() => toggle(player.id)}>
                                 <Badge style={{width:'60px', height:'20px', marginLeft:'10px'}} color="danger" pill>Delete</Badge>
-                            </Link>
+                            </a>
                         </div>
                     </ListGroupItem> 
                 )}
@@ -87,8 +90,8 @@ const Players = () => {
             {/* Modal */}
             <div>
             <Modal isOpen={modal}
-                toggle={toggle}>
-                <ModalHeader toggle={toggle}>
+                toggle={() => toggle}>
+                <ModalHeader toggle={() => toggle}>
                 <BsTrash></BsTrash>
                     <span style={{marginLeft:'10px'}}>Are you sure?</span>
                 </ModalHeader>
@@ -96,7 +99,7 @@ const Players = () => {
                     This player will be deleted.
                 </ModalBody>
                 <ModalFooter> 
-                    <Button color="danger" onClick={(e) => { toggle(); deletePlayer(e, playerId);}} >Okay</Button>
+                    <Button color="danger" onClick={(e) => { toggle(playerId!); deletePlayer(e, playerId!);}} >Okay</Button> 
                 </ModalFooter>
             </Modal>
             </div>

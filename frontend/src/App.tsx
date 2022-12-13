@@ -3,7 +3,7 @@ import './App.css';
 import NavBar from './components/NavBar/NavBar';
 import { BrowserRouter } from 'react-router-dom';
 
-const App = props => {
+const App = () => {
     return (
       <BrowserRouter>
         <div>
