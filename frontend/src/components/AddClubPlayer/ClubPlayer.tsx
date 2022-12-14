@@ -9,11 +9,11 @@ import Club from '../../model/Club';
 import Player from '../../model/Player';
 
 const ClubPlayer = () => {
-    const [dropdownOpen, setDropdownOpen] = useState(false);
+    const [dropdownOpen, setDropdownOpen] = useState<boolean>(false);
     const [club, setClub] = useState<Club>({} as Club)
     const [players, setPlayers] = useState<Player []>([]);
     const params = useParams();
-    const [value,setValue] = useState('Select player');
+    const [value,setValue] = useState<string>('Select player');
     const [player, setPlayer] = useState<Player>({} as Player);
     const navigateTo = useNavigate();
 

@@ -34,7 +34,7 @@ const initialState = {
 }
 
 const SportClub = () => {
-    const [enteredName, setEnteredName] = useState('');
+    const [enteredName, setEnteredName] = useState<string>('');
     const navigateTo = useNavigate();
     const [formState, dispatch] = useReducer(formsReducer, initialState)
 

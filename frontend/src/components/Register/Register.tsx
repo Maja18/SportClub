@@ -35,11 +35,11 @@ import { UPDATE_FORM, onInputChange, onFocusOut } from '../../lib/formUtils'
     }
 
 const Register = () => {
-    const [enteredName, setEnteredName] = useState('');
-    const [enteredLastName, setEnteredLastName] = useState('');
-    const [enteredEmail, setEnteredEmail] = useState('');
-    const [enteredPassword, setEnteredPassword] = useState('');
-    const [enteredRole, setEnteredRole] = useState('VIEWER');
+    const [enteredName, setEnteredName] = useState<string>('');
+    const [enteredLastName, setEnteredLastName] = useState<string>('');
+    const [enteredEmail, setEnteredEmail] = useState<string>('');
+    const [enteredPassword, setEnteredPassword] = useState<string>('');
+    const [enteredRole, setEnteredRole] = useState<string>('VIEWER');
     const navigateTo = useNavigate();
     const [formState, dispatch] = useReducer(formsReducer, initialState)
   

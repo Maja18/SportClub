@@ -7,7 +7,7 @@ import Person from '../../model/Person';
 
 const Profile = () => {
     const [user, setUser] = useState<Person>({} as Person);  //if a state is initialized soon after setup and always has a value after
-    const [userRole, setUserRole] = useState('')
+    const [userRole, setUserRole] = useState<string>('')
     let navigate = useNavigate(); 
 
     useEffect(() => {

@@ -14,8 +14,8 @@ export const AuthContext = React.createContext<AppContextInterface>({
 });
 
 const AuthContextProvider : React.FunctionComponent<React.PropsWithChildren<{}>> = (props) => {
-  const [isAuthenticated, setIsAuthenticated] = useState(false);
-  const [role, setRole] = useState('');
+  const [isAuthenticated, setIsAuthenticated] = useState<boolean>(false);
+  const [role, setRole] = useState<string>('');
 
   const authHandler = () => {
     if (localStorage.getItem('token') === null){

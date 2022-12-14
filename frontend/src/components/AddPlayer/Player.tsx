@@ -37,11 +37,11 @@ const initialState = {
 }
 
 const Player = () => {
-    const [enteredName, setEnteredName] = useState('');
-    const [enteredSalary, setEnteredSalary] = useState('');
-    const [fileName, setFileName] = useState('');
+    const [enteredName, setEnteredName] = useState<string>('');
+    const [enteredSalary, setEnteredSalary] = useState<string>('');
+    const [fileName, setFileName] = useState<string>('');
     const [selectedFiles, setSelectedFiles] = useState<File | null>(null);
-    const [currentFile, setCurrentFile] = useState<File>();
+    const [currentFile, setCurrentFile] = useState<File | undefined>(undefined);
     const [skills, setSkills] = useState<Skill []>([])
     const [playerSkills, setPlayerSkills] = useState<Skill []>([])
     const navigateTo = useNavigate();

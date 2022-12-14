@@ -36,9 +36,9 @@ const initialState = {
 
 const ChangePassword = () => {
     const location = useLocation();
-    const [enteredNewPassword, setEnteredNewPassword] = useState('');
+    const [enteredNewPassword, setEnteredNewPassword] = useState<string>('');
     const [formState, dispatch] = useReducer(formsReducer, initialState)
-    const [showError, setShowError] = useState(false)
+    const [showError, setShowError] = useState<boolean>(false)
     let navigateTo = useNavigate(); 
 
     const showToastMessage = () => {

@@ -37,7 +37,7 @@ import Club from '../../model/Club';
 
 const EditClub = () => {
     const [club, setClub] = useState<Club>({} as Club);
-    const [enteredName, setEnteredName] = useState('');
+    const [enteredName, setEnteredName] = useState<string>('');
     const params = useParams();
     let navigateTo = useNavigate();
     const [formState, dispatch] = useReducer(formsReducer, initialState)

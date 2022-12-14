@@ -39,14 +39,14 @@ import { ToastContainer, toast } from 'react-toastify';
 
 const EditProfile = () => {
     const location = useLocation();
-    const [enteredName, setEnteredName] = useState(location.state.userInfo.firstName);
-    const [enteredLastName, setEnteredLastName] = useState(location.state.userInfo.lastName);
-    const [enteredEmail, setEnteredEmail] = useState(location.state.userInfo.email);
-    const [enteredRole, setEnteredRole] = useState(location.state.userInfo.role.substring(5));
-    const [currentEmail, setCurrentEmail] = useState(location.state.userInfo.email);
-    const [currentRole, setCurrentRole] = useState(location.state.userInfo.role.substring(5));
+    const [enteredName, setEnteredName] = useState<string>(location.state.userInfo.firstName);
+    const [enteredLastName, setEnteredLastName] = useState<string>(location.state.userInfo.lastName);
+    const [enteredEmail, setEnteredEmail] = useState<string>(location.state.userInfo.email);
+    const [enteredRole, setEnteredRole] = useState<string>(location.state.userInfo.role.substring(5));
+    const [currentEmail, setCurrentEmail] = useState<string>(location.state.userInfo.email);
+    const [currentRole, setCurrentRole] = useState<string>(location.state.userInfo.role.substring(5));
     const [formState, dispatch] = useReducer(formsReducer, initialState)
-    const [showError, setShowError] = useState(false)
+    const [showError, setShowError] = useState<boolean>(false)
     let navigateTo = useNavigate(); 
 
     useEffect(() => {

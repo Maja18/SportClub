@@ -11,7 +11,7 @@ const Players = () => {
     const [players, setPlayers] = useState<Player []>([]);
     let navigate = useNavigate(); 
     // Modal open state
-    const [modal, setModal] = useState(false);
+    const [modal, setModal] = useState<boolean>(false);
     const [playerId, setPlayerId] = useState<number>();
 
     useEffect(() => {

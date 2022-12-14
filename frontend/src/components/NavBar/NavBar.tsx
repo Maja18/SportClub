@@ -22,7 +22,7 @@ import './NavBar.css'
 
 const NavBar = () => {
     const authContext = useContext(AuthContext);
-    const [logout] = useState(true)
+    const [logout] = useState<boolean>(true)
 
     useEffect(() => {
         authContext.auth()

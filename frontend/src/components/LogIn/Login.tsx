@@ -8,8 +8,8 @@ import { AuthContext } from '../../context/auth-context';
 import { ToastContainer, toast } from 'react-toastify';
 
 const Login = () =>  {
-    const [enteredEmail, setEnteredEmail] = useState('');
-    const [enteredPassword, setEnteredPassword] = useState('');
+    const [enteredEmail, setEnteredEmail] = useState<string>('');
+    const [enteredPassword, setEnteredPassword] = useState<string>('');
     const navigateTo = useNavigate(); 
     const authContext = useContext(AuthContext);
 

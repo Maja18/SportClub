@@ -15,8 +15,8 @@ import Club from '../../model/Club';
     const [club, setClub] = useState<Club>({} as Club)
     const params = useParams();
     let navigate = useNavigate(); 
-    const [player, setPlayer] = useState<Player>({} as Player);
-    const firstTimeRender = useRef(true);
+    const [player, setPlayer] = useState<Player | null>(null);
+    const firstTimeRender = useRef<boolean>(true);
     const [playersOfClub,setPlayersOfClub] = useState<Player []>([]);
     // Modal open state
     const [modal, setModal] = useState(false);
@@ -90,12 +90,14 @@ import Club from '../../model/Club';
 
     useEffect(() => {
         if (!firstTimeRender.current) { 
-            let players: Player[] = []   
-            club.players.forEach(p => {
-                if (player.id !== p.id){ 
-                    players.push(p)    
-                }
-            });
+            let players: Player[] = [] 
+            if (player !== null){
+                club.players.forEach(p => {
+                    if (player.id !== p.id){ 
+                        players.push(p)    
+                    }
+                });
+            }  
             setPlayersOfClub([...players])
           }
     }, [player]);

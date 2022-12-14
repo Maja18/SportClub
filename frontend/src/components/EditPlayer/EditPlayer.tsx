@@ -40,24 +40,24 @@ import Skill from '../../model/Skill';
     }
 
 const EditPlayer = () => {
-    const [enteredName, setEnteredName] = useState('');
-    const [enteredSalary, setEnteredSalary] = useState('');
-    const [fileName, setFileName] = useState('');
+    const [enteredName, setEnteredName] = useState<string>('');
+    const [enteredSalary, setEnteredSalary] = useState<string>('');
+    const [fileName, setFileName] = useState<string>('');
     const [selectedFiles, setSelectedFiles] = useState<File | null>(null);
-    const [currentFile, setCurrentFile] = useState<File>();
-    const [imageBytes, setImageBytes] = useState()
+    const [currentFile, setCurrentFile] = useState<File | undefined>(undefined);
+    const [imageBytes, setImageBytes] = useState<string>('')
     const [player, setPlayer] = useState<Player>({} as Player)
     const [playerSkills, setPlayerSkills] = useState<Skill []>([])
-    const [dropdownOpen, setDropdownOpen] = useState(false);
-    const [value,setValue] = useState('Select skill');
+    const [dropdownOpen, setDropdownOpen] = useState<boolean>(false);
+    const [value,setValue] = useState<string>('Select skill');
     const [skills, setSkills] = useState<Skill []>([])
     const params = useParams();
-    const [addSkills, setAddSkills] = useState(false)
+    const [addSkills, setAddSkills] = useState<boolean>(false)
     const [dropdownSkills, setDropdonSkills] = useState<Skill []>([])
-    const [isPictureChanged, setIsPictureChanged] = useState(false)
+    const [isPictureChanged, setIsPictureChanged] = useState<boolean>(false)
     const navigateTo = useNavigate();
     const [formState, dispatch] = useReducer(formsReducer, initialState)
-    const [showError, setShowError] = useState(false)
+    const [showError, setShowError] = useState<boolean>(false)
 
     const toggle = () => setDropdownOpen((prevState) => !prevState);
 
