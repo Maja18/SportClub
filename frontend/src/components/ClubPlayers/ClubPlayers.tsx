@@ -15,9 +15,7 @@ import Club from '../../model/Club';
     const [club, setClub] = useState<Club>({} as Club)
     const params = useParams();
     let navigate = useNavigate(); 
-    const [player, setPlayer] = useState<Player | null>(null);
     const firstTimeRender = useRef<boolean>(true);
-    const [playersOfClub,setPlayersOfClub] = useState<Player []>([]);
     // Modal open state
     const [modal, setModal] = useState(false);
     const [playerId, setPlayerId] = useState<number>();
@@ -71,7 +69,7 @@ import Club from '../../model/Club';
         });
     }
 
-    const removePlayer = (event: React.MouseEvent<HTMLButtonElement>, playerId: number)  => {
+    const removePlayer = (event: React.MouseEvent<HTMLButtonElement>, playerId: number, clubId: number)  => {
         event.preventDefault()
         let value: string = localStorage.getItem('token')!;
         let token: string = value.substring(1,value.length-1);
@@ -81,33 +79,9 @@ import Club from '../../model/Club';
                'Authorization': 'Bearer ' + token,
            }
         }).then(response => {
-               setPlayer(response.data)
-        }).catch(res => {
-               alert("Error");
-               console.log(res);
-        })
-      };
-
-    useEffect(() => {
-        if (!firstTimeRender.current) { 
-            let players: Player[] = [] 
-            if (player !== null){
-                club.players.forEach(p => {
-                    if (player.id !== p.id){ 
-                        players.push(p)    
-                    }
-                });
-            }  
-            setPlayersOfClub([...players])
-          }
-    }, [player]);
-
-    useEffect(() => { 
-        if (!firstTimeRender.current) {
             const data = {
-                id: club.id,
-                name: club.name,
-                players: playersOfClub
+                clubId: clubId,
+                playerId: playerId
             }
     
             let value: string = localStorage.getItem('token')!;
@@ -123,8 +97,13 @@ import Club from '../../model/Club';
                     alert("Error");
                     console.log(res);
                 });
-        }
-      }, [playersOfClub])
+
+        }).catch(res => {
+               alert("Error");
+               console.log(res);
+        })
+      };
+
 
     useEffect(() => { 
         firstTimeRender.current = false 
@@ -171,7 +150,7 @@ import Club from '../../model/Club';
                     This player will be removed from club.
                 </ModalBody>
                 <ModalFooter> 
-                    <Button color="danger" onClick={(e) => { toggle(playerId!); removePlayer(e, playerId!);}} >Okay</Button>
+                    <Button color="danger" onClick={(e) => { toggle(playerId!); removePlayer(e, playerId!, club.id);}} >Okay</Button>
                 </ModalFooter>
             </Modal>
             </div>

@@ -1,6 +1,7 @@
 package com.sportClub.sportClub.controller;
 
 import com.sportClub.sportClub.dto.ClubDTO;
+import com.sportClub.sportClub.dto.PlayerClubDTO;
 import com.sportClub.sportClub.service.SportClubServiceImpl;
 import io.swagger.v3.oas.annotations.security.SecurityRequirement;
 import lombok.RequiredArgsConstructor;
@@ -59,8 +60,8 @@ public class SportClubController {
 
     @PostMapping("/removePlayer")
     @PreAuthorize("hasAuthority('ROLE_EDITOR')")
-    public ResponseEntity<ClubDTO> removePlayerFromClub(@RequestBody ClubDTO clubDTO ) {
-        ClubDTO club = sportClubService.removePlayerFromClub(clubDTO);
+    public ResponseEntity<ClubDTO> removePlayerFromClub(@RequestBody PlayerClubDTO playerClubDTO ) {
+        ClubDTO club = sportClubService.removePlayerFromClub(playerClubDTO);
 
         return club == null ?
                 new ResponseEntity<>(HttpStatus.NOT_FOUND) : ResponseEntity.ok(club);

@@ -2,7 +2,6 @@ import React, {useEffect, useReducer, useState} from 'react';
 import { useLocation } from 'react-router-dom';
 import {Button,Card,CardBody,CardText,Label,CardHeader,Input} from 'reactstrap';
 import { CgProfile } from 'react-icons/cg';
-import './EditProfile.css'
 import axios from 'axios'
 import { useNavigate } from "react-router-dom";
 import { UPDATE_FORM, onInputChange, onFocusOut, validateInput } from '../../lib/formUtils'

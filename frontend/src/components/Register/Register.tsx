@@ -50,7 +50,7 @@ const Register = () => {
         });
     };
 
-    const onSubmit = (event:React.FormEvent<HTMLInputElement>) => {
+    const onSubmit = (event: React.FormEvent<HTMLFormElement>) => {
         event.preventDefault();
 
         localStorage.removeItem('token');
@@ -62,6 +62,8 @@ const Register = () => {
             password: enteredPassword,
             role: enteredRole
         }
+
+        console.log(data)
 
         axios.post('http://localhost:8080/api/auth/register', data)
                 .then(response => {
@@ -76,7 +78,7 @@ const Register = () => {
     return(
         <div className="Register">
             <h2 className="h2">Register</h2>
-            <Form onSubmit={() => onSubmit}>
+            <Form onSubmit={onSubmit}>
                 <FormGroup>
                     <Label for="exampleEmail">Name</Label>
                     <Input
