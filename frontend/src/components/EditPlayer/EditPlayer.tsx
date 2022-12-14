@@ -231,7 +231,15 @@ const EditPlayer = () => {
             setShowError(true)
             } 
         else {
-            var data = {}
+            type Data = {
+                id: number,
+                playerName: string,
+                image: string,
+                salary: string,
+                playerSkills: Skill []
+            }
+
+            var data:Data;
                 if (!isPictureChanged){
                     data = {
                         id: player.id,

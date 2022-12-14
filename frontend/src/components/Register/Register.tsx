@@ -79,7 +79,15 @@ const Register = () => {
 
         localStorage.removeItem('token');
 
-        const data = {
+        type Data = {
+            firstName: string,
+            lastName: string,
+            email: string,
+            password: string,
+            role: string
+        }
+
+        const data:Data = {
             firstName: enteredName,
             lastName: enteredLastName,
             email: enteredEmail,

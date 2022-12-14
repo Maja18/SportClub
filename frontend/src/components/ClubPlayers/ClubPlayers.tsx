@@ -79,6 +79,11 @@ import Club from '../../model/Club';
                'Authorization': 'Bearer ' + token,
            }
         }).then(response => {
+            type Data = {
+                clubId: number,
+                playerId: number
+            }
+
             const data = {
                 clubId: clubId,
                 playerId: playerId

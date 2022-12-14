@@ -92,7 +92,11 @@ const SportClub = () => {
         }
         }
         if (isFormValid) {
-            const data = {
+            type Data = {
+                name: string
+            }
+
+            const data: Data = {
                 name: enteredName
             }
 

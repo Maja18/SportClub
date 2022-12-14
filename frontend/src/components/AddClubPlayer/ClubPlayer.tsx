@@ -79,8 +79,14 @@ const ClubPlayer = () => {
         club.players.push(player)
         let value: string = localStorage.getItem('token')!;
         let token: string = value.substring(1,value.length-1);
+
+        type Data = {
+            id: number,
+            name: string,
+            players: Player []
+        }
         
-        const data = {
+        const data:Data = {
             id: club.id,
             name: club.name,
             players: club.players

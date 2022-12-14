@@ -25,7 +25,12 @@ const Login = () =>  {
 
         localStorage.removeItem('token');
 
-        const data = {
+        type Data = {
+            email: string,
+            password: string
+        }
+
+        const data:Data = {
             email: enteredEmail,
             password: enteredPassword
         }

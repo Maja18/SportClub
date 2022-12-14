@@ -118,7 +118,15 @@ const Player = () => {
         }
         }
         if (isFormValid) {
-            const data = {
+
+            type Data = {
+                playerName: string,
+                salary: string,
+                image: string,
+                playerSkills: Skill []
+            }
+
+            const data: Data = {
                 playerName: enteredName,
                 salary: enteredSalary,
                 image: fileName,

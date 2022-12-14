@@ -119,7 +119,12 @@ const EditClub = () => {
         }
         }
         if (isFormValid) {
-            const data = {
+            type Data = {
+                id: number,
+                name: string
+            }
+
+            const data:Data = {
                 id: club.id,
                 name: enteredName
             }

@@ -130,7 +130,15 @@ const EditProfile = () => {
         else {
             event.preventDefault();
 
-            const data = {
+            type Data = {
+                id: number,
+                firstName: string,
+                lastName: string,
+                email: string,
+                role: string
+            }
+
+            const data: Data = {
                 id: location.state.userInfo.id,
                 firstName: enteredName,
                 lastName: enteredLastName,
