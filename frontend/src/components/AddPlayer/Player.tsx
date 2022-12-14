@@ -10,10 +10,32 @@ import Skill from '../../model/Skill';
 
     type Action =
         | { type: "UPDATE_FORM"; payload?: any ;
-            data: any
+            data: Data
         } | { type: "INITIALIZE_STATE"; payload: any ;}
 
-  const formsReducer = (state: typeof initialState, action: Action) => {
+    type Data = {
+        name: string, 
+        value: string, 
+        hasError : boolean, 
+        error: string, 
+        touched: boolean, 
+        isFormValid: boolean
+    }
+
+    type State = {
+        name: StateValue,
+        salary: StateValue,
+        isFormValid: boolean
+    }
+
+    type StateValue = {
+        value: string, 
+        hasError : boolean, 
+        error: string, 
+        touched: boolean
+    }
+
+  const formsReducer = (state: State, action: Action) => {
     switch (action.type) {
       case UPDATE_FORM:
         const { name, value, hasError, error, touched, isFormValid } = action.data
@@ -30,7 +52,7 @@ import Skill from '../../model/Skill';
     }
 }
 
-const initialState = {
+const initialState: State = {
     name: { value: "", touched: false, hasError: true, error: "" },
     salary: { value: "", touched: false, hasError: true, error: "" },
     isFormValid: false,

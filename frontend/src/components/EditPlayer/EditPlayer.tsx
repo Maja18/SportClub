@@ -12,11 +12,39 @@ import Player from '../../model/Player';
 import Skill from '../../model/Skill';
 
     type Action =
-    | { type: "UPDATE_FORM"; payload?: any ;
-        data: any
+    | { type: "UPDATE_FORM" ;
+        data: Data
     } | { type: "INITIALIZE_STATE"; payload: any ;}
 
-    const formsReducer = (state: typeof initialState, action: Action) => {
+    type Data = {
+        name: string, 
+        value: string, 
+        hasError : boolean, 
+        error: string, 
+        touched: boolean, 
+        isFormValid: boolean
+    }
+
+    type State = {
+        name: StateValue,
+        salary: StateValue,
+        isFormValid: boolean
+    }
+
+    type StateValue = {
+        value: string, 
+        hasError : boolean, 
+        error: string, 
+        touched: boolean
+    }
+
+    const initialState: State = {
+        name: { value: "", touched: false, hasError: true, error: "" },
+        salary: { value: "", touched: false, hasError: true, error: "" },
+        isFormValid: false,
+    }
+
+    const formsReducer = (state: State, action: Action) => {
         switch (action.type) {
           case UPDATE_FORM:
             const { name, value, hasError, error, touched, isFormValid } = action.data
@@ -33,19 +61,13 @@ import Skill from '../../model/Skill';
         }
     }
 
-    const initialState = {
-        name: { value: "", touched: false, hasError: true, error: "" },
-        salary: { value: "", touched: false, hasError: true, error: "" },
-        isFormValid: false,
-    }
-
 const EditPlayer = () => {
     const [enteredName, setEnteredName] = useState<string>('');
     const [enteredSalary, setEnteredSalary] = useState<string>('');
     const [fileName, setFileName] = useState<string>('');
     const [selectedFiles, setSelectedFiles] = useState<File | null>(null);
     const [currentFile, setCurrentFile] = useState<File | undefined>(undefined);
-    const [imageBytes, setImageBytes] = useState<string>('')
+    const [imageBytes, setImageBytes] = useState<Int8Array>()
     const [player, setPlayer] = useState<Player>({} as Player)
     const [playerSkills, setPlayerSkills] = useState<Skill []>([])
     const [dropdownOpen, setDropdownOpen] = useState<boolean>(false);
@@ -77,7 +99,7 @@ const EditPlayer = () => {
                 dispatch({
                     type: 'INITIALIZE_STATE',
                     payload: {
-                        ...initialState,
+                        //...initialState,
                         name: { value: response.data.playerName, touched: false, hasError: true, error: "" },
                         salary: { value: response.data.salary, touched: false, hasError: true, error: "" },
                     }

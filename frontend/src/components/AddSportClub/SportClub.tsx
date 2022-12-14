@@ -6,32 +6,53 @@ import { useNavigate } from 'react-router-dom';
 import { UPDATE_FORM, onInputChange, onFocusOut, validateInput } from '../../lib/formUtils'
 import { ToastContainer, toast } from 'react-toastify';
 
-type Action =
-        | { type: "UPDATE_FORM"; payload?: any ;
-            data: any
+        type Action =
+        | { type: "UPDATE_FORM"; 
+            data: Data
         } | { type: "INITIALIZE_STATE"; payload: any ;}
 
-const formsReducer = (state: typeof initialState, action: Action) => {
-    switch (action.type) {
-      case UPDATE_FORM:
-        const { name, value, hasError, error, touched, isFormValid } = action.data
-        
-        return {
-          ...state,
-          [name]: { ...state, value, hasError, error, touched },
-          isFormValid,
+        type Data = {
+            name: string, 
+            value: string, 
+            hasError : boolean, 
+            error: string, 
+            touched: boolean, 
+            isFormValid: boolean
         }
-      case 'INITIALIZE_STATE': 
-        return action.payload;
-      default:
-        return state
-    }
-}
 
-const initialState = {
-    name: { value: "", touched: false, hasError: true, error: "" },
-    isFormValid: false,
-}
+        type State = {
+            name: StateValue,
+            isFormValid: boolean
+        }
+    
+        type StateValue = {
+            value: string, 
+            hasError : boolean, 
+            error: string, 
+            touched: boolean
+        }
+
+        const formsReducer = (state: State, action: Action) => {
+            switch (action.type) {
+            case UPDATE_FORM:
+                const { name, value, hasError, error, touched, isFormValid } = action.data
+                
+                return {
+                ...state,
+                [name]: { ...state, value, hasError, error, touched },
+                isFormValid,
+                }
+            case 'INITIALIZE_STATE': 
+                return action.payload;
+            default:
+                return state
+            }
+        }
+
+        const initialState: State = {
+            name: { value: "", touched: false, hasError: true, error: "" },
+            isFormValid: false,
+        }
 
 const SportClub = () => {
     const [enteredName, setEnteredName] = useState<string>('');

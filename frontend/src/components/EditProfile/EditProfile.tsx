@@ -8,11 +8,34 @@ import { UPDATE_FORM, onInputChange, onFocusOut, validateInput } from '../../lib
 import { ToastContainer, toast } from 'react-toastify';
 
     type Action =
-        | { type: "UPDATE_FORM"; payload?: any ;
-            data: any
+        | { type: "UPDATE_FORM"; 
+            data: Data
         } | { type: "INITIALIZE_STATE"; payload: any ;}
 
-    const formsReducer = (state: typeof initialState, action: Action) => {
+        type Data = {
+            name: string, 
+            value: string, 
+            hasError : boolean, 
+            error: string, 
+            touched: boolean, 
+            isFormValid: boolean
+        }
+    
+        type State = {
+            name: StateValue,
+            lastName: StateValue,
+            email: StateValue
+            isFormValid: boolean
+        }
+    
+        type StateValue = {
+            value: string, 
+            hasError : boolean, 
+            error: string, 
+            touched: boolean
+        }
+
+    const formsReducer = (state: State, action: Action) => {
         switch (action.type) {
           case UPDATE_FORM:
             const { name, value, hasError, error, touched, isFormValid } = action.data
@@ -29,7 +52,7 @@ import { ToastContainer, toast } from 'react-toastify';
         }
     }
 
-    const initialState = {
+    const initialState: State = {
         name: { value: "", touched: false, hasError: true, error: "" },
         lastName: { value: "", touched: false, hasError: true, error: "" },
         email:  { value: "", touched: false, hasError: true, error: "" },

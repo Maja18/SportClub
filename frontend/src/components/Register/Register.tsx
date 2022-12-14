@@ -7,7 +7,7 @@ import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css'
 import { UPDATE_FORM, onInputChange, onFocusOut } from '../../lib/formUtils'
 
-   const initialState = {
+   const initialState: State = {
     name: { value: "", touched: false, hasError: true, error: "" },
     email: { value: "", touched: false, hasError: true, error: "" },
     password: { value: "", touched: false, hasError: true, error: "" },
@@ -17,10 +17,34 @@ import { UPDATE_FORM, onInputChange, onFocusOut } from '../../lib/formUtils'
 
     type Action =
         | { type: "UPDATE_FORM"; payload: string ;
-            data: any
+            data: Data
     }
 
-    const formsReducer = (state: typeof initialState, action: Action) => {
+    type Data = {
+        name: string, 
+        value: string, 
+        hasError : boolean, 
+        error: string, 
+        touched: boolean, 
+        isFormValid: boolean
+    }
+
+    type State = {
+        name: StateValue,
+        lastName: StateValue,
+        email: StateValue,
+        password: StateValue
+        isFormValid: boolean
+    }
+
+    type StateValue = {
+        value: string, 
+        hasError : boolean, 
+        error: string, 
+        touched: boolean
+    }
+
+    const formsReducer = (state: State, action: Action) => {
         switch (action.type) {
           case UPDATE_FORM:
             const { name, value, hasError, error, touched, isFormValid } = action.data
@@ -62,8 +86,6 @@ const Register = () => {
             password: enteredPassword,
             role: enteredRole
         }
-
-        console.log(data)
 
         axios.post('http://localhost:8080/api/auth/register', data)
                 .then(response => {

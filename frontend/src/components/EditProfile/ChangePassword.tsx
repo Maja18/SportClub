@@ -7,12 +7,33 @@ import { useNavigate } from "react-router-dom";
 import { UPDATE_FORM, onInputChange, onFocusOut, validateInput } from '../../lib/formUtils'
 import { ToastContainer, toast } from 'react-toastify';
 
-type Action =
-        | { type: "UPDATE_FORM"; payload?: any ;
-            data: any
+        type Action =
+        | { type: "UPDATE_FORM";
+            data: Data
         } | { type: "INITIALIZE_STATE"; payload: any ;}
 
-const formsReducer = (state: typeof initialState, action: Action) => {
+        type Data = {
+            name: string, 
+            value: string, 
+            hasError : boolean, 
+            error: string, 
+            touched: boolean, 
+            isFormValid: boolean
+        }
+    
+        type State = {
+            password: StateValue,
+            isFormValid: boolean
+        }
+    
+        type StateValue = {
+            value: string, 
+            hasError : boolean, 
+            error: string, 
+            touched: boolean
+        }
+
+const formsReducer = (state: State, action: Action) => {
     switch (action.type) {
       case UPDATE_FORM:
         const { name, value, hasError, error, touched, isFormValid } = action.data
@@ -29,7 +50,7 @@ const formsReducer = (state: typeof initialState, action: Action) => {
     }
 }
 
-const initialState = {
+const initialState: State = {
     password: { value: "", touched: false, hasError: true, error: "" },
     isFormValid: false,
 }
