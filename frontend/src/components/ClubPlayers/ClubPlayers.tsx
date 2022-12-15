@@ -9,6 +9,9 @@ import { BsTrash } from 'react-icons/bs';
 import { AuthContext } from '../../context/auth-context';
 import Player from '../../model/Player';
 import Club from '../../model/Club';
+import CardStyle from '../../styled-components/CardStyle';
+import ButtonDivStyle from '../../styled-components/ButtonDivStyle';
+import BadgeStyle from '../../styled-components/BadgeStyle'
 
   const ClubPlayers = () => {
     const [clubPlayers, setClubPlayers] = useState<Player []>([]);
@@ -84,7 +87,7 @@ import Club from '../../model/Club';
                 playerId: number
             }
 
-            const data = {
+            const data:Data = {
                 clubId: clubId,
                 playerId: playerId
             }
@@ -115,17 +118,17 @@ import Club from '../../model/Club';
       }, [])
 
     return(
-        <div className='Card'>
+        <CardStyle>
             <Card>
             <CardHeader>
                 <MdOutlineSportsKabaddi size={25}/>
-                <span style={{marginLeft:'10px'}}>{club.name} players</span>
+                <span>{club.name} players</span>
                 {authContext.role === 'EDITOR' ?
-                <div style={{textAlign:'right', marginTop:'-30px'}}>
+                <ButtonDivStyle>
                     <Button color="success" outline onClick={addNewPlayer}>
                         Add
                     </Button>
-                </div>:null}
+                </ButtonDivStyle>:null}
             </CardHeader>
             <ListGroup flush>
                 {clubPlayers.map(player => 
@@ -134,11 +137,11 @@ import Club from '../../model/Club';
                             {player.playerName}
                         </Link>
                         {authContext.role === 'EDITOR' ?
-                        <div className='Buttons'> 
+                        <BadgeStyle> 
                             <a onClick={() => toggle(player.id)}>
-                                <Badge style={{width:'60px', height:'20px'}} color="danger" pill>Remove</Badge>
+                                <Badge color="danger" pill>Remove</Badge>
                             </a>
-                        </div>:null}
+                        </BadgeStyle>:null}
                     </ListGroupItem> 
                 )}
             </ListGroup>
@@ -149,7 +152,7 @@ import Club from '../../model/Club';
                 toggle={() => toggle}>
                 <ModalHeader toggle={() => toggle}>
                 <BsTrash></BsTrash>
-                    <span style={{marginLeft:'10px'}}>Are you sure?</span>
+                    <span>Are you sure?</span>
                 </ModalHeader>
                 <ModalBody>
                     This player will be removed from club.
@@ -159,7 +162,7 @@ import Club from '../../model/Club';
                 </ModalFooter>
             </Modal>
             </div>
-        </div>
+        </CardStyle>
     );
   };
 

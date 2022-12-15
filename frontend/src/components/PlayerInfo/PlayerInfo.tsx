@@ -7,6 +7,15 @@ import { useNavigate } from "react-router-dom";
 import { AuthContext } from '../../context/auth-context';
 import Player from '../../model/Player';
 import Skill from '../../model/Skill';
+import CardStyle from '../../styled-components/CardStyle';
+import ButtonDivStyle from '../../styled-components/ButtonDivStyle';
+import PhotoCardStyle from '../../styled-components/PhotoCardStyle';
+import ImageStyle from '../../styled-components/IImageStyle';
+import styled from 'styled-components';
+
+const DivStyle = styled.div`
+        margin-top: 30px;
+    `;
 
 const PlayerInfo = () => {
     const params = useParams();
@@ -45,27 +54,28 @@ const PlayerInfo = () => {
 
 
     return(
-        <div className='Card'>
+        <CardStyle>
             <Card>
                 <CardHeader tag="h5">
                     <MdOutlineSportsKabaddi size={25}/>
-                    <span style={{marginLeft:'10px'}}>{player.playerName}</span>
+                    <span>{player.playerName}</span>
                     {authContext.role === 'EDITOR' ?
-                    <div style={{textAlign:'right', marginTop:'-30px'}}>
+                    <ButtonDivStyle>
                         <Button color="success" outline onClick={editPlayer}  >
                             Edit
                         </Button>
-                    </div>:null}
+                    </ButtonDivStyle>:null}
                 </CardHeader>
                 <CardBody>
                     {imageBytes ? 
-                    <Card style={{width:'100px', height:'100px'}}>
-                        <img alt={'not found'} style={{width:'100%', objectFit:'cover', height:'100%'}} 
+                    <PhotoCardStyle>
+                        <ImageStyle alt={'not found'}  
                         src={`data:image/jpg;image/png;base64,${imageBytes}`} 
                         />
-                    </Card>
+                    </PhotoCardStyle>
                     : null}
-                    <Label style={{marginTop:'20px'}}>
+                    <DivStyle>
+                    <Label>
                         Salary: {player.salary}
                     </Label>
                     <Label>
@@ -80,10 +90,11 @@ const PlayerInfo = () => {
                             </ListGroupItem> 
                         )}
                         </ListGroup>
-                    </Card>        
+                    </Card>  
+                </DivStyle>         
                 </CardBody>
             </Card>
-        </div>
+        </CardStyle>
     );
 };
 

@@ -7,6 +7,9 @@ import Multiselect from 'multiselect-react-dropdown';
 import { UPDATE_FORM, onInputChange, onFocusOut, validateInput } from '../../lib/formUtils'
 import { ToastContainer, toast } from 'react-toastify';
 import Skill from '../../model/Skill';
+import CardStyle from '../../styled-components/CardStyle';
+import ButtonDivStyle from '../../styled-components/ButtonDivStyle';
+import styled from 'styled-components';
 
     type Action =
         | { type: "UPDATE_FORM"; payload?: any ;
@@ -57,6 +60,14 @@ const initialState: State = {
     salary: { value: "", touched: false, hasError: true, error: "" },
     isFormValid: false,
 }
+
+const DropdownStyle = styled.div`
+    margin-top:30px;
+`;
+
+const UploadButtonStyle = styled.button`
+    margin-top:15px;
+`;
 
 const Player = () => {
     const [enteredName, setEnteredName] = useState<string>('');
@@ -195,11 +206,11 @@ const Player = () => {
     }
 
     return(
-        <div className='Card'>
+        <CardStyle>
             <Card>
                 <CardHeader tag="h5">
                     <MdOutlineSportsKabaddi size={25}/>
-                    <span style={{marginLeft:'10px'}}>Player</span>
+                    <span>Player</span>
                 </CardHeader>
                 <CardBody>
                     <Label for="exampleEmail">Name</Label>
@@ -250,33 +261,31 @@ const Player = () => {
                         id="file" 
                         onChange={selectFile}
                     />
-                    <Button style={{marginTop:'10px'}}
-                        className="btn btn-success"
+                    <Button className="uploadButton"
+                        color="success" 
                         disabled={!selectedFiles}
                         onClick={uploadImage}> Upload
                     </Button>
 
                     {/* Dropdown */}
-                    <div style={{marginTop:'30px'}}>   
+                    <DropdownStyle>   
                         <Multiselect
                         placeholder='Select skills'
                         options={skills} 
-                        //} //Preselected value to persist in dropdown
                         onSelect={(skills) => onSelect(skills)} 
                         displayValue="name"
                         />
-                    </div>
+                    </DropdownStyle>
                     <div className="button-container-div">
-                        <Button style={{marginTop:'30px', width:'100px'}} color="success" onClick={addPlayer} >Add</Button>
+                        <Button color="success" onClick={addPlayer} >Add</Button>
                     </div>
                 </CardBody>
             </Card>
             <div>
                 <ToastContainer />
             </div>
-        </div>
+        </CardStyle>
     )
-
 };
 
 export default Player;

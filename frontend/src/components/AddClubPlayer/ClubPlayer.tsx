@@ -7,6 +7,8 @@ import { ToastContainer, toast } from 'react-toastify';
 import { useNavigate } from 'react-router-dom';
 import Club from '../../model/Club';
 import Player from '../../model/Player';
+import CardStyle from '../../styled-components/CardStyle';
+import ButtonDivStyle from '../../styled-components/ButtonDivStyle';
 
 const ClubPlayer = () => {
     const [dropdownOpen, setDropdownOpen] = useState<boolean>(false);
@@ -107,11 +109,11 @@ const ClubPlayer = () => {
     }
 
     return(
-        <div className='Card'>
+        <CardStyle>
             <Card>
                 <CardHeader>
                     <MdOutlineSportsKabaddi size={25}/>
-                    <span style={{marginLeft:'10px'}}> {club.name}</span>
+                    <span> {club.name}</span>
                 </CardHeader>
                 <CardBody>
                     <Dropdown isOpen={dropdownOpen} toggle={toggle} >
@@ -124,15 +126,13 @@ const ClubPlayer = () => {
                                 )}
                             </DropdownMenu>
                     </Dropdown>
-                    <div className="button-container-div">
-                        <Button disabled={!player} style={{marginTop:'30px', width:'100px'}} color="success" onClick={addPlayerToClub}>Add</Button>
-                    </div>
+                        <Button className="button-container-div" disabled={!player} color="success" onClick={addPlayerToClub}>Add</Button>
                 </CardBody>
             </Card>
             <div>
             <ToastContainer />
             </div>
-        </div>
+        </CardStyle>
     );
 };
 

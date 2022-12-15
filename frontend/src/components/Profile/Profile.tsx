@@ -4,6 +4,7 @@ import { CgProfile } from 'react-icons/cg';
 import axios from 'axios';
 import { useNavigate } from "react-router-dom";
 import Person from '../../model/Person';
+import CardStyle from '../../styled-components/CardStyle';
 
 const Profile = () => {
     const [user, setUser] = useState<Person>({} as Person);  //if a state is initialized soon after setup and always has a value after
@@ -37,7 +38,7 @@ const Profile = () => {
     }
 
     const changePassword = () =>{ 
-        let path = `/changePassword`; 
+        let path = `/profile/changePassword`; 
         navigate(path, {
             state: {
               userInfo: user
@@ -46,11 +47,11 @@ const Profile = () => {
     }
 
     return(
-        <div className='Card'>
+        <CardStyle>
             <Card>
                 <CardHeader tag="h5">
                     <CgProfile size={30}/>
-                    <span style={{marginLeft:'10px'}}>Profile Info</span>
+                    <span>Profile Info</span>
                 </CardHeader>
                 <CardBody>
                     <CardText>
@@ -67,11 +68,11 @@ const Profile = () => {
                             Role: {userRole}
                         </Label>
                     </CardText>
-                    <Button style={{width:'160px'}} color='info' onClick={routeChange}>Edit</Button>
-                    <Button style={{width:'160px'}} color='info' onClick={changePassword}>Change password</Button>
+                    <Button className='button' color='info' onClick={routeChange}>Edit</Button>
+                    <Button className='button' color='info' onClick={changePassword}>Change password</Button>
                 </CardBody>
             </Card>
-        </div>
+        </CardStyle>
     );
 };
 

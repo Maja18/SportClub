@@ -6,6 +6,7 @@ import axios from 'axios'
 import { useNavigate } from "react-router-dom";
 import { UPDATE_FORM, onInputChange, onFocusOut, validateInput } from '../../lib/formUtils'
 import { ToastContainer, toast } from 'react-toastify';
+import CardStyle from '../../styled-components/CardStyle';
 
         type Action =
         | { type: "UPDATE_FORM";
@@ -127,11 +128,11 @@ const ChangePassword = () => {
     }
 
     return(
-        <div className='Card'>
+        <CardStyle>
             <Card>
                 <CardHeader tag="h5" >
                 <CgProfile size={30}/>
-                    <span style={{marginLeft:'10px'}}>Profile Info</span>
+                    <span>Profile Info</span>
                 </CardHeader>
                 <CardBody>
                     <CardText>
@@ -169,8 +170,7 @@ const ChangePassword = () => {
             <div>
                 <ToastContainer />
             </div>
-        </div>
-
+        </CardStyle>
     );
 }
 

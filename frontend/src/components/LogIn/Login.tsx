@@ -1,11 +1,40 @@
 import React, {useState, useContext} from 'react';
-import './Login.css';
 import {Button,Form,FormGroup,Input,Label} from 'reactstrap';
 import axios from 'axios'
 import { useNavigate } from 'react-router-dom';
 import 'react-toastify/dist/ReactToastify.css'
 import { AuthContext } from '../../context/auth-context';
 import { ToastContainer, toast } from 'react-toastify';
+import styled from 'styled-components';
+
+const DivStyle = styled.div`
+    border: 2px solid #d3d3d3;
+    border-radius: .5em;
+    margin-bottom: 1em;
+    margin-left: auto;
+    margin-right: auto;
+    margin-top: 100px;
+    padding: 1em;
+    text-align: left;
+    width: 600px;
+
+    form {
+        padding: 10px;
+    }
+
+    label {
+        margin-top: 10px;
+        font-weight: 600;
+    }
+    
+    .h2{
+        text-align: center;
+    }
+
+    .button-container-div{
+        text-align: center; 
+    }
+ `;
 
 const Login = () =>  {
     const [enteredEmail, setEnteredEmail] = useState<string>('');
@@ -47,7 +76,7 @@ const Login = () =>  {
     };
 
     return(
-        <div className="Login">
+        <DivStyle>
             <h2 className="h2">LogIn</h2>
             <Form onSubmit={onSubmit}>
                 <FormGroup >
@@ -85,7 +114,7 @@ const Login = () =>  {
             <div>
                 <ToastContainer />
             </div>
-        </div>
+        </DivStyle>
     );
 
 };

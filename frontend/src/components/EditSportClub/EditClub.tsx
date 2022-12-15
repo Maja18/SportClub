@@ -7,6 +7,8 @@ import { useNavigate } from "react-router-dom";
 import { UPDATE_FORM, onInputChange, onFocusOut, validateInput } from '../../lib/formUtils'
 import { ToastContainer, toast } from 'react-toastify';
 import Club from '../../model/Club';
+import CardStyle from '../../styled-components/CardStyle';
+
 
     type Action =
         | { type: "UPDATE_FORM"; payload?: any ;
@@ -147,11 +149,11 @@ const EditClub = () => {
     };
 
     return(
-        <div className='Card'>
+        <CardStyle>
             <Card>
                 <CardHeader tag="h5">
                 <FcSportsMode size={30}/>
-                    <span style={{marginLeft:'10px'}}>Sport Club</span>
+                    <span>Sport Club</span>
                 </CardHeader>
                 <CardBody>
                     <CardText>
@@ -179,17 +181,15 @@ const EditClub = () => {
                         )}
                     </CardText>
                     <div className="button-container-div">
-                        <Button style={{marginTop:'30px', width:'100px'}} color="success" onClick={editClub} >Edit</Button>
+                        <Button color="success" onClick={editClub} >Edit</Button>
                     </div>
                 </CardBody>
             </Card>
             <div>
                 <ToastContainer />
             </div>
-        </div>
-
+        </CardStyle>
     );
-
 };
 
 export default EditClub;

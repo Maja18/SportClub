@@ -6,6 +6,9 @@ import axios from 'axios';
 import { MdOutlineSportsKabaddi } from 'react-icons/md'; 
 import { BsTrash } from 'react-icons/bs';
 import Player from '../../model/Player';
+import CardStyle from '../../styled-components/CardStyle';
+import ButtonDivStyle from '../../styled-components/ButtonDivStyle';
+import BadgeStyle from '../../styled-components/BadgeStyle';
 
 const Players = () => {
     const [players, setPlayers] = useState<Player []>([]);
@@ -58,16 +61,16 @@ const Players = () => {
     }
 
     return(
-        <div className='Card'>
+        <CardStyle>
             <Card>
             <CardHeader>
             <   MdOutlineSportsKabaddi size={25}/>
-                <span style={{marginLeft:'10px'}}>Players</span>
-                <div style={{textAlign:'right', marginTop:'-30px'}}>
+                <span>Players</span>
+                <ButtonDivStyle>
                     <Button color="success" outline onClick={addNewPlayer} >
                         Add
                     </Button>
-                </div>
+                </ButtonDivStyle>
             </CardHeader>
             <ListGroup flush>
                 {players.map(player => 
@@ -75,14 +78,14 @@ const Players = () => {
                         <Link className='playerLink' to={{pathname: `/players/playersInfo/${player.id}`}}>
                             {player.playerName}
                         </Link>
-                        <div className='Buttons'>
+                        <BadgeStyle>
                             <Link to={`/editPlayer/${player.id}`}>
-                                <Badge style={{width:'60px', height:'20px'}} color="info" pill>Edit</Badge>
+                                <Badge color="info" pill>Edit</Badge>
                             </Link>
                             <a onClick={() => toggle(player.id)}>
-                                <Badge style={{width:'60px', height:'20px', marginLeft:'10px'}} color="danger" pill>Delete</Badge>
+                                <Badge color="danger" pill>Delete</Badge>
                             </a>
-                        </div>
+                        </BadgeStyle>
                     </ListGroupItem> 
                 )}
             </ListGroup>
@@ -93,7 +96,7 @@ const Players = () => {
                 toggle={() => toggle}>
                 <ModalHeader toggle={() => toggle}>
                 <BsTrash></BsTrash>
-                    <span style={{marginLeft:'10px'}}>Are you sure?</span>
+                    <span>Are you sure?</span>
                 </ModalHeader>
                 <ModalBody>
                     This player will be deleted.
@@ -103,7 +106,7 @@ const Players = () => {
                 </ModalFooter>
             </Modal>
             </div>
-        </div>
+        </CardStyle>
     )
 };
 

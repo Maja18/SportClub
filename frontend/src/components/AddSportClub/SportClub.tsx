@@ -5,6 +5,7 @@ import axios from 'axios'
 import { useNavigate } from 'react-router-dom';
 import { UPDATE_FORM, onInputChange, onFocusOut, validateInput } from '../../lib/formUtils'
 import { ToastContainer, toast } from 'react-toastify';
+import CardStyle from '../../styled-components/CardStyle';
 
         type Action =
         | { type: "UPDATE_FORM"; 
@@ -118,7 +119,7 @@ const SportClub = () => {
     };
 
     return(
-        <div className='Card'>
+        <CardStyle>
             <Card>
                 <CardHeader tag="h5">
                     <FcSportsMode size={30}/>
@@ -145,14 +146,14 @@ const SportClub = () => {
                             </div>
                         )}
                     <div className="button-container-div">
-                        <Button style={{marginTop:'30px', width:'100px'}} color="success" onClick={addClub}>Add</Button>
+                        <Button color="success" onClick={addClub}>Add</Button>
                     </div>
                 </CardBody>
             </Card>
             <div>
                 <ToastContainer />
             </div>
-        </div>       
+        </CardStyle>       
     );
 };
 

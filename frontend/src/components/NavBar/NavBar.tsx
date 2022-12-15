@@ -1,5 +1,5 @@
 import React, {useState, useEffect, useContext} from 'react';
-import {Navbar,NavItem,NavLink,Nav} from 'reactstrap';
+import {Navbar,NavItem,Nav} from 'reactstrap';
 import { Route, Routes } from 'react-router-dom';
 import Register from '../Register/Register'
 import Login from '../Login/Login';
@@ -18,7 +18,25 @@ import EditPlayer from '../EditPlayer/EditPlayer';
 import { AuthContext } from '../../context/auth-context';
 import ChangePassword from '../EditProfile/ChangePassword';
 import { NavLink as Link } from 'react-router-dom';
-import './NavBar.css'
+import styled from 'styled-components';
+
+
+const StyledLink = styled(Link)`
+    color: blue;
+    display: flex;
+    align-items: center;
+    font-size: 18px;
+    font-weight: 700;
+    text-decoration: none;
+    padding: 8px 6px;
+    width: 100%;
+
+    &.active {
+        color: white;
+    }
+
+`;
+
 
 const NavBar = () => {
     const authContext = useContext(AuthContext);
@@ -33,37 +51,37 @@ const NavBar = () => {
     };
     
     return (
-        <div className='Nav'>
+        <div>
             <Navbar color="dark"  expand="md"> 
                 <Nav className={` ${!authContext.isAuth || (authContext.isAuth && logout) ? "container-fluid" : ""}`} navbar>
                     <NavItem>
-                    <NavLink tag={Link} activeclassname="active" to="/">
+                    <StyledLink to="/">
                         Home
-                    </NavLink>
+                    </StyledLink>
                     </NavItem>
                     {authContext.isAuth &&  
                     <NavItem >
-                        <NavLink tag={Link} activeclassname="active" to="/profile">Profile</NavLink>
+                        <StyledLink to="/profile">Profile</StyledLink>
                     </NavItem>}
                     {authContext.isAuth &&
                     <NavItem>
-                        <NavLink tag={Link} activeclassname="active" to="/sportClubs">SportClubs</NavLink>
+                        <StyledLink to="/sportClubs">SportClubs</StyledLink>
                     </NavItem>}
                     {authContext.isAuth && authContext.role==='EDITOR' &&
                     <NavItem>
-                        <NavLink tag={Link} activeclassname="active" to="/players">Players</NavLink>
+                        <StyledLink to="/players">Players</StyledLink>
                     </NavItem>}
                     {!authContext.isAuth &&
                     <NavItem className="ml-auto">
-                        <NavLink tag={Link} activeclassname="active" to="/register">Register</NavLink>
+                        <StyledLink to="/register">Register</StyledLink>
                     </NavItem>}
                     {!authContext.isAuth &&
                     <NavItem >
-                        <NavLink tag={Link} activeclassname="active" to="/login">Login</NavLink>
+                        <StyledLink to="/login">Login</StyledLink>
                     </NavItem>}
                     {authContext.isAuth &&
                     <NavItem className="ml-auto">
-                        <NavLink tag={Link} to="/" onClick={logOut}>Logout</NavLink>
+                        <StyledLink to="/"  onClick={logOut}>Logout</StyledLink>
                     </NavItem>}
                 </Nav>
             </Navbar>
@@ -73,7 +91,7 @@ const NavBar = () => {
                 <Route path="/login" element={<Login/>}></Route>
                 <Route path="/profile" element={<Profile/>}></Route>
                 <Route path='/profile/editProfile' element={<EditProfile/>}></Route>
-                <Route path='/changePassword' element={<ChangePassword/>}></Route>
+                <Route path='/profile/changePassword' element={<ChangePassword/>}></Route>
                 <Route path='/sportClubs' element={<SportClubs/>}></Route>
                 <Route path='/sportClubs/addNewClub' element={authContext.isAuth && authContext.role==='EDITOR'
                 ? <SportClub/>:<div>You are not allowed to see this page!</div>}></Route>

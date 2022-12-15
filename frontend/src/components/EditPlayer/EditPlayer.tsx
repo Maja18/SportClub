@@ -10,6 +10,9 @@ import { UPDATE_FORM, onInputChange, onFocusOut, validateInput } from '../../lib
 import { ToastContainer, toast } from 'react-toastify';
 import Player from '../../model/Player';
 import Skill from '../../model/Skill';
+import CardStyle from '../../styled-components/CardStyle';
+import BadgeStyle from '../../styled-components/BadgeStyle';
+import styled from 'styled-components';
 
     type Action =
     | { type: "UPDATE_FORM" ;
@@ -60,6 +63,31 @@ import Skill from '../../model/Skill';
             return state
         }
     }
+
+    const PhotoCardStyle = styled(Card)`
+        width:100px;
+        height:100px;
+    `;
+
+    const ImageStyle = styled.img`
+        width:100%;
+        object-fit:cover;
+        height:100%;
+    `;
+
+    const DivStyle = styled.div`
+        margin-top: 20px;
+    `;
+
+    const DivButtonStyle = styled.div`
+        text-align:right;
+        margin-top:-45px;
+    `;
+
+    const SkillsCardStyle = styled(Card)`
+        margin-top:20px;
+    `;
+
 
 const EditPlayer = () => {
     const [enteredName, setEnteredName] = useState<string>('');
@@ -281,19 +309,19 @@ const EditPlayer = () => {
 
 
     return(
-        <div className='Card'>
+        <CardStyle>
             <Card>
                 <CardHeader tag="h5">
                     <MdOutlineSportsKabaddi size={25}/>
-                    <span style={{marginLeft:'10px'}}>Player</span>
+                    <span>Player</span>
                 </CardHeader>
                 <CardBody>
                     {imageBytes ? 
-                    <Card style={{width:'100px', height:'100px'}}>
-                        <img  alt={'not found'}  style={{width:'100%', objectFit:'cover', height:'100%'}} 
-                        src={`data:image/jpg;image/png;base64,${imageBytes}`} 
+                    <PhotoCardStyle>
+                        <ImageStyle alt={'not found'} 
+                            src={`data:image/jpg;image/png;base64,${imageBytes}`} 
                         />
-                    </Card>
+                    </PhotoCardStyle>
                     : null}
                     <Label for="exampleEmail">Change picture</Label>
                         <Input
@@ -303,105 +331,109 @@ const EditPlayer = () => {
                         id="file" 
                         onChange={selectFile}
                     />
-                    <Button style={{marginTop:'10px'}}
+                    <Button
                         className="btn btn-success"
                         disabled={!selectedFiles}
                         onClick={uploadImage}> Upload
                     </Button>
-                    <Label style={{marginTop:'15px'}} for="exampleEmail">Name</Label>
-                        <Input
-                        type="text"
-                        name="name"
-                        id="exampleName"
-                        placeholder="Name"
-                        required={true}
-                        value={formState.name.value}
-                        onChange={e => {
-                            onInputChange("name", e.target.value, dispatch, formState)
-                            setEnteredName(e.target.value)
-                        }}
-                        onBlur={e => {
-                            onFocusOut("name", e.target.value, dispatch, formState)
-                        }}
-                        />
-                        {formState.name.touched && formState.name.hasError && (
-                            <div className="error">
-                                {formState.name.error}
-                            </div>
+                    <DivStyle>
+                        <Label>Name</Label>
+                            <Input
+                            type="text"
+                            name="name"
+                            id="exampleName"
+                            placeholder="Name"
+                            required={true}
+                            value={formState.name.value}
+                            onChange={e => {
+                                onInputChange("name", e.target.value, dispatch, formState)
+                                setEnteredName(e.target.value)
+                            }}
+                            onBlur={e => {
+                                onFocusOut("name", e.target.value, dispatch, formState)
+                            }}
+                            />
+                            {formState.name.touched && formState.name.hasError && (
+                                <div className="error">
+                                    {formState.name.error}
+                                </div>
+                            )}
+                        <Label for="exampleEmail">Salary</Label>
+                            <Input
+                            type="text"
+                            name="salary"
+                            id="exampleSalary"
+                            placeholder="Salary"
+                            required={true}
+                            value={formState.salary.value}
+                            onChange={e => {
+                                onInputChange("salary", e.target.value, dispatch, formState)
+                                setEnteredSalary(e.target.value)
+                            }}
+                            onBlur={e => {
+                                onFocusOut("salary", e.target.value, dispatch, formState)
+                            }}
+                            />
+                            {formState.salary.touched && formState.salary.hasError && (
+                                <div className="error">
+                                    {formState.salary.error}
+                                </div>
+                            )}
+                        <DivStyle>
+                        <Label>
+                            Player skills: 
+                        </Label>
+                        <DivButtonStyle>
+                            <Button color="success" outline onClick={addNewSkill}>
+                                Add new
+                            </Button>
+                        </DivButtonStyle>
+                        
+                        {addSkills ? 
+                        <div>
+                            <Dropdown isOpen={dropdownOpen} toggle={toggle} >
+                            <DropdownToggle caret color="info">{value}</DropdownToggle>
+                                <DropdownMenu value={value} >
+                                    {dropdownSkills.map(skill => 
+                                        <DropdownItem key={skill.id} onClick={(e) => handleSelect(e, skill)} value={skill.name}>
+                                            {skill.name}
+                                        </DropdownItem> 
+                                    )}
+                                </DropdownMenu>
+                            </Dropdown> 
+                        </div>
+                        : 
+                        <SkillsCardStyle>
+                        <ListGroup flush>
+                        {playerSkills.map(skill => 
+                            <ListGroupItem key={skill.id}>
+                                <Label>Name: {skill.name}</Label>
+                                <BadgeStyle>
+                                    <a onClick={(e) => remove(e, skill)}>
+                                        <Badge color="danger" pill>
+                                            Remove
+                                        </Badge>
+                                    </a>
+                                </BadgeStyle>
+                            </ListGroupItem> 
                         )}
-                    <Label for="exampleEmail">Salary</Label>
-                        <Input
-                        type="text"
-                        name="salary"
-                        id="exampleSalary"
-                        placeholder="Salary"
-                        required={true}
-                        value={formState.salary.value}
-                        onChange={e => {
-                            onInputChange("salary", e.target.value, dispatch, formState)
-                            setEnteredSalary(e.target.value)
-                        }}
-                        onBlur={e => {
-                            onFocusOut("salary", e.target.value, dispatch, formState)
-                        }}
-                        />
-                        {formState.salary.touched && formState.salary.hasError && (
-                            <div className="error">
-                                {formState.salary.error}
-                            </div>
+                        </ListGroup>
+                    </SkillsCardStyle>
+                        }
+                        {showError && !formState.isFormValid && (
+                            <div className="form_error">Please fill all the fields correctly</div>
                         )}
-                    <Label style={{marginTop:'25px'}}>
-                        Player skills: 
-                    </Label>
-                    <div style={{textAlign:'right', marginTop:'-45px'}}>
-                        <Button color="success" outline onClick={addNewSkill}>
-                            Add new
-                        </Button>
-                    </div>
-                    
-                    {addSkills ? 
-                    <div>
-                        <Dropdown isOpen={dropdownOpen} toggle={toggle} >
-                        <DropdownToggle caret color="info">{value}</DropdownToggle>
-                            <DropdownMenu value={value} >
-                                {dropdownSkills.map(skill => 
-                                    <DropdownItem key={skill.id} onClick={(e) => handleSelect(e, skill)} value={skill.name}>
-                                    {skill.name}
-                                    </DropdownItem> 
-                                )}
-                            </DropdownMenu>
-                        </Dropdown> 
-                    </div>
-                    : 
-                    <Card style={{marginTop:'15px'}}>
-                    <ListGroup flush>
-                    {playerSkills.map(skill => 
-                        <ListGroupItem key={skill.id}>
-                            <Label>Name: {skill.name}</Label>
-                            <div style={{textAlign:'right'}}>
-                                <a onClick={(e) => remove(e, skill)}>
-                                    <Badge style={{width:'60px', height:'20px', marginTop:'-40px'}} color="danger" pill>
-                                        Remove
-                                    </Badge>
-                                </a>
-                            </div>
-                        </ListGroupItem> 
-                    )}
-                    </ListGroup>
-                </Card>
-                }
-                    {showError && !formState.isFormValid && (
-                        <div className="form_error">Please fill all the fields correctly</div>
-                    )}
+                        </DivStyle>
+                    </DivStyle>
                     <div className="button-container-div">
-                        <Button  style={{marginTop:'30px', width:'100px'}} color="success" onClick={editPlayer} >Save</Button>
+                        <Button color="success" onClick={editPlayer} >Save</Button>
                     </div>
                 </CardBody>
             </Card>
             <div>
                 <ToastContainer />
             </div>
-        </div>
+        </CardStyle>
     );
 };
 

@@ -1,11 +1,12 @@
 import React, {useState, useReducer} from 'react';
 import {Button,Form,FormGroup,Input,Label} from 'reactstrap';
-import './Register.css';
 import axios from 'axios'
 import { useNavigate } from 'react-router-dom';
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css'
 import { UPDATE_FORM, onInputChange, onFocusOut } from '../../lib/formUtils'
+import styled from 'styled-components';
+
 
    const initialState: State = {
     name: { value: "", touched: false, hasError: true, error: "" },
@@ -58,6 +59,38 @@ import { UPDATE_FORM, onInputChange, onFocusOut } from '../../lib/formUtils'
         }
     }
 
+    const DivStyle = styled.div`
+        border: 2px solid #d3d3d3;
+        border-radius: .5em;
+        margin-bottom: 1em;
+        margin-left: auto;
+        margin-right: auto;
+        margin-top: 50px;
+        padding: 1em;
+        text-align: left;
+        width: 600px;
+
+        form {
+            padding: 10px;
+        }
+
+        .h2{
+            text-align: center;
+        }
+
+        div {
+            margin-bottom: 30px;
+        }
+
+        .label {
+            margin-left: 5px;
+        }
+
+        .roleInput{
+            margin-left: 15px;
+        }
+ `;
+
 const Register = () => {
     const [enteredName, setEnteredName] = useState<string>('');
     const [enteredLastName, setEnteredLastName] = useState<string>('');
@@ -106,7 +139,7 @@ const Register = () => {
     };
 
     return(
-        <div className="Register">
+        <DivStyle>
             <h2 className="h2">Register</h2>
             <Form onSubmit={onSubmit}>
                 <FormGroup>
@@ -223,7 +256,7 @@ const Register = () => {
                         setEnteredRole(event.target.value)
                     }}
                     /> 
-                    <label>VIEWER</label>
+                    <label className="label">VIEWER</label>
                     </div>
                 </FormGroup>
                 <div className="button-container-div">
@@ -233,7 +266,7 @@ const Register = () => {
             <div>
                 <ToastContainer />
             </div>
-        </div>
+        </DivStyle>
     );
 };
 
