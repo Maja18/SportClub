@@ -80,10 +80,10 @@ const Players = () => {
                         </Link>
                         <BadgeStyle>
                             <Link to={`/editPlayer/${player.id}`}>
-                                <Badge color="info" pill>Edit</Badge>
+                                <Badge color="info" pill >Edit</Badge>
                             </Link>
                             <a onClick={() => toggle(player.id)}>
-                                <Badge color="danger" pill>Delete</Badge>
+                                <Badge color="danger" pill >Delete</Badge>
                             </a>
                         </BadgeStyle>
                     </ListGroupItem> 

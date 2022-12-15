@@ -410,9 +410,9 @@ const EditPlayer = () => {
                                 <Label>Name: {skill.name}</Label>
                                 <BadgeStyle>
                                     <a onClick={(e) => remove(e, skill)}>
-                                        <Badge color="danger" pill>
+                                        <h5><Badge color="danger" pill>
                                             Remove
-                                        </Badge>
+                                        </Badge></h5>
                                     </a>
                                 </BadgeStyle>
                             </ListGroupItem> 

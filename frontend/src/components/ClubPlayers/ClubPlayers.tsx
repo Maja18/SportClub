@@ -139,7 +139,7 @@ import BadgeStyle from '../../styled-components/BadgeStyle'
                         {authContext.role === 'EDITOR' ?
                         <BadgeStyle> 
                             <a onClick={() => toggle(player.id)}>
-                                <Badge color="danger" pill>Remove</Badge>
+                                <h6><Badge color="danger" pill className='p-2'>Remove</Badge></h6>
                             </a>
                         </BadgeStyle>:null}
                     </ListGroupItem> 

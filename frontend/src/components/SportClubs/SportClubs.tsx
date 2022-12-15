@@ -59,10 +59,10 @@ const SportClubs = () => {
                         <BadgeStyle>
                         {authContext.role === 'EDITOR' ?
                             <Link to={{pathname: `/sportClubs/editClub/${club.id}`}}>
-                                <Badge color="info" pill>Edit</Badge>
+                                <Badge color="info" pill >Edit</Badge>
                             </Link> :null}
                             <Link to={{pathname: `/sportClubs/players/${club.id}`}}>
-                                <Badge color="info" pill>See players</Badge>
+                                <Badge color="info" pill >See players</Badge>
                             </Link>
                         </BadgeStyle>
                     </ListGroupItem> 
