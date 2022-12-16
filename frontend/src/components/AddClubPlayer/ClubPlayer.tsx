@@ -8,7 +8,6 @@ import { useNavigate } from 'react-router-dom';
 import Club from '../../model/Club';
 import Player from '../../model/Player';
 import CardStyle from '../../styled-components/CardStyle';
-import ButtonDivStyle from '../../styled-components/ButtonDivStyle';
 
 const ClubPlayer = () => {
     const [dropdownOpen, setDropdownOpen] = useState<boolean>(false);

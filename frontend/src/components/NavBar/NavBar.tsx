@@ -72,7 +72,7 @@ const NavBar = () => {
                         <StyledLink to="/players">Players</StyledLink>
                     </NavItem>}
                     {!authContext.isAuth &&
-                    <NavItem className="ml-auto">
+                    <NavItem >
                         <StyledLink to="/register">Register</StyledLink>
                     </NavItem>}
                     {!authContext.isAuth &&
@@ -80,7 +80,7 @@ const NavBar = () => {
                         <StyledLink to="/login">Login</StyledLink>
                     </NavItem>}
                     {authContext.isAuth &&
-                    <NavItem className="ml-auto">
+                    <NavItem className="ms-auto">
                         <StyledLink to="/"  onClick={logOut}>Logout</StyledLink>
                     </NavItem>}
                 </Nav>

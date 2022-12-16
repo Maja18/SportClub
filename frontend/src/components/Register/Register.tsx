@@ -89,6 +89,16 @@ import styled from 'styled-components';
         .roleInput{
             margin-left: 15px;
         }
+
+        .error {
+            margin-top: 0.25rem;
+            color: #f65157;
+        }
+
+        .button-container-div{
+            text-align: center; 
+            margin-top: 20px;
+        }
  `;
 
 const Register = () => {
@@ -260,7 +270,7 @@ const Register = () => {
                     </div>
                 </FormGroup>
                 <div className="button-container-div">
-                    <Button  color="success" >Submit</Button>
+                    <Button color="success">Submit</Button>
                 </div>
             </Form>
             <div>

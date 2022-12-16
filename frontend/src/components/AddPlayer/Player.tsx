@@ -65,10 +65,6 @@ const DropdownStyle = styled.div`
     margin-top:30px;
 `;
 
-const UploadButtonStyle = styled.button`
-    margin-top:15px;
-`;
-
 const Player = () => {
     const [enteredName, setEnteredName] = useState<string>('');
     const [enteredSalary, setEnteredSalary] = useState<string>('');

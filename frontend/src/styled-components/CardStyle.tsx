@@ -41,6 +41,11 @@ const CardStyle = styled.div`
         display: inline-block;
         margin-left: 5px;
     }
+
+    .error {
+        margin-top: 0.25rem;
+        color: #f65157;
+    }
  `;
 
  export default CardStyle;

@@ -5,7 +5,6 @@ import axios from 'axios'
 import { useNavigate } from 'react-router-dom';
 import { MdOutlineSportsKabaddi } from 'react-icons/md';
 import {useParams} from 'react-router-dom';
-import { Link } from 'react-router-dom';
 import { UPDATE_FORM, onInputChange, onFocusOut, validateInput } from '../../lib/formUtils'
 import { ToastContainer, toast } from 'react-toastify';
 import Player from '../../model/Player';
@@ -127,7 +126,6 @@ const EditPlayer = () => {
                 dispatch({
                     type: 'INITIALIZE_STATE',
                     payload: {
-                        //...initialState,
                         name: { value: response.data.playerName, touched: false, hasError: true, error: "" },
                         salary: { value: response.data.salary, touched: false, hasError: true, error: "" },
                     }

@@ -77,7 +77,6 @@ const EditClub = () => {
             dispatch({
                 type: 'INITIALIZE_STATE',
                 payload: {
-                    ...initialState,
                     name: { value: response.data.name, touched: false, hasError: true, error: "" },
                 }
                 })
