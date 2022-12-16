@@ -11,7 +11,7 @@ import ButtonDivStyle from '../../styled-components/ButtonDivStyle';
 import BadgeStyle from '../../styled-components/BadgeStyle';
 
 const SportClubs = () => {
-    const [clubs, setClubs] = useState<Club []>([]);
+    const [clubs, setClubs] = useState<Club[]>([]);
     let navigate = useNavigate(); 
     const authContext = useContext(AuthContext);
 
@@ -20,8 +20,8 @@ const SportClubs = () => {
     },[])
 
     useEffect(() => {
-        let value: string = localStorage.getItem('token')!;
-        let token: string = value.substring(1,value.length-1);
+        let value= localStorage.getItem('token')!;
+        let token = value.substring(1,value.length-1);
         axios.get('http://localhost:8080/api/club',{ 
              headers: {
                 'Authorization': 'Bearer ' + token,

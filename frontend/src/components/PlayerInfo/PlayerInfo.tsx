@@ -11,17 +11,13 @@ import CardStyle from '../../styled-components/CardStyle';
 import ButtonDivStyle from '../../styled-components/ButtonDivStyle';
 import PhotoCardStyle from '../../styled-components/PhotoCardStyle';
 import ImageStyle from '../../styled-components/IImageStyle';
-import styled from 'styled-components';
-
-const DivStyle = styled.div`
-        margin-top: 30px;
-    `;
+import DivPlayerStyle from '../../styled-components/DivPlayerStyle';
 
 const PlayerInfo = () => {
     const params = useParams();
     const [player, setPlayer] = useState<Player>({} as Player)
     const [imageBytes, setImageBytes] = useState<Int8Array>()
-    const [playerSkills, setPlayerSkills] = useState<Skill []>([])
+    const [playerSkills, setPlayerSkills] = useState<Skill[]>([])
     let navigate = useNavigate(); 
     const authContext = useContext(AuthContext);
     
@@ -30,8 +26,8 @@ const PlayerInfo = () => {
     },[])
 
     useEffect(() => {
-        let value: string = localStorage.getItem('token')!;
-        let token: string = value.substring(1,value.length-1);
+        let value = localStorage.getItem('token')!;
+        let token = value.substring(1,value.length-1);
         axios.get('http://localhost:8080/api/player/' + params.id,{ 
              headers: {
                 'Authorization': 'Bearer ' + token,
@@ -74,7 +70,7 @@ const PlayerInfo = () => {
                         />
                     </PhotoCardStyle>
                     : null}
-                    <DivStyle>
+                    <DivPlayerStyle>
                     <Label>
                         Salary: {player.salary}
                     </Label>
@@ -91,7 +87,7 @@ const PlayerInfo = () => {
                         )}
                         </ListGroup>
                     </Card>  
-                </DivStyle>         
+                </DivPlayerStyle>         
                 </CardBody>
             </Card>
         </CardStyle>

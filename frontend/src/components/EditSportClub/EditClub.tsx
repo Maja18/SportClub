@@ -8,6 +8,9 @@ import { UPDATE_FORM, onInputChange, onFocusOut, validateInput } from '../../lib
 import { ToastContainer, toast } from 'react-toastify';
 import Club from '../../model/Club';
 import CardStyle from '../../styled-components/CardStyle';
+import EditClubData from '../../model/EditClubData';
+import ButtonContainerDiv from '../../styled-components/ButtonContainerDiv';
+import ErrorDiv from '../../styled-components/Error';
 
 
     type Action =
@@ -60,14 +63,14 @@ import CardStyle from '../../styled-components/CardStyle';
 
 const EditClub = () => {
     const [club, setClub] = useState<Club>({} as Club);
-    const [enteredName, setEnteredName] = useState<string>('');
+    const [enteredName, setEnteredName] = useState('');
     const params = useParams();
     let navigateTo = useNavigate();
     const [formState, dispatch] = useReducer(formsReducer, initialState)
     
     useEffect(() => {
-        let value: string = localStorage.getItem('token')!;
-        let token: string = value.substring(1,value.length-1);
+        let value = localStorage.getItem('token')!;
+        let token = value.substring(1,value.length-1);
         axios.get('http://localhost:8080/api/club/' + params.id,{ 
              headers: {
                 'Authorization': 'Bearer ' + token,
@@ -119,20 +122,15 @@ const EditClub = () => {
             })
         }
         }
-        if (isFormValid) {
-            type Data = {
-                id: number,
-                name: string
-            }
-
-            const data:Data = {
+        if (isFormValid) { 
+            const editedClub: EditClubData = {
                 id: club.id,
                 name: enteredName
             }
 
-            let value: string = localStorage.getItem('token')!;
-            let token: string = value.substring(1,value.length-1);
-            axios.put('http://localhost:8080/api/club', data, {
+            let value = localStorage.getItem('token')!;
+            let token = value.substring(1,value.length-1);
+            axios.put('http://localhost:8080/api/club', editedClub, {
                 headers: {
                     'Authorization': 'Bearer ' + token,
                 }
@@ -174,14 +172,14 @@ const EditClub = () => {
                         }}
                         />
                         {formState.name.touched && formState.name.hasError && (
-                            <div className="error">
+                            <ErrorDiv>
                                 {formState.name.error}
-                            </div>
+                            </ErrorDiv>
                         )}
                     </CardText>
-                    <div className="button-container-div">
+                    <ButtonContainerDiv>
                         <Button color="success" onClick={editClub} >Edit</Button>
-                    </div>
+                    </ButtonContainerDiv>
                 </CardBody>
             </Card>
             <div>

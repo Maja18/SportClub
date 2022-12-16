@@ -12,16 +12,17 @@ import Club from '../../model/Club';
 import CardStyle from '../../styled-components/CardStyle';
 import ButtonDivStyle from '../../styled-components/ButtonDivStyle';
 import BadgeStyle from '../../styled-components/BadgeStyle'
+import RemovePlayer from '../../model/RemovePlayer';
 
   const ClubPlayers = () => {
-    const [clubPlayers, setClubPlayers] = useState<Player []>([]);
+    const [clubPlayers, setClubPlayers] = useState<Player[]>([]);
     const [club, setClub] = useState<Club>({} as Club)
     const params = useParams();
     let navigate = useNavigate(); 
     const firstTimeRender = useRef<boolean>(true);
     // Modal open state
     const [modal, setModal] = useState(false);
-    const [playerId, setPlayerId] = useState<number>();
+    const [playerId, setPlayerId] = useState(0);
     const authContext = useContext(AuthContext);
 
     useEffect(() => {
@@ -29,8 +30,8 @@ import BadgeStyle from '../../styled-components/BadgeStyle'
     },[])
 
     useEffect(() => {
-        let value: string = localStorage.getItem('token')!;
-        let token: string = value.substring(1,value.length-1);
+        let value = localStorage.getItem('token')!;
+        let token = value.substring(1,value.length-1);
         axios.get('http://localhost:8080/api/player/players/' + params.id,{ 
              headers: {
                 'Authorization': 'Bearer ' + token,
@@ -45,8 +46,8 @@ import BadgeStyle from '../../styled-components/BadgeStyle'
     }, []);
 
     useEffect(() => {
-        let value: string = localStorage.getItem('token')!;
-        let token: string = value.substring(1,value.length-1);
+        let value = localStorage.getItem('token')!;
+        let token = value.substring(1,value.length-1);
         axios.get('http://localhost:8080/api/club/' + params.id,{ 
              headers: {
                 'Authorization': 'Bearer ' + token,
@@ -74,26 +75,21 @@ import BadgeStyle from '../../styled-components/BadgeStyle'
 
     const removePlayer = (event: React.MouseEvent<HTMLButtonElement>, playerId: number, clubId: number)  => {
         event.preventDefault()
-        let value: string = localStorage.getItem('token')!;
-        let token: string = value.substring(1,value.length-1);
+        let value = localStorage.getItem('token')!;
+        let token = value.substring(1,value.length-1);
 
         axios.get('http://localhost:8080/api/player/'  + playerId,{ 
             headers: {
                'Authorization': 'Bearer ' + token,
            }
         }).then(response => {
-            type Data = {
-                clubId: number,
-                playerId: number
-            }
-
-            const data:Data = {
+            const data: RemovePlayer= {
                 clubId: clubId,
                 playerId: playerId
             }
     
-            let value: string = localStorage.getItem('token')!;
-            let token: string = value.substring(1,value.length-1);
+            let value = localStorage.getItem('token')!;
+            let token = value.substring(1,value.length-1);
             
             axios.post('http://localhost:8080/api/club/removePlayer/', data,{ 
                  headers: {

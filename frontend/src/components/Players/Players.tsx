@@ -11,15 +11,15 @@ import ButtonDivStyle from '../../styled-components/ButtonDivStyle';
 import BadgeStyle from '../../styled-components/BadgeStyle';
 
 const Players = () => {
-    const [players, setPlayers] = useState<Player []>([]);
+    const [players, setPlayers] = useState<Player[]>([]);
     let navigate = useNavigate(); 
     // Modal open state
-    const [modal, setModal] = useState<boolean>(false);
-    const [playerId, setPlayerId] = useState<number>();
+    const [modal, setModal] = useState(false);
+    const [playerId, setPlayerId] = useState(0);
 
     useEffect(() => {
-        let value: string = localStorage.getItem('token')!;
-        let token: string = value.substring(1,value.length-1);
+        let value = localStorage.getItem('token')!;
+        let token = value.substring(1,value.length-1);
         axios.get('http://localhost:8080/api/player',{ 
              headers: {
                 'Authorization': 'Bearer ' + token,
@@ -41,8 +41,8 @@ const Players = () => {
     const deletePlayer = (event: React.MouseEvent<HTMLButtonElement>, playerId: number)  => {
         event.preventDefault()
 
-        let value: string = localStorage.getItem('token')!;
-        let token: string = value.substring(1,value.length-1);
+        let value = localStorage.getItem('token')!;
+        let token = value.substring(1,value.length-1);
         axios.delete('http://localhost:8080/api/player/' + playerId,{ 
              headers: {
                 'Authorization': 'Bearer ' + token,

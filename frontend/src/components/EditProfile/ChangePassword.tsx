@@ -7,6 +7,10 @@ import { useNavigate } from "react-router-dom";
 import { UPDATE_FORM, onInputChange, onFocusOut, validateInput } from '../../lib/formUtils'
 import { ToastContainer, toast } from 'react-toastify';
 import CardStyle from '../../styled-components/CardStyle';
+import PasswordChanger from '../../model/PasswordChanger';
+import ButtonContainerDiv from '../../styled-components/ButtonContainerDiv';
+import ErrorDiv from '../../styled-components/Error';
+import FormErrorDiv from '../../styled-components/FormError';
 
         type Action =
         | { type: "UPDATE_FORM";
@@ -58,9 +62,9 @@ const initialState: State = {
 
 const ChangePassword = () => {
     const location = useLocation();
-    const [enteredNewPassword, setEnteredNewPassword] = useState<string>('');
+    const [enteredNewPassword, setEnteredNewPassword] = useState('');
     const [formState, dispatch] = useReducer(formsReducer, initialState)
-    const [showError, setShowError] = useState<boolean>(false)
+    const [showError, setShowError] = useState(false)
     let navigateTo = useNavigate(); 
 
     const showToastMessage = () => {
@@ -101,25 +105,25 @@ const ChangePassword = () => {
             } 
         else {
             event.preventDefault()
-            const data = {
+            const changePasswordData: PasswordChanger = {
                 userId: location.state.userInfo.id,
                 newPassword: enteredNewPassword
             }
 
-            let value: string = localStorage.getItem('token')!;
-            let token: string = value.substring(1,value.length-1);
-            axios.post('http://localhost:8080/api/person/change-password', data, {
+            let value = localStorage.getItem('token')!;
+            let token = value.substring(1,value.length-1);
+            axios.post('http://localhost:8080/api/person/change-password', changePasswordData, {
                 headers: {
                     'Authorization': 'Bearer ' + token,
                 }
             })
-                    .then(response => {
-                        showToastMessage()
-                    })
-                    .catch(response => {
-                        alert("Please enter valid data!");
-                        console.log(response);
-                    });   
+                .then(response => {
+                    showToastMessage()
+                })
+                .catch(response => {
+                    alert("Please enter valid data!");
+                    console.log(response);
+                });   
         }
         // Hide the error message after 5 seconds
         setTimeout(() => {
@@ -154,17 +158,17 @@ const ChangePassword = () => {
                         }}
                         />
                         {formState.password.touched && formState.password.hasError && (
-                            <div className="error">
+                            <ErrorDiv>
                                 {formState.password.error}
-                            </div>
+                            </ErrorDiv>
                         )}
                     </CardText>
                     {showError && !formState.isFormValid && (
-                        <div className="form_error">Please fill all the fields correctly</div>
+                        <FormErrorDiv>Please fill all the fields correctly</FormErrorDiv>
                     )}
-                    <div className="button-container-div">
+                    <ButtonContainerDiv>
                         <Button color='info' onClick={changePassword} >Save</Button>
-                    </div>
+                    </ButtonContainerDiv>
                 </CardBody>
             </Card>
             <div>

@@ -1,8 +1,9 @@
 interface Person{
+    id: number,
     firstName: string,
     email: string,
     lastName: string,
-    password: string,
+    password?: string,
     role: string
 }
 

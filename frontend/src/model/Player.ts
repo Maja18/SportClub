@@ -3,8 +3,8 @@ import Skill from "./Skill";
 interface Player{
     id: number,
     playerName: string,
-    salary: number,
-    skills: Skill[],
+    salary: string,
+    playerSkills: Skill[],
     image: string
 }
 

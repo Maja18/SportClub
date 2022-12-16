@@ -1,6 +1,6 @@
 import React, {useState, useEffect, useReducer} from 'react'; 
 import {Button,Card,CardBody,CardHeader,Input,Label,ListGroup,ListGroupItem,Badge,Dropdown,DropdownToggle,
-    DropdownItem,DropdownMenu, DropdownItemProps} from 'reactstrap';
+    DropdownItem,DropdownMenu} from 'reactstrap';
 import axios from 'axios'
 import { useNavigate } from 'react-router-dom';
 import { MdOutlineSportsKabaddi } from 'react-icons/md';
@@ -11,7 +11,14 @@ import Player from '../../model/Player';
 import Skill from '../../model/Skill';
 import CardStyle from '../../styled-components/CardStyle';
 import BadgeStyle from '../../styled-components/BadgeStyle';
-import styled from 'styled-components';
+import ButtonContainerDiv from '../../styled-components/ButtonContainerDiv';
+import ErrorDiv from '../../styled-components/Error';
+import FormErrorDiv from '../../styled-components/FormError';
+import SkillsCardStyle from '../../styled-components/SkillsCardStyle';
+import PhotoCardStyle from '../../styled-components/PhotoCardStyle';
+import ImageStyle from '../../styled-components/IImageStyle';
+import DivButtonStyle from '../../styled-components/DivButtonStyle';
+import DivPlayerStyle from '../../styled-components/DivPlayerStyle';
 
     type Action =
     | { type: "UPDATE_FORM" ;
@@ -63,56 +70,32 @@ import styled from 'styled-components';
         }
     }
 
-    const PhotoCardStyle = styled(Card)`
-        width:100px;
-        height:100px;
-    `;
-
-    const ImageStyle = styled.img`
-        width:100%;
-        object-fit:cover;
-        height:100%;
-    `;
-
-    const DivStyle = styled.div`
-        margin-top: 20px;
-    `;
-
-    const DivButtonStyle = styled.div`
-        text-align:right;
-        margin-top:-45px;
-    `;
-
-    const SkillsCardStyle = styled(Card)`
-        margin-top:20px;
-    `;
-
 
 const EditPlayer = () => {
-    const [enteredName, setEnteredName] = useState<string>('');
-    const [enteredSalary, setEnteredSalary] = useState<string>('');
-    const [fileName, setFileName] = useState<string>('');
+    const [enteredName, setEnteredName] = useState('');
+    const [enteredSalary, setEnteredSalary] = useState('');
+    const [fileName, setFileName] = useState('');
     const [selectedFiles, setSelectedFiles] = useState<File | null>(null);
     const [currentFile, setCurrentFile] = useState<File | undefined>(undefined);
     const [imageBytes, setImageBytes] = useState<Int8Array>()
     const [player, setPlayer] = useState<Player>({} as Player)
-    const [playerSkills, setPlayerSkills] = useState<Skill []>([])
-    const [dropdownOpen, setDropdownOpen] = useState<boolean>(false);
-    const [value,setValue] = useState<string>('Select skill');
-    const [skills, setSkills] = useState<Skill []>([])
+    const [playerSkills, setPlayerSkills] = useState<Skill[]>([])
+    const [dropdownOpen, setDropdownOpen] = useState(false);
+    const [value,setValue] = useState('Select skill');
+    const [skills, setSkills] = useState<Skill[]>([])
     const params = useParams();
-    const [addSkills, setAddSkills] = useState<boolean>(false)
-    const [dropdownSkills, setDropdonSkills] = useState<Skill []>([])
-    const [isPictureChanged, setIsPictureChanged] = useState<boolean>(false)
+    const [addSkills, setAddSkills] = useState(false)
+    const [dropdownSkills, setDropdonSkills] = useState<Skill[]>([])
+    const [isPictureChanged, setIsPictureChanged] = useState(false)
     const navigateTo = useNavigate();
     const [formState, dispatch] = useReducer(formsReducer, initialState)
-    const [showError, setShowError] = useState<boolean>(false)
+    const [showError, setShowError] = useState(false)
 
     const toggle = () => setDropdownOpen((prevState) => !prevState);
 
     useEffect(() => {
-        let value: string = localStorage.getItem('token')!;
-        let token: string = value.substring(1,value.length-1);
+        let value = localStorage.getItem('token')!;
+        let token = value.substring(1,value.length-1);
         axios.get('http://localhost:8080/api/player/' + params.id,{ 
              headers: {
                 'Authorization': 'Bearer ' + token,
@@ -138,8 +121,8 @@ const EditPlayer = () => {
     }, []);
 
     useEffect(() => {
-        let value: string = localStorage.getItem('token')!;
-        let token: string = value.substring(1,value.length-1);
+        let value = localStorage.getItem('token')!;
+        let token = value.substring(1,value.length-1);
         axios.get('http://localhost:8080/api/skill',{ 
              headers: {
                 'Authorization': 'Bearer ' + token,
@@ -161,8 +144,7 @@ const EditPlayer = () => {
         });
     };
 
-    const handleSelect=(event: React.MouseEvent , skill: Skill)=>{
-        setValue((event.target as HTMLInputElement).value)  //check again
+    const handleSelect=(skill: Skill)=>{
         playerSkills.push(skill)
         setPlayerSkills(playerSkills)
         setAddSkills(false)
@@ -192,8 +174,8 @@ const EditPlayer = () => {
         let formData = new FormData();
       
         formData.append("file", file);
-        let value: string = localStorage.getItem('token')!;
-        let token: string = value.substring(1,value.length-1);
+        let value = localStorage.getItem('token')!;
+        let token = value.substring(1,value.length-1);
       
         return axios.post("http://localhost:8080/api/player/saveImage", formData, {
           headers: {
@@ -214,7 +196,7 @@ const EditPlayer = () => {
         setDropdonSkills((exclude(skills, playerSkills)));  
     }
 
-    const exclude = (arr1: Skill [], arr2: Skill[]) => {
+    const exclude = (arr1: Skill[], arr2: Skill[]) => {
         return arr1.filter(o1 => arr2.map(o2 => o2.id).indexOf(o1.id) === -1)
     };
 
@@ -257,17 +239,9 @@ const EditPlayer = () => {
             setShowError(true)
             } 
         else {
-            type Data = {
-                id: number,
-                playerName: string,
-                image: string,
-                salary: string,
-                playerSkills: Skill []
-            }
-
-            var data:Data;
+            var editedPlayer: Player;
                 if (!isPictureChanged){
-                    data = {
+                    editedPlayer = {
                         id: player.id,
                         playerName: enteredName,
                         image: player.image,
@@ -275,7 +249,7 @@ const EditPlayer = () => {
                         playerSkills: playerSkills
                     } 
                 }else{
-                    data = {
+                    editedPlayer = {
                         id: player.id,
                         playerName: enteredName,
                         image: fileName,
@@ -285,9 +259,9 @@ const EditPlayer = () => {
 
                 }
 
-            let value: string = localStorage.getItem('token')!;
-            let token: string = value.substring(1,value.length-1);
-            axios.put('http://localhost:8080/api/player', data, {
+            let value = localStorage.getItem('token')!;
+            let token = value.substring(1,value.length-1);
+            axios.put('http://localhost:8080/api/player', editedPlayer, {
                 headers: {
                     'Authorization': 'Bearer ' + token,
                 }
@@ -334,7 +308,7 @@ const EditPlayer = () => {
                         disabled={!selectedFiles}
                         onClick={uploadImage}> Upload
                     </Button>
-                    <DivStyle>
+                    <DivPlayerStyle>
                         <Label>Name</Label>
                             <Input
                             type="text"
@@ -352,9 +326,9 @@ const EditPlayer = () => {
                             }}
                             />
                             {formState.name.touched && formState.name.hasError && (
-                                <div className="error">
+                                <ErrorDiv>
                                     {formState.name.error}
-                                </div>
+                                </ErrorDiv>
                             )}
                         <Label for="exampleEmail">Salary</Label>
                             <Input
@@ -373,11 +347,11 @@ const EditPlayer = () => {
                             }}
                             />
                             {formState.salary.touched && formState.salary.hasError && (
-                                <div className="error">
+                                <ErrorDiv>
                                     {formState.salary.error}
-                                </div>
+                                </ErrorDiv>
                             )}
-                        <DivStyle>
+                        <DivPlayerStyle>
                         <Label>
                             Player skills: 
                         </Label>
@@ -393,7 +367,7 @@ const EditPlayer = () => {
                             <DropdownToggle caret color="info">{value}</DropdownToggle>
                                 <DropdownMenu value={value} >
                                     {dropdownSkills.map(skill => 
-                                        <DropdownItem key={skill.id} onClick={(e) => handleSelect(e, skill)} value={skill.name}>
+                                        <DropdownItem key={skill.id} onClick={() => handleSelect(skill)} value={skill.name}>
                                             {skill.name}
                                         </DropdownItem> 
                                     )}
@@ -419,13 +393,13 @@ const EditPlayer = () => {
                     </SkillsCardStyle>
                         }
                         {showError && !formState.isFormValid && (
-                            <div className="form_error">Please fill all the fields correctly</div>
+                            <FormErrorDiv>Please fill all the fields correctly</FormErrorDiv>
                         )}
-                        </DivStyle>
-                    </DivStyle>
-                    <div className="button-container-div">
+                        </DivPlayerStyle>
+                    </DivPlayerStyle>
+                    <ButtonContainerDiv>
                         <Button color="success" onClick={editPlayer} >Save</Button>
-                    </div>
+                    </ButtonContainerDiv>
                 </CardBody>
             </Card>
             <div>

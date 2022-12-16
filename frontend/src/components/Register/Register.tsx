@@ -5,7 +5,13 @@ import { useNavigate } from 'react-router-dom';
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css'
 import { UPDATE_FORM, onInputChange, onFocusOut } from '../../lib/formUtils'
-import styled from 'styled-components';
+import Person from '../../model/Person';
+import ButtonContainerDiv from '../../styled-components/ButtonContainerDiv';
+import ErrorDiv from '../../styled-components/Error';
+import RoleInput from '../../styled-components/RoleInput';
+import RoleLabel from '../../styled-components/RoleLabel';
+import Title from '../../styled-components/Title';
+import DivRegister from '../../styled-components/DivRegister';
 
 
    const initialState: State = {
@@ -59,54 +65,12 @@ import styled from 'styled-components';
         }
     }
 
-    const DivStyle = styled.div`
-        border: 2px solid #d3d3d3;
-        border-radius: .5em;
-        margin-bottom: 1em;
-        margin-left: auto;
-        margin-right: auto;
-        margin-top: 50px;
-        padding: 1em;
-        text-align: left;
-        width: 600px;
-
-        form {
-            padding: 10px;
-        }
-
-        .h2{
-            text-align: center;
-        }
-
-        div {
-            margin-bottom: 30px;
-        }
-
-        .label {
-            margin-left: 5px;
-        }
-
-        .roleInput{
-            margin-left: 15px;
-        }
-
-        .error {
-            margin-top: 0.25rem;
-            color: #f65157;
-        }
-
-        .button-container-div{
-            text-align: center; 
-            margin-top: 20px;
-        }
- `;
-
 const Register = () => {
-    const [enteredName, setEnteredName] = useState<string>('');
-    const [enteredLastName, setEnteredLastName] = useState<string>('');
-    const [enteredEmail, setEnteredEmail] = useState<string>('');
-    const [enteredPassword, setEnteredPassword] = useState<string>('');
-    const [enteredRole, setEnteredRole] = useState<string>('VIEWER');
+    const [enteredName, setEnteredName] = useState('');
+    const [enteredLastName, setEnteredLastName] = useState('');
+    const [enteredEmail, setEnteredEmail] = useState('');
+    const [enteredPassword, setEnteredPassword] = useState('');
+    const [enteredRole, setEnteredRole] = useState('VIEWER');
     const navigateTo = useNavigate();
     const [formState, dispatch] = useReducer(formsReducer, initialState)
   
@@ -122,15 +86,8 @@ const Register = () => {
 
         localStorage.removeItem('token');
 
-        type Data = {
-            firstName: string,
-            lastName: string,
-            email: string,
-            password: string,
-            role: string
-        }
-
-        const data:Data = {
+        const person: Person = {
+            id: 0,
             firstName: enteredName,
             lastName: enteredLastName,
             email: enteredEmail,
@@ -138,7 +95,7 @@ const Register = () => {
             role: enteredRole
         }
 
-        axios.post('http://localhost:8080/api/auth/register', data)
+        axios.post('http://localhost:8080/api/auth/register', person)
                 .then(response => {
                     showToastMessage()
                     navigateTo('/login')
@@ -149,8 +106,8 @@ const Register = () => {
     };
 
     return(
-        <DivStyle>
-            <h2 className="h2">Register</h2>
+        <DivRegister>
+            <Title>Register</Title>
             <Form onSubmit={onSubmit}>
                 <FormGroup>
                     <Label for="exampleEmail">Name</Label>
@@ -170,9 +127,9 @@ const Register = () => {
                       }}
                     />
                     {formState.name.touched && formState.name.hasError && (
-                        <div className="error">
+                        <ErrorDiv>
                             {formState.name.error}
-                        </div>
+                        </ErrorDiv>
                     )}
                 </FormGroup>
                 <FormGroup>
@@ -193,9 +150,9 @@ const Register = () => {
                       }}
                     />
                     {formState.lastName.touched && formState.lastName.hasError && (
-                        <div className="error">
+                        <ErrorDiv>
                             {formState.lastName.error}
-                        </div>
+                        </ErrorDiv>
                     )}
                 </FormGroup>
                 <FormGroup>
@@ -216,9 +173,9 @@ const Register = () => {
                       }}
                     />
                     {formState.email.touched && formState.email.hasError && (
-                        <div className="error">
+                        <ErrorDiv>
                             {formState.email.error}
-                        </div>
+                        </ErrorDiv>
                     )}
                 </FormGroup>
                 <FormGroup>
@@ -239,9 +196,9 @@ const Register = () => {
                       }}
                     />
                     {formState.password.touched && formState.password.hasError && (
-                        <div className="error">
+                        <ErrorDiv>
                             {formState.password.error}
-                        </div>
+                        </ErrorDiv>
                     )}
                 </FormGroup>
                 <FormGroup>
@@ -255,9 +212,8 @@ const Register = () => {
                         setEnteredRole(event.target.value)
                     }}
                     />
-                    <label className="label">EDITOR</label>
-                    <input 
-                    className="roleInput" 
+                    <RoleLabel>EDITOR</RoleLabel>
+                    <RoleInput 
                     type="radio" 
                     value="VIEWER" 
                     name="role" 
@@ -266,17 +222,17 @@ const Register = () => {
                         setEnteredRole(event.target.value)
                     }}
                     /> 
-                    <label className="label">VIEWER</label>
+                    <RoleLabel>VIEWER</RoleLabel>
                     </div>
                 </FormGroup>
-                <div className="button-container-div">
+                <ButtonContainerDiv>
                     <Button color="success">Submit</Button>
-                </div>
+                </ButtonContainerDiv>
             </Form>
             <div>
                 <ToastContainer />
             </div>
-        </DivStyle>
+        </DivRegister>
     );
 };
 

@@ -7,6 +7,13 @@ import { useNavigate } from "react-router-dom";
 import { UPDATE_FORM, onInputChange, onFocusOut, validateInput } from '../../lib/formUtils'
 import { ToastContainer, toast } from 'react-toastify';
 import CardStyle from '../../styled-components/CardStyle';
+import Person from '../../model/Person';
+import ButtonContainerDiv from '../../styled-components/ButtonContainerDiv';
+import ErrorDiv from '../../styled-components/Error';
+import FormErrorDiv from '../../styled-components/FormError';
+import RoleInput from '../../styled-components/RoleInput';
+import RoleLabel from '../../styled-components/RoleLabel';
+import DivStyle from '../../styled-components/DivStyle';
 
     type Action =
         | { type: "UPDATE_FORM"; 
@@ -62,14 +69,14 @@ import CardStyle from '../../styled-components/CardStyle';
 
 const EditProfile = () => {
     const location = useLocation();
-    const [enteredName, setEnteredName] = useState<string>(location.state.userInfo.firstName);
-    const [enteredLastName, setEnteredLastName] = useState<string>(location.state.userInfo.lastName);
-    const [enteredEmail, setEnteredEmail] = useState<string>(location.state.userInfo.email);
-    const [enteredRole, setEnteredRole] = useState<string>(location.state.userInfo.role.substring(5));
-    const [currentEmail, setCurrentEmail] = useState<string>(location.state.userInfo.email);
-    const [currentRole, setCurrentRole] = useState<string>(location.state.userInfo.role.substring(5));
+    const [enteredName, setEnteredName] = useState(location.state.userInfo.firstName);
+    const [enteredLastName, setEnteredLastName] = useState(location.state.userInfo.lastName);
+    const [enteredEmail, setEnteredEmail] = useState(location.state.userInfo.email);
+    const [enteredRole, setEnteredRole] = useState(location.state.userInfo.role.substring(5));
+    const [currentEmail, setCurrentEmail] = useState(location.state.userInfo.email);
+    const [currentRole, setCurrentRole] = useState(location.state.userInfo.role.substring(5));
     const [formState, dispatch] = useReducer(formsReducer, initialState)
-    const [showError, setShowError] = useState<boolean>(false)
+    const [showError, setShowError] = useState(false)
     let navigateTo = useNavigate(); 
 
     useEffect(() => {
@@ -130,15 +137,7 @@ const EditProfile = () => {
         else {
             event.preventDefault();
 
-            type Data = {
-                id: number,
-                firstName: string,
-                lastName: string,
-                email: string,
-                role: string
-            }
-
-            const data: Data = {
+            const editedPerson: Person = {
                 id: location.state.userInfo.id,
                 firstName: enteredName,
                 lastName: enteredLastName,
@@ -146,20 +145,19 @@ const EditProfile = () => {
                 role: enteredRole
             }
 
-            //let token = localStorage.getItem('token').substring(1, localStorage.getItem('token').length-1);
-            let value: string = localStorage.getItem('token')!;
-            let token: string = value.substring(1,value.length-1);
-            axios.put('http://localhost:8080/api/person', data, {
+            let value = localStorage.getItem('token')!;
+            let token = value.substring(1,value.length-1);
+            axios.put('http://localhost:8080/api/person', editedPerson, {
                 headers: {
                     'Authorization': 'Bearer ' + token,
                 }
             })
-                    .then(response => {
-                        showToastMessage()
-                    })
-                    .catch(response => {
-                        alert(response.response.data.message);
-                    });   
+                .then(response => {
+                    showToastMessage()
+                })
+                .catch(response => {
+                    alert(response.response.data.message);
+                });   
         }
         // Hide the error message after 5 seconds
         setTimeout(() => {
@@ -195,9 +193,9 @@ const EditProfile = () => {
                         }}
                         />
                         {formState.name.touched && formState.name.hasError && (
-                            <div className="error">
+                            <ErrorDiv>
                                 {formState.name.error}
-                            </div>
+                            </ErrorDiv>
                         )}
                         <Label>
                             Last name: 
@@ -217,9 +215,9 @@ const EditProfile = () => {
                         }}
                         />
                         {formState.lastName.touched && formState.lastName.hasError && (
-                            <div className="error">
+                            <ErrorDiv>
                                 {formState.lastName.error}
-                            </div>
+                            </ErrorDiv>
                         )}
                         <Label>
                             Email: 
@@ -239,14 +237,14 @@ const EditProfile = () => {
                         }}
                         />
                         {formState.email.touched && formState.email.hasError && (
-                            <div className="error">
+                            <ErrorDiv>
                                 {formState.email.error}
-                            </div>
+                            </ErrorDiv>
                         )}
                         <Label>
                             Role: 
                         </Label>
-                        <div className='div'>
+                        <DivStyle>
                         <input 
                         type="radio" 
                         value="EDITOR" 
@@ -256,9 +254,8 @@ const EditProfile = () => {
                             setEnteredRole(event.target.value)
                         }}
                         />
-                        <label className="label">EDITOR</label>
-                        <input 
-                        className="roleInput" 
+                        <RoleLabel>EDITOR</RoleLabel>
+                        <RoleInput 
                         type="radio" 
                         value="VIEWER" 
                         name="role" 
@@ -267,15 +264,15 @@ const EditProfile = () => {
                             setEnteredRole(event.target.value)
                         }}
                         /> 
-                        <label className="label">VIEWER</label>
-                        </div>
+                        <RoleLabel>VIEWER</RoleLabel>
+                        </DivStyle>
                     </CardText>
                     {showError && !formState.isFormValid && (
-                        <div className="form_error">Please fill all the fields correctly</div>
+                        <FormErrorDiv>Please fill all the fields correctly</FormErrorDiv>
                     )}
-                    <div className="button-container-div">
+                    <ButtonContainerDiv>
                         <Button color='info' onClick={onSubmit}>Save</Button>
-                    </div>
+                    </ButtonContainerDiv>
                 </CardBody>
             </Card>
             <div>

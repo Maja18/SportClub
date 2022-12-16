@@ -8,8 +8,12 @@ import { UPDATE_FORM, onInputChange, onFocusOut, validateInput } from '../../lib
 import { ToastContainer, toast } from 'react-toastify';
 import Skill from '../../model/Skill';
 import CardStyle from '../../styled-components/CardStyle';
-import ButtonDivStyle from '../../styled-components/ButtonDivStyle';
 import styled from 'styled-components';
+import Player from '../../model/Player';
+import ButtonContainerDiv from '../../styled-components/ButtonContainerDiv';
+import ErrorDiv from '../../styled-components/Error';
+import UploadButtonDiv from '../../styled-components/UploadButton';
+import DropdownStyle from '../../styled-components/DropDownStyle';
 
     type Action =
         | { type: "UPDATE_FORM"; payload?: any ;
@@ -61,24 +65,20 @@ const initialState: State = {
     isFormValid: false,
 }
 
-const DropdownStyle = styled.div`
-    margin-top:30px;
-`;
-
-const Player = () => {
-    const [enteredName, setEnteredName] = useState<string>('');
-    const [enteredSalary, setEnteredSalary] = useState<string>('');
-    const [fileName, setFileName] = useState<string>('');
+const AddPlayer = () => {
+    const [enteredName, setEnteredName] = useState('');
+    const [enteredSalary, setEnteredSalary] = useState('');
+    const [fileName, setFileName] = useState('');
     const [selectedFiles, setSelectedFiles] = useState<File | null>(null);
     const [currentFile, setCurrentFile] = useState<File | undefined>(undefined);
-    const [skills, setSkills] = useState<Skill []>([])
-    const [playerSkills, setPlayerSkills] = useState<Skill []>([])
+    const [skills, setSkills] = useState<Skill[]>([])
+    const [playerSkills, setPlayerSkills] = useState<Skill[]>([])
     const navigateTo = useNavigate();
     const [formState, dispatch] = useReducer(formsReducer, initialState)
 
     useEffect(() => {
-        let value: string = localStorage.getItem('token')!;
-        let token: string = value.substring(1,value.length-1);
+        let value = localStorage.getItem('token')!;
+        let token = value.substring(1,value.length-1);
         axios.get('http://localhost:8080/api/skill',{ 
              headers: {
                 'Authorization': 'Bearer ' + token,
@@ -126,23 +126,17 @@ const Player = () => {
         }
         if (isFormValid) {
 
-            type Data = {
-                playerName: string,
-                salary: string,
-                image: string,
-                playerSkills: Skill []
-            }
-
-            const data: Data = {
+            const newPlayer: Player = {
+                id: 0,
                 playerName: enteredName,
                 salary: enteredSalary,
                 image: fileName,
                 playerSkills: playerSkills
             }
 
-            let value: string = localStorage.getItem('token')!;
-            let token: string = value.substring(1,value.length-1);
-            axios.post('http://localhost:8080/api/player', data, {
+            let value = localStorage.getItem('token')!;
+            let token = value.substring(1,value.length-1);
+            axios.post('http://localhost:8080/api/player', newPlayer, {
                 headers: {
                     'Authorization': 'Bearer ' + token,
                 }
@@ -180,8 +174,8 @@ const Player = () => {
         let formData = new FormData();
       
         formData.append("file", file);
-        let value: string = localStorage.getItem('token')!;
-        let token: string = value.substring(1,value.length-1);
+        let value = localStorage.getItem('token')!;
+        let token = value.substring(1,value.length-1);
       
         return axios.post("http://localhost:8080/api/player/saveImage", formData, {
           headers: {
@@ -197,7 +191,7 @@ const Player = () => {
         });  
     };
 
-    const onSelect = (skills: Skill []) => {
+    const onSelect = (skills: Skill[]) => {
         setPlayerSkills(skills)
     }
 
@@ -225,9 +219,9 @@ const Player = () => {
                         }}
                         />
                         {formState.name.touched && formState.name.hasError && (
-                            <div className="error">
+                            <ErrorDiv>
                                 {formState.name.error}
-                            </div>
+                            </ErrorDiv>
                         )}
                     <Label for="exampleEmail">Salary</Label>
                         <Input
@@ -245,9 +239,9 @@ const Player = () => {
                         }}
                         />
                         {formState.salary.touched && formState.salary.hasError && (
-                            <div className="error">
+                            <ErrorDiv>
                                 {formState.salary.error}
-                            </div>
+                            </ErrorDiv>
                         )}
                     <Label for="exampleEmail">Choose profile picture</Label>
                         <Input
@@ -257,11 +251,13 @@ const Player = () => {
                         id="file" 
                         onChange={selectFile}
                     />
-                    <Button className="uploadButton"
-                        color="success" 
-                        disabled={!selectedFiles}
-                        onClick={uploadImage}> Upload
-                    </Button>
+                    <UploadButtonDiv>
+                        <Button
+                            color="success" 
+                            disabled={!selectedFiles}
+                            onClick={uploadImage}> Upload
+                        </Button>
+                    </UploadButtonDiv>
 
                     {/* Dropdown */}
                     <DropdownStyle>   
@@ -272,9 +268,9 @@ const Player = () => {
                         displayValue="name"
                         />
                     </DropdownStyle>
-                    <div className="button-container-div">
+                    <ButtonContainerDiv>
                         <Button color="success" onClick={addPlayer} >Add</Button>
-                    </div>
+                    </ButtonContainerDiv>
                 </CardBody>
             </Card>
             <div>
@@ -284,4 +280,4 @@ const Player = () => {
     )
 };
 
-export default Player;
+export default AddPlayer;

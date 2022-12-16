@@ -8,13 +8,14 @@ import { useNavigate } from 'react-router-dom';
 import Club from '../../model/Club';
 import Player from '../../model/Player';
 import CardStyle from '../../styled-components/CardStyle';
+import ButtonContainerDiv from '../../styled-components/ButtonContainerDiv';
 
 const ClubPlayer = () => {
-    const [dropdownOpen, setDropdownOpen] = useState<boolean>(false);
+    const [dropdownOpen, setDropdownOpen] = useState(false);
     const [club, setClub] = useState<Club>({} as Club)
-    const [players, setPlayers] = useState<Player []>([]);
+    const [players, setPlayers] = useState<Player[]>([]);
     const params = useParams();
-    const [value,setValue] = useState<string>('Select player');
+    const [value,setValue] = useState('Select player');
     const [player, setPlayer] = useState<Player>({} as Player);
     const navigateTo = useNavigate();
 
@@ -29,8 +30,8 @@ const ClubPlayer = () => {
     };
 
     useEffect(() => {
-        let value: string = localStorage.getItem('token')!;
-        let token: string = value.substring(1,value.length-1);
+        let value = localStorage.getItem('token')!;
+        let token = value.substring(1,value.length-1);
         axios.get('http://localhost:8080/api/club/' + params.id,{ 
              headers: {
                 'Authorization': 'Bearer ' + token,
@@ -44,8 +45,8 @@ const ClubPlayer = () => {
     }, []);
 
     useEffect(() => {
-        let value: string = localStorage.getItem('token')!;
-        let token: string = value.substring(1,value.length-1);
+        let value = localStorage.getItem('token')!;
+        let token = value.substring(1,value.length-1);
         axios.get('http://localhost:8080/api/player/noClubPlayers' ,{ 
              headers: {
                 'Authorization': 'Bearer ' + token,
@@ -59,10 +60,9 @@ const ClubPlayer = () => {
 
     }, []);
 
-    const handleSelect=(event: React.MouseEvent, playerId: number)=>{
-        setValue((event.target as HTMLInputElement).value)
-        let value: string = localStorage.getItem('token')!;
-        let token: string = value.substring(1,value.length-1);
+    const handleSelect=( playerId: number)=>{
+        let value = localStorage.getItem('token')!;
+        let token = value.substring(1,value.length-1);
        
         axios.get('http://localhost:8080/api/player/'  + playerId,{ 
             headers: {
@@ -78,22 +78,16 @@ const ClubPlayer = () => {
 
     const addPlayerToClub = () => {
         club.players.push(player)
-        let value: string = localStorage.getItem('token')!;
-        let token: string = value.substring(1,value.length-1);
-
-        type Data = {
-            id: number,
-            name: string,
-            players: Player []
-        }
+        let value = localStorage.getItem('token')!;
+        let token = value.substring(1,value.length-1);
         
-        const data:Data = {
+        const clubData: Club = {
             id: club.id,
             name: club.name,
             players: club.players
         }
         
-        axios.post('http://localhost:8080/api/club/newPlayer', data, {
+        axios.post('http://localhost:8080/api/club/newPlayer', clubData, {
             headers: {
                 'Authorization': 'Bearer ' + token,
             }
@@ -119,15 +113,15 @@ const ClubPlayer = () => {
                         <DropdownToggle caret color="info">{value}</DropdownToggle>
                             <DropdownMenu value={value} >
                                 {players.map(player => 
-                                    <DropdownItem key={player.id} onClick={(e) => handleSelect(e, player.id)} value={player.playerName}>
+                                    <DropdownItem key={player.id} onClick={(e) => handleSelect(player.id)} value={player.playerName}>
                                     {player.playerName}
                                     </DropdownItem> 
                                 )}
                             </DropdownMenu>
                     </Dropdown>
-                    <div className="button-container-div">
+                    <ButtonContainerDiv>
                         <Button disabled={!player} color="success" onClick={addPlayerToClub}>Add</Button>
-                    </div>
+                    </ButtonContainerDiv>
                 </CardBody>
             </Card>
             <div>

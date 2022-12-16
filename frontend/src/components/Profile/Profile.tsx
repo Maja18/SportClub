@@ -7,13 +7,13 @@ import Person from '../../model/Person';
 import CardStyle from '../../styled-components/CardStyle';
 
 const Profile = () => {
-    const [user, setUser] = useState<Person>({} as Person);  //if a state is initialized soon after setup and always has a value after
-    const [userRole, setUserRole] = useState<string>('')
+    const [user, setUser] = useState<Person>({} as Person);  
+    const [userRole, setUserRole] = useState('')
     let navigate = useNavigate(); 
 
     useEffect(() => {
-        let value: string = localStorage.getItem('token')!;
-        let token: string = value.substring(1,value.length-1);
+        let value = localStorage.getItem('token')!;
+        let token = value.substring(1,value.length-1);
         axios.get('http://localhost:8080/api/person',{ 
              headers: {
                 'Authorization': 'Bearer ' + token,

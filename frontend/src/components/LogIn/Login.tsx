@@ -5,41 +5,15 @@ import { useNavigate } from 'react-router-dom';
 import 'react-toastify/dist/ReactToastify.css'
 import { AuthContext } from '../../context/auth-context';
 import { ToastContainer, toast } from 'react-toastify';
-import styled from 'styled-components';
-
-const DivStyle = styled.div`
-    border: 2px solid #d3d3d3;
-    border-radius: .5em;
-    margin-bottom: 1em;
-    margin-left: auto;
-    margin-right: auto;
-    margin-top: 100px;
-    padding: 1em;
-    text-align: left;
-    width: 600px;
-
-    form {
-        padding: 10px;
-    }
-
-    label {
-        margin-top: 10px;
-        font-weight: 600;
-    }
-    
-    .h2{
-        text-align: center;
-    }
-
-    .button-container-div{
-        text-align: center; 
-    }
- `;
+import LoginData from '../../model/LoginData';
+import ButtonContainerDiv from '../../styled-components/ButtonContainerDiv';
+import Title from '../../styled-components/Title';
+import DivLogin from '../../styled-components/DivLogin';
 
 const Login = () =>  {
-    const [enteredEmail, setEnteredEmail] = useState<string>('');
-    const [enteredPassword, setEnteredPassword] = useState<string>('');
-    const navigateTo = useNavigate(); 
+    const [enteredEmail, setEnteredEmail] = useState('');
+    const [enteredPassword, setEnteredPassword] = useState('');
+    const navigateTo = useNavigate();
     const authContext = useContext(AuthContext);
 
     const showToastErrorMessage = () => {
@@ -54,30 +28,25 @@ const Login = () =>  {
 
         localStorage.removeItem('token');
 
-        type Data = {
-            email: string,
-            password: string
-        }
-
-        const data:Data = {
+        const loginData: LoginData = {
             email: enteredEmail,
             password: enteredPassword
         }
 
-        axios.post('http://localhost:8080/api/auth/login', data)
-                .then(response => {
-                    localStorage.setItem('token', JSON.stringify(response.data.accessToken));
-                    authContext.auth()
-                    navigateTo('/profile')
-                })
-                .catch(response => {
-                    showToastErrorMessage()
-                 });   
+        axios.post('http://localhost:8080/api/auth/login', loginData)
+            .then(response => {
+                localStorage.setItem('token', JSON.stringify(response.data.accessToken));
+                authContext.auth()
+                navigateTo('/profile')
+            })
+            .catch(response => {
+                showToastErrorMessage()
+                });   
     };
 
     return(
-        <DivStyle>
-            <h2 className="h2">LogIn</h2>
+        <DivLogin>
+            <Title>LogIn</Title>
             <Form onSubmit={onSubmit}>
                 <FormGroup >
                     <Label for="exampleEmail">Email</Label>
@@ -107,14 +76,14 @@ const Login = () =>  {
                     }}
                     />
                 </FormGroup>
-                <div className="button-container-div">
+                <ButtonContainerDiv>
                     <Button color="success">Submit</Button>
-                </div>
+                </ButtonContainerDiv>
             </Form>
             <div>
                 <ToastContainer />
             </div>
-        </DivStyle>
+        </DivLogin>
     );
 
 };

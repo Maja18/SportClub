@@ -13,7 +13,7 @@ import Players from '../Players/Players';
 import ClubPlayers from '../ClubPlayers/ClubPlayers';
 import ClubPlayer from '../AddClubPlayer/ClubPlayer';
 import PlayerInfo from '../PlayerInfo/PlayerInfo';
-import Player from '../AddPlayer/Player';
+import Player from '../AddPlayer/AddPlayer';
 import EditPlayer from '../EditPlayer/EditPlayer';
 import { AuthContext } from '../../context/auth-context';
 import ChangePassword from '../EditProfile/ChangePassword';

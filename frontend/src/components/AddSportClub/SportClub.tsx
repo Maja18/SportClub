@@ -6,6 +6,9 @@ import { useNavigate } from 'react-router-dom';
 import { UPDATE_FORM, onInputChange, onFocusOut, validateInput } from '../../lib/formUtils'
 import { ToastContainer, toast } from 'react-toastify';
 import CardStyle from '../../styled-components/CardStyle';
+import AddClub from '../../model/AddClub';
+import ButtonContainerDiv from '../../styled-components/ButtonContainerDiv';
+import ErrorDiv from '../../styled-components/Error';
 
         type Action =
         | { type: "UPDATE_FORM"; 
@@ -56,7 +59,7 @@ import CardStyle from '../../styled-components/CardStyle';
         }
 
 const SportClub = () => {
-    const [enteredName, setEnteredName] = useState<string>('');
+    const [enteredName, setEnteredName] = useState('');
     const navigateTo = useNavigate();
     const [formState, dispatch] = useReducer(formsReducer, initialState)
 
@@ -93,17 +96,13 @@ const SportClub = () => {
         }
         }
         if (isFormValid) {
-            type Data = {
-                name: string
-            }
-
-            const data: Data = {
+            const newClub : AddClub= {
                 name: enteredName
             }
 
-            let value: string = localStorage.getItem('token')!;
-            let token: string = value.substring(1,value.length-1);
-            axios.post('http://localhost:8080/api/club', data, {
+            let value = localStorage.getItem('token')!;
+            let token = value.substring(1,value.length-1);
+            axios.post('http://localhost:8080/api/club', newClub, {
                 headers: {
                     'Authorization': 'Bearer ' + token,
                 }
@@ -141,13 +140,13 @@ const SportClub = () => {
                         }}
                         />
                         {formState.name.touched && formState.name.hasError && (
-                            <div className="error">
+                            <ErrorDiv>
                                 {formState.name.error}
-                            </div>
+                            </ErrorDiv>
                         )}
-                    <div className="button-container-div">
+                    <ButtonContainerDiv>
                         <Button color="success" onClick={addClub}>Add</Button>
-                    </div>
+                    </ButtonContainerDiv>
                 </CardBody>
             </Card>
             <div>
