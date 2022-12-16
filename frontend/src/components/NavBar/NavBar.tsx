@@ -2,7 +2,6 @@ import React, {useState, useEffect, useContext} from 'react';
 import {Navbar,NavItem,Nav} from 'reactstrap';
 import { Route, Routes } from 'react-router-dom';
 import Register from '../Register/Register'
-import Login from '../Login/Login';
 import Home from '../Home/Home';
 import Profile from '../Profile/Profile';
 import EditProfile from '../EditProfile/EditProfile'
@@ -19,6 +18,7 @@ import { AuthContext } from '../../context/auth-context';
 import ChangePassword from '../EditProfile/ChangePassword';
 import { NavLink as Link } from 'react-router-dom';
 import styled from 'styled-components';
+import Login from '../LogIn/Login';
 
 
 const StyledLink = styled(Link)`
