@@ -1,6 +1,7 @@
 package com.sportClub.sportClub.service;
 
 import com.sportClub.sportClub.dto.ClubDTO;
+import com.sportClub.sportClub.dto.PlayerClubDTO;
 import com.sportClub.sportClub.dto.PlayerDTO;
 import com.sportClub.sportClub.exceptions.ClubException;
 import com.sportClub.sportClub.mappers.PlayerMapper;
@@ -77,16 +78,16 @@ public class SportClubServiceImpl implements SportClubService {
     }
 
     @Override
-    public ClubDTO removePlayerFromClub(ClubDTO clubDTO) {
+    public ClubDTO removePlayerFromClub(PlayerClubDTO playerClubDTO) {
         SportClub sportClub;
         try {
-            sportClub = sportClubRepository.findById(clubDTO.getId()).get();
-            List<Player> clubPlayers = new ArrayList<>();
-            for (Player player: sportClub.getPlayers()){
-                for (PlayerDTO playerDTO: clubDTO.getPlayers()){
-                    if (player.getId().equals(playerDTO.getId())){
-                        clubPlayers.add(player);
-                    }
+            sportClub = sportClubRepository.findById(playerClubDTO.getClubId()).get();
+            Player player = playerRepository.findById(playerClubDTO.getPlayerId()).get();
+            List<Player> clubPlayers = sportClub.getPlayers();
+            List<Player> players = new ArrayList<>(clubPlayers);
+            for (Player p: players){
+                if (p.getId().equals(player.getId())){
+                    clubPlayers.remove(p);
                 }
             }
             sportClub.setPlayers(clubPlayers);

@@ -1,9 +1,0 @@
-.Nav a {
-    text-decoration: none;
-    color: blue;
-}
-
-.Nav a:active,
-.Nav a.active {
-    color: white;
-}
