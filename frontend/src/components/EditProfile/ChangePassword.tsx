@@ -11,6 +11,7 @@ import PasswordChanger from '../../model/PasswordChanger';
 import ButtonContainerDiv from '../../styled-components/ButtonContainerDiv';
 import ErrorDiv from '../../styled-components/Error';
 import FormErrorDiv from '../../styled-components/FormError';
+import personAxiosInstance from '../../axios-api/person_axios_instance';
 
         type Action =
         | { type: "UPDATE_FORM";
@@ -110,20 +111,13 @@ const ChangePassword = () => {
                 newPassword: enteredNewPassword
             }
 
-            let value = localStorage.getItem('token')!;
-            let token = value.substring(1,value.length-1);
-            axios.post('http://localhost:8080/api/person/change-password', changePasswordData, {
-                headers: {
-                    'Authorization': 'Bearer ' + token,
-                }
+            personAxiosInstance.post('/change-password', changePasswordData).then(response => {
+                showToastMessage()
             })
-                .then(response => {
-                    showToastMessage()
-                })
-                .catch(response => {
-                    alert("Please enter valid data!");
-                    console.log(response);
-                });   
+            .catch(response => {
+                alert("Please enter valid data!");
+                console.log(response);
+            });
         }
         // Hide the error message after 5 seconds
         setTimeout(() => {

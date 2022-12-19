@@ -19,6 +19,8 @@ import DivPlayerStyle from '../../styled-components/DivPlayerStyle';
 import { useFormik } from 'formik';
 import { FormikErrors } from 'formik/dist/types';
 import ErrorDiv from '../../styled-components/Error';
+import playersAxiosInstance from '../../axios-api/players_axios_instance';
+import skillAxiosInstance from '../../axios-api/skill_axios_instance';
 
 interface FormValues {
     name: string;
@@ -74,37 +76,24 @@ const EditPlayer = () => {
     const toggle = () => setDropdownOpen((prevState) => !prevState);
 
     useEffect(() => {
-        let value = localStorage.getItem('token')!;
-        let token = value.substring(1,value.length-1);
-        axios.get('http://localhost:8080/api/player/' + params.id,{ 
-             headers: {
-                'Authorization': 'Bearer ' + token,
-            }
-         }).then(response => {
-                setPlayer(response.data);
-                setImageBytes(response.data.imageDTO.imageBytes[0]);
-                setPlayerSkills(response.data.playerSkills);
-         })
-         .catch(response => {
-                alert(response.response.data.message);
-            });
+        playersAxiosInstance.get('' + params.id).then(response => {
+            setPlayer(response.data);
+            setImageBytes(response.data.imageDTO.imageBytes[0]);
+            setPlayerSkills(response.data.playerSkills);
+        })
+        .catch(response => {
+            alert(response.response.data.message);
+        });
 
     }, []);
 
     useEffect(() => {
-        let value = localStorage.getItem('token')!;
-        let token = value.substring(1,value.length-1);
-        axios.get('http://localhost:8080/api/skill',{ 
-             headers: {
-                'Authorization': 'Bearer ' + token,
-            }
-         }).then(response => {
-                setSkills(response.data)
-         }).catch(res => {
-                alert("Error");
-                console.log(res);
-            });
-
+        skillAxiosInstance.get('').then(response => {
+            setSkills(response.data)
+        }).catch(res => {
+            alert("Error");
+            console.log(res);
+        });   
     }, []);
 
     const showToastMessage = () => {
@@ -145,21 +134,16 @@ const EditPlayer = () => {
         let formData = new FormData();
       
         formData.append("file", file);
-        let value = localStorage.getItem('token')!;
-        let token = value.substring(1,value.length-1);
       
-        return axios.post("http://localhost:8080/api/player/saveImage", formData, {
-          headers: {
-            "Content-Type": "multipart/form-data",
-            'Authorization': 'Bearer ' + token
-          }  
-        }).then(response => {
+        return playersAxiosInstance.post('/saveImage', formData, 
+        {headers: {"Content-Type": "multipart/form-data"}})
+        .then(response => {
             setFileName(response.data)
         })
         .catch(response => {
             console.log(response.data)
             alert("Something went wrong with uploading image")
-        });  
+        });
     };
 
     const addNewSkill = () => {
@@ -203,19 +187,12 @@ const EditPlayer = () => {
 
             }
 
-        let value = localStorage.getItem('token')!;
-        let token = value.substring(1,value.length-1);
-        axios.put('http://localhost:8080/api/player', editedPlayer, {
-            headers: {
-                'Authorization': 'Bearer ' + token,
-            }
+        playersAxiosInstance.put('', editedPlayer).then(response => {
+            showToastMessage(); 
         })
-            .then(response => {
-                showToastMessage(); 
-            })
-            .catch(response => {
-                alert(response.response.data.message);
-            }); 
+        .catch(response => {
+            alert(response.response.data.message);
+        });
         }
 
 

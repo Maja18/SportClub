@@ -9,6 +9,8 @@ import Club from '../../model/Club';
 import Player from '../../model/Player';
 import CardStyle from '../../styled-components/CardStyle';
 import ButtonContainerDiv from '../../styled-components/ButtonContainerDiv';
+import clubAxiosInstance from '../../axios-api/club_axios_instance';
+import playersAxiosInstance from '../../axios-api/players_axios_instance';
 
 const ClubPlayer = () => {
     const [dropdownOpen, setDropdownOpen] = useState(false);
@@ -30,75 +32,48 @@ const ClubPlayer = () => {
     };
 
     useEffect(() => {
-        let value = localStorage.getItem('token')!;
-        let token = value.substring(1,value.length-1);
-        axios.get('http://localhost:8080/api/club/' + params.id,{ 
-             headers: {
-                'Authorization': 'Bearer ' + token,
-            }
-         }).then(response => {
-                setClub(response.data);
-         }).catch(res => {
-                alert("Error");
-                console.log(res);
-            });
+        clubAxiosInstance.get('' + params.id).then(response => {
+            setClub(response.data);
+        }).catch(res => {
+            alert("Error");
+            console.log(res);
+        });
     }, []);
 
     useEffect(() => {
-        let value = localStorage.getItem('token')!;
-        let token = value.substring(1,value.length-1);
-        axios.get('http://localhost:8080/api/player/noClubPlayers' ,{ 
-             headers: {
-                'Authorization': 'Bearer ' + token,
-            }
-         }).then(response => {
-                setPlayers(response.data);
-         }).catch(res => {
-                alert("Error");
-                console.log(res);
-            });
-
+        playersAxiosInstance.get('/noClubPlayers').then(response => {
+            setPlayers(response.data);
+        }).catch(res => {
+            alert("Error");
+            console.log(res);
+        });
     }, []);
 
     const handleSelect=( playerId: number)=>{
-        let value = localStorage.getItem('token')!;
-        let token = value.substring(1,value.length-1);
-       
-        axios.get('http://localhost:8080/api/player/'  + playerId,{ 
-            headers: {
-               'Authorization': 'Bearer ' + token,
-           }
-        }).then(response => {
-               setPlayer(response.data)
+        playersAxiosInstance.get('' + playerId).then(response => {
+            setPlayer(response.data)
         }).catch(res => {
-               alert("Error");
-               console.log(res);
-           })
+            alert("Error");
+            console.log(res);
+        });
     }
 
     const addPlayerToClub = () => {
         club.players.push(player)
-        let value = localStorage.getItem('token')!;
-        let token = value.substring(1,value.length-1);
-        
+
         const clubData: Club = {
             id: club.id,
             name: club.name,
             players: club.players
         }
-        
-        axios.post('http://localhost:8080/api/club/newPlayer', clubData, {
-            headers: {
-                'Authorization': 'Bearer ' + token,
-            }
+
+        clubAxiosInstance.post('/newPlayer', clubData).then(response => {
+            showToastMessage()
         })
-            .then(response => {
-                showToastMessage()
-            })
-            .catch(response => {
-                alert("Please enter valid data!");
-                console.log(response);
-            }); 
+        .catch(response => {
+            alert("Please enter valid data!");
+            console.log(response);
+        });
     }
 
     return(

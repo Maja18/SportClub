@@ -5,6 +5,7 @@ import axios from 'axios';
 import { useNavigate } from "react-router-dom";
 import Person from '../../model/Person';
 import CardStyle from '../../styled-components/CardStyle';
+import personAxiosInstance from '../../axios-api/person_axios_instance';
 
 const Profile = () => {
     const [user, setUser] = useState<Person>({} as Person);  
@@ -12,20 +13,13 @@ const Profile = () => {
     let navigate = useNavigate(); 
 
     useEffect(() => {
-        let value = localStorage.getItem('token')!;
-        let token = value.substring(1,value.length-1);
-        axios.get('http://localhost:8080/api/person',{ 
-             headers: {
-                'Authorization': 'Bearer ' + token,
-            }
-         }).then(response => {
+        personAxiosInstance.get('/').then(response => {
             setUser(response.data)
             setUserRole(response.data.role.substring(5))
          }).catch(res => {
                 alert("Error");
                 console.log(res);
-            });
-
+         })
     }, []);
 
     const routeChange = () =>{ 

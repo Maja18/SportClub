@@ -13,6 +13,8 @@ import CardStyle from '../../styled-components/CardStyle';
 import ButtonDivStyle from '../../styled-components/ButtonDivStyle';
 import BadgeStyle from '../../styled-components/BadgeStyle'
 import RemovePlayer from '../../model/RemovePlayer';
+import playersAxiosInstance from '../../axios-api/players_axios_instance';
+import clubAxiosInstance from '../../axios-api/club_axios_instance';
 
   const ClubPlayers = () => {
     const [clubPlayers, setClubPlayers] = useState<Player[]>([]);
@@ -30,35 +32,21 @@ import RemovePlayer from '../../model/RemovePlayer';
     },[])
 
     useEffect(() => {
-        let value = localStorage.getItem('token')!;
-        let token = value.substring(1,value.length-1);
-        axios.get('http://localhost:8080/api/player/players/' + params.id,{ 
-             headers: {
-                'Authorization': 'Bearer ' + token,
-            }
-         }).then(response => {
-                setClubPlayers(response.data);
-         }).catch(res => {
-                alert("Error");
-                console.log(res);
-            });
-
+        playersAxiosInstance.get('/players/' + params.id).then(response => {
+            setClubPlayers(response.data);
+        }).catch(res => {
+            alert("Error");
+            console.log(res);
+        });
     }, []);
 
     useEffect(() => {
-        let value = localStorage.getItem('token')!;
-        let token = value.substring(1,value.length-1);
-        axios.get('http://localhost:8080/api/club/' + params.id,{ 
-             headers: {
-                'Authorization': 'Bearer ' + token,
-            }
-         }).then(response => {
-                setClub(response.data);
-         }).catch(res => {
-                alert("Error");
-                console.log(res);
-            });
-
+        clubAxiosInstance.get('' + params.id).then(response => {
+            setClub(response.data);
+        }).catch(res => {
+            alert("Error");
+            console.log(res);
+        });
     }, []);
 
     // Toggle for Modal
@@ -75,37 +63,23 @@ import RemovePlayer from '../../model/RemovePlayer';
 
     const removePlayer = (event: React.MouseEvent<HTMLButtonElement>, playerId: number, clubId: number)  => {
         event.preventDefault()
-        let value = localStorage.getItem('token')!;
-        let token = value.substring(1,value.length-1);
-
-        axios.get('http://localhost:8080/api/player/'  + playerId,{ 
-            headers: {
-               'Authorization': 'Bearer ' + token,
-           }
-        }).then(response => {
+        playersAxiosInstance.get('' + playerId).then(response => {
             const data: RemovePlayer= {
                 clubId: clubId,
                 playerId: playerId
             }
-    
-            let value = localStorage.getItem('token')!;
-            let token = value.substring(1,value.length-1);
-            
-            axios.post('http://localhost:8080/api/club/removePlayer/', data,{ 
-                 headers: {
-                    'Authorization': 'Bearer ' + token,
-                }
-             }).then(response => {
-                    window.location.reload();
-             }).catch(res => {
-                    alert("Error");
-                    console.log(res);
-                });
+
+            clubAxiosInstance.post('/removePlayer', data).then(response => {
+                window.location.reload();
+            }).catch(res => {
+                alert("Error");
+                console.log(res);
+            });
 
         }).catch(res => {
                alert("Error");
                console.log(res);
-        })
+        });
       };
 
 

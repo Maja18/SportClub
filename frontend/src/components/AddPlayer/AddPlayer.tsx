@@ -8,12 +8,13 @@ import { UPDATE_FORM, onInputChange, onFocusOut, validateInput } from '../../lib
 import { ToastContainer, toast } from 'react-toastify';
 import Skill from '../../model/Skill';
 import CardStyle from '../../styled-components/CardStyle';
-import styled from 'styled-components';
 import Player from '../../model/Player';
 import ButtonContainerDiv from '../../styled-components/ButtonContainerDiv';
 import ErrorDiv from '../../styled-components/Error';
 import UploadButtonDiv from '../../styled-components/UploadButton';
 import DropdownStyle from '../../styled-components/DropDownStyle';
+import playersAxiosInstance from '../../axios-api/players_axios_instance';
+import skillAxiosInstance from '../../axios-api/skill_axios_instance';
 
     type Action =
         | { type: "UPDATE_FORM"; payload?: any ;
@@ -77,19 +78,12 @@ const AddPlayer = () => {
     const [formState, dispatch] = useReducer(formsReducer, initialState)
 
     useEffect(() => {
-        let value = localStorage.getItem('token')!;
-        let token = value.substring(1,value.length-1);
-        axios.get('http://localhost:8080/api/skill',{ 
-             headers: {
-                'Authorization': 'Bearer ' + token,
-            }
-         }).then(response => {
-                setSkills(response.data)
-         }).catch(res => {
-                alert("Error");
-                console.log(res);
-            });
-
+        skillAxiosInstance.get('').then(response => {
+            setSkills(response.data)
+        }).catch(res => {
+            alert("Error");
+            console.log(res);
+        });
     }, []);
 
     const showToastMessage = () => {
@@ -134,20 +128,13 @@ const AddPlayer = () => {
                 playerSkills: playerSkills
             }
 
-            let value = localStorage.getItem('token')!;
-            let token = value.substring(1,value.length-1);
-            axios.post('http://localhost:8080/api/player', newPlayer, {
-                headers: {
-                    'Authorization': 'Bearer ' + token,
-                }
+            playersAxiosInstance.post('', newPlayer).then(response => {
+                showToastMessage()
             })
-                .then(response => {
-                    showToastMessage()
-                })
-                .catch(response => {
-                    alert("Please enter valid data!");
-                    console.log(response);
-                }); 
+            .catch(response => {
+                alert("Please enter valid data!");
+                console.log(response);
+            });
         }
     };
 
@@ -174,21 +161,16 @@ const AddPlayer = () => {
         let formData = new FormData();
       
         formData.append("file", file);
-        let value = localStorage.getItem('token')!;
-        let token = value.substring(1,value.length-1);
-      
-        return axios.post("http://localhost:8080/api/player/saveImage", formData, {
-          headers: {
-            "Content-Type": "multipart/form-data",
-            'Authorization': 'Bearer ' + token
-          }  
-        }).then(response => {
+
+        return playersAxiosInstance.post('/saveImage', formData, 
+        {headers: {"Content-Type": "multipart/form-data"}})
+        .then(response => {
             setFileName(response.data)
         })
         .catch(response => {
             console.log(response.data)
             alert("Something went wrong with uploading image")
-        });  
+        });
     };
 
     const onSelect = (skills: Skill[]) => {

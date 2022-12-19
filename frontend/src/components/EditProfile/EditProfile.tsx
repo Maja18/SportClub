@@ -14,6 +14,7 @@ import FormErrorDiv from '../../styled-components/FormError';
 import RoleInput from '../../styled-components/RoleInput';
 import RoleLabel from '../../styled-components/RoleLabel';
 import DivStyle from '../../styled-components/DivStyle';
+import personAxiosInstance from '../../axios-api/person_axios_instance';
 
     type Action =
         | { type: "UPDATE_FORM"; 
@@ -145,19 +146,12 @@ const EditProfile = () => {
                 role: enteredRole
             }
 
-            let value = localStorage.getItem('token')!;
-            let token = value.substring(1,value.length-1);
-            axios.put('http://localhost:8080/api/person', editedPerson, {
-                headers: {
-                    'Authorization': 'Bearer ' + token,
-                }
+            personAxiosInstance.put('/', editedPerson).then(response => {
+                showToastMessage()
             })
-                .then(response => {
-                    showToastMessage()
-                })
-                .catch(response => {
-                    alert(response.response.data.message);
-                });   
+            .catch(response => {
+                alert(response.response.data.message);
+            }); 
         }
         // Hide the error message after 5 seconds
         setTimeout(() => {
@@ -245,26 +239,26 @@ const EditProfile = () => {
                             Role: 
                         </Label>
                         <DivStyle>
-                        <input 
-                        type="radio" 
-                        value="EDITOR" 
-                        name="role" 
-                        checked={enteredRole === "EDITOR"}
-                        onChange={event => {
-                            setEnteredRole(event.target.value)
-                        }}
-                        />
-                        <RoleLabel>EDITOR</RoleLabel>
-                        <RoleInput 
-                        type="radio" 
-                        value="VIEWER" 
-                        name="role" 
-                        checked={enteredRole === "VIEWER"}
-                        onChange={event => {
-                            setEnteredRole(event.target.value)
-                        }}
-                        /> 
-                        <RoleLabel>VIEWER</RoleLabel>
+                            <input 
+                            type="radio" 
+                            value="EDITOR" 
+                            name="role" 
+                            checked={enteredRole === "EDITOR"}
+                            onChange={event => {
+                                setEnteredRole(event.target.value)
+                            }}
+                            />
+                            <RoleLabel>EDITOR</RoleLabel>
+                            <RoleInput 
+                            type="radio" 
+                            value="VIEWER" 
+                            name="role" 
+                            checked={enteredRole === "VIEWER"}
+                            onChange={event => {
+                                setEnteredRole(event.target.value)
+                            }}
+                            /> 
+                            <RoleLabel>VIEWER</RoleLabel>
                         </DivStyle>
                     </CardText>
                     {showError && !formState.isFormValid && (

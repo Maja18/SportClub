@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import axios from 'axios';
+import personAxiosInstance from '../axios-api/person_axios_instance';
 
 interface AppContextInterface {
   isAuth: boolean,
@@ -21,19 +22,14 @@ const AuthContextProvider : React.FunctionComponent<React.PropsWithChildren<{}>>
     if (localStorage.getItem('token') === null){
       setIsAuthenticated(false)
     }else{
-      let value: string = localStorage.getItem('token')!;
-      let token: string = value.substring(1,value.length-1);
-        axios.get('http://localhost:8080/api/person',{ 
-             headers: {
-                'Authorization': 'Bearer ' + token,
-            }
-         }).then(response => {
-            setRole(response.data.role.substring(5))
-            setIsAuthenticated(true);
-         }).catch(res => {
-                alert("Error");
-                console.log(res);
-          });
+      personAxiosInstance.get('')
+      .then(response => {
+        setRole(response.data.role.substring(5))
+        setIsAuthenticated(true);
+     }).catch(res => {
+            alert("Error");
+            console.log(res);
+      });
     }
   };
 

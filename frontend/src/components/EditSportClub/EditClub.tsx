@@ -11,6 +11,7 @@ import CardStyle from '../../styled-components/CardStyle';
 import EditClubData from '../../model/EditClubData';
 import ButtonContainerDiv from '../../styled-components/ButtonContainerDiv';
 import ErrorDiv from '../../styled-components/Error';
+import clubAxiosInstance from '../../axios-api/club_axios_instance';
 
 
     type Action =
@@ -69,13 +70,7 @@ const EditClub = () => {
     const [formState, dispatch] = useReducer(formsReducer, initialState)
     
     useEffect(() => {
-        let value = localStorage.getItem('token')!;
-        let token = value.substring(1,value.length-1);
-        axios.get('http://localhost:8080/api/club/' + params.id,{ 
-             headers: {
-                'Authorization': 'Bearer ' + token,
-            }
-         }).then(response => {
+        clubAxiosInstance.get('' + params.id).then(response => {
             setClub(response.data)
             dispatch({
                 type: 'INITIALIZE_STATE',
@@ -83,11 +78,10 @@ const EditClub = () => {
                     name: { value: response.data.name, touched: false, hasError: true, error: "" },
                 }
                 })
-         }).catch(res => {
+            }).catch(res => {
                 alert("Error");
                 console.log(res);
             });
-
     }, []);
 
     const showToastMessage = () => {
@@ -128,21 +122,13 @@ const EditClub = () => {
                 name: enteredName
             }
 
-            let value = localStorage.getItem('token')!;
-            let token = value.substring(1,value.length-1);
-            axios.put('http://localhost:8080/api/club', editedClub, {
-                headers: {
-                    'Authorization': 'Bearer ' + token,
-                }
+            clubAxiosInstance.put('', editedClub).then(response => {
+                showToastMessage()
             })
-                .then(response => {
-                    showToastMessage()
-                })
-                .catch(response => {
-                    alert(response.response.data.message);
-                }); 
+            .catch(response => {
+                alert(response.response.data.message);
+            });
         }
-
     };
 
     return(
