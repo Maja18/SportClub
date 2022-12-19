@@ -1,8 +1,7 @@
 import React, {useState, useEffect, useReducer} from 'react'; 
 import {Button,Card,CardBody,CardHeader,Input,Label,ListGroup,ListGroupItem,Badge,Dropdown,DropdownToggle,
     DropdownItem,DropdownMenu} from 'reactstrap';
-import axios from 'axios'
-import { isRouteErrorResponse, useNavigate } from 'react-router-dom';
+import {  useNavigate } from 'react-router-dom';
 import { MdOutlineSportsKabaddi } from 'react-icons/md';
 import {useParams} from 'react-router-dom';
 import { ToastContainer, toast } from 'react-toastify';
@@ -16,34 +15,20 @@ import PhotoCardStyle from '../../styled-components/PhotoCardStyle';
 import ImageStyle from '../../styled-components/IImageStyle';
 import DivButtonStyle from '../../styled-components/DivButtonStyle';
 import DivPlayerStyle from '../../styled-components/DivPlayerStyle';
-import { useFormik } from 'formik';
-import { FormikErrors } from 'formik/dist/types';
 import ErrorDiv from '../../styled-components/Error';
 import playersAxiosInstance from '../../axios-api/players_axios_instance';
 import skillAxiosInstance from '../../axios-api/skill_axios_instance';
+import { Formik, Field } from 'formik';
+import * as Yup from 'yup';
 
-interface FormValues {
-    name: string;
-    salary: string;
-  }
-
-const validate = (values: FormValues) => {
-    const errors: FormikErrors<FormValues> = {};
-    if (!values.name) {
-        errors.name = 'Required';
-    } 
-    else if (!/^[a-zA-Z ]+$/.test(values.name)){
-        errors.name = "Invalid last name. Avoid Special characters!"
-    }
-    if (!values.salary){
-        errors.salary = 'Required'
-    }
-    else if (!/^[+]?\d+([.]\d+)?$/.test(values.salary)){
-        errors.salary = "Invalid salary, only numbers are allowed!"
-    }
-   
-    return errors;
-  };
+  const EditPlayerSchema = Yup.object().shape({
+    name: Yup.string()
+      .matches(/^[a-zA-Z ]+$/, 'Invalid Name. Avoid Special characters!')
+      .required('Name is required!'),
+    salary: Yup.string()
+      .matches(/^[+]?\d+([.]\d+)?$/, 'Invalid salary!')
+      .required('salary is required!'),
+  });
 
 
 const EditPlayer = () => {
@@ -61,18 +46,6 @@ const EditPlayer = () => {
     const [dropdownSkills, setDropdonSkills] = useState<Skill[]>([])
     const [isPictureChanged, setIsPictureChanged] = useState(false)
     const navigateTo = useNavigate();
-    const formik = useFormik({
-        initialValues: {
-          name: player.playerName,
-          salary: player.salary,
-        },
-        enableReinitialize: true,
-        validate,
-        onSubmit: values => {
-          alert(JSON.stringify(values, null, 2));
-        },
-      });
-
     const toggle = () => setDropdownOpen((prevState) => !prevState);
 
     useEffect(() => {
@@ -166,22 +139,22 @@ const EditPlayer = () => {
         setPlayerSkills(skills)
     }
 
-    const editPlayer = () => {
+    const editPlayer = (values: any) => {
         var editedPlayer: Player;
             if (!isPictureChanged){
                 editedPlayer = {
                     id: player.id,
-                    playerName: formik.values.name,
+                    playerName: values.name,
                     image: player.image,
-                    salary: formik.values.salary,
+                    salary: values.salary,
                     playerSkills: playerSkills
                 } 
             }else{
                 editedPlayer = {
                     id: player.id,
-                    playerName: formik.values.name,
+                    playerName: values.name,
                     image: fileName,
-                    salary: formik.values.salary,
+                    salary: values.salary,
                     playerSkills: playerSkills
                 }
 
@@ -199,105 +172,121 @@ const EditPlayer = () => {
     return(
         <CardStyle>
             <Card>
-                <CardHeader tag="h5">
-                    <MdOutlineSportsKabaddi size={25}/>
-                    <span>Player</span>
-                </CardHeader>
-                <CardBody>
-                    {imageBytes ? 
-                    <PhotoCardStyle>
-                        <ImageStyle alt={'not found'} 
-                            src={`data:image/jpg;image/png;base64,${imageBytes}`} 
-                        />
-                    </PhotoCardStyle>
-                    : null}
-                    <Label for="exampleEmail">Change picture</Label>
-                        <Input
-                        type="file"
-                        name="image" 
-                        accept="image/png, image/jpeg"
-                        id="file" 
-                        onChange={selectFile}
-                    />
-                    <Button
-                        className="btn btn-success"
-                        disabled={!selectedFiles}
-                        onClick={uploadImage}> Upload
-                    </Button>
-                    <DivPlayerStyle>
-                        <Label>Name</Label>
-                            <Input
-                            type="text"
-                            name="name"
-                            id="exampleName"
-                            placeholder="Name"
-                            onChange={formik.handleChange}
-                            onBlur={formik.handleBlur}
-                            value={formik.values.name}
+            <Formik
+                initialValues={{
+                    name: player.playerName,
+                    salary: player.salary,
+                }}
+                enableReinitialize = {true}
+                validationSchema={EditPlayerSchema}
+                onSubmit={values => {
+                    // same shape as initial values
+                    console.log(values);
+                }}
+                >
+                {({ errors, touched, values, isValid }) => (
+                    <div>
+                        <CardHeader tag="h5">
+                            <MdOutlineSportsKabaddi size={25}/>
+                            <span>Player</span>
+                        </CardHeader>
+                        <CardBody>
+                            {imageBytes ? 
+                            <PhotoCardStyle>
+                                <ImageStyle alt={'not found'} 
+                                    src={`data:image/jpg;image/png;base64,${imageBytes}`} 
+                                />
+                            </PhotoCardStyle>
+                            : null}
+                            <Label for="exampleEmail">Change picture</Label>
+                                <Input
+                                type="file"
+                                name="image" 
+                                accept="image/png, image/jpeg"
+                                id="file" 
+                                onChange={selectFile}
                             />
-                            {formik.touched.name && formik.errors.name ? (
-                                <ErrorDiv>{formik.errors.name}</ErrorDiv>
-                            ) : null}      
-                        <Label for="exampleEmail">Salary</Label>
-                            <Input
-                            type="text"
-                            name="salary"
-                            id="exampleSalary"
-                            placeholder="Salary"
-                            onChange={formik.handleChange}
-                            onBlur={formik.handleBlur}
-                            value={formik.values.salary}
-                            />
-                            {formik.touched.salary && formik.errors.salary ? (
-                                <ErrorDiv>{formik.errors.salary}</ErrorDiv>
-                            ) : null}
-                        <DivPlayerStyle>
-                        <Label>
-                            Player skills: 
-                        </Label>
-                        <DivButtonStyle>
-                            <Button color="success" outline onClick={addNewSkill}>
-                                Add new
+                            <Button
+                                className="btn btn-success"
+                                disabled={!selectedFiles}
+                                onClick={uploadImage}> Upload
                             </Button>
-                        </DivButtonStyle>
-                        
-                        {addSkills ? 
-                        <div>
-                            <Dropdown isOpen={dropdownOpen} toggle={toggle} >
-                            <DropdownToggle caret color="info">{value}</DropdownToggle>
-                                <DropdownMenu value={value} >
-                                    {dropdownSkills.map(skill => 
-                                        <DropdownItem key={skill.id} onClick={() => handleSelect(skill)} value={skill.name}>
-                                            {skill.name}
-                                        </DropdownItem> 
-                                    )}
-                                </DropdownMenu>
-                            </Dropdown> 
-                        </div>
-                        : 
-                        <SkillsCardStyle>
-                        <ListGroup flush>
-                        {playerSkills.map(skill => 
-                            <ListGroupItem key={skill.id}>
-                                <Label>Name: {skill.name}</Label>
-                                <BadgeStyle>
-                                    <a onClick={(e) => remove(e, skill)}>
-                                        <h5><Badge color="danger" pill>
-                                            Remove
-                                        </Badge></h5>
-                                    </a>
-                                </BadgeStyle>
-                            </ListGroupItem> 
-                        )}
-                        </ListGroup>
-                    </SkillsCardStyle>
-                        }
-                        </DivPlayerStyle>
-                    </DivPlayerStyle>
-                    <ButtonContainerDiv>
-                        <Button disabled={!formik.isValid} color="success" onClick={editPlayer} >Save</Button>
-                    </ButtonContainerDiv>
-                </CardBody>
+                            <DivPlayerStyle>
+                                <Label>Name</Label>
+                                    <Input
+                                    tag={Field}
+                                    type="text"
+                                    name="name"
+                                    id="exampleName"
+                                    placeholder="Name"
+                                    value = {values.name}
+                                    />
+                                    {errors.name && touched.name ? (
+                                        <ErrorDiv>{errors.name}</ErrorDiv>
+                                    ) : null}      
+                                <Label for="exampleEmail">Salary</Label>
+                                    <Input
+                                    tag={Field}
+                                    type="text"
+                                    name="salary"
+                                    id="exampleSalary"
+                                    placeholder="Salary"
+                                    value={values.salary}
+                                    />
+                                    {errors.salary && touched.salary ? (
+                                        <ErrorDiv>{errors.salary}</ErrorDiv>
+                                    ) : null}
+                            </DivPlayerStyle>
+                                <DivPlayerStyle>
+                                <Label>
+                                    Player skills: 
+                                </Label>
+                                <DivButtonStyle>
+                                    <Button color="success" outline onClick={addNewSkill}>
+                                        Add new
+                                    </Button>
+                                </DivButtonStyle>  
+                                {addSkills ? 
+                                <div>
+                                    <Dropdown isOpen={dropdownOpen} toggle={toggle} >
+                                    <DropdownToggle caret color="info">{value}</DropdownToggle>
+                                        <DropdownMenu value={value} >
+                                            {dropdownSkills.map(skill => 
+                                                <DropdownItem key={skill.id} onClick={() => handleSelect(skill)} value={skill.name}>
+                                                    {skill.name}
+                                                </DropdownItem> 
+                                            )}
+                                        </DropdownMenu>
+                                    </Dropdown> 
+                                </div>
+                                : 
+                                <SkillsCardStyle>
+                                <ListGroup flush>
+                                {playerSkills.map(skill => 
+                                    <ListGroupItem key={skill.id}>
+                                        <Label>Name: {skill.name}</Label>
+                                        <BadgeStyle>
+                                            <a onClick={(e) => remove(e, skill)}>
+                                                <h5><Badge color="danger" pill>
+                                                    Remove
+                                                </Badge></h5>
+                                            </a>
+                                        </BadgeStyle>
+                                    </ListGroupItem> 
+                                )}
+                                </ListGroup>
+                            </SkillsCardStyle>
+                                }
+                                </DivPlayerStyle>
+                            <ButtonContainerDiv>
+                                <Button disabled={!isValid} color="success" onClick={() => editPlayer(values)} >Save</Button>
+                            </ButtonContainerDiv>
+                        </CardBody>
+                    </div>
+       
+                )}
+                
+                </Formik>
             </Card>
             <div>
                 <ToastContainer />
