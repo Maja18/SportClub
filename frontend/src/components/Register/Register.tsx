@@ -12,7 +12,7 @@ import RoleInput from '../../styled-components/RoleInput';
 import RoleLabel from '../../styled-components/RoleLabel';
 import Title from '../../styled-components/Title';
 import DivRegister from '../../styled-components/DivRegister';
-
+import axiosInstance from '../../axios-api/axios_instance';
 
    const initialState: State = {
     name: { value: "", touched: false, hasError: true, error: "" },
@@ -95,14 +95,14 @@ const Register = () => {
             role: enteredRole
         }
 
-        axios.post('http://localhost:8080/api/auth/register', person)
-                .then(response => {
-                    showToastMessage()
-                    navigateTo('/login')
-                })
-                .catch(response => {
-                    alert(response.response.data.message);
-                });   
+        axiosInstance.post('/auth/register', person)
+        .then(response => {
+            showToastMessage()
+            navigateTo('/login')
+        })
+        .catch(response => {
+            alert(response.response.data.message);
+        });
     };
 
     return(
@@ -202,27 +202,27 @@ const Register = () => {
                     )}
                 </FormGroup>
                 <FormGroup>
-                    <div className='div'>
-                    <input 
-                    type="radio" 
-                    value="EDITOR" 
-                    name="role" 
-                    checked={enteredRole === "EDITOR"}
-                    onChange={event => {
-                        setEnteredRole(event.target.value)
-                    }}
-                    />
-                    <RoleLabel>EDITOR</RoleLabel>
-                    <RoleInput 
-                    type="radio" 
-                    value="VIEWER" 
-                    name="role" 
-                    checked={enteredRole === "VIEWER"}
-                    onChange={event => {
-                        setEnteredRole(event.target.value)
-                    }}
-                    /> 
-                    <RoleLabel>VIEWER</RoleLabel>
+                    <div>
+                        <input 
+                        type="radio" 
+                        value="EDITOR" 
+                        name="role" 
+                        checked={enteredRole === "EDITOR"}
+                        onChange={event => {
+                            setEnteredRole(event.target.value)
+                        }}
+                        />
+                        <RoleLabel>EDITOR</RoleLabel>
+                        <RoleInput 
+                        type="radio" 
+                        value="VIEWER" 
+                        name="role" 
+                        checked={enteredRole === "VIEWER"}
+                        onChange={event => {
+                            setEnteredRole(event.target.value)
+                        }}
+                        /> 
+                        <RoleLabel>VIEWER</RoleLabel>
                     </div>
                 </FormGroup>
                 <ButtonContainerDiv>

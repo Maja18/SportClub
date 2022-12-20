@@ -13,6 +13,7 @@ import CardStyle from '../../styled-components/CardStyle';
 import ButtonDivStyle from '../../styled-components/ButtonDivStyle';
 import BadgeStyle from '../../styled-components/BadgeStyle'
 import RemovePlayer from '../../model/RemovePlayer';
+import axiosInstance from '../../axios-api/axios_instance';
 
   const ClubPlayers = () => {
     const [clubPlayers, setClubPlayers] = useState<Player[]>([]);
@@ -30,35 +31,21 @@ import RemovePlayer from '../../model/RemovePlayer';
     },[])
 
     useEffect(() => {
-        let value = localStorage.getItem('token')!;
-        let token = value.substring(1,value.length-1);
-        axios.get('http://localhost:8080/api/player/players/' + params.id,{ 
-             headers: {
-                'Authorization': 'Bearer ' + token,
-            }
-         }).then(response => {
-                setClubPlayers(response.data);
-         }).catch(res => {
-                alert("Error");
-                console.log(res);
-            });
-
+        axiosInstance.get('/player/players/' + params.id).then(response => {
+            setClubPlayers(response.data);
+        }).catch(res => {
+            alert("Error");
+            console.log(res);
+        });
     }, []);
 
     useEffect(() => {
-        let value = localStorage.getItem('token')!;
-        let token = value.substring(1,value.length-1);
-        axios.get('http://localhost:8080/api/club/' + params.id,{ 
-             headers: {
-                'Authorization': 'Bearer ' + token,
-            }
-         }).then(response => {
-                setClub(response.data);
-         }).catch(res => {
-                alert("Error");
-                console.log(res);
-            });
-
+        axiosInstance.get('/club/' + params.id).then(response => {
+            setClub(response.data);
+        }).catch(res => {
+            alert("Error");
+            console.log(res);
+        });
     }, []);
 
     // Toggle for Modal
@@ -75,37 +62,23 @@ import RemovePlayer from '../../model/RemovePlayer';
 
     const removePlayer = (event: React.MouseEvent<HTMLButtonElement>, playerId: number, clubId: number)  => {
         event.preventDefault()
-        let value = localStorage.getItem('token')!;
-        let token = value.substring(1,value.length-1);
-
-        axios.get('http://localhost:8080/api/player/'  + playerId,{ 
-            headers: {
-               'Authorization': 'Bearer ' + token,
-           }
-        }).then(response => {
+        axiosInstance.get('/player/' + playerId).then(response => {
             const data: RemovePlayer= {
                 clubId: clubId,
                 playerId: playerId
             }
-    
-            let value = localStorage.getItem('token')!;
-            let token = value.substring(1,value.length-1);
-            
-            axios.post('http://localhost:8080/api/club/removePlayer/', data,{ 
-                 headers: {
-                    'Authorization': 'Bearer ' + token,
-                }
-             }).then(response => {
-                    window.location.reload();
-             }).catch(res => {
-                    alert("Error");
-                    console.log(res);
-                });
+
+            axiosInstance.post('/club/removePlayer', data).then(response => {
+                window.location.reload();
+            }).catch(res => {
+                alert("Error");
+                console.log(res);
+            });
 
         }).catch(res => {
                alert("Error");
                console.log(res);
-        })
+        });
       };
 
 

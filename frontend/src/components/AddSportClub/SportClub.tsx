@@ -9,6 +9,7 @@ import CardStyle from '../../styled-components/CardStyle';
 import AddClub from '../../model/AddClub';
 import ButtonContainerDiv from '../../styled-components/ButtonContainerDiv';
 import ErrorDiv from '../../styled-components/Error';
+import axiosInstance from '../../axios-api/axios_instance';
 
         type Action =
         | { type: "UPDATE_FORM"; 
@@ -100,20 +101,13 @@ const SportClub = () => {
                 name: enteredName
             }
 
-            let value = localStorage.getItem('token')!;
-            let token = value.substring(1,value.length-1);
-            axios.post('http://localhost:8080/api/club', newClub, {
-                headers: {
-                    'Authorization': 'Bearer ' + token,
-                }
+            axiosInstance.post('/club', newClub).then(response => {
+                showToastMessage()
             })
-                .then(response => {
-                    showToastMessage()
-                })
-                .catch(response => {
-                    alert("Please enter valid data!");
-                    console.log(response);
-                }); 
+            .catch(response => {
+                alert("Please enter valid data!");
+                console.log(response);
+            });
         }
     };
 

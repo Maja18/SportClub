@@ -12,6 +12,7 @@ import ButtonDivStyle from '../../styled-components/ButtonDivStyle';
 import PhotoCardStyle from '../../styled-components/PhotoCardStyle';
 import ImageStyle from '../../styled-components/IImageStyle';
 import DivPlayerStyle from '../../styled-components/DivPlayerStyle';
+import axiosInstance from '../../axios-api/axios_instance';
 
 const PlayerInfo = () => {
     const params = useParams();
@@ -26,28 +27,21 @@ const PlayerInfo = () => {
     },[])
 
     useEffect(() => {
-        let value = localStorage.getItem('token')!;
-        let token = value.substring(1,value.length-1);
-        axios.get('http://localhost:8080/api/player/' + params.id,{ 
-             headers: {
-                'Authorization': 'Bearer ' + token,
-            }
-         }).then(response => {
-                setPlayer(response.data);
-                setImageBytes(response.data.imageDTO.imageBytes[0]);
-                setPlayerSkills(response.data.playerSkills)
-         }).catch(res => {
-                alert("Error");
-                console.log(res);
-            });
-
+        axiosInstance.get('/player/' + params.id)
+        .then(response => {
+            setPlayer(response.data);
+            setImageBytes(response.data.imageDTO.imageBytes[0]);
+            setPlayerSkills(response.data.playerSkills)
+        }).catch(res => {
+            alert("Error");
+            console.log(res);
+        });
     }, []);
 
     const editPlayer = () => {
         let path = `/editPlayer/${player.id}`; 
         navigate(path);
     }
-
 
     return(
         <CardStyle>

@@ -9,6 +9,7 @@ import Club from '../../model/Club';
 import CardStyle from '../../styled-components/CardStyle';
 import ButtonDivStyle from '../../styled-components/ButtonDivStyle';
 import BadgeStyle from '../../styled-components/BadgeStyle';
+import axiosInstance from '../../axios-api/axios_instance';
 
 const SportClubs = () => {
     const [clubs, setClubs] = useState<Club[]>([]);
@@ -20,18 +21,12 @@ const SportClubs = () => {
     },[])
 
     useEffect(() => {
-        let value= localStorage.getItem('token')!;
-        let token = value.substring(1,value.length-1);
-        axios.get('http://localhost:8080/api/club',{ 
-             headers: {
-                'Authorization': 'Bearer ' + token,
-            }
-         }).then(response => {
-                setClubs(response.data);
-         }).catch(res => {
-                alert("Error");
-                console.log(res);
-            });
+        axiosInstance.get('/club').then(response => {
+            setClubs(response.data);
+        }).catch(res => {
+            alert("Error");
+            console.log(res);
+        });
     }, []);
 
     const addNewClub = () => {

@@ -9,6 +9,7 @@ import LoginData from '../../model/LoginData';
 import ButtonContainerDiv from '../../styled-components/ButtonContainerDiv';
 import Title from '../../styled-components/Title';
 import DivLogin from '../../styled-components/DivLogin';
+import axiosInstance from '../../axios-api/axios_instance';
 
 const Login = () =>  {
     const [enteredEmail, setEnteredEmail] = useState('');
@@ -33,15 +34,15 @@ const Login = () =>  {
             password: enteredPassword
         }
 
-        axios.post('http://localhost:8080/api/auth/login', loginData)
-            .then(response => {
-                localStorage.setItem('token', JSON.stringify(response.data.accessToken));
-                authContext.auth()
-                navigateTo('/profile')
-            })
-            .catch(response => {
-                showToastErrorMessage()
-                });   
+        axiosInstance.post('/auth/login', loginData)
+        .then(response => {
+            localStorage.setItem('token', JSON.stringify(response.data.accessToken));
+            authContext.auth()
+            navigateTo('/profile')
+        })
+        .catch(response => {
+            showToastErrorMessage()
+        }); 
     };
 
     return(
