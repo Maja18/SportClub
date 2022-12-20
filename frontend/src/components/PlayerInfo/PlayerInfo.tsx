@@ -40,7 +40,11 @@ const PlayerInfo = () => {
 
     const editPlayer = () => {
         let path = `/editPlayer/${player.id}`; 
-        navigate(path);
+        navigate(path, {
+            state: {
+                isAddPlayer : false
+            }
+        });
     }
 
     return(

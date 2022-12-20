@@ -12,13 +12,12 @@ import Players from '../Players/Players';
 import ClubPlayers from '../ClubPlayers/ClubPlayers';
 import ClubPlayer from '../AddClubPlayer/ClubPlayer';
 import PlayerInfo from '../PlayerInfo/PlayerInfo';
-import Player from '../AddPlayer/AddPlayer';
-import EditPlayer from '../EditPlayer/EditPlayer';
 import { AuthContext } from '../../context/auth-context';
 import ChangePassword from '../EditProfile/ChangePassword';
 import { NavLink as Link } from 'react-router-dom';
 import styled from 'styled-components';
 import Login from '../LogIn/Login';
+import AddEditPlayer from '../Player/AddEditPlayer';
 
 
 const StyledLink = styled(Link)`
@@ -106,9 +105,9 @@ const NavBar = () => {
                 <Route path='/sportClubs/playersInfo/:id' element={<PlayerInfo/>}></Route>
                 <Route path='/players/playersInfo/:id' element={<PlayerInfo/>}></Route>
                 <Route path='/players/addNewPlayer' element={authContext.isAuth && authContext.role==='EDITOR'
-                ? <Player/>:<div>You are not allowed to see this page!</div>}></Route>
+                ? <AddEditPlayer/>:<div>You are not allowed to see this page!</div>}></Route>
                 <Route path='/editPlayer/:id' element={authContext.isAuth && authContext.role==='EDITOR'
-                ? <EditPlayer/>:<div>You are not allowed to see this page!</div>}></Route>
+                ? <AddEditPlayer/>:<div>You are not allowed to see this page!</div>}></Route>
             </Routes>
         </div>
     );

@@ -45,7 +45,11 @@ const Players = () => {
 
     const addNewPlayer = () => {
         let path = `/players/addNewPlayer`; 
-        navigate(path);
+        navigate(path, {
+            state: {
+                isAddPlayer : true
+            }
+        });
     }
 
     return(
@@ -67,7 +71,7 @@ const Players = () => {
                             {player.playerName}
                         </Link>
                         <BadgeStyle>
-                            <Link to={`/editPlayer/${player.id}`}>
+                            <Link to={`/editPlayer/${player.id}`} state={{isAddPlayer : false}}>
                                 <Badge color="info" pill >Edit</Badge>
                             </Link>
                             <a onClick={() => toggle(player.id)}>
