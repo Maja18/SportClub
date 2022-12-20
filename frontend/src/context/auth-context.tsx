@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import axios from 'axios';
-import personAxiosInstance from '../axios-api/person_axios_instance';
+import axiosInstance from '../axios-api/axios_instance';
 
 interface AppContextInterface {
   isAuth: boolean,
@@ -22,7 +22,7 @@ const AuthContextProvider : React.FunctionComponent<React.PropsWithChildren<{}>>
     if (localStorage.getItem('token') === null){
       setIsAuthenticated(false)
     }else{
-      personAxiosInstance.get('')
+      axiosInstance.get('/person')
       .then(response => {
         setRole(response.data.role.substring(5))
         setIsAuthenticated(true);

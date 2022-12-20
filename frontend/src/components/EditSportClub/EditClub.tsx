@@ -11,7 +11,7 @@ import CardStyle from '../../styled-components/CardStyle';
 import EditClubData from '../../model/EditClubData';
 import ButtonContainerDiv from '../../styled-components/ButtonContainerDiv';
 import ErrorDiv from '../../styled-components/Error';
-import clubAxiosInstance from '../../axios-api/club_axios_instance';
+import axiosInstance from '../../axios-api/axios_instance';
 
 
     type Action =
@@ -70,7 +70,7 @@ const EditClub = () => {
     const [formState, dispatch] = useReducer(formsReducer, initialState)
     
     useEffect(() => {
-        clubAxiosInstance.get('' + params.id).then(response => {
+        axiosInstance.get('/club/' + params.id).then(response => {
             setClub(response.data)
             dispatch({
                 type: 'INITIALIZE_STATE',
@@ -122,7 +122,7 @@ const EditClub = () => {
                 name: enteredName
             }
 
-            clubAxiosInstance.put('', editedClub).then(response => {
+            axiosInstance.put('/club', editedClub).then(response => {
                 showToastMessage()
             })
             .catch(response => {

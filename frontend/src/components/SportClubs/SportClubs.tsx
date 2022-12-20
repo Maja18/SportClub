@@ -9,7 +9,7 @@ import Club from '../../model/Club';
 import CardStyle from '../../styled-components/CardStyle';
 import ButtonDivStyle from '../../styled-components/ButtonDivStyle';
 import BadgeStyle from '../../styled-components/BadgeStyle';
-import clubAxiosInstance from '../../axios-api/club_axios_instance';
+import axiosInstance from '../../axios-api/axios_instance';
 
 const SportClubs = () => {
     const [clubs, setClubs] = useState<Club[]>([]);
@@ -21,7 +21,7 @@ const SportClubs = () => {
     },[])
 
     useEffect(() => {
-        clubAxiosInstance.get('/').then(response => {
+        axiosInstance.get('/club').then(response => {
             setClubs(response.data);
         }).catch(res => {
             alert("Error");

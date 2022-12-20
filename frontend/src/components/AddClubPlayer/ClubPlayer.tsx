@@ -9,8 +9,7 @@ import Club from '../../model/Club';
 import Player from '../../model/Player';
 import CardStyle from '../../styled-components/CardStyle';
 import ButtonContainerDiv from '../../styled-components/ButtonContainerDiv';
-import clubAxiosInstance from '../../axios-api/club_axios_instance';
-import playersAxiosInstance from '../../axios-api/players_axios_instance';
+import axiosInstance from '../../axios-api/axios_instance';
 
 const ClubPlayer = () => {
     const [dropdownOpen, setDropdownOpen] = useState(false);
@@ -32,7 +31,7 @@ const ClubPlayer = () => {
     };
 
     useEffect(() => {
-        clubAxiosInstance.get('' + params.id).then(response => {
+        axiosInstance.get('/club/' + params.id).then(response => {
             setClub(response.data);
         }).catch(res => {
             alert("Error");
@@ -41,7 +40,7 @@ const ClubPlayer = () => {
     }, []);
 
     useEffect(() => {
-        playersAxiosInstance.get('/noClubPlayers').then(response => {
+        axiosInstance.get('/player/noClubPlayers').then(response => {
             setPlayers(response.data);
         }).catch(res => {
             alert("Error");
@@ -50,7 +49,7 @@ const ClubPlayer = () => {
     }, []);
 
     const handleSelect=( playerId: number)=>{
-        playersAxiosInstance.get('' + playerId).then(response => {
+        axiosInstance.get('/player/' + playerId).then(response => {
             setPlayer(response.data)
         }).catch(res => {
             alert("Error");
@@ -67,7 +66,7 @@ const ClubPlayer = () => {
             players: club.players
         }
 
-        clubAxiosInstance.post('/newPlayer', clubData).then(response => {
+        axiosInstance.post('/club/newPlayer', clubData).then(response => {
             showToastMessage()
         })
         .catch(response => {

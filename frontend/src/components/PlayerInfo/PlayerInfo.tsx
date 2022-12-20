@@ -12,7 +12,7 @@ import ButtonDivStyle from '../../styled-components/ButtonDivStyle';
 import PhotoCardStyle from '../../styled-components/PhotoCardStyle';
 import ImageStyle from '../../styled-components/IImageStyle';
 import DivPlayerStyle from '../../styled-components/DivPlayerStyle';
-import playersAxiosInstance from '../../axios-api/players_axios_instance';
+import axiosInstance from '../../axios-api/axios_instance';
 
 const PlayerInfo = () => {
     const params = useParams();
@@ -27,7 +27,7 @@ const PlayerInfo = () => {
     },[])
 
     useEffect(() => {
-        playersAxiosInstance.get('' + params.id)
+        axiosInstance.get('/player/' + params.id)
         .then(response => {
             setPlayer(response.data);
             setImageBytes(response.data.imageDTO.imageBytes[0]);

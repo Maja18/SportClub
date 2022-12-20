@@ -11,7 +11,7 @@ import PasswordChanger from '../../model/PasswordChanger';
 import ButtonContainerDiv from '../../styled-components/ButtonContainerDiv';
 import ErrorDiv from '../../styled-components/Error';
 import FormErrorDiv from '../../styled-components/FormError';
-import personAxiosInstance from '../../axios-api/person_axios_instance';
+import axiosInstance from '../../axios-api/axios_instance';
 
         type Action =
         | { type: "UPDATE_FORM";
@@ -111,7 +111,7 @@ const ChangePassword = () => {
                 newPassword: enteredNewPassword
             }
 
-            personAxiosInstance.post('/change-password', changePasswordData).then(response => {
+            axiosInstance.post('/person/change-password', changePasswordData).then(response => {
                 showToastMessage()
             })
             .catch(response => {

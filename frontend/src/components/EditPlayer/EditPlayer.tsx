@@ -16,10 +16,9 @@ import ImageStyle from '../../styled-components/IImageStyle';
 import DivButtonStyle from '../../styled-components/DivButtonStyle';
 import DivPlayerStyle from '../../styled-components/DivPlayerStyle';
 import ErrorDiv from '../../styled-components/Error';
-import playersAxiosInstance from '../../axios-api/players_axios_instance';
-import skillAxiosInstance from '../../axios-api/skill_axios_instance';
 import { Formik, Field } from 'formik';
 import * as Yup from 'yup';
+import axiosInstance from '../../axios-api/axios_instance';
 
   const EditPlayerSchema = Yup.object().shape({
     name: Yup.string()
@@ -49,7 +48,7 @@ const EditPlayer = () => {
     const toggle = () => setDropdownOpen((prevState) => !prevState);
 
     useEffect(() => {
-        playersAxiosInstance.get('' + params.id).then(response => {
+        axiosInstance.get('/player/' + params.id).then(response => {
             setPlayer(response.data);
             setImageBytes(response.data.imageDTO.imageBytes[0]);
             setPlayerSkills(response.data.playerSkills);
@@ -61,7 +60,7 @@ const EditPlayer = () => {
     }, []);
 
     useEffect(() => {
-        skillAxiosInstance.get('').then(response => {
+        axiosInstance.get('/skill').then(response => {
             setSkills(response.data)
         }).catch(res => {
             alert("Error");
@@ -108,7 +107,7 @@ const EditPlayer = () => {
       
         formData.append("file", file);
       
-        return playersAxiosInstance.post('/saveImage', formData, 
+        return axiosInstance.post('/player/saveImage', formData, 
         {headers: {"Content-Type": "multipart/form-data"}})
         .then(response => {
             setFileName(response.data)
@@ -160,7 +159,7 @@ const EditPlayer = () => {
 
             }
 
-        playersAxiosInstance.put('', editedPlayer).then(response => {
+            axiosInstance.put('/player', editedPlayer).then(response => {
             showToastMessage(); 
         })
         .catch(response => {

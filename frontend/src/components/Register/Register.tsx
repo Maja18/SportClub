@@ -12,8 +12,7 @@ import RoleInput from '../../styled-components/RoleInput';
 import RoleLabel from '../../styled-components/RoleLabel';
 import Title from '../../styled-components/Title';
 import DivRegister from '../../styled-components/DivRegister';
-import authenticationAxiosInstance from '../../axios-api/authentication_axios_instance';
-
+import axiosInstance from '../../axios-api/axios_instance';
 
    const initialState: State = {
     name: { value: "", touched: false, hasError: true, error: "" },
@@ -96,7 +95,7 @@ const Register = () => {
             role: enteredRole
         }
 
-        authenticationAxiosInstance.post('/register', person)
+        axiosInstance.post('/auth/register', person)
         .then(response => {
             showToastMessage()
             navigateTo('/login')

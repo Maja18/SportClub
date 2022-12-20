@@ -9,7 +9,7 @@ import CardStyle from '../../styled-components/CardStyle';
 import AddClub from '../../model/AddClub';
 import ButtonContainerDiv from '../../styled-components/ButtonContainerDiv';
 import ErrorDiv from '../../styled-components/Error';
-import clubAxiosInstance from '../../axios-api/club_axios_instance';
+import axiosInstance from '../../axios-api/axios_instance';
 
         type Action =
         | { type: "UPDATE_FORM"; 
@@ -101,7 +101,7 @@ const SportClub = () => {
                 name: enteredName
             }
 
-            clubAxiosInstance.post('', newClub).then(response => {
+            axiosInstance.post('/club', newClub).then(response => {
                 showToastMessage()
             })
             .catch(response => {

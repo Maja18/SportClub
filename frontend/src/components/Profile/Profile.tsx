@@ -1,11 +1,10 @@
 import React, {useState, useEffect} from 'react';
 import {Button,Card,CardBody,CardText,Label,CardHeader} from 'reactstrap';
 import { CgProfile } from 'react-icons/cg';
-import axios from 'axios';
 import { useNavigate } from "react-router-dom";
 import Person from '../../model/Person';
 import CardStyle from '../../styled-components/CardStyle';
-import personAxiosInstance from '../../axios-api/person_axios_instance';
+import axiosInstance from '../../axios-api/axios_instance';
 
 const Profile = () => {
     const [user, setUser] = useState<Person>({} as Person);  
@@ -13,7 +12,7 @@ const Profile = () => {
     let navigate = useNavigate(); 
 
     useEffect(() => {
-        personAxiosInstance.get('/').then(response => {
+        axiosInstance.get('/person').then(response => {
             setUser(response.data)
             setUserRole(response.data.role.substring(5))
          }).catch(res => {

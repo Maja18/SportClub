@@ -9,7 +9,7 @@ import LoginData from '../../model/LoginData';
 import ButtonContainerDiv from '../../styled-components/ButtonContainerDiv';
 import Title from '../../styled-components/Title';
 import DivLogin from '../../styled-components/DivLogin';
-import authenticationAxiosInstance from '../../axios-api/authentication_axios_instance';
+import axiosInstance from '../../axios-api/axios_instance';
 
 const Login = () =>  {
     const [enteredEmail, setEnteredEmail] = useState('');
@@ -34,7 +34,7 @@ const Login = () =>  {
             password: enteredPassword
         }
 
-        authenticationAxiosInstance.post('/login', loginData)
+        axiosInstance.post('/auth/login', loginData)
         .then(response => {
             localStorage.setItem('token', JSON.stringify(response.data.accessToken));
             authContext.auth()

@@ -13,8 +13,7 @@ import ButtonContainerDiv from '../../styled-components/ButtonContainerDiv';
 import ErrorDiv from '../../styled-components/Error';
 import UploadButtonDiv from '../../styled-components/UploadButton';
 import DropdownStyle from '../../styled-components/DropDownStyle';
-import playersAxiosInstance from '../../axios-api/players_axios_instance';
-import skillAxiosInstance from '../../axios-api/skill_axios_instance';
+import axiosInstance from '../../axios-api/axios_instance';
 
     type Action =
         | { type: "UPDATE_FORM"; payload?: any ;
@@ -78,7 +77,7 @@ const AddPlayer = () => {
     const [formState, dispatch] = useReducer(formsReducer, initialState)
 
     useEffect(() => {
-        skillAxiosInstance.get('').then(response => {
+        axiosInstance.get('/skill').then(response => {
             setSkills(response.data)
         }).catch(res => {
             alert("Error");
@@ -128,7 +127,7 @@ const AddPlayer = () => {
                 playerSkills: playerSkills
             }
 
-            playersAxiosInstance.post('', newPlayer).then(response => {
+            axiosInstance.post('/player', newPlayer).then(response => {
                 showToastMessage()
             })
             .catch(response => {
@@ -162,7 +161,7 @@ const AddPlayer = () => {
       
         formData.append("file", file);
 
-        return playersAxiosInstance.post('/saveImage', formData, 
+        return axiosInstance.post('/player/saveImage', formData, 
         {headers: {"Content-Type": "multipart/form-data"}})
         .then(response => {
             setFileName(response.data)

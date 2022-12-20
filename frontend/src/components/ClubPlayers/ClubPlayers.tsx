@@ -13,8 +13,7 @@ import CardStyle from '../../styled-components/CardStyle';
 import ButtonDivStyle from '../../styled-components/ButtonDivStyle';
 import BadgeStyle from '../../styled-components/BadgeStyle'
 import RemovePlayer from '../../model/RemovePlayer';
-import playersAxiosInstance from '../../axios-api/players_axios_instance';
-import clubAxiosInstance from '../../axios-api/club_axios_instance';
+import axiosInstance from '../../axios-api/axios_instance';
 
   const ClubPlayers = () => {
     const [clubPlayers, setClubPlayers] = useState<Player[]>([]);
@@ -32,7 +31,7 @@ import clubAxiosInstance from '../../axios-api/club_axios_instance';
     },[])
 
     useEffect(() => {
-        playersAxiosInstance.get('/players/' + params.id).then(response => {
+        axiosInstance.get('/player/players/' + params.id).then(response => {
             setClubPlayers(response.data);
         }).catch(res => {
             alert("Error");
@@ -41,7 +40,7 @@ import clubAxiosInstance from '../../axios-api/club_axios_instance';
     }, []);
 
     useEffect(() => {
-        clubAxiosInstance.get('' + params.id).then(response => {
+        axiosInstance.get('/club/' + params.id).then(response => {
             setClub(response.data);
         }).catch(res => {
             alert("Error");
@@ -63,13 +62,13 @@ import clubAxiosInstance from '../../axios-api/club_axios_instance';
 
     const removePlayer = (event: React.MouseEvent<HTMLButtonElement>, playerId: number, clubId: number)  => {
         event.preventDefault()
-        playersAxiosInstance.get('' + playerId).then(response => {
+        axiosInstance.get('/player/' + playerId).then(response => {
             const data: RemovePlayer= {
                 clubId: clubId,
                 playerId: playerId
             }
 
-            clubAxiosInstance.post('/removePlayer', data).then(response => {
+            axiosInstance.post('/club/removePlayer', data).then(response => {
                 window.location.reload();
             }).catch(res => {
                 alert("Error");

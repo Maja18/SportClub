@@ -14,7 +14,7 @@ import FormErrorDiv from '../../styled-components/FormError';
 import RoleInput from '../../styled-components/RoleInput';
 import RoleLabel from '../../styled-components/RoleLabel';
 import DivStyle from '../../styled-components/DivStyle';
-import personAxiosInstance from '../../axios-api/person_axios_instance';
+import axiosInstance from '../../axios-api/axios_instance';
 
     type Action =
         | { type: "UPDATE_FORM"; 
@@ -146,7 +146,7 @@ const EditProfile = () => {
                 role: enteredRole
             }
 
-            personAxiosInstance.put('/', editedPerson).then(response => {
+            axiosInstance.put('/person', editedPerson).then(response => {
                 showToastMessage()
             })
             .catch(response => {

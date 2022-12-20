@@ -9,7 +9,7 @@ import Player from '../../model/Player';
 import CardStyle from '../../styled-components/CardStyle';
 import ButtonDivStyle from '../../styled-components/ButtonDivStyle';
 import BadgeStyle from '../../styled-components/BadgeStyle';
-import playersAxiosInstance from '../../axios-api/players_axios_instance';
+import axiosInstance from '../../axios-api/axios_instance';
 
 const Players = () => {
     const [players, setPlayers] = useState<Player[]>([]);
@@ -19,7 +19,7 @@ const Players = () => {
     const [playerId, setPlayerId] = useState(0);
 
     useEffect(() => {
-        playersAxiosInstance.get('').then(response => {
+        axiosInstance.get('/player').then(response => {
             setPlayers(response.data);
         }).catch(res => {
             alert("Error");
@@ -35,7 +35,7 @@ const Players = () => {
     const deletePlayer = (event: React.MouseEvent<HTMLButtonElement>, playerId: number)  => {
         event.preventDefault()
 
-        playersAxiosInstance.delete('' + playerId).then(response => {
+        axiosInstance.delete('/player/' + playerId).then(response => {
             window.location.reload();
         }).catch(res => {
             alert("Error");
