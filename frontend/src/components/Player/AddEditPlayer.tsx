@@ -21,8 +21,7 @@ import { MdOutlineSportsKabaddi } from 'react-icons/md';
 import DropdownStyle from '../../styled-components/DropDownStyle';
 import Multiselect from 'multiselect-react-dropdown';
 import { showToastMessage } from '../../toasts/ToastMessage';
-import useUploadHook from '../../hooks/UseUploadHook';
-
+import useUpload from '../../hooks/useUpload';
 const AddEditPlayer = () => {
     const [imageBytes, setImageBytes] = useState<Int8Array>()
     const [player, setPlayer] = useState<Player>({id: 0, playerName: '', salary:'', playerSkills:[], image:''})
@@ -37,15 +36,12 @@ const AddEditPlayer = () => {
     const toggle = () => setDropdownOpen((prevState) => !prevState);
     const location = useLocation();
     const [isAddPlayer, setIsAddPlayer] = useState(location.state.isAddPlayer)
-    const [fileName, isPictureChanged, selectedFiles, selectFile, uploadImage] = useUploadHook()
+    const {fileName, isPictureChanged, selectedFiles, selectFile, uploadImage} = useUpload('/player/saveImage')
 
     const playerSchema = () => {
-       let name = Yup.string().matches(/^[a-zA-Z ]+$/, 'Invalid Name. Avoid Special characters!').required('Name is required!');
-       let salary = Yup.string().matches(/^[+]?\d+([.]\d+)?$/, 'Invalid salary!').required('Salary is required!');
-
        return Yup.object().shape({
-            name: name,
-            salary: salary
+            name: Yup.string().matches(/^[a-zA-Z ]+$/, 'Invalid Name. Avoid Special characters!').required('Name is required!'),
+            salary: Yup.string().matches(/^[+]?\d+([.]\d+)?$/, 'Invalid salary!').required('Salary is required!')
        })
     }
 
@@ -94,7 +90,6 @@ const AddEditPlayer = () => {
     }
 
     const exclude = (allSkills: Skill[], playerSkills: Skill[]) => {
-        //return arr1.filter(o1 => arr2.map(o2 => o2.id).indexOf(o1.id) === -1) 
         //some -> da li neki od el prolazi zadati uslov u fji
         return allSkills.filter(s => !playerSkills.some(skill => s.id === skill.id));
     };

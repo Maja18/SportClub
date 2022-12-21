@@ -18,7 +18,7 @@ import { NavLink as Link } from 'react-router-dom';
 import styled from 'styled-components';
 import Login from '../LogIn/Login';
 import AddEditPlayer from '../Player/AddEditPlayer';
-import useAuthContextHook from '../../hooks/UseAuthContextHook';
+import useAuthContextHook from '../../hooks/useAuthContext';
 
 
 const StyledLink = styled(Link)`

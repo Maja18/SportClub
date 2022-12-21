@@ -1,7 +1,7 @@
 import { useState } from "react";
 import axiosInstance from "../axios-api/axios_instance";
 
-const useUploadHook = () => {
+const useUpload = (url: string) => {
     const [fileName, setFileName] = useState('');
     const [selectedFiles, setSelectedFiles] = useState<File | null>(null);
     const [currentFile, setCurrentFile] = useState<File | undefined>(undefined);
@@ -32,7 +32,7 @@ const useUploadHook = () => {
       
         formData.append("file", file);
       
-        return axiosInstance.post('/player/saveImage', formData, 
+        return axiosInstance.post(url, formData, 
         {headers: {"Content-Type": "multipart/form-data"}})
         .then(response => {
             setFileName(response.data)
@@ -43,8 +43,8 @@ const useUploadHook = () => {
         });
     };
 
-    return [fileName, isPictureChanged, selectedFiles, selectFile, uploadImage ] as const
+    return {fileName: fileName, isPictureChanged: isPictureChanged, selectedFiles: selectedFiles, selectFile: selectFile, uploadImage: uploadImage } 
 
 }
 
-export default useUploadHook;
+export default useUpload;

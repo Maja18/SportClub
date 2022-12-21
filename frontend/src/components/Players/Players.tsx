@@ -10,12 +10,13 @@ import CardStyle from '../../styled-components/CardStyle';
 import ButtonDivStyle from '../../styled-components/ButtonDivStyle';
 import BadgeStyle from '../../styled-components/BadgeStyle';
 import axiosInstance from '../../axios-api/axios_instance';
-import useToggleModalHook from '../../hooks/UseToggleModal';
+import useToggleModal from '../../hooks/useToggleModal';
+
 
 const Players = () => {
     const [players, setPlayers] = useState<Player[]>([]);
     let navigate = useNavigate(); 
-    const [toggle, modal, id] = useToggleModalHook();
+    const [toggle, showModal, id] = useToggleModal();
 
     useEffect(() => {
         axiosInstance.get('/player').then(response => {
@@ -77,7 +78,7 @@ const Players = () => {
             </Card>
             {/* Modal */}
             <div>
-            <Modal isOpen={modal}
+            <Modal isOpen={showModal}
                 toggle={() => toggle}>
                 <ModalHeader toggle={() => toggle}>
                 <BsTrash></BsTrash>

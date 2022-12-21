@@ -2,7 +2,7 @@ import React , {useContext, useEffect} from 'react';
 import image from '../../assets/background.png'
 import { AuthContext } from '../../context/auth-context';
 import styled from 'styled-components';
-import useAuthContextHook from '../../hooks/UseAuthContextHook';
+import useAuthContextHook from '../../hooks/useAuthContext';
 
 const DivStyle = styled.div`
     margin-top: 40px;

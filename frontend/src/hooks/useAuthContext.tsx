@@ -1,7 +1,7 @@
 import { useContext, useEffect } from "react";
 import { AuthContext } from "../context/auth-context";
 
-const useAuthContextHook = () => {
+const useAuthContext = () => {
     const authContext = useContext(AuthContext);
     
     useEffect(() => {
@@ -11,4 +11,4 @@ const useAuthContextHook = () => {
     return authContext;
 }
 
-export default useAuthContextHook;
+export default useAuthContext;

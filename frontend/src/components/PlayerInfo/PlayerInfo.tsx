@@ -13,7 +13,7 @@ import PhotoCardStyle from '../../styled-components/PhotoCardStyle';
 import ImageStyle from '../../styled-components/IImageStyle';
 import DivPlayerStyle from '../../styled-components/DivPlayerStyle';
 import axiosInstance from '../../axios-api/axios_instance';
-import useAuthContextHook from '../../hooks/UseAuthContextHook';
+import useAuthContextHook from '../../hooks/useAuthContext';
 
 const PlayerInfo = () => {
     const params = useParams();

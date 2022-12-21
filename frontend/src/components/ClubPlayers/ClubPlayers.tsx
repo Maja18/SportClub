@@ -6,7 +6,6 @@ import { Link } from 'react-router-dom';
 import { MdOutlineSportsKabaddi } from 'react-icons/md';
 import { useNavigate } from "react-router-dom";
 import { BsTrash } from 'react-icons/bs';
-import { AuthContext } from '../../context/auth-context';
 import Player from '../../model/Player';
 import Club from '../../model/Club';
 import CardStyle from '../../styled-components/CardStyle';
@@ -14,8 +13,8 @@ import ButtonDivStyle from '../../styled-components/ButtonDivStyle';
 import BadgeStyle from '../../styled-components/BadgeStyle'
 import RemovePlayer from '../../model/RemovePlayer';
 import axiosInstance from '../../axios-api/axios_instance';
-import useAuthContextHook from '../../hooks/UseAuthContextHook';
-import useToggleModalHook from '../../hooks/UseToggleModal';
+import useAuthContextHook from '../../hooks/useAuthContext';
+import useToggleModal from '../../hooks/useToggleModal';
 
   const ClubPlayers = () => {
     const [clubPlayers, setClubPlayers] = useState<Player[]>([]);
@@ -23,7 +22,7 @@ import useToggleModalHook from '../../hooks/UseToggleModal';
     const params = useParams();
     let navigate = useNavigate(); 
     const authContext = useAuthContextHook();
-    const [toggle, modal, id] = useToggleModalHook();
+    const [toggle, showModal, id] = useToggleModal();
 
     useEffect(() => {
         axiosInstance.get('/player/players/' + params.id).then(response => {
@@ -101,7 +100,7 @@ import useToggleModalHook from '../../hooks/UseToggleModal';
             </Card>
             {/* Modal */}
             <div>
-            <Modal isOpen={modal}
+            <Modal isOpen={showModal}
                 toggle={() => toggle}>
                 <ModalHeader toggle={() => toggle}>
                 <BsTrash></BsTrash>

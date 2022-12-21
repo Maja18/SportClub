@@ -9,7 +9,7 @@ import CardStyle from '../../styled-components/CardStyle';
 import ButtonDivStyle from '../../styled-components/ButtonDivStyle';
 import BadgeStyle from '../../styled-components/BadgeStyle';
 import axiosInstance from '../../axios-api/axios_instance';
-import useAuthContextHook from '../../hooks/UseAuthContextHook';
+import useAuthContextHook from '../../hooks/useAuthContext';
 
 const SportClubs = () => {
     const [clubs, setClubs] = useState<Club[]>([]);
