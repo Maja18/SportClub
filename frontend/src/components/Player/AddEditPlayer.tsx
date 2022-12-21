@@ -21,10 +21,10 @@ import { MdOutlineSportsKabaddi } from 'react-icons/md';
 import DropdownStyle from '../../styled-components/DropDownStyle';
 import Multiselect from 'multiselect-react-dropdown';
 import { showToastMessage } from '../../toasts/ToastMessage';
+import useUploadHook from '../../hooks/UseUploadHook';
 
 const AddEditPlayer = () => {
-    const [fileName, setFileName] = useState('');
-    const [selectedFiles, setSelectedFiles] = useState<File | null>(null);
+    //const [fileName, setFileName] = useState('');
     const [currentFile, setCurrentFile] = useState<File | undefined>(undefined);
     const [imageBytes, setImageBytes] = useState<Int8Array>()
     const [player, setPlayer] = useState<Player>({id: 0, playerName: '', salary:'', playerSkills:[], image:''})
@@ -35,11 +35,12 @@ const AddEditPlayer = () => {
     const params = useParams();
     const [addSkills, setAddSkills] = useState(false)
     const [dropdownSkills, setDropdonSkills] = useState<Skill[]>([])
-    const [isPictureChanged, setIsPictureChanged] = useState(false)
+    //const [isPictureChanged, setIsPictureChanged] = useState(false)
     const navigate = useNavigate();
     const toggle = () => setDropdownOpen((prevState) => !prevState);
     const location = useLocation();
     const [isAddPlayer, setIsAddPlayer] = useState(location.state.isAddPlayer)
+    const [fileName, isPictureChanged, selectedFiles, selectFile, uploadImage] = useUploadHook()
 
     const playerSchema = () => {
        let name = Yup.string().matches(/^[a-zA-Z ]+$/, 'Invalid Name. Avoid Special characters!').required('Name is required!');
@@ -72,42 +73,6 @@ const AddEditPlayer = () => {
             console.log(res);
         });   
     }, []);
-
-    const selectFile = (event: React.FormEvent<HTMLInputElement>) => {
-        if (event.currentTarget.files !== null){
-            setSelectedFiles(event.currentTarget.files[0]);
-        }
-    };
-
-    const uploadImage = () => {
-        if ( selectedFiles !== null){
-            let currentFile = selectedFiles;
-
-            setCurrentFile(currentFile);
-            upload(currentFile)
-            .catch(() => {
-                setCurrentFile(undefined);
-            });
-            setSelectedFiles(null);
-            setIsPictureChanged(true)
-        }
-    };
-
-    const upload = (file: File) => {
-        let formData = new FormData();
-      
-        formData.append("file", file);
-      
-        return axiosInstance.post('/player/saveImage', formData, 
-        {headers: {"Content-Type": "multipart/form-data"}})
-        .then(response => {
-            setFileName(response.data)
-        })
-        .catch(response => {
-            console.log(response.data)
-            alert("Something went wrong with uploading image")
-        });
-    };
 
     const remove = (event: React.MouseEvent<HTMLElement>, skill:Skill) => {
         event.preventDefault()
