@@ -1,7 +1,6 @@
 import React, {useState, useEffect, useContext} from 'react'; 
 import {Card,CardHeader,ListGroup,ListGroupItem,Badge,Button} from 'reactstrap';
 import { FcSportsMode } from 'react-icons/fc';
-import axios from 'axios';
 import { Link } from 'react-router-dom';
 import { useNavigate } from "react-router-dom";
 import { AuthContext } from '../../context/auth-context';
@@ -10,15 +9,12 @@ import CardStyle from '../../styled-components/CardStyle';
 import ButtonDivStyle from '../../styled-components/ButtonDivStyle';
 import BadgeStyle from '../../styled-components/BadgeStyle';
 import axiosInstance from '../../axios-api/axios_instance';
+import useAuthContextHook from '../../hooks/UseAuthContextHook';
 
 const SportClubs = () => {
     const [clubs, setClubs] = useState<Club[]>([]);
     let navigate = useNavigate(); 
-    const authContext = useContext(AuthContext);
-
-    useEffect(() => {
-        authContext.auth()
-    },[])
+    const authContext = useAuthContextHook();
 
     useEffect(() => {
         axiosInstance.get('/club').then(response => {

@@ -18,6 +18,7 @@ import { NavLink as Link } from 'react-router-dom';
 import styled from 'styled-components';
 import Login from '../LogIn/Login';
 import AddEditPlayer from '../Player/AddEditPlayer';
+import useAuthContextHook from '../../hooks/UseAuthContextHook';
 
 
 const StyledLink = styled(Link)`
@@ -38,12 +39,8 @@ const StyledLink = styled(Link)`
 
 
 const NavBar = () => {
-    const authContext = useContext(AuthContext);
+    const authContext = useAuthContextHook();
     const [logout] = useState<boolean>(true)
-
-    useEffect(() => {
-        authContext.auth()
-    },[])
 
     const logOut = () => {
         localStorage.removeItem('token');

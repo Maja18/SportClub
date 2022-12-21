@@ -15,6 +15,7 @@ import RoleInput from '../../styled-components/RoleInput';
 import RoleLabel from '../../styled-components/RoleLabel';
 import DivStyle from '../../styled-components/DivStyle';
 import axiosInstance from '../../axios-api/axios_instance';
+import { showToastMessage } from '../../toasts/ToastMessage';
 
     type Action =
         | { type: "UPDATE_FORM"; 
@@ -78,7 +79,7 @@ const EditProfile = () => {
     const [currentRole, setCurrentRole] = useState(location.state.userInfo.role.substring(5));
     const [formState, dispatch] = useReducer(formsReducer, initialState)
     const [showError, setShowError] = useState(false)
-    let navigateTo = useNavigate(); 
+    let navigate = useNavigate(); 
 
     useEffect(() => {
         dispatch({
@@ -91,22 +92,6 @@ const EditProfile = () => {
             })
 
     }, []);
-
-    const showToastMessage = () => {
-        var path = ''
-        if (currentEmail !== enteredEmail || currentRole !== enteredRole){
-            path = '/login'
-        }
-        else{
-            path = '/profile'
-        }
-        toast.success('You have sussessufully edited profile!', {
-            position: toast.POSITION.TOP_RIGHT,
-            autoClose:1000,
-            onClose: () => navigateTo(path)
-        });
-    };
-
 
     const onSubmit = (event: React.MouseEvent<HTMLButtonElement>) => {
         let isFormValid = true
@@ -147,8 +132,18 @@ const EditProfile = () => {
             }
 
             axiosInstance.put('/person', editedPerson).then(response => {
-                showToastMessage()
-            })
+                showToastMessage('You have sussessufully edited profile!')
+                var path = ''
+                if (currentEmail !== enteredEmail || currentRole !== enteredRole){
+                    path = '/login'
+                }
+                else{
+                    path = '/profile'
+                }
+                setTimeout(() => {
+                    navigate(path)
+                }, 3000); 
+                })
             .catch(response => {
                 alert(response.response.data.message);
             }); 

@@ -2,6 +2,7 @@ import React , {useContext, useEffect} from 'react';
 import image from '../../assets/background.png'
 import { AuthContext } from '../../context/auth-context';
 import styled from 'styled-components';
+import useAuthContextHook from '../../hooks/UseAuthContextHook';
 
 const DivStyle = styled.div`
     margin-top: 40px;
@@ -13,11 +14,7 @@ const DivStyle = styled.div`
     `;
 
 const Home = () => {
-    const authContext = useContext(AuthContext);
-
-    useEffect(() => {
-        authContext.auth()
-    },[])
+    const authContext = useAuthContextHook();
 
     return(
         <DivStyle>

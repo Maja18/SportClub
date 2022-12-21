@@ -10,6 +10,7 @@ import AddClub from '../../model/AddClub';
 import ButtonContainerDiv from '../../styled-components/ButtonContainerDiv';
 import ErrorDiv from '../../styled-components/Error';
 import axiosInstance from '../../axios-api/axios_instance';
+import { showToastMessage } from '../../toasts/ToastMessage';
 
         type Action =
         | { type: "UPDATE_FORM"; 
@@ -61,16 +62,8 @@ import axiosInstance from '../../axios-api/axios_instance';
 
 const SportClub = () => {
     const [enteredName, setEnteredName] = useState('');
-    const navigateTo = useNavigate();
+    const navigate = useNavigate();
     const [formState, dispatch] = useReducer(formsReducer, initialState)
-
-    const showToastMessage = () => {
-        toast.success('You have sussessufully added club!', {
-            position: toast.POSITION.TOP_RIGHT,
-            autoClose:1000,
-            onClose: () => navigateTo('/sportClubs')
-        });
-    };
 
     const addClub = () => {
         let isFormValid = true
@@ -102,7 +95,10 @@ const SportClub = () => {
             }
 
             axiosInstance.post('/club', newClub).then(response => {
-                showToastMessage()
+                showToastMessage('You have sussessufully added club!')
+                setTimeout(() => {
+                    navigate('/sportClubs')
+                }, 3000); 
             })
             .catch(response => {
                 alert("Please enter valid data!");

@@ -24,8 +24,6 @@ import { showToastMessage } from '../../toasts/ToastMessage';
 import useUploadHook from '../../hooks/UseUploadHook';
 
 const AddEditPlayer = () => {
-    //const [fileName, setFileName] = useState('');
-    const [currentFile, setCurrentFile] = useState<File | undefined>(undefined);
     const [imageBytes, setImageBytes] = useState<Int8Array>()
     const [player, setPlayer] = useState<Player>({id: 0, playerName: '', salary:'', playerSkills:[], image:''})
     const [playerSkills, setPlayerSkills] = useState<Skill[]>([])
@@ -35,7 +33,6 @@ const AddEditPlayer = () => {
     const params = useParams();
     const [addSkills, setAddSkills] = useState(false)
     const [dropdownSkills, setDropdonSkills] = useState<Skill[]>([])
-    //const [isPictureChanged, setIsPictureChanged] = useState(false)
     const navigate = useNavigate();
     const toggle = () => setDropdownOpen((prevState) => !prevState);
     const location = useLocation();
@@ -44,7 +41,7 @@ const AddEditPlayer = () => {
 
     const playerSchema = () => {
        let name = Yup.string().matches(/^[a-zA-Z ]+$/, 'Invalid Name. Avoid Special characters!').required('Name is required!');
-       let salary = Yup.string().matches(/^[+]?\d+([.]\d+)?$/, 'Invalid salary!').required('salary is required!');
+       let salary = Yup.string().matches(/^[+]?\d+([.]\d+)?$/, 'Invalid salary!').required('Salary is required!');
 
        return Yup.object().shape({
             name: name,
@@ -120,7 +117,6 @@ const AddEditPlayer = () => {
                     salary: values.salary,
                     playerSkills: playerSkills
                 }
-
             }
 
             axiosInstance.put('/player', editedPlayer).then(response => {
@@ -179,7 +175,7 @@ const AddEditPlayer = () => {
                     }
                 }}
                 >
-                {({ errors, touched, values, isValid, handleSubmit }) => (
+                {({ errors, touched, values, handleSubmit }) => (
                     <div>
                         <CardHeader tag="h5">
                             <MdOutlineSportsKabaddi size={25}/>

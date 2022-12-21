@@ -14,21 +14,16 @@ import ButtonDivStyle from '../../styled-components/ButtonDivStyle';
 import BadgeStyle from '../../styled-components/BadgeStyle'
 import RemovePlayer from '../../model/RemovePlayer';
 import axiosInstance from '../../axios-api/axios_instance';
+import useAuthContextHook from '../../hooks/UseAuthContextHook';
+import useToggleModalHook from '../../hooks/UseToggleModal';
 
   const ClubPlayers = () => {
     const [clubPlayers, setClubPlayers] = useState<Player[]>([]);
     const [club, setClub] = useState<Club>({} as Club)
     const params = useParams();
     let navigate = useNavigate(); 
-    const firstTimeRender = useRef<boolean>(true);
-    // Modal open state
-    const [modal, setModal] = useState(false);
-    const [playerId, setPlayerId] = useState(0);
-    const authContext = useContext(AuthContext);
-
-    useEffect(() => {
-        authContext.auth()
-    },[])
+    const authContext = useAuthContextHook();
+    const [toggle, modal, id] = useToggleModalHook();
 
     useEffect(() => {
         axiosInstance.get('/player/players/' + params.id).then(response => {
@@ -47,12 +42,6 @@ import axiosInstance from '../../axios-api/axios_instance';
             console.log(res);
         });
     }, []);
-
-    // Toggle for Modal
-    const toggle = (playerId: number) => {
-        setModal(!modal);
-        setPlayerId(playerId)
-    } 
 
     const addNewPlayer = () => {
         navigate({
@@ -80,11 +69,6 @@ import axiosInstance from '../../axios-api/axios_instance';
                console.log(res);
         });
       };
-
-
-    useEffect(() => { 
-        firstTimeRender.current = false 
-      }, [])
 
     return(
         <CardStyle>
@@ -127,7 +111,7 @@ import axiosInstance from '../../axios-api/axios_instance';
                     This player will be removed from club.
                 </ModalBody>
                 <ModalFooter> 
-                    <Button color="danger" onClick={(e) => { toggle(playerId!); removePlayer(e, playerId!, club.id);}} >Okay</Button>
+                    <Button color="danger" onClick={(e) => { toggle(id!); removePlayer(e, id!, club.id);}} >Okay</Button>
                 </ModalFooter>
             </Modal>
             </div>

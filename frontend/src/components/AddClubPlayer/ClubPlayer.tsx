@@ -10,6 +10,7 @@ import Player from '../../model/Player';
 import CardStyle from '../../styled-components/CardStyle';
 import ButtonContainerDiv from '../../styled-components/ButtonContainerDiv';
 import axiosInstance from '../../axios-api/axios_instance';
+import { showToastMessage } from '../../toasts/ToastMessage';
 
 const ClubPlayer = () => {
     const [dropdownOpen, setDropdownOpen] = useState(false);
@@ -18,17 +19,8 @@ const ClubPlayer = () => {
     const params = useParams();
     const [value,setValue] = useState('Select player');
     const [player, setPlayer] = useState<Player>({} as Player);
-    const navigateTo = useNavigate();
-
+    const navigate = useNavigate();
     const toggle = () => setDropdownOpen((prevState) => !prevState);
-
-    const showToastMessage = () => {
-        toast.success('You have sussessufully added player to club!', {
-            position: toast.POSITION.TOP_RIGHT,
-            autoClose:2000,
-            onClose: () => navigateTo(`/sportClubs/players/${club.id}`)
-        });
-    };
 
     useEffect(() => {
         axiosInstance.get('/club/' + params.id).then(response => {
@@ -67,7 +59,10 @@ const ClubPlayer = () => {
         }
 
         axiosInstance.post('/club/newPlayer', clubData).then(response => {
-            showToastMessage()
+            showToastMessage('You have sussessufully added player to club!')
+             setTimeout(() => {
+                navigate(`/sportClubs/players/${club.id}`)
+            }, 3000); 
         })
         .catch(response => {
             alert("Please enter valid data!");

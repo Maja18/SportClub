@@ -13,6 +13,7 @@ import PhotoCardStyle from '../../styled-components/PhotoCardStyle';
 import ImageStyle from '../../styled-components/IImageStyle';
 import DivPlayerStyle from '../../styled-components/DivPlayerStyle';
 import axiosInstance from '../../axios-api/axios_instance';
+import useAuthContextHook from '../../hooks/UseAuthContextHook';
 
 const PlayerInfo = () => {
     const params = useParams();
@@ -20,11 +21,7 @@ const PlayerInfo = () => {
     const [imageBytes, setImageBytes] = useState<Int8Array>()
     const [playerSkills, setPlayerSkills] = useState<Skill[]>([])
     let navigate = useNavigate(); 
-    const authContext = useContext(AuthContext);
-    
-    useEffect(() => {
-        authContext.auth()
-    },[])
+    const authContext = useAuthContextHook();
 
     useEffect(() => {
         axiosInstance.get('/player/' + params.id)

@@ -10,13 +10,12 @@ import CardStyle from '../../styled-components/CardStyle';
 import ButtonDivStyle from '../../styled-components/ButtonDivStyle';
 import BadgeStyle from '../../styled-components/BadgeStyle';
 import axiosInstance from '../../axios-api/axios_instance';
+import useToggleModalHook from '../../hooks/UseToggleModal';
 
 const Players = () => {
     const [players, setPlayers] = useState<Player[]>([]);
     let navigate = useNavigate(); 
-    // Modal open state
-    const [modal, setModal] = useState(false);
-    const [playerId, setPlayerId] = useState(0);
+    const [toggle, modal, id] = useToggleModalHook();
 
     useEffect(() => {
         axiosInstance.get('/player').then(response => {
@@ -26,16 +25,10 @@ const Players = () => {
         });
     }, []);
 
-    // Toggle for Modal
-    const toggle = (playerId: number) => {
-        setModal(!modal);
-        setPlayerId(playerId)
-    } 
-
     const deletePlayer = (event: React.MouseEvent<HTMLButtonElement>, playerId: number)  => {
         event.preventDefault()
 
-        axiosInstance.delete('/player/' + playerId).then(response => {
+        axiosInstance.delete('/player/' + id).then(response => {
             window.location.reload();
         }).catch(res => {
             alert("Error");
@@ -94,7 +87,7 @@ const Players = () => {
                     This player will be deleted.
                 </ModalBody>
                 <ModalFooter> 
-                    <Button color="danger" onClick={(e) => { toggle(playerId!); deletePlayer(e, playerId!);}} >Okay</Button> 
+                    <Button color="danger" onClick={(e) => { toggle(id!); deletePlayer(e, id!);}} >Okay</Button> 
                 </ModalFooter>
             </Modal>
             </div>
