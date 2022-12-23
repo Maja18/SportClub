@@ -13,9 +13,9 @@ import ButtonDivStyle from '../../styled-components/ButtonDivStyle';
 import BadgeStyle from '../../styled-components/BadgeStyle'
 import RemovePlayer from '../../model/RemovePlayer';
 import axiosInstance from '../../axios-api/axios_instance';
-import useToggleModal from '../../hooks/useToggleModal';
 import { useSelector } from 'react-redux';
 import { RootState } from '../../store/store';
+import useToggleModal from '../../hooks/useToggleModal';
 
   const ClubPlayers = () => {
     const [clubPlayers, setClubPlayers] = useState<Player[]>([]);

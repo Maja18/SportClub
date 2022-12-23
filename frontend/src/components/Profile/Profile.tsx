@@ -5,22 +5,31 @@ import { useNavigate } from "react-router-dom";
 import Person from '../../model/Person';
 import CardStyle from '../../styled-components/CardStyle';
 import axiosInstance from '../../axios-api/axios_instance';
+import { useDispatch, useSelector } from 'react-redux';
+import { AppDispatch, RootState } from '../../store/store';
+import { getLoggedUser } from '../../slices/userSlice';
 
 const Profile = () => {
-    const [user, setUser] = useState<Person>({} as Person);  
-    const [userRole, setUserRole] = useState('')
+    //const [user, setUser] = useState<Person>({} as Person);  
+    //const [userRole, setUserRole] = useState('')
     let navigate = useNavigate(); 
+    const user = useSelector((state: RootState) => state.user.user)
+    const dispatch = useDispatch<AppDispatch>()
 
-    useEffect(() => {
+    useEffect( () => {
+        dispatch(getLoggedUser())
+    }, [])
+
+    /*useEffect(() => {
         console.log('here')
         axiosInstance.get('/person').then(response => {
-            setUser(response.data)
+            //setUser(response.data)
             setUserRole(response.data.role.substring(5))
          }).catch(res => {
                 alert("Error");
                 console.log(res);
          })
-    }, []);
+    }, []);*/
 
     const routeChange = () =>{ 
         let path = `/profile/editProfile`; 
@@ -50,16 +59,16 @@ const Profile = () => {
                 <CardBody>
                     <CardText>
                         <Label>
-                            Name: {user.firstName}
+                            Name: { user && user.firstName}
                         </Label>
                         <Label>
-                            Last name: {user.lastName}
+                            Last name: {user && user.lastName}
                         </Label>
                         <Label>
-                            Email: {user.email}
+                            Email: {user && user.email}
                         </Label>
                         <Label>
-                            Role: {userRole}
+                            Role: {user && user.role.substring(5)}
                         </Label>
                     </CardText>
                     <Button className='button' color='info' onClick={routeChange}>Edit</Button>
