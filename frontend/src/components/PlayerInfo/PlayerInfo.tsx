@@ -4,7 +4,6 @@ import axios from 'axios';
 import {Card,CardBody,CardHeader,ListGroupItem,Label,ListGroup,Button} from 'reactstrap';
 import { MdOutlineSportsKabaddi } from 'react-icons/md';
 import { useNavigate } from "react-router-dom";
-import { AuthContext } from '../../context/auth-context';
 import Player from '../../model/Player';
 import Skill from '../../model/Skill';
 import CardStyle from '../../styled-components/CardStyle';
@@ -13,7 +12,8 @@ import PhotoCardStyle from '../../styled-components/PhotoCardStyle';
 import ImageStyle from '../../styled-components/IImageStyle';
 import DivPlayerStyle from '../../styled-components/DivPlayerStyle';
 import axiosInstance from '../../axios-api/axios_instance';
-import useAuthContextHook from '../../hooks/useAuthContext';
+import { RootState } from '../../store/store';
+import { useSelector } from 'react-redux';
 
 const PlayerInfo = () => {
     const params = useParams();
@@ -21,7 +21,7 @@ const PlayerInfo = () => {
     const [imageBytes, setImageBytes] = useState<Int8Array>()
     const [playerSkills, setPlayerSkills] = useState<Skill[]>([])
     let navigate = useNavigate(); 
-    const authContext = useAuthContextHook();
+    const user = useSelector((state: RootState) => state.user.user)
 
     useEffect(() => {
         axiosInstance.get('/player/' + params.id)
@@ -50,7 +50,7 @@ const PlayerInfo = () => {
                 <CardHeader tag="h5">
                     <MdOutlineSportsKabaddi size={25}/>
                     <span>{player.playerName}</span>
-                    {authContext.role === 'EDITOR' ?
+                    {user && user.role === 'EDITOR' ?
                     <ButtonDivStyle>
                         <Button color="success" outline onClick={editPlayer}  >
                             Edit

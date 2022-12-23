@@ -7,13 +7,13 @@ import AuthContextProvider from './context/auth-context';
 
 function App() {
   return (
-    <AuthContextProvider>
+    //<AuthContextProvider>
     <BrowserRouter>
       <div>
         <NavBar></NavBar>
       </div>
     </BrowserRouter>
-    </AuthContextProvider>
+    //</AuthContextProvider>
   );
 }
 

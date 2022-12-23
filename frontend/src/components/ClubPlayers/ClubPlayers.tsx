@@ -13,16 +13,17 @@ import ButtonDivStyle from '../../styled-components/ButtonDivStyle';
 import BadgeStyle from '../../styled-components/BadgeStyle'
 import RemovePlayer from '../../model/RemovePlayer';
 import axiosInstance from '../../axios-api/axios_instance';
-import useAuthContextHook from '../../hooks/useAuthContext';
 import useToggleModal from '../../hooks/useToggleModal';
+import { useSelector } from 'react-redux';
+import { RootState } from '../../store/store';
 
   const ClubPlayers = () => {
     const [clubPlayers, setClubPlayers] = useState<Player[]>([]);
     const [club, setClub] = useState<Club>({} as Club)
     const params = useParams();
     let navigate = useNavigate(); 
-    const authContext = useAuthContextHook();
     const [toggle, showModal, id] = useToggleModal();
+    const user = useSelector((state: RootState) => state.user.user)
 
     useEffect(() => {
         axiosInstance.get('/player/players/' + params.id).then(response => {
@@ -75,7 +76,7 @@ import useToggleModal from '../../hooks/useToggleModal';
             <CardHeader>
                 <MdOutlineSportsKabaddi size={25}/>
                 <span>{club.name} players</span>
-                {authContext.role === 'EDITOR' ?
+                {user && user.role === 'ROLE_EDITOR' ?
                 <ButtonDivStyle>
                     <Button color="success" outline onClick={addNewPlayer}>
                         Add
@@ -88,7 +89,7 @@ import useToggleModal from '../../hooks/useToggleModal';
                         <Link to={{pathname: `/sportClubs/playersInfo/${player.id}`}}>
                             {player.playerName}
                         </Link>
-                        {authContext.role === 'EDITOR' ?
+                        {user!.role === 'ROLE_EDITOR' ?
                         <BadgeStyle> 
                             <a onClick={() => toggle(player.id)}>
                                 <h6><Badge color="danger" pill className='p-2'>Remove</Badge></h6>

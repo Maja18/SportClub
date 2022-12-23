@@ -36,7 +36,7 @@ public class PlayerController {
                 new ResponseEntity<>(HttpStatus.NOT_FOUND) : ResponseEntity.ok(player);
     }
 
-    @PutMappingsh
+    @PutMapping
     @PreAuthorize("hasAuthority('ROLE_EDITOR')")
     public ResponseEntity<PlayerDTO> editPlayerInfo(@RequestBody PlayerDTO playerDTO ) {
         PlayerDTO player = playerService.editPlayerInfo(playerDTO);

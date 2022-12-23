@@ -12,6 +12,7 @@ const Profile = () => {
     let navigate = useNavigate(); 
 
     useEffect(() => {
+        console.log('here')
         axiosInstance.get('/person').then(response => {
             setUser(response.data)
             setUserRole(response.data.role.substring(5))
