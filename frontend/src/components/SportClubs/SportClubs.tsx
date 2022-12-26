@@ -8,8 +8,9 @@ import CardStyle from '../../styled-components/CardStyle';
 import ButtonDivStyle from '../../styled-components/ButtonDivStyle';
 import BadgeStyle from '../../styled-components/BadgeStyle';
 import axiosInstance from '../../axios-api/axios_instance';
-import {  useSelector } from 'react-redux';
-import {  RootState } from '../../store/store';
+import {  useDispatch, useSelector } from 'react-redux';
+import {  AppDispatch, RootState } from '../../store/store';
+
 
 const SportClubs = () => {
     const [clubs, setClubs] = useState<Club[]>([]);

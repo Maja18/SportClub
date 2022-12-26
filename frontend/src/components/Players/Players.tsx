@@ -2,7 +2,6 @@ import React, {useState, useEffect} from 'react';
 import {Card,CardHeader,ListGroup,ListGroupItem,Badge,Button,Modal,ModalBody,ModalFooter,ModalHeader} from 'reactstrap';
 import { Link } from 'react-router-dom';
 import { useNavigate } from "react-router-dom";
-import axios from 'axios'; 
 import { MdOutlineSportsKabaddi } from 'react-icons/md'; 
 import { BsTrash } from 'react-icons/bs';
 import Player from '../../model/Player';

@@ -21,7 +21,7 @@ import { AppDispatch, RootState } from '../../store/store';
 import StyledLink from '../../styled-components/StyledLink';
 
 const NavBar = () => {
-    const [logout] = useState<boolean>(true)
+    const [logout] = useState(true)
     const user = useSelector((state: RootState) => state.user.user)
     const dispatch = useDispatch<AppDispatch>()
 
@@ -30,7 +30,6 @@ const NavBar = () => {
     };
 
     useEffect( () => {
-        console.log('called')
         dispatch(getLoggedUser())
     }, [])
     
@@ -65,7 +64,7 @@ const NavBar = () => {
                     </NavItem>}
                     {user &&
                     <NavItem className="ms-auto">
-                        <StyledLink to="/"  onClick={logOut}>Logout</StyledLink>
+                        <StyledLink reloadDocument to="/login"  onClick={logOut}>Logout</StyledLink>
                     </NavItem>}
                 </Nav>
             </Navbar>
