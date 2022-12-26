@@ -5,7 +5,6 @@ import axiosInstance from '../axios-api/axios_instance'
 export interface UserState  {
     user: Person | null
 }
-
   
 const initialState: UserState = {
    user: null
@@ -17,7 +16,6 @@ export const getLoggedUser = createAsyncThunk(
       const response = await axiosInstance.get('/person')
       return response.data;  
     }
-
 )
 
 const userSlice = createSlice({

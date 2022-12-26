@@ -4,7 +4,7 @@ import axiosInstance from "../axios-api/axios_instance";
 const useUpload = (url: string) => {
     const [fileName, setFileName] = useState('');
     const [selectedFiles, setSelectedFiles] = useState<File | null>(null);
-    const [currentFile, setCurrentFile] = useState<File | undefined>(undefined);
+  
     const [isPictureChanged, setIsPictureChanged] = useState(false);
 
     const selectFile = (event: React.FormEvent<HTMLInputElement>) => {
@@ -17,11 +17,9 @@ const useUpload = (url: string) => {
         if ( selectedFiles !== null){
             let currentFile = selectedFiles;
 
-            setCurrentFile(currentFile);
+           
             upload(currentFile)
-            .catch(() => {
-                setCurrentFile(undefined);
-            });
+           
             setSelectedFiles(null);
             setIsPictureChanged(true)
         }
@@ -43,7 +41,7 @@ const useUpload = (url: string) => {
         });
     };
 
-    return {fileName: fileName, isPictureChanged: isPictureChanged, selectedFiles: selectedFiles, selectFile: selectFile, uploadImage: uploadImage } 
+    return {fileName, isPictureChanged, selectedFiles, selectFile, uploadImage } 
 
 }
 

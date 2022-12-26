@@ -10,8 +10,6 @@ import { AppDispatch, RootState } from '../../store/store';
 import { getLoggedUser } from '../../slices/userSlice';
 
 const Profile = () => {
-    //const [user, setUser] = useState<Person>({} as Person);  
-    //const [userRole, setUserRole] = useState('')
     let navigate = useNavigate(); 
     const user = useSelector((state: RootState) => state.user.user)
     const dispatch = useDispatch<AppDispatch>()
@@ -19,17 +17,6 @@ const Profile = () => {
     useEffect( () => {
         dispatch(getLoggedUser())
     }, [])
-
-    /*useEffect(() => {
-        console.log('here')
-        axiosInstance.get('/person').then(response => {
-            //setUser(response.data)
-            setUserRole(response.data.role.substring(5))
-         }).catch(res => {
-                alert("Error");
-                console.log(res);
-         })
-    }, []);*/
 
     const routeChange = () =>{ 
         let path = `/profile/editProfile`; 

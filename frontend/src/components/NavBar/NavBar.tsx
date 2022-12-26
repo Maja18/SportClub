@@ -30,6 +30,7 @@ const NavBar = () => {
     };
 
     useEffect( () => {
+
         dispatch(getLoggedUser())
     }, [])
     

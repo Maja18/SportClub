@@ -4,36 +4,30 @@ import { Link } from 'react-router-dom';
 import { useNavigate } from "react-router-dom";
 import { MdOutlineSportsKabaddi } from 'react-icons/md'; 
 import { BsTrash } from 'react-icons/bs';
-import Player from '../../model/Player';
 import CardStyle from '../../styled-components/CardStyle';
 import ButtonDivStyle from '../../styled-components/ButtonDivStyle';
 import BadgeStyle from '../../styled-components/BadgeStyle';
-import axiosInstance from '../../axios-api/axios_instance';
 import useToggleModal from '../../hooks/useToggleModal';
+import { useDispatch, useSelector } from 'react-redux';
+import { AppDispatch, RootState } from '../../store/store';
+import { getPlayers } from '../../slices/playersSlice';
+import { deletePlayer} from '../../slices/playersSlice';
 
 
 const Players = () => {
-    const [players, setPlayers] = useState<Player[]>([]);
     let navigate = useNavigate(); 
     const [toggle, showModal, id] = useToggleModal();
+    const players = useSelector((state: RootState) => state.players.players)
+    const dispatch = useDispatch<AppDispatch>()
 
     useEffect(() => {
-        axiosInstance.get('/player').then(response => {
-            setPlayers(response.data);
-        }).catch(res => {
-            alert("Error");
-        });
-    }, []);
+        dispatch(getPlayers())
+    }, [])
 
-    const deletePlayer = (event: React.MouseEvent<HTMLButtonElement>, playerId: number)  => {
-        event.preventDefault()
-
-        axiosInstance.delete('/player/' + id).then(response => {
+    const deleteExistingPlayer = (playerId: number)  => {
+        dispatch(deletePlayer(id)).unwrap().then(() => {
             window.location.reload();
-        }).catch(res => {
-            alert("Error");
-            console.log(res);
-        });
+        })
       };
 
     const addNewPlayer = () => {
@@ -87,7 +81,7 @@ const Players = () => {
                     This player will be deleted.
                 </ModalBody>
                 <ModalFooter> 
-                    <Button color="danger" onClick={(e) => { toggle(id!); deletePlayer(e, id!);}} >Okay</Button> 
+                    <Button color="danger" onClick={(e) => { toggle(id!); deleteExistingPlayer(id!);}} >Okay</Button> 
                 </ModalFooter>
             </Modal>
             </div>

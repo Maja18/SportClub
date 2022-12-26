@@ -22,6 +22,10 @@ import DropdownStyle from '../../styled-components/DropDownStyle';
 import Multiselect from 'multiselect-react-dropdown';
 import { showToastMessage } from '../../toasts/ToastMessage';
 import useUpload from '../../hooks/useUpload';
+import { AppDispatch } from '../../store/store';
+import { useDispatch } from 'react-redux';
+import {addNewPlayer} from '../../slices/playersSlice'
+
 const AddEditPlayer = () => {
     const [imageBytes, setImageBytes] = useState<Int8Array>()
     const [player, setPlayer] = useState<Player>({id: 0, playerName: '', salary:'', playerSkills:[], image:''})
@@ -37,6 +41,7 @@ const AddEditPlayer = () => {
     const location = useLocation();
     const [isAddPlayer, setIsAddPlayer] = useState(location.state.isAddPlayer)
     const {fileName, isPictureChanged, selectedFiles, selectFile, uploadImage} = useUpload('/player/saveImage')
+    const dispatch = useDispatch<AppDispatch>()
 
     const playerSchema = () => {
        return Yup.object().shape({
@@ -134,18 +139,12 @@ const AddEditPlayer = () => {
             playerSkills: playerSkills
         }
 
-        axiosInstance.post('/player', newPlayer).then(response => {
+        dispatch(addNewPlayer(newPlayer)).unwrap().then(() => {
             showToastMessage('You have sussessufully added new player')
             setTimeout(() => {
                 navigate('/players')
             }, 3000);
-            
-        })
-        .catch(response => {
-            alert("Please enter valid data!");
-            console.log(response);
-        });
-        
+        })    
     };
 
     const onSelect = (skills: Skill[]) => {
