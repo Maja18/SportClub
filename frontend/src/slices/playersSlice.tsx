@@ -1,23 +1,33 @@
-import { createAsyncThunk, createSlice } from '@reduxjs/toolkit'
+import { createAsyncThunk, createSlice, isRejectedWithValue, PayloadAction } from '@reduxjs/toolkit'
 import axiosInstance from '../axios-api/axios_instance';
 import Player from '../model/Player';
 
 export interface PlayersState  {
     players: Player[]
     newPlayer: Player | null
+    deletedPlayer: Player | null
+    error: string | null
+    loading: string
 }
 
   
 const initialState: PlayersState = {
    players: [],
-   newPlayer: null
+   newPlayer: null,
+   deletedPlayer: null,
+   error: null,
+   loading: 'idle',
 }
 
 export const getPlayers = createAsyncThunk(
     "players/getPlayers",
     async () => {
-      const response = await axiosInstance.get('/player')
-      return response.data;  
+        try{
+            const response = await axiosInstance.get('/player')
+            return response.data;  
+        } catch (err: any) {
+            return isRejectedWithValue(err.response.data)
+        }
     }
 )
 
@@ -43,14 +53,38 @@ const playersSlice = createSlice({
     reducers: {
     },
     extraReducers: (builder) => {
-        builder.addCase(getPlayers.fulfilled, (state, action) => {
+        builder.addCase(getPlayers.pending, (state) => {
+            if (state.loading === 'idle') {
+              state.loading = 'pending'
+            }
+        })
+        builder.addCase(getPlayers.fulfilled, (state, action: PayloadAction<Player[]>) => {
             state.players = action.payload
         })
-        builder.addCase(addNewPlayer.fulfilled, (state, action) => {
+        builder.addCase(getPlayers.rejected, (state, action: PayloadAction<any>) => {
+            state.error = action.payload
+        })
+        builder.addCase(addNewPlayer.pending, (state) => {
+            if (state.loading === 'idle') {
+              state.loading = 'pending'
+            }
+        })
+        builder.addCase(addNewPlayer.fulfilled, (state, action: PayloadAction<Player>) => {
             state.newPlayer = action.payload
         })
-        builder.addCase(deletePlayer.fulfilled, (state, action) => {
-            
+        builder.addCase(addNewPlayer.rejected, (state, action: PayloadAction<any>) => {
+            state.error = action.payload
+        })
+        builder.addCase(deletePlayer.pending, (state) => {
+            if (state.loading === 'idle') {
+              state.loading = 'pending'
+            }
+        })
+        builder.addCase(deletePlayer.fulfilled, (state, action: PayloadAction<Player>) => {
+            state.deletedPlayer = action.payload
+        })
+        builder.addCase(deletePlayer.rejected, (state, action: PayloadAction<any>) => {
+            state.error = action.payload
         })
     }
 })

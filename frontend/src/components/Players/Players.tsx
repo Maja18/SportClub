@@ -8,17 +8,17 @@ import CardStyle from '../../styled-components/CardStyle';
 import ButtonDivStyle from '../../styled-components/ButtonDivStyle';
 import BadgeStyle from '../../styled-components/BadgeStyle';
 import useToggleModal from '../../hooks/useToggleModal';
-import { useDispatch, useSelector } from 'react-redux';
-import { AppDispatch, RootState } from '../../store/store';
 import { getPlayers } from '../../slices/playersSlice';
 import { deletePlayer} from '../../slices/playersSlice';
+import { useAppDispatch } from '../../hooks/useAppDispatch';
+import { useAppSelector } from '../../hooks/useAppSelector';
 
 
 const Players = () => {
     let navigate = useNavigate(); 
     const [toggle, showModal, id] = useToggleModal();
-    const players = useSelector((state: RootState) => state.players.players)
-    const dispatch = useDispatch<AppDispatch>()
+    const players = useAppSelector((state) => state.players.players)
+    const dispatch = useAppDispatch()
 
     useEffect(() => {
         dispatch(getPlayers())

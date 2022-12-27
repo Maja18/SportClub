@@ -22,9 +22,8 @@ import DropdownStyle from '../../styled-components/DropDownStyle';
 import Multiselect from 'multiselect-react-dropdown';
 import { showToastMessage } from '../../toasts/ToastMessage';
 import useUpload from '../../hooks/useUpload';
-import { AppDispatch } from '../../store/store';
-import { useDispatch } from 'react-redux';
 import {addNewPlayer} from '../../slices/playersSlice'
+import { useAppDispatch } from '../../hooks/useAppDispatch';
 
 const AddEditPlayer = () => {
     const [imageBytes, setImageBytes] = useState<Int8Array>()
@@ -41,7 +40,7 @@ const AddEditPlayer = () => {
     const location = useLocation();
     const [isAddPlayer, setIsAddPlayer] = useState(location.state.isAddPlayer)
     const {fileName, isPictureChanged, selectedFiles, selectFile, uploadImage} = useUpload('/player/saveImage')
-    const dispatch = useDispatch<AppDispatch>()
+    const dispatch = useAppDispatch()
 
     const playerSchema = () => {
        return Yup.object().shape({

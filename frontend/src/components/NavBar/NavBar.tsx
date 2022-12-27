@@ -15,22 +15,21 @@ import PlayerInfo from '../PlayerInfo/PlayerInfo';
 import ChangePassword from '../EditProfile/ChangePassword';
 import Login from '../LogIn/Login';
 import AddEditPlayer from '../Player/AddEditPlayer';
-import { useSelector, useDispatch } from 'react-redux'
 import {getLoggedUser} from '../../slices/userSlice'
-import { AppDispatch, RootState } from '../../store/store';
 import StyledLink from '../../styled-components/StyledLink';
+import { useAppSelector } from '../../hooks/useAppSelector';
+import { useAppDispatch } from '../../hooks/useAppDispatch';
 
 const NavBar = () => {
     const [logout] = useState(true)
-    const user = useSelector((state: RootState) => state.user.user)
-    const dispatch = useDispatch<AppDispatch>()
+    const user = useAppSelector((state) => state.user.user)
+    const dispatch = useAppDispatch()
 
     const logOut = () => {
         localStorage.removeItem('token');
     };
 
     useEffect( () => {
-
         dispatch(getLoggedUser())
     }, [])
     

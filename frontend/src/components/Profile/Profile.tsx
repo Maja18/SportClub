@@ -1,18 +1,16 @@
-import React, {useState, useEffect} from 'react';
+import React, {useEffect} from 'react';
 import {Button,Card,CardBody,CardText,Label,CardHeader} from 'reactstrap';
 import { CgProfile } from 'react-icons/cg';
 import { useNavigate } from "react-router-dom";
-import Person from '../../model/Person';
 import CardStyle from '../../styled-components/CardStyle';
-import axiosInstance from '../../axios-api/axios_instance';
-import { useDispatch, useSelector } from 'react-redux';
-import { AppDispatch, RootState } from '../../store/store';
 import { getLoggedUser } from '../../slices/userSlice';
+import { useAppSelector } from '../../hooks/useAppSelector';
+import { useAppDispatch } from '../../hooks/useAppDispatch';
 
 const Profile = () => {
     let navigate = useNavigate(); 
-    const user = useSelector((state: RootState) => state.user.user)
-    const dispatch = useDispatch<AppDispatch>()
+    const user = useAppSelector((state) => state.user.user)
+    const dispatch = useAppDispatch()
 
     useEffect( () => {
         dispatch(getLoggedUser())
