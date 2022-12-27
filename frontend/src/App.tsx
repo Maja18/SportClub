@@ -1,19 +1,19 @@
-import React from 'react';
+import React, { useState } from 'react';
 import './App.css';
 
 import NavBar from './components/NavBar/NavBar';
 import { BrowserRouter } from 'react-router-dom';
-import AuthContextProvider from './context/auth-context';
+import Figma from './components/Figma/Figma';
 
 function App() {
+  const [isFigma, setIsFigma] = useState(false)
+
   return (
-    //<AuthContextProvider>
     <BrowserRouter>
       <div>
-        <NavBar></NavBar>
+       <NavBar isFigma={isFigma}></NavBar> 
       </div>
     </BrowserRouter>
-    //</AuthContextProvider>
   );
 }
 
