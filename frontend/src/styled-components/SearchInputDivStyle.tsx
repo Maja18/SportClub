@@ -1,5 +1,5 @@
 import styled from 'styled-components';
-import RowStyle from './RowStyle';
+import RowStyle from './header/RowStyle';
 
 const SearchInputDivStyle = styled(RowStyle)`
     display: flex;

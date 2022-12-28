@@ -1,38 +1,23 @@
 
-import RectangleStyle from '../../styled-components/Rectangle';
-import RowStyle from '../../styled-components/RowStyle';
-import SearchBarRectangleStyle from '../../styled-components/SearchBarRectangleStyle';
-import SearchBarStyle from '../../styled-components/SearchBarStyle';
-import SearchButtonDivStyle from '../../styled-components/SearchButtonDivStyle';
-import SearchButtonStyle from '../../styled-components/SearchButtonStyle';
-import SearchInputDivStyle from '../../styled-components/SearchInputDivStyle';
-import SearchInputStyle from '../../styled-components/SearchInputStyle';
-import searchIcon from '../../assets/searchIcon.png'
+import RowStyle from '../../styled-components/header/RowStyle';
+import Header from './Header';
+import MainMenuBar from './MainMenuBar';
+import SecondHeader from './SecondHeader';
 
 const Figma = () => {
     return(
         <div>
             <RowStyle>
-                <RectangleStyle>
-                    <SearchBarStyle>
-                        <SearchBarRectangleStyle>
-                            <SearchInputDivStyle>
-                                <SearchInputStyle>
-                                    Search creative directions A24
-                                </SearchInputStyle>    
-                            </SearchInputDivStyle>
-                            
-                            {/* Search button*/}
-                            <SearchButtonDivStyle>
-                                <SearchButtonStyle>
-                                    <img src={searchIcon} alt='Search'></img>
-                                </SearchButtonStyle>  
-                            </SearchButtonDivStyle>
+                <Header>  
+                </Header>
 
-                        </SearchBarRectangleStyle>
-                    </SearchBarStyle>
-                </RectangleStyle>
+                <SecondHeader>
+                    
+                </SecondHeader>
             </RowStyle>
+            <MainMenuBar>
+                
+            </MainMenuBar>
         </div>
     );
 }
