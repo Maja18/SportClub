@@ -1,10 +1,10 @@
 
-import DesignThread from "../../styled-components/mainMenuBar/DesignThread.styled";
-import Label from "../../styled-components/mainMenuBar/Label.styled";
-import NewThread from "../../styled-components/mainMenuBar/NewThread.styled";
-import SalesMarketingThread from "../../styled-components/mainMenuBar/SalesMarketingThread.styled";
-import ThreadMenuItem from "../../styled-components/mainMenuBar/ThreadMenuItem.styled";
-import ThreadMenuItemsDiv from "../../styled-components/mainMenuBar/ThreadMenuItemsDiv.styled";
+import DesignThread from "../../styled-components/mainMenuBar/threads/DesignThread.styled";
+import Label from "../../styled-components/mainMenuBar/threads/Label.styled";
+import NewThread from "../../styled-components/mainMenuBar/threads/NewThread.styled";
+import SalesMarketingThread from "../../styled-components/mainMenuBar/threads/SalesMarketingThread.styled";
+import ThreadMenuItem from "../../styled-components/mainMenuBar/threads/ThreadMenuItem.styled";
+import ThreadMenuItemsDiv from "../../styled-components/mainMenuBar/threads/ThreadMenuItemsDiv.styled";
 
 
 const ThreadMenuItems = (props: any) => {

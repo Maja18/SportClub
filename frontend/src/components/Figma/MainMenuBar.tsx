@@ -1,36 +1,17 @@
-
-import ChatDropdown from "../../styled-components/mainMenuBar/ChatDropdown.styled";
-import Chats from "../../styled-components/mainMenuBar/Chats.styled";
 import Column from "../../styled-components/mainMenuBar/Column.styled";
-import LineDevider from "../../styled-components/mainMenuBar/LineDevider.styled";
-import ThreadDropdown from "../../styled-components/mainMenuBar/ThreadDropdown.styled";
-import Threads from "../../styled-components/mainMenuBar/Threads.styled";
-import ChatMenuItems from "./ChatMenuItems";
-import ThreadMenuItems from "./ThreadMenuItems";
+import ChatList from "./ChatList";
+import FilesMedia from "./FilesMedia";
+import ThreadList from "./ThreadList";
 
 const MainMenuBar = (props: any) => {
     return(
         <Column>
-            <Threads>
-                <ThreadDropdown>
-                    THREADS
-                    <span></span>
-                </ThreadDropdown>
-            </Threads>
-            <ThreadMenuItems> 
-            </ThreadMenuItems>
-            <LineDevider>
-            </LineDevider>
+            {/* Threads */}
+            <ThreadList></ThreadList>
             {/* Chats */}
-            <Chats>
-                <ChatDropdown>
-                    CHATS
-                    <span></span>
-                </ChatDropdown>
-            </Chats>
-            <ChatMenuItems>
-                
-            </ChatMenuItems>
+            <ChatList></ChatList>
+            {/* Files & Media */}
+            <FilesMedia></FilesMedia>
         </Column>
     );
 }

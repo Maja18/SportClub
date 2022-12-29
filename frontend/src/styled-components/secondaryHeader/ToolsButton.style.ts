@@ -4,7 +4,7 @@ import RowStyle from '../header/RowStyle';
 const ToolsButton = styled(RowStyle)`
     width: 37px;
     height: 33px;
-    left: 1823px;
+    left: 1843px;
     top: calc(50% - 33px/2); 
 `;
 

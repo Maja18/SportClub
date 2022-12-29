@@ -1,5 +1,5 @@
 import styled from 'styled-components';
-import Column from './Column.styled';
+import Column from '../Column.styled';
 
 const Threads = styled(Column)`
     display: flex;

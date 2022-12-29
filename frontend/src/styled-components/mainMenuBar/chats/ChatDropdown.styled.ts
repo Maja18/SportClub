@@ -1,5 +1,5 @@
 import styled from 'styled-components';
-import ThreadDropdown from './ThreadDropdown.styled';
+import ThreadDropdown from '../threads/ThreadDropdown.styled';
 
 const ChatDropdown = styled(ThreadDropdown)`
    span {

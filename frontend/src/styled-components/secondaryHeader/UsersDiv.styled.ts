@@ -13,7 +13,7 @@ const UsersDiv = styled(RowStyle)`
     position: relative;
     width: 197px;
     height: 33px;
-    left: 1593px;
+    left: 1627px;
     //right: 93px;
     top: calc(50% - 33px/2);
 
