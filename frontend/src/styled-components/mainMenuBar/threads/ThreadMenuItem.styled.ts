@@ -1,16 +1,16 @@
 import styled from 'styled-components';
 import Column from '../Column.styled';
 
-const ThreadMenuItem = styled(Column)`
+const ThreadMenuItem = styled.div`
+    display: flex;
     flex-direction: row;
-    justify-content: left;
+    justify-content: center;
     align-items: center;
     padding: 5px 28px;
     gap: 12px;
 
     width: 288px;
     height: 29px;
-    top: 10px;
 
     /* Inside auto layout */
     flex: none;

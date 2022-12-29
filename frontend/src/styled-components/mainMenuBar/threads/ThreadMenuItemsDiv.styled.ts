@@ -3,7 +3,7 @@ import Column from '../Column.styled';
 
 const ThreadMenuItemsDiv = styled(Column)`
     display: flex;
-    flex-direction: column;
+    flex-direction: column;  //child el ce biti kolone 
     align-items: flex-start;
     padding: 0px;
     gap: 5px;

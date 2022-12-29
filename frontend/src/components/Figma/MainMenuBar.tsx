@@ -5,7 +5,7 @@ import ThreadList from "./ThreadList";
 
 const MainMenuBar = (props: any) => {
     return(
-        <Column>
+        <Column>  {/* parent */}
             {/* Threads */}
             <ThreadList></ThreadList>
             {/* Chats */}
