@@ -1,7 +1,7 @@
 import styled from 'styled-components';
-import RowStyle from './RowStyle';
+import { Row } from '../figma/Layout.styled';
 
-const SearchBarStyle = styled(RowStyle)`
+const SearchBarStyle = styled.div` //div ili row?
     position: relative;
     width: 800px;
     height: 35px;

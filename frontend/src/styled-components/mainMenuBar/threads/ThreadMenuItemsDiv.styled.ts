@@ -1,16 +1,14 @@
 import styled from 'styled-components';
-import Column from '../Column.styled';
+import { Column } from '../../figma/Layout.styled';
 
 const ThreadMenuItemsDiv = styled(Column)`
-    display: flex;
-    flex-direction: column;  //child el ce biti kolone 
-    align-items: flex-start;
     padding: 0px;
     gap: 5px;
 
     width: 288px;
     height: 131px;
-    top: 80px;
+    position: relative;
+    top: 50px;
 
     /* Inside auto layout */
 

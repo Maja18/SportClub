@@ -1,10 +1,10 @@
 import styled from 'styled-components';
-import RowStyle from '../header/RowStyle';
 
-const ToolsButton = styled(RowStyle)`
+const ToolsButton = styled.div`
+    position: relative;
     width: 37px;
     height: 33px;
-    left: 1843px;
+    left: 1650px;
     top: calc(50% - 33px/2); 
 `;
 

@@ -1,7 +1,7 @@
 import styled from 'styled-components';
-import RowStyle from '../header/RowStyle';
+import { Row } from '../figma/Layout.styled';
 
-const UsersInputDiv = styled(RowStyle)`
+const UsersInputDiv = styled(Row)`
     display: flex;
     flex-direction: row;
     align-items: flex-start;

@@ -1,5 +1,5 @@
 import styled from 'styled-components';
-import Column from '../Column.styled';
+import { Column } from '../../figma/Layout.styled';
 
 const ChatMenuItemsDiv = styled(Column)`
     display: flex;
@@ -10,7 +10,9 @@ const ChatMenuItemsDiv = styled(Column)`
 
     width: 289px;
     height: 239px;
-    top: 360px;
+
+    position: relative;
+    top: 95px;
 
     /* Inside auto layout */
 

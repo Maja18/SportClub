@@ -1,5 +1,4 @@
 import styled from 'styled-components';
-import Column from '../Column.styled';
 
 const ChatMenuItem = styled.div`
     display: flex;
@@ -11,7 +10,6 @@ const ChatMenuItem = styled.div`
     width: 288px;
     height: 43px;
     top: 0px;
-
 
     /* Inside auto layout */
 

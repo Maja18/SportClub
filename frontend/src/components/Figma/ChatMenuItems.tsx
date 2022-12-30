@@ -8,49 +8,60 @@ import user2 from '../../assets/bob.png'
 import user3 from '../../assets/gema.png'
 import user4 from '../../assets/harry.png'
 import user5 from '../../assets/omega.png'
+import LabelDiv from "../../styled-components/mainMenuBar/chats/LabelDiv.styled";
 
 const ChatMenuItems = (props: any) => {
     return(
         <ChatMenuItemsDiv>
-            <ChatMenuItemDiv> {/* jel treba oba? */}
-                <ChatMenuItem>
+            <ChatMenuItemDiv> 
+                <ChatMenuItem> 
                     <Item>
                         <img src={user1} alt='user'></img>
-                        <ChatLabel>
-                            Anna Derux
-                        </ChatLabel>
+                        <LabelDiv>
+                            <ChatLabel>
+                                Anna Derux
+                            </ChatLabel>
+                        </LabelDiv>
                     </Item>
                 </ChatMenuItem>
                 <ChatMenuItem>
                     <Item>
                         <img src={user2} alt='user'></img>
-                        <ChatLabel>
-                            Bob Stanhope
-                        </ChatLabel>
+                        <LabelDiv>
+                            <ChatLabel>
+                                Bob Stanhope
+                            </ChatLabel>
+                        </LabelDiv>
                     </Item>
                 </ChatMenuItem>
                 <ChatMenuItem>
                     <Item>
                         <img src={user3} alt='user'></img>
-                        <ChatLabel>
-                            Gemma Chambers
-                        </ChatLabel>
+                        <LabelDiv>
+                            <ChatLabel>
+                                Gemma Chambers
+                            </ChatLabel>
+                        </LabelDiv>
                     </Item>
                 </ChatMenuItem>
                 <ChatMenuItem>
                     <Item>
                         <img src={user4} alt='user'></img>
-                        <ChatLabel>
-                            Harry Stilton
-                        </ChatLabel>
+                        <LabelDiv>
+                            <ChatLabel>
+                                Harry Stilton
+                            </ChatLabel>
+                        </LabelDiv>
                     </Item>
                 </ChatMenuItem>
                 <ChatMenuItem>
                     <Item>
                         <img src={user5} alt='user'></img>
-                        <ChatLabel>
-                            Omega Evans
-                        </ChatLabel>
+                        <LabelDiv>
+                            <ChatLabel>
+                                Omega Evans
+                            </ChatLabel>
+                        </LabelDiv>
                     </Item>
                 </ChatMenuItem>
             </ChatMenuItemDiv>

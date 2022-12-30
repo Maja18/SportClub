@@ -4,7 +4,7 @@ import Column from '../Column.styled';
 const Item = styled.div`
     display: flex;
     flex-direction: row;
-    justify-content: left;  //center tamo?
+    justify-content: center; 
     align-items: center;
     padding: 5px 28px;
     gap: 12px;

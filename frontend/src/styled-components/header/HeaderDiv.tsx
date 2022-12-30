@@ -1,9 +1,7 @@
 import styled from 'styled-components';
-import RowStyle from './RowStyle';
+import { Row } from '../figma/Layout.styled';
 
-const HeaderDiv = styled(RowStyle)`
-    position: relative;
-    bottom: 0px;
+const HeaderDiv = styled(Row)`
     background: #2B0B2D;
 `;
 

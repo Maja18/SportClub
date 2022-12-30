@@ -1,9 +1,7 @@
 import styled from 'styled-components';
+import { Column } from '../figma/Layout.styled';
 
-const Tools = styled.div`
-    display: flex;
-    flex-direction: column;
-    align-items: flex-start;
+const Tools = styled(Column)`
     padding: 0px;
     gap: 13px;
 

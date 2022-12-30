@@ -1,7 +1,6 @@
 import styled from 'styled-components';
-import RowStyle from './header/RowStyle';
 
-const SearchInputDivStyle = styled(RowStyle)`
+const SearchInputDivStyle = styled.div`
     display: flex;
     flex-direction: row;
     align-items: flex-start;

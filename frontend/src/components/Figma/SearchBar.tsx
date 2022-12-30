@@ -9,22 +9,21 @@ import searchIcon from '../../assets/searchIcon.png'
 const SearchBar = () => {
     return(
         <SearchBarStyle>
-                <SearchBarRectangleStyle>
-                    <SearchInputDivStyle>
-                        <SearchInputStyle>
-                            Search creative directions A24
-                        </SearchInputStyle>    
-                    </SearchInputDivStyle>
-                    
-                    {/* Search button*/}
-                    <SearchButtonDivStyle>
-                        <SearchButtonStyle>
-                            <img src={searchIcon} alt='Search'></img>
-                        </SearchButtonStyle>  
-                    </SearchButtonDivStyle>
-
-                </SearchBarRectangleStyle>
-            </SearchBarStyle>
+            <SearchBarRectangleStyle>
+                <SearchInputDivStyle>
+                    <SearchInputStyle>
+                        Search creative directions A24
+                    </SearchInputStyle>    
+                </SearchInputDivStyle>
+                
+                {/* Search button*/}
+                <SearchButtonDivStyle>
+                    <SearchButtonStyle>
+                        <img src={searchIcon} alt='Search'></img>
+                    </SearchButtonStyle>  
+                </SearchButtonDivStyle>
+            </SearchBarRectangleStyle>
+        </SearchBarStyle>
     )
 }
 

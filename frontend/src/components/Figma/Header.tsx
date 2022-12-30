@@ -24,7 +24,6 @@ const Header = (props: any) => {
             <UserProfilePhoto>
                 <img src={userProfile} alt='profile'></img>
             </UserProfilePhoto>
-
         </HeaderDiv>
     );
 }

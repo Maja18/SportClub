@@ -1,5 +1,4 @@
 import styled from 'styled-components';
-import Column from '../Column.styled';
 
 const ThreadMenuItem = styled.div`
     display: flex;

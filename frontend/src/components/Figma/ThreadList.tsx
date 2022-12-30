@@ -5,7 +5,7 @@ import ThreadMenuItems from "./ThreadMenuItems";
 
 const ThreadList = (props: any) => {
     return(
-       <div>  {/* child */}
+       <div>
         <Threads> {/* threads title */}
             <ThreadDropdown>
                 THREADS

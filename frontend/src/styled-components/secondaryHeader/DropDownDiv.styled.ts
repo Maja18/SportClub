@@ -1,12 +1,8 @@
 import styled from 'styled-components';
-import RowStyle from '../header/RowStyle';
+import { Row } from '../figma/Layout.styled';
 
-const DropDownDiv = styled(RowStyle)`
+const DropDownDiv = styled(Row)`
     /* Auto layout */
-
-    display: flex;
-    flex-direction: row;
-    align-items: flex-start;
     padding: 0px;
     gap: 14px;
 

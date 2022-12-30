@@ -10,14 +10,13 @@ const PageDiv = styled.div`
     height: auto;
 
     @media screen and (max-width: 1200px) {
-        div {
-        background-color:blue;
-    }
+       
+        //background-color:blue;
+        //width: 100%;
     }
 
     @media screen and (min-width: 2100px) {
-        float: none; 
-        width: 100%;
+        //width: 100%;
     }
 `;
 

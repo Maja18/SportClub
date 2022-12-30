@@ -10,6 +10,12 @@ const FilesMediaItem = styled.div`
 
     width: 180px;
     height: 25px;  
+
+    /* Inside auto layout */
+
+    flex: none;
+    order: 0;
+    flex-grow: 0;
 `;
 
 export default FilesMediaItem;

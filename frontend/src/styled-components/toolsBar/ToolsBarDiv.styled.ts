@@ -1,8 +1,7 @@
 import styled from 'styled-components';
-import Column from '../mainMenuBar/Column.styled';
+import { Column } from '../figma/Layout.styled';
 
 const ToolsBarDiv = styled(Column)`
-    position: absolute;
     width: 290px;
     right: 0px;
     top: 122px;

@@ -1,5 +1,4 @@
 import styled from 'styled-components';
-import Column from '../mainMenuBar/Column.styled';
 
 const TextDiv = styled.div`
     display: flex;

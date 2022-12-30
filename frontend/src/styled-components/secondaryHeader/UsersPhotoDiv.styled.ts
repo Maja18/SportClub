@@ -1,7 +1,7 @@
 import styled from 'styled-components';
-import RowStyle from '../header/RowStyle';
+import { Row } from '../figma/Layout.styled';
 
-const UsersPhotoDiv = styled(RowStyle)`
+const UsersPhotoDiv = styled(Row)`
     /* Auto layout */
 
     display: flex;

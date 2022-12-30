@@ -1,7 +1,7 @@
 import styled from 'styled-components';
-import RowStyle from './header/RowStyle';
+import { Row } from './figma/Layout.styled';
 
-const SearchInputStyle = styled(RowStyle)`
+const SearchInputStyle = styled(Row)`
     width: 179px;
     height: 16px;
     font-family: 'Roboto';

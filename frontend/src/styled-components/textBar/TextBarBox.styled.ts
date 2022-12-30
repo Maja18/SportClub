@@ -8,6 +8,7 @@ const TextBarBox = styled.div`
     right: 0px;
     top: 0px;
     bottom: 0px;
+    //width: 1270px;
 
     border: 3px solid #D3D3D3;
     border-radius: 8px;

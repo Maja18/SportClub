@@ -1,5 +1,5 @@
 import styled from 'styled-components';
-import Column from '../mainMenuBar/Column.styled';
+import { Column } from '../figma/Layout.styled';
 
 const TextBarDiv = styled(Column)`
     position: relative;
