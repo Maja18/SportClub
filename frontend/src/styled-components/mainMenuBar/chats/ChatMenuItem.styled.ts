@@ -1,6 +1,6 @@
 import styled from 'styled-components';
 
-const ChatMenuItem = styled.div`
+export const ChatMenuItem = styled.div`
     display: flex;
     flex-direction: row;
     align-items: center;
@@ -17,5 +17,3 @@ const ChatMenuItem = styled.div`
     order: 0;
     flex-grow: 0;
 `;
-
-export default ChatMenuItem;

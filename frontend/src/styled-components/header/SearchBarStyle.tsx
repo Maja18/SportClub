@@ -1,7 +1,7 @@
 import styled from 'styled-components';
 import { Row } from '../figma/Layout.styled';
 
-const SearchBarStyle = styled.div` //div ili row?
+export const SearchBarStyle = styled.div` //div ili row?
     position: relative;
     width: 800px;
     height: 35px;
@@ -10,5 +10,3 @@ const SearchBarStyle = styled.div` //div ili row?
     background-color: #F6F6F6;
     border-radius: 8px;
 `;
-
-export default SearchBarStyle;

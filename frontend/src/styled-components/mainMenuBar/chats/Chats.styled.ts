@@ -1,7 +1,7 @@
 import styled from 'styled-components';
 import { Column } from '../../figma/Layout.styled';
 
-const Chats = styled(Column)`
+export const Chats = styled(Column)`
    flex-direction: row;
    justify-content: center;
    align-items: center;
@@ -18,5 +18,3 @@ const Chats = styled(Column)`
    flex-grow: 0;
    top: 275px;
 `;
-
-export default Chats;

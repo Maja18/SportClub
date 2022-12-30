@@ -1,6 +1,6 @@
 import styled from 'styled-components';
 
-const TextBarBox = styled.div`
+export const TextBarBox = styled.div`
     box-sizing: border-box;
 
     position: absolute;
@@ -13,5 +13,3 @@ const TextBarBox = styled.div`
     border: 3px solid #D3D3D3;
     border-radius: 8px;
 `;
-
-export default TextBarBox;

@@ -1,7 +1,7 @@
 import styled from 'styled-components';
 import { Row } from '../figma/Layout.styled';
 
-const SearchButtonDivStyle = styled(Row)`
+export const SearchButtonDivStyle = styled(Row)`
     //position: absolute;
     width: 51px;
     height: 35px;
@@ -9,5 +9,3 @@ const SearchButtonDivStyle = styled(Row)`
     top: 0px; 
     bottom: 0px;
 `;
-
-export default SearchButtonDivStyle;

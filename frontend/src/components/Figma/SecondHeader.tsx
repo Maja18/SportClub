@@ -1,8 +1,8 @@
-import SecondaryHeader from "../../styled-components/secondaryHeader/SecondaryHeader.styled";
+import {SecondaryHeader} from "../../styled-components/secondaryHeader/SecondaryHeader.styled";
 import toolsButton from '../../assets/toolsButton.png'
-import ToolsButton from "../../styled-components/secondaryHeader/ToolsButton.style";
-import DropDownDiv from "../../styled-components/secondaryHeader/DropDownDiv.styled";
-import DropDown from "../../styled-components/secondaryHeader/DropDown.styled";
+import {ToolsButton} from "../../styled-components/secondaryHeader/ToolsButton.style";
+import {DropDownDiv} from "../../styled-components/secondaryHeader/DropDownDiv.styled";
+import {DropDown} from "../../styled-components/secondaryHeader/DropDown.styled";
 import HeaderUsers from "./HeaderUsers";
 
 

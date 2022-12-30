@@ -1,7 +1,7 @@
 import styled from 'styled-components';
 import { Row } from '../figma/Layout.styled';
 
-const UsersPhotoDiv = styled(Row)`
+export const UsersPhotoDiv = styled(Row)`
     /* Auto layout */
 
     display: flex;
@@ -20,5 +20,3 @@ const UsersPhotoDiv = styled(Row)`
     order: 0;
     flex-grow: 0; 
 `;
-
-export default UsersPhotoDiv;

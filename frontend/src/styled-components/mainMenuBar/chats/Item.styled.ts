@@ -1,7 +1,6 @@
 import styled from 'styled-components';
-import Column from '../Column.styled';
 
-const Item = styled.div`
+export const Item = styled.div`
     display: flex;
     flex-direction: row;
     justify-content: center; 
@@ -21,5 +20,3 @@ const Item = styled.div`
     flex-grow: 0;
   
 `;
-
-export default Item;

@@ -1,7 +1,7 @@
 import styled from 'styled-components';
-import DropDownDiv from '../secondaryHeader/DropDownDiv.styled';
+import {DropDownDiv} from '../secondaryHeader/DropDownDiv.styled';
 
-const HeaderDropdownDiv = styled(DropDownDiv)`
+export const HeaderDropdownDiv = styled(DropDownDiv)`
     //justify-content: center;
     //align-items: center;
     width: 400px;
@@ -9,5 +9,3 @@ const HeaderDropdownDiv = styled(DropDownDiv)`
     left: 36px;
     top: calc(50% - 45px/2);
 `;
-
-export default HeaderDropdownDiv;

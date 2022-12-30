@@ -2,7 +2,7 @@ import styled from 'styled-components';
 import { Row } from '../figma/Layout.styled';
 
 
-const UsersNumberImage = styled(Row)`
+export const UsersNumberImage = styled(Row)`
     position: relative;
     left: 15px;
   /* Inside auto layout */
@@ -12,5 +12,3 @@ const UsersNumberImage = styled(Row)`
     flex-grow: 0;
     
 `;
-
-export default UsersNumberImage;

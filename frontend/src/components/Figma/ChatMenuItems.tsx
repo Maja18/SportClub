@@ -1,14 +1,14 @@
-import ChatMenuItem from "../../styled-components/mainMenuBar/chats/ChatMenuItem.styled";
-import ChatMenuItemDiv from "../../styled-components/mainMenuBar/chats/ChatMenuItemDiv.styled";
-import ChatMenuItemsDiv from "../../styled-components/mainMenuBar/chats/ChatMenuItemsDiv.styled";
-import Item from "../../styled-components/mainMenuBar/chats/Item.styled";
+import {ChatMenuItem} from "../../styled-components/mainMenuBar/chats/ChatMenuItem.styled";
+import {ChatMenuItemDiv} from "../../styled-components/mainMenuBar/chats/ChatMenuItemDiv.styled";
+import {ChatMenuItemsDiv} from "../../styled-components/mainMenuBar/chats/ChatMenuItemsDiv.styled";
+import {Item} from "../../styled-components/mainMenuBar/chats/Item.styled";
 import user1 from '../../assets/ana.png'
-import ChatLabel from "../../styled-components/mainMenuBar/chats/ChatLabel.styled";
+import {ChatLabel} from "../../styled-components/mainMenuBar/chats/ChatLabel.styled";
 import user2 from '../../assets/bob.png'
 import user3 from '../../assets/gema.png'
 import user4 from '../../assets/harry.png'
 import user5 from '../../assets/omega.png'
-import LabelDiv from "../../styled-components/mainMenuBar/chats/LabelDiv.styled";
+import { LabelDiv } from "../../styled-components/mainMenuBar/chats/LabelDiv.styled";
 
 const ChatMenuItems = (props: any) => {
     return(

@@ -1,7 +1,6 @@
 import styled from 'styled-components';
-import Column from '../Column.styled';
 
-const LabelDiv = styled.div`
+export const LabelDiv = styled.div`
     display: flex;
     flex-direction: row;
     align-items: flex-start;
@@ -18,5 +17,3 @@ const LabelDiv = styled.div`
     order: 1;
     flex-grow: 0;
 `;
-
-export default LabelDiv;

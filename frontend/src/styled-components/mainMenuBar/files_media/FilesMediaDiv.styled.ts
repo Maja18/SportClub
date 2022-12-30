@@ -1,7 +1,7 @@
 import styled from 'styled-components';
 import { Column } from '../../figma/Layout.styled';
 
-const FilesMediaDiv = styled(Column)`
+export const FilesMediaDiv = styled(Column)`
     padding: 0px 0px 0px 28px;
     gap: 17px;
 
@@ -16,5 +16,3 @@ const FilesMediaDiv = styled(Column)`
     order: 6;
     flex-grow: 0;
 `;
-
-export default FilesMediaDiv;

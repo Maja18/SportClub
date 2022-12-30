@@ -1,7 +1,7 @@
 import styled from 'styled-components';
 import ThreadDropdown from '../threads/ThreadDropdown.styled';
 
-const ChatDropdown = styled(ThreadDropdown)`
+export const ChatDropdown = styled(ThreadDropdown)`
    span {
         width: 0.7em;
         height: 0.7em;
@@ -14,5 +14,3 @@ const ChatDropdown = styled(ThreadDropdown)`
         margin-top: -0.50em;
     }
 `;
-
-export default ChatDropdown;

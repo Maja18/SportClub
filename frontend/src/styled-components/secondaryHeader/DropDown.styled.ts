@@ -1,6 +1,6 @@
 import styled from 'styled-components';
 
-const DropDown = styled.button`
+export const DropDown = styled.button`
     border: none;
     background-color: transparent;
     font-family: 'Gilroy';
@@ -25,5 +25,3 @@ const DropDown = styled.button`
     }
 
 `;
-
-export default DropDown;

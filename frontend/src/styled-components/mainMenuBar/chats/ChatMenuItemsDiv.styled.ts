@@ -1,7 +1,7 @@
 import styled from 'styled-components';
 import { Column } from '../../figma/Layout.styled';
 
-const ChatMenuItemsDiv = styled(Column)`
+export const ChatMenuItemsDiv = styled(Column)`
     display: flex;
     flex-direction: column;
     align-items: flex-start;
@@ -21,5 +21,3 @@ const ChatMenuItemsDiv = styled(Column)`
     flex-grow: 0;
    
 `;
-
-export default ChatMenuItemsDiv;

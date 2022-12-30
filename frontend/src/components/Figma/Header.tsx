@@ -1,9 +1,9 @@
-import HeaderDiv from "../../styled-components/header/HeaderDiv";
+import {HeaderDiv} from "../../styled-components/header/HeaderDiv";
 import userProfile from '../../assets/userProfile.png'
-import UserProfilePhoto from "../../styled-components/header/UserProfilePhoto.styled";
-import HeaderDropdownDiv from "../../styled-components/header/HeaderDropdownDiv.styled";
+import {UserProfilePhoto} from "../../styled-components/header/UserProfilePhoto.styled";
+import {HeaderDropdownDiv} from "../../styled-components/header/HeaderDropdownDiv.styled";
 import workGroupIcon from '../../assets/workGroupIcon.png'
-import HeaderDropdown from "../../styled-components/header/HeaderDropdown.styled";
+import {HeaderDropdown} from "../../styled-components/header/HeaderDropdown.styled";
 import SearchBar from "./SearchBar";
 
 const Header = (props: any) => {

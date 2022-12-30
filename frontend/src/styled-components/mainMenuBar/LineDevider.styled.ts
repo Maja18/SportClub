@@ -1,6 +1,6 @@
 import styled from 'styled-components';
 
-const LineDevider = styled.hr`
+export const LineDevider = styled.hr`
     width: 289px;
     height: 0px;
 
@@ -17,5 +17,3 @@ const LineDevider = styled.hr`
     flex-grow: 0;
     
 `;
-
-export default LineDevider;

@@ -1,6 +1,6 @@
 import styled from 'styled-components';
 
-const TextDiv = styled.div`
+export const TextDiv = styled.div`
     display: flex;
     flex-direction: row;
     align-items: flex-start;
@@ -14,5 +14,3 @@ const TextDiv = styled.div`
     top: calc(50% - 19px/2 - 19.5px);
     bottom:30px;
 `;
-
-export default TextDiv;

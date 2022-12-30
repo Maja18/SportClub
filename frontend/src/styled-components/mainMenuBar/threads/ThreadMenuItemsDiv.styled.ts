@@ -1,7 +1,7 @@
 import styled from 'styled-components';
 import { Column } from '../../figma/Layout.styled';
 
-const ThreadMenuItemsDiv = styled(Column)`
+export const ThreadMenuItemsDiv = styled(Column)`
     padding: 0px;
     gap: 5px;
 
@@ -16,5 +16,3 @@ const ThreadMenuItemsDiv = styled(Column)`
     order: 1;
     flex-grow: 0;
 `;
-
-export default ThreadMenuItemsDiv;

@@ -1,7 +1,7 @@
 import styled from 'styled-components';
 import { Column } from '../figma/Layout.styled';
 
-const Tools = styled(Column)`
+export const Tools = styled(Column)`
     padding: 0px;
     gap: 13px;
 
@@ -14,5 +14,3 @@ const Tools = styled(Column)`
     background: #F7F7F8;
 
 `;
-
-export default Tools;

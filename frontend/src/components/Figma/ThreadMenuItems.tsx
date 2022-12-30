@@ -1,8 +1,8 @@
 
-import ItemDiv from "../../styled-components/mainMenuBar/threads/ItemDiv.styled";
+import {ItemDiv} from "../../styled-components/mainMenuBar/threads/ItemDiv.styled";
 import Label from "../../styled-components/mainMenuBar/threads/Label.styled";
 import ThreadMenuItem from "../../styled-components/mainMenuBar/threads/ThreadMenuItem.styled";
-import ThreadMenuItemsDiv from "../../styled-components/mainMenuBar/threads/ThreadMenuItemsDiv.styled";
+import {ThreadMenuItemsDiv} from "../../styled-components/mainMenuBar/threads/ThreadMenuItemsDiv.styled";
 
 const ThreadMenuItems = (props: any) => {
     return(

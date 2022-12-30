@@ -1,7 +1,7 @@
 import styled from 'styled-components';
 import { Column } from '../../figma/Layout.styled';
 
-const Threads = styled(Column)`
+export const Threads = styled(Column)`
     flex-direction: row;
     justify-content: center;
     align-items: center;
@@ -18,5 +18,3 @@ const Threads = styled(Column)`
     order: 0;
     flex-grow: 0;
 `;
-
-export default Threads;

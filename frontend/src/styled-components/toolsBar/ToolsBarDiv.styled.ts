@@ -1,7 +1,7 @@
 import styled from 'styled-components';
 import { Column } from '../figma/Layout.styled';
 
-const ToolsBarDiv = styled(Column)`
+export const ToolsBarDiv = styled(Column)`
     width: 290px;
     right: 0px;
     top: 122px;
@@ -10,5 +10,3 @@ const ToolsBarDiv = styled(Column)`
     background: #F7F7F8;
     box-shadow: -2px 1px 16px rgba(0, 0, 0, 0.35);
 `;
-
-export default ToolsBarDiv;

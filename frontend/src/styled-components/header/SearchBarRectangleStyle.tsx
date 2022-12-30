@@ -1,6 +1,6 @@
 import styled from 'styled-components';
 
-const SearchBarRectangleStyle = styled.div`
+export const SearchBarRectangleStyle = styled.div`
     box-sizing: border-box;
     position: relative;
     left: 0px;
@@ -10,5 +10,3 @@ const SearchBarRectangleStyle = styled.div`
     border: 3px solid #F6F6F6;
     border-radius: 8px;
 `;
-
-export default SearchBarRectangleStyle;

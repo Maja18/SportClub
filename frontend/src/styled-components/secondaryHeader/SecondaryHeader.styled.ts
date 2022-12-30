@@ -1,7 +1,7 @@
 import styled from 'styled-components';
 import { Row } from '../figma/Layout.styled';
 
-const SecondaryHeader = styled(Row)`
+export const SecondaryHeader = styled(Row)`
     height: 47px;
     left: 0px;
     right: 0px;
@@ -9,5 +9,3 @@ const SecondaryHeader = styled(Row)`
     top: 75px;
     background: #3A91A5;  
 `;
-
-export default SecondaryHeader;

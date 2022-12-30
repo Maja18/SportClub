@@ -1,7 +1,7 @@
 import styled from 'styled-components';
-import DropDown from '../secondaryHeader/DropDown.styled';
+import {DropDown} from '../secondaryHeader/DropDown.styled';
 
-const HeaderDropdown = styled(DropDown)`
+export const HeaderDropdown = styled(DropDown)`
     width: 400px;
     height: 43px;
     font-family: 'Roboto';
@@ -33,5 +33,3 @@ const HeaderDropdown = styled(DropDown)`
     }
 
 `;
-
-export default HeaderDropdown;

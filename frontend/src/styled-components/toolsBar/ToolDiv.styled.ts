@@ -1,6 +1,6 @@
 import styled from 'styled-components';
 
-const ToolDiv = styled.div`
+export const ToolDiv = styled.div`
     width: 254px;
     height: 83px;
 
@@ -14,5 +14,3 @@ const ToolDiv = styled.div`
     box-shadow: 0px 0px 5px -1px rgba(0, 0, 0, 0.25);
     border-radius: 8px;
 `;
-
-export default ToolDiv;

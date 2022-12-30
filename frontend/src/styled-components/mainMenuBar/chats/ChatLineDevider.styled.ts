@@ -1,8 +1,6 @@
 import styled from 'styled-components';
-import LineDevider from '../LineDevider.styled';
+import {LineDevider} from '../LineDevider.styled';
 
-const ChatLineDevider = styled(LineDevider)`
+export const ChatLineDevider = styled(LineDevider)`
     top: 140px;
 `;
-
-export default ChatLineDevider;

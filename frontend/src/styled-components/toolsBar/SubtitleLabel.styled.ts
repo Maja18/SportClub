@@ -2,7 +2,7 @@ import styled from 'styled-components';
 import Label from '../mainMenuBar/threads/Label.styled';
 
 
-const SubtitleLabel = styled(Label)`
+export const SubtitleLabel = styled(Label)`
     width: 150px;
     height: 14px;
     font-weight: 700;
@@ -10,5 +10,3 @@ const SubtitleLabel = styled(Label)`
     line-height: 14px;
     color: #286FDA;
 `;
-
-export default SubtitleLabel;

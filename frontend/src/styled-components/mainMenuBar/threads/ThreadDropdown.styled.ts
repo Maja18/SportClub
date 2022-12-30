@@ -1,5 +1,5 @@
 import styled from 'styled-components';
-import DropDown from '../../secondaryHeader/DropDown.styled';
+import {DropDown} from '../../secondaryHeader/DropDown.styled';
 
 const ThreadDropdown = styled(DropDown)`
     width: 200px;

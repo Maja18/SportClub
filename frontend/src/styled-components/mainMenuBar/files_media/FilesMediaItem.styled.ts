@@ -1,6 +1,6 @@
 import styled from 'styled-components';
 
-const FilesMediaItem = styled.div`
+export const FilesMediaItem = styled.div`
     display: flex;
     flex-direction: row;
     justify-content: left; //center bilo
@@ -17,5 +17,3 @@ const FilesMediaItem = styled.div`
     order: 0;
     flex-grow: 0;
 `;
-
-export default FilesMediaItem;

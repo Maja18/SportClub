@@ -1,7 +1,7 @@
 import styled from 'styled-components';
 import { Row } from '../figma/Layout.styled';
 
-const UsersDiv = styled(Row)`
+export const UsersDiv = styled(Row)`
     /* Auto layout */
     flex-direction: column;
     padding: 4px;
@@ -18,5 +18,3 @@ const UsersDiv = styled(Row)`
     border-radius: 4px;
     
 `;
-
-export default UsersDiv;

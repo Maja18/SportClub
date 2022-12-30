@@ -1,6 +1,6 @@
 import styled from 'styled-components';
 
-const SearchButtonStyle = styled.div`
+export const SearchButtonStyle = styled.div`
     position: relative;
     top: -6px;
     width: 40px;
@@ -12,5 +12,3 @@ const SearchButtonStyle = styled.div`
     border-top-right-radius: 8px;
     border-bottom-right-radius: 8px;
     `;
-
-export default SearchButtonStyle;

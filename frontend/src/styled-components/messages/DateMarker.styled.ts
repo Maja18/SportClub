@@ -1,5 +1,5 @@
 import styled from 'styled-components';
-import DropDown from '../secondaryHeader/DropDown.styled';
+import {DropDown} from '../secondaryHeader/DropDown.styled';
 
 export const DateMarker = styled(DropDown)`
     width: 156.23px;

@@ -1,6 +1,6 @@
 import styled from 'styled-components';
 
-const FooterTextTools = styled.div`
+export const FooterTextTools = styled.div`
     display: flex;
     flex-direction: row;
     justify-content: center;
@@ -14,5 +14,3 @@ const FooterTextTools = styled.div`
     left: 20px;
     bottom: -8px;
 `;
-
-export default FooterTextTools;

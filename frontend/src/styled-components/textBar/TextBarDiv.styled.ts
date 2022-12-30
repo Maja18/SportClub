@@ -1,7 +1,7 @@
 import styled from 'styled-components';
 import { Column } from '../figma/Layout.styled';
 
-const TextBarDiv = styled(Column)`
+export const TextBarDiv = styled(Column)`
     position: relative;
     height: 85px;
     left: 318px;
@@ -11,5 +11,3 @@ const TextBarDiv = styled(Column)`
     width: 1270px;
     background-color: white;
 `;
-
-export default TextBarDiv;

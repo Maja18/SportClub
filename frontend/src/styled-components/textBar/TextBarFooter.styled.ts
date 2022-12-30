@@ -1,6 +1,6 @@
 import styled from 'styled-components';
 
-const TextBarFooter = styled.div`
+export const TextBarFooter = styled.div`
     box-sizing: border-box;
 
     position: absolute;
@@ -13,5 +13,3 @@ const TextBarFooter = styled.div`
  
     background: #2E6081;
 `;
-
-export default TextBarFooter;
