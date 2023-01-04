@@ -20,7 +20,7 @@ export const Column = styled.div`
     gap: 30px;
 
     position: absolute;
-    width: 289px;
+    //width: 289px;
     left: 0px;
     top: 122px;
     bottom: 0px;

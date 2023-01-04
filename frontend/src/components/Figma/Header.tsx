@@ -8,20 +8,20 @@ import SearchBar from "./SearchBar";
 
 const Header = (props: any) => {
     return(
-        <HeaderDiv>
+        <HeaderDiv> {/* flex container */}
             {/* Dropdown */}
-            <HeaderDropdownDiv>
+            <HeaderDropdownDiv> {/* flex item, flex container */}
                 <img src={workGroupIcon} alt='Search'></img>
-                <HeaderDropdown type="button">
+                <HeaderDropdown type="button"> {/* flex item */}
                     Creative direction A24 <br/>
                     A24 Films
                     <span></span>
                 </HeaderDropdown>
             </HeaderDropdownDiv>
             {/* Search bar*/}
-            <SearchBar></SearchBar>
+            <SearchBar></SearchBar> {/* flex item */}
             {/* Profile photo */}
-            <UserProfilePhoto>
+            <UserProfilePhoto> {/* flex item */}
                 <img src={userProfile} alt='profile'></img>
             </UserProfilePhoto>
         </HeaderDiv>

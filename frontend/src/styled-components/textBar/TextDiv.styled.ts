@@ -11,6 +11,7 @@ export const TextDiv = styled.div`
     width: 206px;
     height: 19px;
     left: 16px;
-    top: calc(50% - 19px/2 - 19.5px);
+    //top: calc(50% - 19px/2 - 19.5px);
+    top: 6px;
     bottom:30px;
 `;

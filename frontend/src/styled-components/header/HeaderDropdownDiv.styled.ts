@@ -6,6 +6,6 @@ export const HeaderDropdownDiv = styled(DropDownDiv)`
     //align-items: center;
     width: 400px;
     height: 45px;
-    left: 36px;
+    left: 20px;
     top: calc(50% - 45px/2);
 `;

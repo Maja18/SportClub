@@ -10,8 +10,8 @@ export const UsersDiv = styled(Row)`
     position: relative;
     width: 197px;
     height: 33px;
-    left: 1627px;
-    //right: 93px;
+    margin-left: auto;
+    left: -60px;
     top: calc(50% - 33px/2);
 
     background: #F7F7F7;

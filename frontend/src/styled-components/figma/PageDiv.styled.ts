@@ -1,13 +1,11 @@
 import styled from 'styled-components';
 
 const PageDiv = styled.div`
-    position: fixed;
-    top: 0; 
-    right: 0; 
-    bottom: 0; 
-    left: 0;
-    width: 100%;
-    height: auto;
+    display: flex;
+    flex-direction: column;
+    //background-color:beige;
+    width:100%;
+    min-height: 100vh;
 
     @media screen and (max-width: 1200px) {
        

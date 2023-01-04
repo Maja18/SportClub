@@ -2,7 +2,7 @@ import styled from 'styled-components';
 import { Row } from '../figma/Layout.styled';
 
 export const SearchBarStyle = styled.div` //div ili row?
-    position: relative;
+    position: absolute;
     width: 800px;
     height: 35px;
     left: calc(50% - 800px/2);

@@ -10,17 +10,18 @@ import { MessageText } from "../../styled-components/messages/MessageText.styled
 import new_frame from '../../assets/new_frame.png'
 import { MessageDevider } from "../../styled-components/messages/MessageDevider.styled";
 import { ProfileName } from "../../styled-components/messages/ProfileName.styled";
+import { MessagesContainer } from "../../styled-components/messages/MessagesContainer.styled";
 
 const Messages = () => {
     return(
-        <div>
-            <DateMarkerDiv>
+        <MessagesContainer> {/* flex container */}
+            <DateMarkerDiv> {/* flex item */}
                 <DateMarker>
                     Today
                     <span></span>
                 </DateMarker>
             </DateMarkerDiv>
-            <MessagesDiv>
+            <MessagesDiv> {/* flex item */}
                 {/* Anna */}
                 <MessageDiv>
                     <img src={user_ana} alt='user'></img>
@@ -118,7 +119,7 @@ const Messages = () => {
                     </Message>
                 </MessageDiv>
             </MessagesDiv>
-        </div>
+        </MessagesContainer>
     )
 }
 

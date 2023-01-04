@@ -1,13 +1,8 @@
 import styled from 'styled-components';
 import { Column } from '../figma/Layout.styled';
 
-export const MessagesDiv = styled(Column)`
-    width: 1284px;
-    height: 610px;
-    left: 321px;
-    bottom: 141px;
-    overflow-y: scroll;
-    top: 210px;
+export const MessagesDiv = styled.div`
+    height: 624px;
     background: white;
-    gap: 0px;
+    margin-bottom: 20px;
 `;

@@ -2,6 +2,7 @@ import styled from 'styled-components';
 import { Row } from '../figma/Layout.styled';
 
 export const DropDownDiv = styled(Row)`
+    position: relative;
     /* Auto layout */
     padding: 0px;
     gap: 14px;
