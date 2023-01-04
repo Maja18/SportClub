@@ -10,9 +10,8 @@ function App() {
 
   return (
     <BrowserRouter>
-      <div>
-       <NavBar isFigma={isFigma}></NavBar> 
-      </div>
+      
+       <Figma></Figma>
     </BrowserRouter>
   );
 }
