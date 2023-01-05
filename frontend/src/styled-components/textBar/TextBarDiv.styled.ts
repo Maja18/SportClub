@@ -9,5 +9,4 @@ export const TextBarDiv = styled(Row)`
     right: 318px;
     bottom: 18px;
     top: 120px;
-    background-color: white;
 `;

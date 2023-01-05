@@ -1,15 +1,15 @@
 import styled from 'styled-components';
+import { Column } from '../figma/Layout.styled';
 
-export const TextDiv = styled.div`
-    display: flex;
-    flex-direction: column;
+export const TextDiv = styled(Column)`
     justify-content: center;
-    align-items: flex-start;
     padding: 0px;
     gap: 12px;
 
     width: 160px;
     height: 38px;
+    position: relative;
+    top: 0px;
 
     /* Inside auto layout */
 

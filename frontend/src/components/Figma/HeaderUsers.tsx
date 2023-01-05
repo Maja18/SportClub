@@ -11,7 +11,7 @@ import users from '../../assets/users.png'
 const HeaderUsers = () => {
     return(
         <UsersDiv>
-            <UsersInputDiv> {/* ne treba? */}
+            <UsersInputDiv> 
                 <UsersPhotoDiv>
                     <img src={user1} alt='user'></img>
                     <img src={user2} alt='user'></img>

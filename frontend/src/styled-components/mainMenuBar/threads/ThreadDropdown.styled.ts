@@ -5,15 +5,11 @@ const ThreadDropdown = styled(DropDown)`
     width: 200px;
     height: 17px;
 
-    font-family: 'Gilroy';
-    font-style: normal;
-    font-weight: 800;
     font-size: 14px;
     line-height: 17px;
     display: flex;
     align-items: center;
     text-align: center;
-    letter-spacing: 0.455em;
 
     /* Inside auto layout */
     flex: none;

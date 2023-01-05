@@ -9,7 +9,6 @@ const SearchInputStyle = styled(Row)`
     font-weight: 500;
     font-size: 14px;
     line-height: 16px;
-    display: flex;
     align-items: center;
     color: #797979;
 

@@ -1,8 +1,7 @@
 import styled from 'styled-components';
+import { Row } from '../figma/Layout.styled';
 
-const ToolItem = styled.div`
-    display: flex;
-    flex-direction: row;
+const ToolItem = styled(Row)`  //Frame 41
     align-items: center;
     padding: 0px;
     gap: 15px;

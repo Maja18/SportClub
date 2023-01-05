@@ -1,14 +1,14 @@
-import styled from 'styled-components';
 
-export const ItemDiv = styled.div`
-    display: flex;
-    flex-direction: row;
-    align-items: flex-start;
+import styled from 'styled-components';
+import { Row } from '../../figma/Layout.styled';
+
+export const ItemDiv = styled(Row)`
     padding: 0px;
     gap: 10px;
 
     width: 234px;
     height: 19px;
+    position: relative;
 
     /* Inside auto layout */
 

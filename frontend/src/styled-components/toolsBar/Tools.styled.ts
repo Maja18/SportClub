@@ -11,6 +11,4 @@ export const Tools = styled(Column)`
     left: 18px;
     top: 0px;
 
-    background: #F7F7F8;
-
 `;

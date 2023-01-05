@@ -1,8 +1,8 @@
-import styled from 'styled-components';
-import { Column } from '../../figma/Layout.styled';
 
-export const Chats = styled(Column)`
-   flex-direction: row;
+import styled from 'styled-components';
+import { Row } from '../../figma/Layout.styled';
+
+export const Chats = styled(Row)`
    justify-content: center;
    align-items: center;
    padding: 0px 0px 0px 28px;

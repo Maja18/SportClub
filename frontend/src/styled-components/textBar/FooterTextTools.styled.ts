@@ -1,8 +1,7 @@
 import styled from 'styled-components';
+import { Row } from '../figma/Layout.styled';
 
-export const FooterTextTools = styled.div`
-    display: flex;
-    flex-direction: row;
+export const FooterTextTools = styled(Row)`
     justify-content: center;
     align-items: center;
     padding: 0px;
@@ -12,5 +11,5 @@ export const FooterTextTools = styled.div`
     width: 156.27px;
     height: 18px;
     left: 20px;
-    bottom: -8px;
+    top: 8px;
 `;

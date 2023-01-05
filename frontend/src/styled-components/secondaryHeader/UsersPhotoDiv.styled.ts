@@ -2,11 +2,8 @@ import styled from 'styled-components';
 import { Row } from '../figma/Layout.styled';
 
 export const UsersPhotoDiv = styled(Row)`
+    position: relative;
     /* Auto layout */
-
-    display: flex;
-    flex-direction: row;
-    align-items: flex-start;
     padding: 4px;
     gap: 4px;
 

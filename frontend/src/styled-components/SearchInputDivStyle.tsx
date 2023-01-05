@@ -1,9 +1,7 @@
 import styled from 'styled-components';
+import { Row } from './figma/Layout.styled';
 
-const SearchInputDivStyle = styled.div`
-    display: flex;
-    flex-direction: row;
-    align-items: flex-start;
+const SearchInputDivStyle = styled(Row)`
     padding: 0px;
     gap: 10px;
 

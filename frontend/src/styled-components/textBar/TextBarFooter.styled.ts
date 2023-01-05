@@ -8,7 +8,7 @@ export const TextBarFooter = styled.div`
     left: 0px;
     right: 0px;
     bottom: 0px;
-    top: 16px;
+    top: 25px;
     border-bottom-left-radius:8px;
     border-bottom-right-radius:8px;
  

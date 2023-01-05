@@ -1,19 +1,19 @@
 
-import { Column } from "../../styled-components/figma/Layout.styled";
+import { MenuBar } from "../../styled-components/mainMenuBar/MenuBar.styled";
 import ChatList from "./ChatList";
 import FilesMedia from "./FilesMedia";
 import ThreadList from "./ThreadList";
 
 const MainMenuBar = (props: any) => {
     return(
-        <Column> 
+        <MenuBar> 
             {/* Threads */}
             <ThreadList></ThreadList>
             {/* Chats */}
             <ChatList></ChatList>
             {/* Files & Media */}
             <FilesMedia></FilesMedia>
-        </Column>
+        </MenuBar>
     );
 }
 

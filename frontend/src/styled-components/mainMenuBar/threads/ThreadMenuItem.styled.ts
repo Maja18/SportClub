@@ -1,8 +1,7 @@
+import { Row } from 'reactstrap';
 import styled from 'styled-components';
 
-const ThreadMenuItem = styled.div`
-    display: flex;
-    flex-direction: row;
+const ThreadMenuItem = styled(Row)`
     justify-content: center;
     align-items: center;
     padding: 5px 28px;

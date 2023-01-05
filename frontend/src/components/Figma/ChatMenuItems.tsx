@@ -13,7 +13,7 @@ import { LabelDiv } from "../../styled-components/mainMenuBar/chats/LabelDiv.sty
 const ChatMenuItems = (props: any) => {
     return(
         <ChatMenuItemsDiv>
-            <ChatMenuItemDiv> 
+            <ChatMenuItemDiv>
                 <ChatMenuItem> 
                     <Item>
                         <img src={user1} alt='user'></img>
