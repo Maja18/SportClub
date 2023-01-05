@@ -8,4 +8,5 @@ export const UserProfilePhoto = styled.div`
     margin-left: auto;
     right: 18px;
     top: calc(50% - 49px/2);
+    
 `;

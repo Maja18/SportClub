@@ -10,7 +10,7 @@ const SecondHeader = (props: any) => {
     return(
         <SecondaryHeader>
             {/* Dropdown */}
-            <DropDownDiv>
+            <DropDownDiv> {/* flex item */}
                 <DropDown type="button">
                     SALES & MARKETING
                     <span></span>

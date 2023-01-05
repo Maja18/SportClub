@@ -6,5 +6,5 @@ export const CloseButtonDiv = styled.div`
     height: 38px;
     right: 0px;
     left: 240px;
-    top: 335px;
+    top: 385px;
 `;

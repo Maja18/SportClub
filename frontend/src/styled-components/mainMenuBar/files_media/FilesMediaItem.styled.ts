@@ -2,8 +2,6 @@ import styled from 'styled-components';
 import { Row } from '../../figma/Layout.styled';
 
 export const FilesMediaItem = styled(Row)`
-    display: flex;
-    flex-direction: row;
     justify-content: flex-start; //center bilo
     align-items: center;
     padding: 0px;

@@ -10,7 +10,6 @@ export const DropDown = styled.button`
     letter-spacing: 0.455em;
     line-height: 15px;
     color: #FFFFFF;
-    height: 8px;
 
     span {
         width: 0.7em;

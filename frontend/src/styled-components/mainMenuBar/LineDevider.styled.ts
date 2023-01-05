@@ -5,7 +5,7 @@ export const LineDevider = styled.hr`
     height: 0px;
 
     position: relative;
-    top: 65px;
+    top: 50px;
 
     mix-blend-mode: lighten;
     border: 2px solid rgba(255, 255, 255, 0.45);

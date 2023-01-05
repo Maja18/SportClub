@@ -2,6 +2,7 @@ import styled from 'styled-components';
 import { Row } from '../../figma/Layout.styled';
 
 export const LabelDiv = styled(Row)`
+    align-items: flex-start;
     padding: 0px;
     gap: 10px;
 

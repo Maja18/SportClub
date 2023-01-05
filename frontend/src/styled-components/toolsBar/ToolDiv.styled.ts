@@ -4,6 +4,9 @@ export const ToolDiv = styled.div`
     width: 254px;
     height: 83px;
 
+    position: relative;
+    top: 18px;
+
     /* Inside auto layout */
 
     flex: none;

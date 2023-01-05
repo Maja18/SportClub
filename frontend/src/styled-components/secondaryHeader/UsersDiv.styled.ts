@@ -1,9 +1,9 @@
 import styled from 'styled-components';
-import { Row } from '../figma/Layout.styled';
+import { Column} from '../figma/Layout.styled';
 
-export const UsersDiv = styled(Row)`
+export const UsersDiv = styled(Column)`
     /* Auto layout */
-    flex-direction: column;
+    align-items: flex-start;
     padding: 4px;
     gap: 10px;
 

@@ -3,6 +3,9 @@ import styled from 'styled-components';
 import { Row } from '../../figma/Layout.styled';
 
 export const Chats = styled(Row)`
+   position: relative;
+   left: 0px;
+   top: 35px;
    justify-content: center;
    align-items: center;
    padding: 0px 0px 0px 28px;
@@ -16,5 +19,4 @@ export const Chats = styled(Row)`
    flex: none;
    order: 3;
    flex-grow: 0;
-   top: 275px;
 `;

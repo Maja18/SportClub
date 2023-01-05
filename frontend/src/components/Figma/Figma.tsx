@@ -13,8 +13,8 @@ const Figma = () => {
             <Header></Header>
             <SecondHeader></SecondHeader>
             <MainMenuBar></MainMenuBar>
-            <ToolsBar></ToolsBar>
             <Messages></Messages>
+            <ToolsBar></ToolsBar>
             <TextBar></TextBar>
         </PageDiv>
     );

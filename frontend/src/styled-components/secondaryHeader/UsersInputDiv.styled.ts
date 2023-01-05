@@ -2,8 +2,14 @@ import styled from 'styled-components';
 import { Row } from '../figma/Layout.styled';
 
 export const UsersInputDiv = styled(Row)`
+    position: absolute;
+    align-items: flex-start;
     padding: 0px 15px 0px 0px;
     gap: 17px;
+
+    left: 0px;
+    right: 0px;
+    top: 0px;
 
     width: 189px;
     height: 25px;

@@ -2,6 +2,7 @@ import styled from 'styled-components';
 import { Column } from '../figma/Layout.styled';
 
 export const Tools = styled(Column)`
+    align-items: flex-start;
     padding: 0px;
     gap: 13px;
 

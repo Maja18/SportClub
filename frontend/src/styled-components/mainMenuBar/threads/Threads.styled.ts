@@ -1,8 +1,7 @@
 import styled from 'styled-components';
-import { Column } from '../../figma/Layout.styled';
+import { Row } from '../../figma/Layout.styled';
 
-export const Threads = styled(Column)`
-    flex-direction: row;
+export const Threads = styled(Row)`
     justify-content: center;
     align-items: center;
     padding: 0px 0px 0px 28px;

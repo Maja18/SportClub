@@ -9,9 +9,6 @@ export const Item = styled(Row)`  //Main menu bar
 
     width: 288px;
     height: 43px;
-    position: relative;
-    top: 0px;
-
 
     /* Inside auto layout */
 
