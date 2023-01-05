@@ -12,4 +12,8 @@ export const MessagesContainer = styled(Column)`
     bottom: 0px;
     overflow-y: scroll;
     padding: 10px 0px;
+
+    ::-webkit-scrollbar {
+        display: none;
+    }
 `;

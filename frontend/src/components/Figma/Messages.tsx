@@ -15,6 +15,58 @@ import { MessagesContainer } from "../../styled-components/messages/MessagesCont
 const Messages = () => {
     return(
         <MessagesContainer> {/* flex container */}
+                <DateMarkerDiv> {/* flex item */}
+                    <DateMarker>
+                        Yesterday
+                        <span></span>
+                    </DateMarker>
+                </DateMarkerDiv>
+            <div style={{marginTop:'40px'}}>
+                {/* additional messages */}
+                {/* Anna */}
+                <MessageDiv>
+                    <img src={user_ana} alt='user'></img>
+                    <Message>
+                        <ProfileName>
+                            Anna 14:06:
+                        </ProfileName>
+                        <MessageText>
+                           <br/>
+                            Ok sure.
+                        </MessageText>
+                    </Message>
+                </MessageDiv>
+                {/* Peter */}
+                <MessageDiv>
+                    <img src={user_peter} alt='user'></img>
+                    <Message>
+                        <ProfileName>
+                            Peter 13:48:
+                        </ProfileName>
+                        <MessageText>
+                            <br/>
+                            It's coming together really well. Colin is flying over from Atlanta next week so I'll ask him to come in and take a look?
+                        </MessageText>
+                    </Message>
+                </MessageDiv>
+                {/* Anna */}
+                <MessageDiv>
+                    <img src={user_ana} alt='user'></img>
+                    <Message>
+                        <ProfileName>
+                            Anna 13:49:
+                        </ProfileName>
+                        <MessageText>
+                           <br/>
+                            Ok great!
+                        </MessageText>
+                    </Message>
+                </MessageDiv>
+                {/* */}
+                <div>
+                    <MessageDevider></MessageDevider>
+                </div>
+            </div>
             <DateMarkerDiv> {/* flex item */}
                 <DateMarker>
                     Today
