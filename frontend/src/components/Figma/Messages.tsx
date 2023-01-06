@@ -21,7 +21,7 @@ const Messages = () => {
                         <span></span>
                     </DateMarker>
                 </DateMarkerDiv>
-            <div style={{marginTop:'40px'}}>
+            <div style={{marginTop:'40px', width: '100%'}}>
                 {/* additional messages */}
                 {/* Anna */}
                 <MessageDiv>
@@ -31,7 +31,6 @@ const Messages = () => {
                             Anna 14:06:
                         </ProfileName>
                         <MessageText>
-                           <br/>
                             Ok sure.
                         </MessageText>
                     </Message>
@@ -44,7 +43,6 @@ const Messages = () => {
                             Peter 13:48:
                         </ProfileName>
                         <MessageText>
-                            <br/>
                             It's coming together really well. Colin is flying over from Atlanta next week so I'll ask him to come in and take a look?
                         </MessageText>
                     </Message>
@@ -57,7 +55,6 @@ const Messages = () => {
                             Anna 13:49:
                         </ProfileName>
                         <MessageText>
-                           <br/>
                             Ok great!
                         </MessageText>
                     </Message>
@@ -82,7 +79,6 @@ const Messages = () => {
                             Anna 13:47:
                         </ProfileName>
                         <MessageText>
-                        <br/>
                             Ok, thats absolutly perfect. What about different colour options, did you have any specific preferences?
                         </MessageText>
                     </Message>
@@ -95,7 +91,6 @@ const Messages = () => {
                             Bob 13:47:
                         </ProfileName>
                         <MessageText>
-                            <br/>
                             Yes I really liked the blue and orange layout, what did the rest of the team think?
                         </MessageText>
                     </Message>
@@ -108,7 +103,6 @@ const Messages = () => {
                             Anna 13:49:
                         </ProfileName>
                         <MessageText>
-                            <br/>
                             Acctually I think most people agreed, it was by far most popular choice.
                         </MessageText>
                     </Message>
@@ -121,7 +115,6 @@ const Messages = () => {
                             Bob 14:08:
                         </ProfileName>
                         <MessageText>
-                           <br/>
                             Yeah let's go that then. Thanks Anna.
                         </MessageText>
                     </Message>
@@ -139,7 +132,6 @@ const Messages = () => {
                             Anna 14:06:
                         </ProfileName>
                         <MessageText>
-                           <br/>
                             Ok sure.
                         </MessageText>
                     </Message>
@@ -152,7 +144,6 @@ const Messages = () => {
                             Peter 13:48:
                         </ProfileName>
                         <MessageText>
-                            <br/>
                             It's coming together really well. Colin is flying over from Atlanta next week so I'll ask him to come in and take a look?
                         </MessageText>
                     </Message>
@@ -165,7 +156,6 @@ const Messages = () => {
                             Anna 13:49:
                         </ProfileName>
                         <MessageText>
-                           <br/>
                             Ok great!
                         </MessageText>
                     </Message>

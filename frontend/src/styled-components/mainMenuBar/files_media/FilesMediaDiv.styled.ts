@@ -8,9 +8,9 @@ export const FilesMediaDiv = styled(Column)`
 
     //width: 237px;
     width: 100%;
-    height: 109px;
+    //height: 109px;
     position: relative;
-    top: 115px;
+    bottom: -10px;
 
     /* Inside auto layout */
 

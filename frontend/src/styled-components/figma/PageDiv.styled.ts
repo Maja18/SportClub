@@ -5,7 +5,7 @@ const PageDiv = styled.div`
     flex-direction: column;
     //background-color:yellow;
     width:100%;
-    height: 100vh;
+    //height: 100vh;
     min-height: calc(100%- 75px);
     
 

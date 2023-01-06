@@ -6,11 +6,13 @@ export const ChatMenuItemsDiv = styled(Column)`
     gap: 6px;
     align-items: flex-start;
 
-    width: 289px;
-    height: 239px;
+    width: 100%;
+    //height: 100%;
+    //height: 239px;
 
     position: relative;
-    top: 75px;
+    top: 40px;
+
 
     /* Inside auto layout */
 

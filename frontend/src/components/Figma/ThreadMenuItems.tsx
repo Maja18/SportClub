@@ -1,4 +1,5 @@
 
+import { LineDevider } from "../../styled-components/mainMenuBar/LineDevider.styled";
 import {ItemDiv} from "../../styled-components/mainMenuBar/threads/ItemDiv.styled";
 import Label from "../../styled-components/mainMenuBar/threads/Label.styled";
 import ThreadMenuItem from "../../styled-components/mainMenuBar/threads/ThreadMenuItem.styled";
@@ -21,7 +22,7 @@ const ThreadMenuItems = (props: any) => {
                     </Label>
                 </ItemDiv>
             </ThreadMenuItem>
-            <ThreadMenuItem>
+            <ThreadMenuItem style={{background:'rgba(152, 191, 218, 0.5)'}}>
                 <ItemDiv>
                     <Label>
                         Sales & Marketing
@@ -35,6 +36,7 @@ const ThreadMenuItems = (props: any) => {
                     </Label>
                 </ItemDiv>
             </ThreadMenuItem>
+            <LineDevider></LineDevider>
         </ThreadMenuItemsDiv>
     );
 }

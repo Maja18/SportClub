@@ -7,4 +7,5 @@ export const MessagesDiv = styled(Column)`
     gap: 10px; 
     position: relative;
     top: 50px;
+    width: 100%;
 `;

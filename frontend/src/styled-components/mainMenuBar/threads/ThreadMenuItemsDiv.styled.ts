@@ -7,7 +7,7 @@ export const ThreadMenuItemsDiv = styled(Column)`
     gap: 5px;
 
     width: 100%;
-    height: 131px;
+    //height: 131px;
     position: relative;
     top: 30px;
 
