@@ -3,7 +3,6 @@ import styled from 'styled-components';
 export const ToolDiv = styled.div`
     width: 254px;
     height: 83px;
-
     position: relative;
     top: 18px;
 
@@ -16,4 +15,9 @@ export const ToolDiv = styled.div`
     background: #FFFFFF;
     box-shadow: 0px 0px 5px -1px rgba(0, 0, 0, 0.25);
     border-radius: 8px;
+
+    &:hover {
+        border: 2px solid rgba(40,82,111,255);
+        margin-left: -2px;
+    }
 `;
