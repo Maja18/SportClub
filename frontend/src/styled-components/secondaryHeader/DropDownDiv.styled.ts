@@ -11,8 +11,7 @@ export const DropDownDiv = styled(Row)`
 
     width: 300px;
     height: 100%;
-    left: calc(50% - 233.64px/2 - 0.18px);
-    //top: calc(50% - 8px/2 - 0.5px);
+    left: calc(50% - 300px/2 - 0.18px);
     top: 0px;
     right: 0px;
 `;

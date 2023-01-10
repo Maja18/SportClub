@@ -4,17 +4,19 @@ import { Column } from '../figma/Layout.styled';
 
 export const DropDownMenu = styled(Column)`
     align-items: flex-start;
+    justify-content: center;
     padding: 0px;
     gap: 10px;
 
-    position: relative;
+    position: absolute;
     width: 309px;
     height: 149px;
+
+    margin: auto;
     
-    //position: absolute;
     left: 0px;
     right: 0px;
-    top: 0%;
+    top: 90px;
     bottom: 0%;
 
     background: #F7F7F8;

@@ -16,8 +16,6 @@ export const DropDownMenuItems = styled.div`
     height: 108px;
     left: 0px;
     top: calc(50% - 108px/2 + 0.5px);
-
-    background: yellow;
    
 
 `;
