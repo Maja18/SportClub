@@ -53,15 +53,13 @@ const SecondHeader = (props: any) => {
                     </ItemLabel>    
                 </MenuItem> 
             </DropDownMenuItems>
-        </DropDownMenu> : null}
-            
+        </DropDownMenu> : null}  
             {/* Users */}
             <HeaderUsers></HeaderUsers>
             {/* Tools button */}
-            <ToolsButton>
+            <ToolsButton onClick={props.toggleToolbar}>
                 <img src={toolsButton} alt='button'></img>
-            </ToolsButton>
-                    
+            </ToolsButton>           
         </SecondaryHeader>
     );
 }

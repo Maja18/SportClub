@@ -1,4 +1,5 @@
 
+import { useState } from 'react';
 import PageDiv from '../../styled-components/figma/PageDiv.styled';
 import Header from './Header';
 import MainMenuBar from './MainMenuBar';
@@ -8,13 +9,15 @@ import TextBar from './TextBar';
 import ToolsBar from './ToolsBar';
 
 const Figma = () => {
+    const [showToolbar, setShowToolBar] = useState(true);
+    
     return(
         <PageDiv>
             <Header></Header>
-            <SecondHeader></SecondHeader>
+            <SecondHeader toggleToolbar = {() => setShowToolBar(!showToolbar)}></SecondHeader>
             <MainMenuBar></MainMenuBar>
             <Messages></Messages>
-            <ToolsBar></ToolsBar>
+            {showToolbar ? <ToolsBar></ToolsBar> : null}
             <TextBar></TextBar>
         </PageDiv>
     );
