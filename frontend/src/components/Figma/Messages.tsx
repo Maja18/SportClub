@@ -13,7 +13,6 @@ import { ProfileName } from "../../styled-components/messages/ProfileName.styled
 import { MessagesContainer } from "../../styled-components/messages/MessagesContainer.styled";
 import MessageTools from "./MessageTools";
 import { useState } from "react";
-import { uuid } from 'uuidv4';
 
 type Element = {
     id: number,
