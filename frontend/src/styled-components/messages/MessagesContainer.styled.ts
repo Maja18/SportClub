@@ -4,10 +4,10 @@ import { Column } from '../figma/Layout.styled';
 export const MessagesContainer = styled(Column)`
     align-items: flex-start;
     position: relative;
-    //width: 1270px;
-    width: 66%;
-    height: 684px;
-    left: 321px;
+    width: 1270px;
+    //width: 100%;
+    height: 654px;
+    left: 30px;
     top: 30px;
     bottom: 0px;
     overflow-y: scroll;

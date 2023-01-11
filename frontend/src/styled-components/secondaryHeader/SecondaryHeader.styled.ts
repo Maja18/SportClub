@@ -6,6 +6,6 @@ export const SecondaryHeader = styled(Row)`
     height: 47px;
     left: 0px;
     right: 0px;
-    top: 16px;
+    top: 0px;
     background: #3A91A5;  
 `;

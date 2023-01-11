@@ -5,7 +5,7 @@ export const HeaderDiv = styled(Row)`
     align-items: flex-start;
     background: #2B0B2D;
 
-    position: absolute;
+    position: relative;
     width: 100%;
     height: 75px;
     left: 0px;

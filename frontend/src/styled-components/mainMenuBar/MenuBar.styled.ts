@@ -7,9 +7,10 @@ export const MenuBar = styled(Column)`
     padding: 30px 0px;
     gap: 30px;
 
-    position: absolute;
+    position: relative;
     width: 289px;
+    height: calc(100vh - 75px - 47px);
     left: 0px;
-    top: 122px;
+    top: 0px;
     bottom: 0px;
 `;
