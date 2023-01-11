@@ -1,13 +1,13 @@
 import styled from 'styled-components';
-import { Row } from '../figma/Layout.styled';
 
 export const UserProfilePhoto = styled.div`
-    position: relative;
+    position: absolute;
     width: 59px;
     height: 49px;
-    margin-left: auto;
     right: 18px;
-    top: 10px;
-    //top: calc(50% - 49px/2);
-    
+    top: 0px;
+    bottom: 0px;
+    left: 0px;
+    top: calc(50% - 49px/2);
+    margin-left: auto; 
 `;
