@@ -6,6 +6,10 @@ import reportWebVitals from './reportWebVitals';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import { Provider } from 'react-redux';
 import { store } from './store/store';
+import './fonts/Roboto-Regular.ttf'
+import './fonts/Roboto-Bold.ttf'
+import './fonts/Gilroy-Light.otf'
+import './fonts/Gilroy-Bold.ttf'
 
 const root = ReactDOM.createRoot(
   document.getElementById('root') as HTMLElement
