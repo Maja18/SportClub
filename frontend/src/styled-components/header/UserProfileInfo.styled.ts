@@ -13,8 +13,8 @@ export const UserProfileInfo = styled(Column)`
     position: relative;
     width: 309px;
     //height: 367px;
-    left: -10px;
-    top: 20px;
+    margin: auto 0 auto auto;
+    top: 13px;
 
     background: #FFFFFF;
     border: 2px solid #E9E9E9;

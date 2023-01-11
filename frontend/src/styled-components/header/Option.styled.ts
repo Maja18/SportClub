@@ -18,4 +18,9 @@ export const OptionMenu = styled(Row)`
     align-self: stretch;
     flex-grow: 0;
 
+    &:hover {
+        background: #f8f8f8
+    }
+        
+
 `;

@@ -10,6 +10,7 @@ import log_out_icon from '../../assets/log_out_icon.png'
 import userProfile from '../../assets/userProfile.png'
 import { Description } from "../../styled-components/header/Description.styled";
 import { Information } from "../../styled-components/header/Information.styled";
+import { OptionLabel } from "../../styled-components/header/OptionLabel.styled";
 
 const UserProfileInformation = () => {
     return(
@@ -29,28 +30,28 @@ const UserProfileInformation = () => {
             {/* Options */}
             <ProfileOptions>
                 <OptionMenu>
-                    <ProfileLabel>
+                    <OptionLabel>
                         Change your online status
-                    </ProfileLabel>
+                    </OptionLabel>
                 </OptionMenu>
                 <OptionMenu>
-                    <ProfileLabel>
+                    <OptionLabel>
                         Edit my profile
-                    </ProfileLabel>
+                    </OptionLabel>
                 </OptionMenu>
                 <OptionMenu>
-                    <ProfileLabel>
+                    <OptionLabel>
                         Leave work group
-                    </ProfileLabel>
+                    </OptionLabel>
                 </OptionMenu>     
             </ProfileOptions>
             <SecondMenuDevider></SecondMenuDevider>
             {/* logout */}
             <LogOut>
                 <img src={log_out_icon} alt='signout'></img>
-                <ProfileLabel>
+                <OptionLabel>
                     Sign out
-                </ProfileLabel> 
+                </OptionLabel> 
             </LogOut>
         </UserProfileInfo>
     )

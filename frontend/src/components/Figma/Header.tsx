@@ -11,7 +11,6 @@ import Menu from "./Menu";
 
 const Header = (props: any) => {
     const [showProfileInfo, setShowProfileInfo] = useState(false);
-    const [showUserPhoto, setShowUserPhoto] = useState(true);
     const info = useRef<any>(null)
     const [showMenu, setShowMenu] = useState(false);
     const dropdown = useRef<any>(null)
@@ -19,7 +18,6 @@ const Header = (props: any) => {
     const closeInfo = (e: any)=>{
         if(info.current && showProfileInfo && !info.current.contains(e.target)){
             setShowProfileInfo(false)
-            setShowUserPhoto(true)
         }
     }
 
@@ -48,12 +46,9 @@ const Header = (props: any) => {
             {/* Search bar*/}
             <SearchBar></SearchBar> {/* flex item */}
             {/* Profile photo */}
-            <div ref={info}>
-                {showUserPhoto ? 
-                <UserProfilePhoto onClick={() => {setShowProfileInfo(!showProfileInfo); setShowUserPhoto(false)}}> {/* flex item */}
-                    <img src={userProfile} alt='profile'></img>
-                </UserProfilePhoto> : null}
-            </div> 
+            <UserProfilePhoto ref={info} onClick={() => setShowProfileInfo(!showProfileInfo)}> {/* flex item */}
+                <img src={userProfile} alt='profile'></img>
+            </UserProfilePhoto> 
             {showProfileInfo ? <UserProfileInformation></UserProfileInformation> : null}  
         </HeaderDiv>
     );

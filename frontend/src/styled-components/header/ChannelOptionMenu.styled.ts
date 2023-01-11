@@ -5,4 +5,7 @@ export const ChannelOptionMenu = styled(OptionMenu)`
     padding: 0px 0px 0px 17px;
     order: 4;
 
+    &:hover {
+        background: #f8f8f8
+    }
 `;

@@ -11,7 +11,6 @@ import { OptionLabel } from "../../styled-components/header/OptionLabel.styled";
 import { SecondMenuDevider } from "../../styled-components/header/SecondMenuDivider.styled";
 import { ChannelOptionMenu } from "../../styled-components/header/ChannelOptionMenu.styled";
 import { ThirdMenuDevider } from "../../styled-components/header/ThirdMenuDevider.styled";
-import { LogOut } from "../../styled-components/header/LogOut.styled";
 import log_out_icon from '../../assets/log_out_icon.png'
 import { SignOut } from "../../styled-components/header/SignOut.styled";
 

@@ -6,6 +6,7 @@ export const HeaderDiv = styled(Row)`
     background: #2B0B2D;
 
     position: absolute;
+    width: 100%;
     height: 75px;
     left: 0px;
     right: 0px;
