@@ -1,7 +1,9 @@
 
 import { useState } from "react";
 import { ChatDropdown } from "../../styled-components/mainMenuBar/chats/ChatDropdown.styled";
+import { ChatLineDevider } from "../../styled-components/mainMenuBar/chats/ChatLineDevider.styled";
 import { Chats } from "../../styled-components/mainMenuBar/chats/Chats.styled";
+import { LineDevider } from "../../styled-components/mainMenuBar/LineDevider.styled";
 import { MenuBar } from "../../styled-components/mainMenuBar/MenuBar.styled";
 import ThreadDropdown from "../../styled-components/mainMenuBar/threads/ThreadDropdown.styled";
 import { Threads } from "../../styled-components/mainMenuBar/threads/Threads.styled";
@@ -23,6 +25,7 @@ const MainMenuBar = (props: any) => {
                 </ThreadDropdown>
             </Threads>
            {showThreadItems ? <ThreadList></ThreadList> : null}
+           {showThreadItems ? null : <LineDevider></LineDevider>}
             {/* Chats */}
             <Chats>
                 <ChatDropdown dropDownOpened ={showChatItems} onClick={() => setShowChatItems(!showChatItems)}>
@@ -31,6 +34,7 @@ const MainMenuBar = (props: any) => {
                 </ChatDropdown>
             </Chats>
             {showChatItems ? <ChatList></ChatList> : null}
+            {showChatItems ? null : <ChatLineDevider></ChatLineDevider>}
             {/* Files & Media */}
             <FilesMedia></FilesMedia>
         </MenuBar>

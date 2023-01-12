@@ -6,7 +6,6 @@ import ThreadMenuItem from "../../styled-components/mainMenuBar/threads/ThreadMe
 import {ThreadMenuItemsDiv} from "../../styled-components/mainMenuBar/threads/ThreadMenuItemsDiv.styled";
 
 const ThreadMenuItems = (props: any) => {
-    // border bottom i padding za razmak
     return(
         <ThreadMenuItemsDiv>
             <ThreadMenuItem>
