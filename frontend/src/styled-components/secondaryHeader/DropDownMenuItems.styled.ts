@@ -10,12 +10,7 @@ export const DropDownMenuItems = styled.div`
     align-items: flex-start;
     padding: 0px;
     gap: 12px;
-
-    position: absolute;
+   
     width: 100%;
     height: 108px;
-    left: 0px;
-    top: calc(50% - 108px/2 + 0.5px);
-   
-
 `;

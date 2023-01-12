@@ -34,21 +34,25 @@ const Menu = () => {
                 <OptionMenu>
                     <OptionLabel>
                         Manage work group
+                        <span></span>
                     </OptionLabel>
                 </OptionMenu>
                 <OptionMenu>
                     <OptionLabel>
                         Switch work group
+                        <span></span>
                     </OptionLabel>
                 </OptionMenu>
                 <OptionMenu>
                     <OptionLabel>
                         Add new work group
+                        <span></span>
                     </OptionLabel>
                 </OptionMenu>
                 <OptionMenu>
                     <OptionLabel>
                         Preferences
+                        <span></span>
                     </OptionLabel>
                 </OptionMenu>
             </MenuOptions>
@@ -56,6 +60,7 @@ const Menu = () => {
             <ChannelOptionMenu>
                 <OptionLabel>
                     Change chanel
+                    <span></span>
                 </OptionLabel>
             </ChannelOptionMenu>
             <ThirdMenuDevider></ThirdMenuDevider>

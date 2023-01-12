@@ -1,12 +1,11 @@
 import styled from 'styled-components';
 import Label from '../mainMenuBar/threads/Label.styled';
 
-export const ItemLabel = styled.label`
+export const ItemLabel = styled.label<{active: boolean}>`
     width: 269px;
     height: 19px;
 
-    font-family: 'Roboto';
-    font-style: normal;
+    font-family: "Roboto-Regular";
     font-weight: 500;
     font-size: 16px;
     line-height: 19px;
@@ -15,7 +14,8 @@ export const ItemLabel = styled.label`
     display: flex;
     align-items: center;
     
-    color: #585757;
+    color: ${props => props.active ? "#307FB6" : "#585757"};
+    //color: #585757;
 
 
     /* Inside auto layout */

@@ -5,14 +5,14 @@ import { Row } from '../../figma/Layout.styled';
 export const Chats = styled(Row)`
    justify-content: center;
    align-items: center;
-   padding: 10px 0px 0px 28px;
+   padding: 0px 0px 0px 28px;
    gap: 91px;
 
    width: 201.64px;
-   height: 17px;
+   //height: 17px;
 
    position: relative;
-   top: 0px;
+   bottom: 4px;
 
    /* Inside auto layout */
 

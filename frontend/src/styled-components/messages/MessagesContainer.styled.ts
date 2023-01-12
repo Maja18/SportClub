@@ -4,8 +4,7 @@ import { Column } from '../figma/Layout.styled';
 export const MessagesContainer = styled(Column)`
     align-items: flex-start;
     position: relative;
-    //width: 1270px;
-    width: 95%;
+    width: 100%;
     height: 664px;
     left: 30px;
     top: 30px;

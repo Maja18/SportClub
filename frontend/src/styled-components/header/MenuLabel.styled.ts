@@ -5,9 +5,7 @@ export const MenuLabel = styled(Label)`
     width: 161px;
     height: 42px;
 
-    font-family: 'Roboto';
-    font-style: normal;
-    font-weight: 700;
+    font-family: "Roboto-Bold";
     font-size: 16px;
     line-height: 140%;
     /* or 22px */

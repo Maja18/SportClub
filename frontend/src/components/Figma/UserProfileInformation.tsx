@@ -32,6 +32,7 @@ const UserProfileInformation = () => {
                 <OptionMenu>
                     <OptionLabel>
                         Change your online status
+                        <span></span>
                     </OptionLabel>
                 </OptionMenu>
                 <OptionMenu>

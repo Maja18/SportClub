@@ -17,10 +17,10 @@ const HeaderUsers = () => {
                     <img src={user2} alt='user'></img>
                     <img src={user3} alt='user'></img>
                     <img src={user4} alt='user'></img>
-                    <UsersNumberImage>
-                        <img src={users} alt='users'></img>
-                    </UsersNumberImage>
                 </UsersPhotoDiv> 
+                <UsersNumberImage>
+                    <img src={users} alt='users'></img>
+                </UsersNumberImage>
             </UsersInputDiv>
         </UsersDiv>
     )

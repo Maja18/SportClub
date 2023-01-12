@@ -9,14 +9,14 @@ const ThreadList = (props: any) => {
 
     return(
        <div>
-         <Threads> {/* threads title */}
-            <ThreadDropdown  dropDownOpened ={showThreadItems} onClick={() => setShowThreadItems(!showThreadItems)}>
-                THREADS
-                <span></span>
-            </ThreadDropdown>
-        </Threads>
-        {showThreadItems ? <ThreadMenuItems></ThreadMenuItems> : null}
-        {showThreadItems ? null : <LineDevider></LineDevider>}
+            <Threads> {/* threads title */}
+                <ThreadDropdown dropDownOpened = {showThreadItems} onClick={() => setShowThreadItems(!showThreadItems)}>
+                    THREADS
+                    <span></span>
+                </ThreadDropdown>
+            </Threads>
+            {showThreadItems ? <ThreadMenuItems></ThreadMenuItems> : null}
+            {showThreadItems ? null : <LineDevider dropDownOpened ={showThreadItems}></LineDevider>}
        </div>
     );
 

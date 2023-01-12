@@ -14,6 +14,7 @@ import { useRef, useState } from "react";
 const SecondHeader = (props: any) => {
     const [showItemsMenu, setShowItemsMenu] = useState(false)
     const dropdown = useRef<any>(null)
+    const [active, setActive] = useState(false);
 
     const closeDropdown = (e: any)=>{
         if(dropdown.current && showItemsMenu && !dropdown.current.contains(e.target)){
@@ -35,23 +36,23 @@ const SecondHeader = (props: any) => {
             {/* Drop down menu */}
             {showItemsMenu ? 
             <DropDownMenu>
-            <DropDownMenuItems>
-                <MenuItem>
-                    <ItemLabel>
-                        Design
-                    </ItemLabel>    
-                </MenuItem>
-                <MenuItem>
-                    <ItemLabel>
-                        General
-                    </ItemLabel>    
-                </MenuItem>
-                <MenuItem>
-                    <ItemLabel>
-                        Sales & marketing
-                    </ItemLabel>    
-                </MenuItem> 
-            </DropDownMenuItems>
+                <DropDownMenuItems>
+                    <MenuItem>
+                        <ItemLabel active = {active}>
+                            Design
+                        </ItemLabel>    
+                    </MenuItem>
+                    <MenuItem>
+                        <ItemLabel active = {active}>
+                            General
+                        </ItemLabel>    
+                    </MenuItem>
+                    <MenuItem>
+                        <ItemLabel active>
+                            Sales & marketing
+                        </ItemLabel>    
+                    </MenuItem> 
+                </DropDownMenuItems>
         </DropDownMenu> : null}  
             {/* Users */}
             <HeaderUsers></HeaderUsers>

@@ -36,7 +36,7 @@ const ThreadMenuItems = (props: any) => {
                     </Label>
                 </ItemDiv>
             </ThreadMenuItem>
-            <LineDevider></LineDevider>
+            <LineDevider dropDownOpened ={props.dropDownOpened}></LineDevider>
         </ThreadMenuItemsDiv>
     );
 }

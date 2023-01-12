@@ -8,6 +8,8 @@ import SearchBar from "./SearchBar";
 import { useRef, useState } from "react";
 import UserProfileInformation from "./UserProfileInformation";
 import Menu from "./Menu";
+import { Information } from "../../styled-components/header/Information.styled";
+import { DroDownDescription } from "../../styled-components/header/DropDownDescription.styled";
 
 const Header = (props: any) => {
     const [showProfileInfo, setShowProfileInfo] = useState(false);
@@ -36,9 +38,11 @@ const Header = (props: any) => {
             <HeaderDropdownDiv ref={dropdown}> {/* flex item, flex container */}
                 <img src={workGroupIcon} alt='Search'></img>
                 <HeaderDropdown type="button" onClick={() => setShowMenu(!showMenu)}> 
-                    Creative direction A24 <br/>
-                    A24 Films
-                    <span></span>
+                <Information>
+                    Creative direction
+                    <DroDownDescription>A24 Films</DroDownDescription>
+                </Information>
+                <span></span>
                 </HeaderDropdown>
             </HeaderDropdownDiv>
             {/* Header menu */}

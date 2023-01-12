@@ -3,7 +3,7 @@ import { Row } from '../figma/Layout.styled';
 
 export const UsersPhotoDiv = styled(Row)`
     position: relative;
-    align-items: flex-start;
+    align-items: center;
     /* Auto layout */
     padding: 4px;
     gap: 4px;

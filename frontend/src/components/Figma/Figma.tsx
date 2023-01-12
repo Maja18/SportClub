@@ -1,6 +1,6 @@
 
 import { useState } from 'react';
-import { CenterContent, MainContent } from '../../styled-components/figma/Layout.styled';
+import { Column, Row } from '../../styled-components/figma/Layout.styled';
 import Header from './Header';
 import MainMenuBar from './MainMenuBar';
 import Messages from './Messages';
@@ -15,14 +15,14 @@ const Figma = () => {
         <div>
             <Header></Header>
             <SecondHeader toggleToolbar = {() => setShowToolBar(!showToolbar)}></SecondHeader>
-            <MainContent>
+            <Row>
                 <MainMenuBar></MainMenuBar> 
-                <CenterContent>
+                <Column>
                     <Messages></Messages>
                     <TextBar></TextBar>
-                </CenterContent>     
+                </Column>     
                 {showToolbar ? <ToolsBar></ToolsBar> : null}
-            </MainContent>
+            </Row>
         </div>
     );
 }

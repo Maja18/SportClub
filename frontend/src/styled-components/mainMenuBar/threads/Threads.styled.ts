@@ -4,12 +4,12 @@ import { Row } from '../../figma/Layout.styled';
 export const Threads = styled(Row)`
     justify-content: center;
     align-items: center;
-    padding: 10px 0px 0px 28px;
+    padding: 0px 0px 0px 28px;
     gap: 61px;
 
     width: 201.64px;
-    height: 17px;
-
+    //height: 17px;
+    
     /* Inside auto layout */
 
     flex: none;

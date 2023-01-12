@@ -15,8 +15,8 @@ const ChatList = (props: any) => {
                 <span></span>
             </ChatDropdown>
         </Chats>
-        {showChatItems ? <ChatMenuItems></ChatMenuItems> : null}
-        {showChatItems ? null : <ChatLineDevider></ChatLineDevider>}
+        {showChatItems ? <ChatMenuItems dropDownOpened ={showChatItems}></ChatMenuItems> : null}
+        {showChatItems ? null : <ChatLineDevider dropDownOpened ={showChatItems}></ChatLineDevider>}
        </div>
     );
 

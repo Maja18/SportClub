@@ -5,7 +5,7 @@ export const ProfileLabel = styled(Label)`
     width: 180px;
     height: 42px;
 
-    font-weight: 700;
+    font-family: "Roboto-Bold";
     line-height: 140%;
     /* or 22px */
     

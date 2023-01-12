@@ -3,7 +3,7 @@ import {DropDown} from '../../secondaryHeader/DropDown.styled';
 
 const ThreadDropdown = styled(DropDown)<{dropDownOpened: boolean}>`
     width: 200px;
-    height: 17px;
+    height: 100%;
 
     font-size: 14px;
     line-height: 17px;

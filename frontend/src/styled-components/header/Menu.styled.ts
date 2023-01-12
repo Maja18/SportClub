@@ -15,7 +15,7 @@ export const MenuDiv = styled(Column)`
     right: 390px;
     width: 309px;
     top: 10px;
-    //height: 483px;
+    height: 530px;
 
     background: #FFFFFF;
     border: 2px solid #E9E9E9;
