@@ -1,17 +1,36 @@
 
+import { useState } from "react";
+import { ChatDropdown } from "../../styled-components/mainMenuBar/chats/ChatDropdown.styled";
+import { Chats } from "../../styled-components/mainMenuBar/chats/Chats.styled";
 import { MenuBar } from "../../styled-components/mainMenuBar/MenuBar.styled";
+import ThreadDropdown from "../../styled-components/mainMenuBar/threads/ThreadDropdown.styled";
+import { Threads } from "../../styled-components/mainMenuBar/threads/Threads.styled";
 import ChatList from "./ChatList";
 import FilesMedia from "./FilesMedia";
 import ThreadList from "./ThreadList";
 
 const MainMenuBar = (props: any) => {
+    const [showThreadItems, setShowThreadItems] = useState(false);
+    const [showChatItems, setShowChatItems] = useState(false)
     
     return(
         <MenuBar> 
             {/* Threads */}
-            <ThreadList></ThreadList>
+            <Threads> {/* threads title */}
+                <ThreadDropdown dropDownOpened = {showThreadItems} onClick={() => setShowThreadItems(!showThreadItems)}>
+                    THREADS
+                    <span></span>
+                </ThreadDropdown>
+            </Threads>
+           {showThreadItems ? <ThreadList></ThreadList> : null}
             {/* Chats */}
-            <ChatList></ChatList>
+            <Chats>
+                <ChatDropdown dropDownOpened ={showChatItems} onClick={() => setShowChatItems(!showChatItems)}>
+                    CHATS
+                    <span></span>
+                </ChatDropdown>
+            </Chats>
+            {showChatItems ? <ChatList></ChatList> : null}
             {/* Files & Media */}
             <FilesMedia></FilesMedia>
         </MenuBar>

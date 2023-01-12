@@ -14,5 +14,5 @@ export const MenuBar = styled(Column)`
     top: 0px;
     bottom: 0px;
 
-    flex: 0 1 289px;
+    flex: 0 0 289px;
 `;

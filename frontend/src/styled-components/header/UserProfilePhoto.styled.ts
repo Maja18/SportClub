@@ -4,7 +4,7 @@ export const UserProfilePhoto = styled.div`
     position: absolute;
     width: 59px;
     height: 49px;
-    right: 18px;
+    right: 19px;
     top: 0px;
     bottom: 0px;
     left: 0px;

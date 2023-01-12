@@ -66,7 +66,6 @@ const ChatMenuItems = (props: any) => {
                     </Item>
                 </ChatMenuItem>
             </ChatMenuItemDiv>
-            <ChatLineDevider dropDownOpened ={props.dropdownOpened}></ChatLineDevider>
         </ChatMenuItemsDiv>
     );
 }

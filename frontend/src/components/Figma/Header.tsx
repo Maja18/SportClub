@@ -35,9 +35,9 @@ const Header = (props: any) => {
     return(
         <HeaderDiv> {/* flex container */}
             {/* Dropdown */}
-            <HeaderDropdownDiv ref={dropdown}> {/* flex item, flex container */}
+            <HeaderDropdownDiv ref={dropdown} onClick={() => setShowMenu(!showMenu)}> {/* flex item, flex container */}
                 <img src={workGroupIcon} alt='Search'></img>
-                <HeaderDropdown type="button" onClick={() => setShowMenu(!showMenu)}> 
+                <HeaderDropdown type="button"> 
                 <Information>
                     Creative direction
                     <DroDownDescription>A24 Films</DroDownDescription>

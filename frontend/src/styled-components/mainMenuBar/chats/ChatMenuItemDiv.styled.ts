@@ -17,6 +17,5 @@ export const ChatMenuItemDiv = styled(Column)`
     flex: none;
     order: 0;
     flex-grow: 0;
-    //background-color: beige;
   
 `;

@@ -6,6 +6,7 @@ import ThreadMenuItem from "../../styled-components/mainMenuBar/threads/ThreadMe
 import {ThreadMenuItemsDiv} from "../../styled-components/mainMenuBar/threads/ThreadMenuItemsDiv.styled";
 
 const ThreadMenuItems = (props: any) => {
+    // border bottom i padding za razmak
     return(
         <ThreadMenuItemsDiv>
             <ThreadMenuItem>
@@ -36,7 +37,6 @@ const ThreadMenuItems = (props: any) => {
                     </Label>
                 </ItemDiv>
             </ThreadMenuItem>
-            <LineDevider dropDownOpened ={props.dropDownOpened}></LineDevider>
         </ThreadMenuItemsDiv>
     );
 }
