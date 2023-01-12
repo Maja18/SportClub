@@ -5,6 +5,7 @@ import FilesMedia from "./FilesMedia";
 import ThreadList from "./ThreadList";
 
 const MainMenuBar = (props: any) => {
+    
     return(
         <MenuBar> 
             {/* Threads */}

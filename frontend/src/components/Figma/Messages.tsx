@@ -22,8 +22,7 @@ type Element = {
 const Messages = () => {
     const [hover, setHover] = useState<Element | any>({} as Element);
 
-    const mouseOver = (event: any, index: any) => {
-        console.log('hover')
+    const mouseOver = (index: number) => {
         setHover((c: any) => {
             return {
                 ...c,
@@ -33,8 +32,7 @@ const Messages = () => {
         })
     }
 
-    const mouseOut = (event: any, index: any) => {
-        console.log('hover stop')
+    const mouseOut = (index: number) => {
         setHover((c: any) => {
             return {
                 ...c,
@@ -57,10 +55,10 @@ const Messages = () => {
                 {/* Anna */}
                 <MessageDiv 
                     onMouseEnter={(e) => {
-                        mouseOver(e, 1);
+                        mouseOver(1);
                     }} 
                     onMouseLeave={(e) => {
-                        mouseOut(e, 1);
+                        mouseOut(1);
                     }} >
                     <img src={user_ana} alt='user'></img>
                     <Message>
@@ -76,10 +74,10 @@ const Messages = () => {
                 {/* Peter */}
                 <MessageDiv 
                     onMouseEnter={(e) => {
-                        mouseOver(e, 2);
+                        mouseOver(2);
                     }} 
                     onMouseLeave={(e) => {
-                        mouseOut(e, 2);
+                        mouseOut(2);
                     }} >
                     <img src={user_peter} alt='user'></img>
                     <Message>
@@ -95,10 +93,10 @@ const Messages = () => {
                 {/* Anna */}
                 <MessageDiv 
                     onMouseEnter={(e) => {
-                        mouseOver(e, 3);
+                        mouseOver(3);
                     }}
                     onMouseLeave={(e) => {
-                        mouseOut(e, 3);
+                        mouseOut(3);
                     }} >
                     <img src={user_ana} alt='user'></img>
                     <Message>
@@ -126,10 +124,10 @@ const Messages = () => {
                 {/* Anna */}
                 <MessageDiv 
                     onMouseEnter={(e) => {
-                        mouseOver(e, 4);
+                        mouseOver(4);
                     }} 
                     onMouseLeave={(e) => {
-                        mouseOut(e, 4);
+                        mouseOut(4);
                     }} >
                     <img src={user_ana} alt='user'></img>
                     <Message>
@@ -145,10 +143,10 @@ const Messages = () => {
                 {/* Bob */}
                 <MessageDiv 
                     onMouseEnter={(e) => {
-                        mouseOver(e, 5);
+                        mouseOver(5);
                     }} 
                     onMouseLeave={(e) => {
-                        mouseOut(e, 5);
+                        mouseOut(5);
                     }} >
                     <img src={user_bob} alt='user'></img>
                     <Message>
@@ -164,10 +162,10 @@ const Messages = () => {
                 {/* Anna */}
                 <MessageDiv 
                     onMouseEnter={(e) => {
-                        mouseOver(e, 6);
+                        mouseOver(6);
                     }} 
                     onMouseLeave={(e) => {
-                        mouseOut(e, 6);
+                        mouseOut(6);
                     }} >
                     <img src={user_ana} alt='user'></img>
                     <Message>
@@ -183,10 +181,10 @@ const Messages = () => {
                 {/* Bob */}
                 <MessageDiv 
                     onMouseEnter={(e) => {
-                        mouseOver(e, 7);
+                        mouseOver(7);
                     }} 
                     onMouseLeave={(e) => {
-                        mouseOut(e, 7);
+                        mouseOut(7);
                     }} >
                     <img src={user_bob} alt='user'></img>
                     <Message>
@@ -207,10 +205,10 @@ const Messages = () => {
                 {/* Anna */}
                 <MessageDiv 
                     onMouseEnter={(e) => {
-                        mouseOver(e, 8);
+                        mouseOver(8);
                     }} 
                     onMouseLeave={(e) => {
-                        mouseOut(e, 8);
+                        mouseOut(8);
                     }} >
                     <img src={user_ana} alt='user'></img>
                     <Message>
@@ -226,10 +224,10 @@ const Messages = () => {
                 {/* Peter */}
                 <MessageDiv 
                     onMouseEnter={(e) => {
-                        mouseOver(e, 9);
+                        mouseOver(9);
                     }} 
                     onMouseLeave={(e) => {
-                        mouseOut(e, 9);
+                        mouseOut(9);
                     }} >
                     <img src={user_peter} alt='user'></img>
                     <Message>
@@ -245,10 +243,10 @@ const Messages = () => {
                 {/* Anna */}
                 <MessageDiv 
                     onMouseEnter={(e) => {
-                        mouseOver(e, 10);
+                        mouseOver(10);
                     }} 
                     onMouseLeave={(e) => {
-                        mouseOut(e, 10);
+                        mouseOut(10);
                     }} >
                     <img src={user_ana} alt='user'></img>
                     <Message>
