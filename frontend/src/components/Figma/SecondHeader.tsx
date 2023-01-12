@@ -6,7 +6,6 @@ import {DropDown} from "../../styled-components/secondaryHeader/DropDown.styled"
 import HeaderUsers from "./HeaderUsers";
 import { DropDownMenu } from "../../styled-components/secondaryHeader/DropDownMenu.styled";
 import { DropDownMenuItems } from "../../styled-components/secondaryHeader/DropDownMenuItems.styled";
-import Label from "../../styled-components/mainMenuBar/threads/Label.styled";
 import { ItemLabel } from "../../styled-components/secondaryHeader/ItemLabel.styled";
 import { MenuItem } from "../../styled-components/secondaryHeader/MenuItem.styled";
 import { useRef, useState } from "react";

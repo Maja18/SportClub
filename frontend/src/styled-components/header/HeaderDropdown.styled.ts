@@ -4,8 +4,7 @@ import {DropDown} from '../secondaryHeader/DropDown.styled';
 export const HeaderDropdown = styled(DropDown)`
     width: 400px;
     height: 43px;
-    font-family: 'Roboto';
-    font-weight: 700;
+    font-family: "Roboto-Bold";
     font-size: 16px;
     letter-spacing: 0em;
     line-height: 150%;

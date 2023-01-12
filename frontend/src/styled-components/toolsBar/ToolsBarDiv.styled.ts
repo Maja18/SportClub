@@ -9,9 +9,11 @@ export const ToolsBarDiv = styled(Column)`
     box-shadow: -2px 1px 16px rgba(0, 0, 0, 0.35);
 
     position: relative;
-    width: 289px;
+    width: 100%;
     height: calc(100vh - 75px - 47px);
     left: 0px;
     top:0px;
     bottom: 0px;
+
+    flex: 0 1 289px;
 `;

@@ -3,9 +3,7 @@ import styled from 'styled-components';
 export const DropDown = styled.button`
     border: none;
     background-color: transparent;
-    font-family: 'Gilroy';
-    font-style: normal;
-    font-weight: 800;
+    font-family: "Gilroy-Bold";
     font-size: 12px;
     letter-spacing: 0.455em;
     line-height: 15px;

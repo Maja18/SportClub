@@ -4,9 +4,7 @@ const Label = styled.label`
     width: 160px;
     height: 19px;
 
-    font-family: 'Roboto';
-    font-style: normal;
-    font-weight: 400;
+    font-family: "Roboto-Regular";
     font-size: 16px;
     line-height: 19px;
     /* identical to box height */

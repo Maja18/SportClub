@@ -7,8 +7,7 @@ export const DateMarker = styled(DropDown)`
     background-color: #EBA317;
     border-radius: 73px;
 
-    font-family: 'Roboto';
-    font-weight: 700;
+    font-family: "Roboto-Bold";
     font-size: 14px;
     line-height: 16px;
     color: #FFFFFF;

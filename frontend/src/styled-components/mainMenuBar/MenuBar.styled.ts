@@ -8,9 +8,11 @@ export const MenuBar = styled(Column)`
     gap: 30px;
 
     position: relative;
-    width: 289px;
+    width: 100%;
     height: calc(100vh - 75px - 47px);
     left: 0px;
     top: 0px;
     bottom: 0px;
+
+    flex: 0 1 289px;
 `;

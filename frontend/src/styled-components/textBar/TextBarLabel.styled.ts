@@ -3,7 +3,6 @@ import Label from '../mainMenuBar/threads/Label.styled';
 
 export const TextBarLabel = styled(Label)`
     width: 206px;
-    font-style: italic;
-    font-weight: 500;
+    font-family: "Roboto-Italic";
     color: #9F9F9F;
 `;

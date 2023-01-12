@@ -3,5 +3,5 @@ import Label from '../threads/Label.styled';
 
 export const FilesLabel = styled(Label)`
     width: 180px;
-    font-weight: 700;
+    font-family: "Roboto-Bold";
 `;

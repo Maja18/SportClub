@@ -10,7 +10,7 @@ export const MessageToolsDiv = styled(Row)`
     position: relative;
     width: 100%;
     height: 43px;
-    right: 20px;
+    right: 13px;
     top: 0px;
 
     background: #FFFFFF;

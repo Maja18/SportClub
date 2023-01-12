@@ -9,7 +9,6 @@ import user3 from '../../assets/gema.png'
 import user4 from '../../assets/harry.png'
 import user5 from '../../assets/omega.png'
 import { LabelDiv } from "../../styled-components/mainMenuBar/chats/LabelDiv.styled";
-import { LineDevider } from "../../styled-components/mainMenuBar/LineDevider.styled";
 import { ChatLineDevider } from "../../styled-components/mainMenuBar/chats/ChatLineDevider.styled";
 
 const ChatMenuItems = (props: any) => {

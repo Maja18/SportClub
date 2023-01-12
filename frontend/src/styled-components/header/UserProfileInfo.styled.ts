@@ -14,6 +14,7 @@ export const UserProfileInfo = styled(Column)`
     width: 309px;
     //height: 367px;
     margin: auto 0 auto auto;
+    right: 10px;
     top: 13px;
 
     background: #FFFFFF;

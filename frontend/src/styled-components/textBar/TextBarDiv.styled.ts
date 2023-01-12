@@ -4,9 +4,9 @@ import { Row } from '../figma/Layout.styled';
 export const TextBarDiv = styled(Row)`
     position: relative;
     //width: 1270px;
-    width: 94%;
+    width: 100%;
     height: 85px;
-    left: 38px;
+    left: 30px;
     right: 318px;
-    top: 60px;
+    top: 70px;
 `;
